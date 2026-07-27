@@ -1,6 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import https from 'https';
+import http from 'http';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -56,6 +58,41 @@ const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
 const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
 const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
 
+// Helper: Reliable HTTPS/HTTP JSON fetcher (IPv4 compatible)
+function fetchJsonUrl(urlStr, timeoutMs = 7000) {
+  return new Promise((resolve, reject) => {
+    const parsedUrl = new URL(urlStr);
+    const transport = parsedUrl.protocol === 'https:' ? https : http;
+
+    const req = transport.get(urlStr, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+        'Accept': 'application/json, text/plain, */*'
+      }
+    }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          try {
+            resolve(JSON.parse(data));
+          } catch (e) {
+            reject(new Error(`Invalid JSON output: ${data.substring(0, 100)}`));
+          }
+        } else {
+          reject(new Error(`HTTP status ${res.statusCode}`));
+        }
+      });
+    });
+
+    req.on('error', reject);
+    req.setTimeout(timeoutMs, () => {
+      req.destroy();
+      reject(new Error(`Request timed out after ${timeoutMs}ms`));
+    });
+  });
+}
+
 // Helper: Fetch with timeout and mirror fallback
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
   let lastError = null;
@@ -64,32 +101,10 @@ async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
     try {
       const url = `${mirror}?${new URLSearchParams(queryParams).toString()}`;
       console.log(`[Proxy] Fetching: ${url}`);
-      
-      const controller = new AbortController();
-      const id = setTimeout(() => controller.abort(), timeoutMs);
-
-      const res = await fetch(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
-          'Accept-Language': 'en-US,en;q=0.9'
-        },
-        signal: controller.signal
-      });
-
-      clearTimeout(id);
-
-      if (res.ok) {
-        const text = await res.text();
-        try {
-          const data = JSON.parse(text);
-          return { data, mirrorUsed: mirror };
-        } catch (e) {
-          console.warn(`[Proxy] Invalid JSON from ${mirror}: ${text.substring(0, 100)}`);
-        }
-      }
+      const data = await fetchJsonUrl(url, timeoutMs);
+      return { data, mirrorUsed: mirror };
     } catch (err) {
-      console.warn(`[Proxy] Mirror failed or timed out: ${mirror} (${err.message})`);
+      console.warn(`[Proxy] Mirror failed: ${mirror} (${err.message})`);
       lastError = err;
     }
   }
@@ -325,11 +340,7 @@ app.get('/api/search/shows', async (req, res) => {
   if (cached) return res.json(cached);
 
   try {
-    const url = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(q)}`;
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('TVMaze request failed');
-
-    const data = await response.json();
+    const data = await fetchJsonUrl(`https://api.tvmaze.com/search/shows?q=${encodeURIComponent(q)}`);
     const shows = data.map(item => ({
       id: item.show.id,
       name: item.show.name,
@@ -371,12 +382,7 @@ app.get('/api/iss/passes', async (req, res) => {
     const url = `${ISS_API_URL}?${new URLSearchParams(queryParams).toString()}`;
     console.log(`[Proxy] Fetching ISS Passes: ${url}`);
 
-    const response = await fetch(url, {
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (!response.ok) throw new Error(`ISS API responded with status ${response.status}`);
-    const data = await response.json();
+    const data = await fetchJsonUrl(url);
 
     const responsePayload = {
       ...data,
@@ -404,12 +410,7 @@ app.get('/api/mars/weather', async (req, res) => {
 
   try {
     console.log(`[Proxy] Fetching NASA Mars Weather: ${NASA_MARS_URL}`);
-    const response = await fetch(NASA_MARS_URL, {
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (!response.ok) throw new Error(`NASA API responded with status ${response.status}`);
-    const data = await response.json();
+    const data = await fetchJsonUrl(NASA_MARS_URL);
 
     const responsePayload = {
       ...data,
