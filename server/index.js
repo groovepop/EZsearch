@@ -46,10 +46,15 @@ const YTS_MIRRORS = [
   'https://yts.lt/api/v2/list_movies.json'
 ];
 
+const TPB_MIRRORS = [
+  'https://apibay.org/q.php',
+  'https://tpb23.uk/q.php',
+  'https://thepiratebay.zone/q.php'
+];
+
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
 const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
 const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
-const APIBAY_URL = 'https://apibay.org/q.php';
 
 // Helper: Fetch with timeout and mirror fallback
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
@@ -65,8 +70,9 @@ async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
 
       const res = await fetch(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-          'Accept': 'application/json'
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+          'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+          'Accept-Language': 'en-US,en;q=0.9'
         },
         signal: controller.signal
       });
@@ -272,20 +278,9 @@ app.get('/api/tpb/search', async (req, res) => {
   }
 
   try {
-    const url = `${APIBAY_URL}?q=${encodeURIComponent(q)}&cat=${cat}`;
-    console.log(`[Proxy] Fetching APIBay TPB: ${url}`);
+    const params = { q, cat };
+    const { data, mirrorUsed } = await fetchWithFallback(TPB_MIRRORS, params);
 
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'application/json'
-      }
-    });
-
-    if (!response.ok) throw new Error(`APIBay responded with status ${response.status}`);
-    const data = await response.json();
-
-    // Filter out dummy/empty response if no results
     const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
 
     const torrents = rawList.map(item => ({
@@ -308,7 +303,8 @@ app.get('/api/tpb/search', async (req, res) => {
     const responsePayload = {
       torrents,
       total_count: torrents.length,
-      query: q
+      query: q,
+      mirrorUsed
     };
 
     setCache(cacheKey, responsePayload);
