@@ -128,23 +128,23 @@ export async function fetchISSPasses({
   };
 }
 
-// NASA Mars Weather API Client with 12-Hour LocalStorage Caching Strategy
-const MARS_CACHE_KEY = 'nasa_mars_weather_cache_v1';
-const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000;
+// NASA Curiosity Rover Active Mars Weather Client (6-Hour LocalStorage Caching Strategy)
+const MARS_CURIOSITY_CACHE_KEY = 'nasa_mars_curiosity_weather_v2';
+const SIX_HOURS_MS = 6 * 60 * 60 * 1000;
 
 export async function fetchMarsWeather(forceRefresh = false) {
   if (!forceRefresh) {
     try {
-      const cachedRaw = localStorage.getItem(MARS_CACHE_KEY);
+      const cachedRaw = localStorage.getItem(MARS_CURIOSITY_CACHE_KEY);
       if (cachedRaw) {
         const cachedObj = JSON.parse(cachedRaw);
         const age = Date.now() - (cachedObj.timestamp || 0);
-        if (age < TWELVE_HOURS_MS) {
+        if (age < SIX_HOURS_MS) {
           return {
             ...cachedObj.data,
             isLocalStorageCached: true,
             cachedAt: cachedObj.timestamp,
-            cacheExpiresInMs: TWELVE_HOURS_MS - age
+            cacheExpiresInMs: SIX_HOURS_MS - age
           };
         }
       }
@@ -159,14 +159,14 @@ export async function fetchMarsWeather(forceRefresh = false) {
     if (!res.ok) throw new Error(`Proxy error ${res.status}`);
     data = await res.json();
   } catch (proxyError) {
-    const directRes = await fetch('https://api.nasa.gov/insight_weather/?api_key=HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP&feedtype=json&ver=1.0');
-    if (!directRes.ok) throw new Error('Failed to fetch Mars weather from NASA API');
+    const directRes = await fetch('https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json');
+    if (!directRes.ok) throw new Error('Failed to fetch active Curiosity Mars weather from NASA API');
     data = await directRes.json();
   }
 
   const now = Date.now();
   try {
-    localStorage.setItem(MARS_CACHE_KEY, JSON.stringify({
+    localStorage.setItem(MARS_CURIOSITY_CACHE_KEY, JSON.stringify({
       timestamp: now,
       data
     }));
@@ -178,6 +178,6 @@ export async function fetchMarsWeather(forceRefresh = false) {
     ...data,
     isLocalStorageCached: false,
     cachedAt: now,
-    cacheExpiresInMs: TWELVE_HOURS_MS
+    cacheExpiresInMs: SIX_HOURS_MS
   };
 }

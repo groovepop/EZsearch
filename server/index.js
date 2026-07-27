@@ -49,8 +49,8 @@ const YTS_MIRRORS = [
 ];
 
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
-const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
-const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
+// Live Active NASA Curiosity Rover (MSL REMS) Telemetry Feed (Live 2026 Sols)
+const NASA_MARS_CURIOSITY_URL = 'https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json';
 
 // Helper: Reliable HTTPS/HTTP JSON fetcher with automatic 301/302 Redirect Following
 function fetchJsonUrl(urlStr, timeoutMs = 7000, redirectCount = 0) {
@@ -296,7 +296,7 @@ app.get('/api/yts/movies', async (req, res) => {
 // 3. Unconstrained Pirate Bay & Season Packs Search API (5 Min Cache)
 app.get('/api/tpb/search', async (req, res) => {
   const { q = '', cat = '0' } = req.query;
-  const searchTermToUse = q.trim() || '2026'; // Default query for top releases when search bar is clean
+  const searchTermToUse = q.trim() || '2026';
   const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}`;
 
   const cached = getCached(cacheKey, 5 * 60 * 1000);
@@ -439,19 +439,19 @@ app.get('/api/iss/passes', async (req, res) => {
   }
 });
 
-// 6. NASA Mars InSight Weather Endpoint (12 Hour Server Cache)
+// 6. Active NASA Curiosity Rover Mars Weather Endpoint (Live 2026 Sols, 6 Hour Server Cache)
 app.get('/api/mars/weather', async (req, res) => {
-  const cacheKey = 'nasa_mars_weather';
-  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+  const cacheKey = 'nasa_mars_weather_curiosity_v2';
+  const SIX_HOURS = 6 * 60 * 60 * 1000;
 
-  const cached = getCached(cacheKey, TWELVE_HOURS);
+  const cached = getCached(cacheKey, SIX_HOURS);
   if (cached) {
     return res.json({ ...cached, cached: true });
   }
 
   try {
-    console.log(`[Proxy] Fetching NASA Mars Weather: ${NASA_MARS_URL}`);
-    const data = await fetchJsonUrl(NASA_MARS_URL);
+    console.log(`[Proxy] Fetching Active NASA Curiosity Mars Weather: ${NASA_MARS_CURIOSITY_URL}`);
+    const data = await fetchJsonUrl(NASA_MARS_CURIOSITY_URL);
 
     const responsePayload = {
       ...data,
@@ -463,7 +463,7 @@ app.get('/api/mars/weather', async (req, res) => {
     res.json(responsePayload);
   } catch (err) {
     console.error('[NASA Mars Weather Error]', err);
-    res.status(500).json({ error: 'Failed to fetch NASA Mars weather telemetry.', message: err.message });
+    res.status(500).json({ error: 'Failed to fetch active NASA Mars Curiosity weather telemetry.', message: err.message });
   }
 });
 
