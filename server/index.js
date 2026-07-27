@@ -48,10 +48,6 @@ const YTS_MIRRORS = [
   'https://yts.lt/api/v2/list_movies.json'
 ];
 
-const TPB_MIRRORS = [
-  'https://apibay.org/q.php'
-];
-
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
 const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
 const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
@@ -286,7 +282,7 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. The Pirate Bay (APIBay API) Endpoint - TV Season Packs & Media (5 Min Cache)
+// 3. The Pirate Bay & SolidTorrents Season Packs API (5 Min Cache)
 app.get('/api/tpb/search', async (req, res) => {
   const { q = 'Breaking Bad', cat = '200' } = req.query;
   const cacheKey = `tpb_${q.toLowerCase()}_${cat}`;
@@ -296,41 +292,70 @@ app.get('/api/tpb/search', async (req, res) => {
     return res.json({ ...cached, cached: true });
   }
 
+  // 1st Try: Official APIBay API (apibay.org)
   try {
-    const params = { q, cat };
-    const { data, mirrorUsed } = await fetchWithFallback(TPB_MIRRORS, params);
+    const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(q)}&cat=${cat || '0'}`;
+    console.log(`[Proxy] Fetching APIBay: ${apibayUrl}`);
+    const data = await fetchJsonUrl(apibayUrl, 5000);
 
     const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
 
+    if (rawList.length > 0) {
+      const torrents = rawList.map(item => ({
+        id: `tpb_${item.id}_${item.info_hash}`,
+        title: item.name,
+        category: 'Pirate Bay (Season Packs)',
+        uploader: item.username || 'Anonymous',
+        imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
+        seeds: parseInt(item.seeders || 0, 10),
+        peers: parseInt(item.leechers || 0, 10),
+        size_bytes: item.size,
+        formatted_size: formatSizeBytes(item.size),
+        quality: parseQuality(item.name),
+        magnet_url: buildMagnetUrl(item.info_hash, item.name),
+        date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+        num_files: item.num_files,
+        source: 'Pirate Bay (APIBay)'
+      }));
+
+      const responsePayload = { torrents, total_count: torrents.length, query: q, mirrorUsed: 'https://apibay.org' };
+      setCache(cacheKey, responsePayload);
+      return res.json(responsePayload);
+    }
+  } catch (apibayErr) {
+    console.warn(`[Proxy] APIBay failed or blocked: ${apibayErr.message}. Falling back to SolidTorrents API...`);
+  }
+
+  // 2nd Fallback: SolidTorrents Open API (solidtorrents.to)
+  try {
+    const solidUrl = `https://solidtorrents.to/api/v1/search?q=${encodeURIComponent(q)}&category=video`;
+    console.log(`[Proxy] Fetching SolidTorrents API Fallback: ${solidUrl}`);
+    const solidData = await fetchJsonUrl(solidUrl, 6000);
+
+    const rawList = solidData?.results || [];
     const torrents = rawList.map(item => ({
-      id: `tpb_${item.id}_${item.info_hash}`,
-      title: item.name,
+      id: `solid_${item.id}_${item.infohash}`,
+      title: item.title,
       category: 'Pirate Bay (Season Packs)',
-      uploader: item.username || 'Anonymous',
-      imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
+      uploader: item.verified ? 'Verified Uploader' : 'Community',
+      imdb_id: '',
       seeds: parseInt(item.seeders || 0, 10),
       peers: parseInt(item.leechers || 0, 10),
       size_bytes: item.size,
       formatted_size: formatSizeBytes(item.size),
-      quality: parseQuality(item.name),
-      magnet_url: buildMagnetUrl(item.info_hash, item.name),
-      date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
-      num_files: item.num_files,
-      source: 'Pirate Bay'
+      quality: parseQuality(item.title),
+      magnet_url: buildMagnetUrl(item.infohash, item.title),
+      date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
+      num_files: item.downloads || 1,
+      source: 'SolidTorrents API'
     }));
 
-    const responsePayload = {
-      torrents,
-      total_count: torrents.length,
-      query: q,
-      mirrorUsed
-    };
-
+    const responsePayload = { torrents, total_count: torrents.length, query: q, mirrorUsed: 'https://solidtorrents.to' };
     setCache(cacheKey, responsePayload);
-    res.json(responsePayload);
-  } catch (err) {
-    console.error('[TPB APIBay Error]', err);
-    res.status(500).json({ error: 'Failed to fetch torrents from The Pirate Bay API.', message: err.message });
+    return res.json(responsePayload);
+  } catch (solidErr) {
+    console.error('[TPB / SolidTorrents Fallback Error]', solidErr);
+    res.status(500).json({ error: 'Failed to fetch Season Packs from torrent APIs.', message: solidErr.message });
   }
 });
 
