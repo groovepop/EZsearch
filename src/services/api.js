@@ -1,4 +1,4 @@
-// API Client Service for EZTV, YTS, TVMaze & ISS Space Station
+// API Client Service for EZTV, YTS, TVMaze, ISS Space Station & NASA Mars Weather
 
 export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
   const params = new URLSearchParams({
@@ -55,7 +55,6 @@ export async function fetchISSPasses({
 } = {}) {
   const cacheKey = `iss_pass_hamilton_v3_${visibleOnly}_${minElevation}_${daysAhead}_${sunAltMax}_${n}`;
 
-  // Check LocalStorage Cache first unless forceRefresh is true
   if (!forceRefresh) {
     try {
       const cachedRaw = localStorage.getItem(cacheKey);
@@ -77,7 +76,6 @@ export async function fetchISSPasses({
     }
   }
 
-  // Cache expired or missing -> Fetch from API
   const params = new URLSearchParams({
     lat: '43.25',
     lon: '-79.87',
@@ -100,7 +98,6 @@ export async function fetchISSPasses({
     data = await directRes.json();
   }
 
-  // Store in LocalStorage
   const now = Date.now();
   try {
     localStorage.setItem(cacheKey, JSON.stringify({
@@ -116,5 +113,61 @@ export async function fetchISSPasses({
     isLocalStorageCached: false,
     cachedAt: now,
     cacheExpiresInMs: TWENTY_FOUR_HOURS_MS
+  };
+}
+
+// NASA Mars Weather API Client with 12-Hour LocalStorage Caching Strategy
+const MARS_CACHE_KEY = 'nasa_mars_weather_cache_v1';
+const TWELVE_HOURS_MS = 12 * 60 * 60 * 1000;
+
+export async function fetchMarsWeather(forceRefresh = false) {
+  if (!forceRefresh) {
+    try {
+      const cachedRaw = localStorage.getItem(MARS_CACHE_KEY);
+      if (cachedRaw) {
+        const cachedObj = JSON.parse(cachedRaw);
+        const age = Date.now() - (cachedObj.timestamp || 0);
+        if (age < TWELVE_HOURS_MS) {
+          console.log(`[Mars Cache] Using valid LocalStorage cache (Age: ${Math.round(age / 3600000)}h)`);
+          return {
+            ...cachedObj.data,
+            isLocalStorageCached: true,
+            cachedAt: cachedObj.timestamp,
+            cacheExpiresInMs: TWELVE_HOURS_MS - age
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('[Mars Cache] LocalStorage error:', e);
+    }
+  }
+
+  let data;
+  try {
+    const res = await fetch('/api/mars/weather');
+    if (!res.ok) throw new Error(`Proxy error ${res.status}`);
+    data = await res.json();
+  } catch (proxyError) {
+    console.warn('[Mars API] Proxy fetch failed, trying direct endpoint:', proxyError);
+    const directRes = await fetch('https://api.nasa.gov/insight_weather/?api_key=HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP&feedtype=json&ver=1.0');
+    if (!directRes.ok) throw new Error('Failed to fetch Mars weather from NASA API');
+    data = await directRes.json();
+  }
+
+  const now = Date.now();
+  try {
+    localStorage.setItem(MARS_CACHE_KEY, JSON.stringify({
+      timestamp: now,
+      data
+    }));
+  } catch (e) {
+    console.warn('[Mars Cache] Failed to save to LocalStorage:', e);
+  }
+
+  return {
+    ...data,
+    isLocalStorageCached: false,
+    cachedAt: now,
+    cacheExpiresInMs: TWELVE_HOURS_MS
   };
 }

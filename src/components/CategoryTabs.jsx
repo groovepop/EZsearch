@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tv, Film, Orbit } from 'lucide-react';
+import { Tv, Film, Orbit, Flame } from 'lucide-react';
 
 export default function CategoryTabs({ activeCategory, setCategory }) {
   return (
@@ -9,7 +9,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '180px',
+          minWidth: '160px',
           padding: '0.9rem 1.2rem',
           display: 'flex',
           alignItems: 'center',
@@ -36,7 +36,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '180px',
+          minWidth: '160px',
           padding: '0.9rem 1.2rem',
           display: 'flex',
           alignItems: 'center',
@@ -63,7 +63,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '180px',
+          minWidth: '160px',
           padding: '0.9rem 1.2rem',
           display: 'flex',
           alignItems: 'center',
@@ -83,6 +83,33 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         <Orbit size={20} />
         <span>ISS Space Tracker</span>
         <span className="badge badge-green" style={{ fontSize: '0.65rem' }}>ORBIT</span>
+      </button>
+
+      <button
+        onClick={() => setCategory('mars')}
+        className="glass-panel"
+        style={{
+          flex: 1,
+          minWidth: '160px',
+          padding: '0.9rem 1.2rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.7rem',
+          fontWeight: 700,
+          fontSize: '0.95rem',
+          cursor: 'pointer',
+          border: activeCategory === 'mars' ? '1px solid #ff4500' : '1px solid var(--border-glass)',
+          background: activeCategory === 'mars' ? 'rgba(255, 69, 0, 0.15)' : 'var(--bg-glass)',
+          color: activeCategory === 'mars' ? '#ff6b35' : 'var(--text-muted)',
+          boxShadow: activeCategory === 'mars' ? '0 0 20px rgba(255, 69, 0, 0.25)' : 'none',
+          transition: 'all 0.2s ease',
+          borderRadius: '12px'
+        }}
+      >
+        <Flame size={20} color="#ff4500" />
+        <span>Mars Weather</span>
+        <span className="badge badge-amber" style={{ fontSize: '0.65rem', background: 'rgba(255,69,0,0.2)', color: '#ff6b35' }}>NASA</span>
       </button>
     </div>
   );

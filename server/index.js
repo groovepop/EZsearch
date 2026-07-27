@@ -30,7 +30,7 @@ function setCache(key, data) {
   cache.set(key, { timestamp: Date.now(), data });
 }
 
-// Mirrors & Endpoints
+// Endpoints & Keys
 const EZTV_MIRRORS = [
   'https://eztvx.to/api/get-torrents',
   'https://eztv.re/api/get-torrents',
@@ -47,6 +47,8 @@ const YTS_MIRRORS = [
 ];
 
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
+const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
+const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
 
 // Helper: Fetch with timeout and mirror fallback
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
@@ -291,7 +293,7 @@ app.get('/api/search/shows', async (req, res) => {
   }
 });
 
-// 4. ISS Space Station Pass Endpoint (Dynamic Parameters + 20 Max Results + 24 Hour Cache)
+// 4. ISS Space Station Pass Endpoint (20 Max Results + 24 Hour Cache)
 app.get('/api/iss/passes', async (req, res) => {
   const lat = req.query.lat || '43.25';
   const lon = req.query.lon || '-79.87';
@@ -299,7 +301,7 @@ app.get('/api/iss/passes', async (req, res) => {
   const min_elevation = req.query.min_elevation || '15';
   const days_ahead = req.query.days_ahead || '14';
   const sun_alt_max = req.query.sun_alt_max || '-3';
-  const n = req.query.n || '20'; // Return maximum 20 passes across multiple days!
+  const n = req.query.n || '20';
 
   const cacheKey = `iss_pass_${lat}_${lon}_${visible_only}_${min_elevation}_${days_ahead}_${sun_alt_max}_${n}`;
   const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
@@ -332,6 +334,39 @@ app.get('/api/iss/passes', async (req, res) => {
   } catch (err) {
     console.error('[ISS API Error]', err);
     res.status(500).json({ error: 'Failed to fetch ISS orbital pass data.', message: err.message });
+  }
+});
+
+// 5. NASA Mars InSight Weather Endpoint (12 Hour Server Cache)
+app.get('/api/mars/weather', async (req, res) => {
+  const cacheKey = 'nasa_mars_weather';
+  const TWELVE_HOURS = 12 * 60 * 60 * 1000;
+
+  const cached = getCached(cacheKey, TWELVE_HOURS);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  try {
+    console.log(`[Proxy] Fetching NASA Mars Weather: ${NASA_MARS_URL}`);
+    const response = await fetch(NASA_MARS_URL, {
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (!response.ok) throw new Error(`NASA API responded with status ${response.status}`);
+    const data = await response.json();
+
+    const responsePayload = {
+      ...data,
+      fetched_at: Date.now(),
+      cached: false
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (err) {
+    console.error('[NASA Mars Weather Error]', err);
+    res.status(500).json({ error: 'Failed to fetch NASA Mars weather telemetry.', message: err.message });
   }
 });
 
