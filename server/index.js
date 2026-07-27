@@ -1,0 +1,303 @@
+import express from 'express';
+import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const app = express();
+const PORT = process.env.PORT || 5001;
+
+app.use(cors());
+app.use(express.json());
+
+// In-Memory Cache (5 Minutes TTL)
+const cache = new Map();
+const CACHE_TTL = 5 * 60 * 1000;
+
+function getCached(key) {
+  const item = cache.get(key);
+  if (!item) return null;
+  if (Date.now() - item.timestamp > CACHE_TTL) {
+    cache.delete(key);
+    return null;
+  }
+  return item.data;
+}
+
+function setCache(key, data) {
+  cache.set(key, { timestamp: Date.now(), data });
+}
+
+// Track mirror health
+const EZTV_MIRRORS = [
+  'https://eztvx.to/api/get-torrents',
+  'https://eztv.re/api/get-torrents',
+  'https://eztv.ag/api/get-torrents',
+  'https://eztv.wf/api/get-torrents',
+  'https://eztv.tf/api/get-torrents'
+];
+
+const YTS_MIRRORS = [
+  'https://yts.mx/api/v2/list_movies.json',
+  'https://yts.gg/api/v2/list_movies.json',
+  'https://yts.rs/api/v2/list_movies.json',
+  'https://yts.lt/api/v2/list_movies.json'
+];
+
+// Helper: Fetch with timeout and mirror fallback
+async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
+  let lastError = null;
+
+  for (const mirror of mirrors) {
+    try {
+      const url = `${mirror}?${new URLSearchParams(queryParams).toString()}`;
+      console.log(`[Proxy] Fetching: ${url}`);
+      
+      const controller = new AbortController();
+      const id = setTimeout(() => controller.abort(), timeoutMs);
+
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'Accept': 'application/json'
+        },
+        signal: controller.signal
+      });
+
+      clearTimeout(id);
+
+      if (res.ok) {
+        const text = await res.text();
+        try {
+          const data = JSON.parse(text);
+          return { data, mirrorUsed: mirror };
+        } catch (e) {
+          console.warn(`[Proxy] Invalid JSON from ${mirror}: ${text.substring(0, 100)}`);
+        }
+      }
+    } catch (err) {
+      console.warn(`[Proxy] Mirror failed or timed out: ${mirror} (${err.message})`);
+      lastError = err;
+    }
+  }
+
+  throw new Error(lastError ? lastError.message : 'All mirror requests failed');
+}
+
+// Utility: Format size bytes
+function formatSizeBytes(bytesStr) {
+  const bytes = parseInt(bytesStr, 10);
+  if (isNaN(bytes) || bytes === 0) return 'N/A';
+  const k = 1024;
+  const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+}
+
+// Utility: Extract quality tags
+function parseQuality(title) {
+  if (!title) return 'HD';
+  const t = title.toUpperCase();
+  if (t.includes('2160P') || t.includes('4K') || t.includes('UHD')) return '2160p (4K)';
+  if (t.includes('1080P')) return '1080p';
+  if (t.includes('720P')) return '720p';
+  if (t.includes('480P') || t.includes('SD')) return '480p';
+  if (t.includes('X265') || t.includes('HEVC')) return 'x265';
+  return 'HDTV';
+}
+
+// Trackers list for magnet link generation
+const DEFAULT_TRACKERS = [
+  'udp://open.demonii.com:1337/announce',
+  'udp://tracker.openbittorrent.com:80',
+  'udp://tracker.coppersurfer.tk:6969',
+  'udp://glotorrents.pw:6969/announce',
+  'udp://tracker.opentrackr.org:1337/announce',
+  'udp://torrent.gresille.org:80/announce',
+  'udp://p4p.arenabg.com:1337',
+  'udp://tracker.leechers-paradise.org:6969'
+];
+
+function buildYTSMagnet(hash, title, quality) {
+  const dn = encodeURIComponent(`${title} [${quality}] [YTS]`);
+  const tr = DEFAULT_TRACKERS.map(t => `tr=${encodeURIComponent(t)}`).join('&');
+  return `magnet:?xt=urn:btih:${hash}&dn=${dn}&${tr}`;
+}
+
+// ==================== ENDPOINTS ====================
+
+// 1. EZTV Torrents Endpoint
+app.get('/api/eztv/torrents', async (req, res) => {
+  const { limit = '30', page = '1', imdb_id = '' } = req.query;
+  const cacheKey = `eztv_${limit}_${page}_${imdb_id}`;
+
+  const cached = getCached(cacheKey);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  try {
+    const params = { limit, page };
+    if (imdb_id) {
+      // Strip 'tt' prefix if present for EZTV API
+      params.imdb_id = imdb_id.replace(/^tt/, '');
+    }
+
+    const { data, mirrorUsed } = await fetchWithFallback(EZTV_MIRRORS, params);
+
+    const torrents = (data.torrents || []).map(item => ({
+      id: item.id || item.hash,
+      title: item.title || item.filename,
+      filename: item.filename,
+      category: 'TV Shows',
+      imdb_id: item.imdb_id ? `tt${item.imdb_id.padStart(7, '0')}` : '',
+      season: item.season || '0',
+      episode: item.episode || '0',
+      seeds: parseInt(item.seeds || 0, 10),
+      peers: parseInt(item.peers || 0, 10),
+      size_bytes: item.size_bytes,
+      formatted_size: formatSizeBytes(item.size_bytes),
+      quality: parseQuality(item.title || item.filename),
+      magnet_url: item.magnet_url,
+      torrent_url: item.torrent_url,
+      date_released: item.date_released_unix ? new Date(item.date_released_unix * 1000).toLocaleDateString() : 'N/A',
+      small_screenshot: item.small_screenshot,
+      large_screenshot: item.large_screenshot,
+      source: 'EZTV'
+    }));
+
+    const responsePayload = {
+      torrents,
+      torrents_count: data.torrents_count || torrents.length,
+      limit: parseInt(limit, 10),
+      page: parseInt(page, 10),
+      mirrorUsed
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (err) {
+    console.error('[EZTV Error]', err);
+    res.status(500).json({ error: 'Failed to fetch EZTV torrents. Please try again.', message: err.message });
+  }
+});
+
+// 2. YTS Movies Endpoint
+app.get('/api/yts/movies', async (req, res) => {
+  const { limit = '30', page = '1', query_term = '', quality = '', genre = '', sort_by = 'date_added', order_by = 'desc' } = req.query;
+  const cacheKey = `yts_${limit}_${page}_${query_term}_${quality}_${genre}_${sort_by}_${order_by}`;
+
+  const cached = getCached(cacheKey);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  try {
+    const params = { limit, page, sort_by, order_by };
+    if (query_term) params.query_term = query_term;
+    if (quality) params.quality = quality;
+    if (genre) params.genre = genre;
+
+    const { data, mirrorUsed } = await fetchWithFallback(YTS_MIRRORS, params);
+
+    const moviesList = data?.data?.movies || [];
+    const movieCount = data?.data?.movie_count || moviesList.length;
+
+    const torrents = [];
+
+    moviesList.forEach(movie => {
+      (movie.torrents || []).forEach(t => {
+        torrents.push({
+          id: `${movie.id}_${t.quality}_${t.hash}`,
+          movieId: movie.id,
+          title: `${movie.title} (${movie.year})`,
+          rawTitle: movie.title,
+          year: movie.year,
+          category: 'Movies',
+          rating: movie.rating,
+          genres: movie.genres || [],
+          imdb_id: movie.imdb_code,
+          seeds: t.seeds || 0,
+          peers: t.peers || 0,
+          size_bytes: t.size_bytes,
+          formatted_size: t.size || formatSizeBytes(t.size_bytes),
+          quality: t.quality,
+          type: t.type, // bluray, web, etc.
+          magnet_url: buildYTSMagnet(t.hash, movie.title, t.quality),
+          torrent_url: t.url,
+          date_released: t.date_uploaded || movie.year.toString(),
+          poster: movie.medium_cover_image || movie.small_cover_image,
+          large_poster: movie.large_cover_image,
+          summary: movie.summary,
+          source: 'YTS'
+        });
+      });
+    });
+
+    const responsePayload = {
+      movies: moviesList,
+      torrents,
+      movie_count: movieCount,
+      limit: parseInt(limit, 10),
+      page: parseInt(page, 10),
+      mirrorUsed
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (err) {
+    console.error('[YTS Error]', err);
+    res.status(500).json({ error: 'Failed to fetch YTS movies. Please try again.', message: err.message });
+  }
+});
+
+// 3. Search TV Shows (TVMaze title to IMDb ID mapper)
+app.get('/api/search/shows', async (req, res) => {
+  const { q } = req.query;
+  if (!q) return res.json({ shows: [] });
+
+  const cacheKey = `show_search_${q.toLowerCase()}`;
+  const cached = getCached(cacheKey);
+  if (cached) return res.json(cached);
+
+  try {
+    const url = `https://api.tvmaze.com/search/shows?q=${encodeURIComponent(q)}`;
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('TVMaze request failed');
+
+    const data = await response.json();
+    const shows = data.map(item => ({
+      id: item.show.id,
+      name: item.show.name,
+      imdb_id: item.show.externals?.imdb || null,
+      year: item.show.premiered ? item.show.premiered.substring(0, 4) : null,
+      image: item.show.image?.medium || null,
+      summary: item.show.summary?.replace(/<[^>]*>?/gm, '') || ''
+    })).filter(show => show.imdb_id);
+
+    const payload = { shows };
+    setCache(cacheKey, payload);
+    res.json(payload);
+  } catch (err) {
+    console.warn('[TVMaze Search Warning]', err.message);
+    res.json({ shows: [] });
+  }
+});
+
+// Serve frontend build in production
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api')) {
+    res.sendFile(path.join(distPath, 'index.html'));
+  }
+});
+
+app.listen(PORT, () => {
+  console.log(`====================================================`);
+  console.log(`🚀 EZTV + YTS Torrent Browser Server running on http://localhost:${PORT}`);
+  console.log(`====================================================`);
+});

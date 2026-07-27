@@ -1,0 +1,66 @@
+import React from 'react';
+import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
+
+export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefresh, mirrorUsed, isCached }) {
+  return (
+    <header className="glass-panel" style={{ padding: '1rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
+        <div style={{
+          width: '42px',
+          height: '42px',
+          borderRadius: '12px',
+          background: 'linear-gradient(135deg, #00e5ff 0%, #7928ca 100%)',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: '0 0 20px rgba(0, 229, 255, 0.4)'
+        }}>
+          <Zap size={24} color="#fff" />
+        </div>
+        <div>
+          <h1 style={{ fontSize: '1.35rem', fontWeight: 800, letterSpacing: '-0.02em', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            EZ<span className="gradient-text">Stream</span> Hub
+            <span className="badge badge-cyan" style={{ fontSize: '0.65rem' }}>FAST PROXY</span>
+          </h1>
+          <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
+            EZTV Shows & YTS Movies Direct Streamline
+          </p>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        {mirrorUsed && (
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.03)', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+            <ShieldCheck size={14} color="var(--accent-green)" />
+            <span>Mirror: <strong style={{ color: 'var(--text-main)' }}>{new URL(mirrorUsed).hostname}</strong></span>
+            {isCached && <span className="badge badge-purple" style={{ fontSize: '0.6rem', marginLeft: '0.2rem' }}>CACHED</span>}
+          </div>
+        )}
+
+        <button 
+          className="btn btn-secondary" 
+          onClick={onRefresh}
+          title="Force refresh current list"
+          style={{ padding: '0.5rem 0.9rem', fontSize: '0.82rem' }}
+        >
+          <RefreshCw size={15} />
+          <span>Refresh</span>
+        </button>
+
+        <button
+          className={`btn ${activeTab === 'watchlist' ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={() => setActiveTab('watchlist')}
+          style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+        >
+          <Bookmark size={16} />
+          <span>Watchlist</span>
+          {watchlistCount > 0 && (
+            <span className="badge badge-amber" style={{ borderRadius: '10px', padding: '0.1rem 0.4rem' }}>
+              {watchlistCount}
+            </span>
+          )}
+        </button>
+      </div>
+    </header>
+  );
+}
