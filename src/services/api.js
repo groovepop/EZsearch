@@ -46,13 +46,14 @@ export async function searchTVShows(query) {
 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
 
 export async function fetchISSPasses({
-  visibleOnly = true,
+  visibleOnly = false,
   minElevation = 15,
   daysAhead = 14,
   sunAltMax = -3,
+  n = 20,
   forceRefresh = false
 } = {}) {
-  const cacheKey = `iss_pass_hamilton_v2_${visibleOnly}_${minElevation}_${daysAhead}_${sunAltMax}`;
+  const cacheKey = `iss_pass_hamilton_v3_${visibleOnly}_${minElevation}_${daysAhead}_${sunAltMax}_${n}`;
 
   // Check LocalStorage Cache first unless forceRefresh is true
   if (!forceRefresh) {
@@ -83,7 +84,8 @@ export async function fetchISSPasses({
     visible_only: visibleOnly.toString(),
     min_elevation: minElevation.toString(),
     days_ahead: daysAhead.toString(),
-    sun_alt_max: sunAltMax.toString()
+    sun_alt_max: sunAltMax.toString(),
+    n: n.toString()
   });
 
   let data;
