@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5001;
+const HOST = '0.0.0.0';
 
 app.use(cors());
 app.use(express.json());
@@ -126,6 +127,11 @@ function buildYTSMagnet(hash, title, quality) {
   return `magnet:?xt=urn:btih:${hash}&dn=${dn}&${tr}`;
 }
 
+// Health check endpoint for Azure ping
+app.get('/health', (req, res) => {
+  res.send('OK');
+});
+
 // ==================== ENDPOINTS ====================
 
 // 1. EZTV Torrents Endpoint
@@ -141,7 +147,6 @@ app.get('/api/eztv/torrents', async (req, res) => {
   try {
     const params = { limit, page };
     if (imdb_id) {
-      // Strip 'tt' prefix if present for EZTV API
       params.imdb_id = imdb_id.replace(/^tt/, '');
     }
 
@@ -224,7 +229,7 @@ app.get('/api/yts/movies', async (req, res) => {
           size_bytes: t.size_bytes,
           formatted_size: t.size || formatSizeBytes(t.size_bytes),
           quality: t.quality,
-          type: t.type, // bluray, web, etc.
+          type: t.type,
           magnet_url: buildYTSMagnet(t.hash, movie.title, t.quality),
           torrent_url: t.url,
           date_released: t.date_uploaded || movie.year.toString(),
@@ -253,7 +258,7 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Search TV Shows (TVMaze title to IMDb ID mapper)
+// 3. Search TV Shows
 app.get('/api/search/shows', async (req, res) => {
   const { q } = req.query;
   if (!q) return res.json({ shows: [] });
@@ -286,7 +291,7 @@ app.get('/api/search/shows', async (req, res) => {
   }
 });
 
-// Serve frontend build in production
+// Serve frontend static build
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
 
@@ -296,8 +301,8 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, HOST, () => {
   console.log(`====================================================`);
-  console.log(`🚀 EZTV + YTS Torrent Browser Server running on http://localhost:${PORT}`);
+  console.log(`🚀 EZTV + YTS Server running on http://${HOST}:${PORT}`);
   console.log(`====================================================`);
 });
