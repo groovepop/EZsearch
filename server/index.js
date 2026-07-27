@@ -293,20 +293,21 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Season Packs & Media API Endpoint (5 Min Cache)
+// 3. Unconstrained Pirate Bay & Season Packs Search API (5 Min Cache)
 app.get('/api/tpb/search', async (req, res) => {
-  const { q = 'Breaking Bad', cat = '200' } = req.query;
-  const cacheKey = `tpb_${q.toLowerCase()}_${cat}`;
+  const { q = '', cat = '0' } = req.query;
+  const searchTermToUse = q.trim() || '2026'; // Default query for top releases when search bar is clean
+  const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}`;
 
   const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) {
     return res.json({ ...cached, cached: true });
   }
 
-  // 1st Try: BitSearch / SolidTorrents API (Open API with auto-redirect)
+  // 1st Try: BitSearch API (Unconstrained across ALL categories)
   try {
-    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(q)}&category=video`;
-    console.log(`[Proxy] Fetching BitSearch API: ${solidUrl}`);
+    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(searchTermToUse)}`;
+    console.log(`[Proxy] Fetching BitSearch API (Unconstrained): ${solidUrl}`);
     const solidData = await fetchJsonUrl(solidUrl, 6000);
 
     const rawList = solidData?.results || [];
@@ -314,7 +315,7 @@ app.get('/api/tpb/search', async (req, res) => {
       const torrents = rawList.map(item => ({
         id: `solid_${item.id}_${item.infohash || item.hash}`,
         title: item.title,
-        category: 'Pirate Bay (Season Packs)',
+        category: 'Pirate Bay (All Categories)',
         uploader: item.verified ? 'Verified Uploader' : 'Community',
         imdb_id: '',
         seeds: parseInt(item.seeders || item.seeds || 0, 10),
@@ -336,10 +337,10 @@ app.get('/api/tpb/search', async (req, res) => {
     console.warn(`[Proxy] BitSearch API failed: ${solidErr.message}. Trying APIBay...`);
   }
 
-  // 2nd Try: Official APIBay API (apibay.org)
+  // 2nd Try: Official APIBay API (apibay.org - cat=0 for ALL categories)
   try {
-    const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(q)}&cat=${cat || '0'}`;
-    console.log(`[Proxy] Fetching APIBay: ${apibayUrl}`);
+    const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(searchTermToUse)}&cat=${cat || '0'}`;
+    console.log(`[Proxy] Fetching APIBay (Unconstrained): ${apibayUrl}`);
     const data = await fetchJsonUrl(apibayUrl, 5000);
 
     const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
@@ -347,7 +348,7 @@ app.get('/api/tpb/search', async (req, res) => {
     const torrents = rawList.map(item => ({
       id: `tpb_${item.id}_${item.info_hash}`,
       title: item.name,
-      category: 'Pirate Bay (Season Packs)',
+      category: 'Pirate Bay (All Categories)',
       uploader: item.username || 'Anonymous',
       imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
       seeds: parseInt(item.seeders || 0, 10),
@@ -365,8 +366,8 @@ app.get('/api/tpb/search', async (req, res) => {
     setCache(cacheKey, responsePayload);
     return res.json(responsePayload);
   } catch (apibayErr) {
-    console.error('[Season Packs API Error]', apibayErr);
-    res.status(500).json({ error: 'Failed to fetch Season Packs from torrent APIs.', message: apibayErr.message });
+    console.error('[Pirate Bay Search Error]', apibayErr);
+    res.status(500).json({ error: 'Failed to fetch torrents from Pirate Bay APIs.', message: apibayErr.message });
   }
 });
 

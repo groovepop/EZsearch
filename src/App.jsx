@@ -22,7 +22,7 @@ export default function App() {
   
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(30);
-  const [searchTerm, setSearchTerm] = useState('Breaking Bad');
+  const [searchTerm, setSearchTerm] = useState(''); // Clean empty search bar by default
   const [selectedShow, setSelectedShow] = useState(null);
   
   const [selectedQuality, setSelectedQuality] = useState('ALL');
@@ -85,10 +85,10 @@ export default function App() {
     setError(null);
     try {
       if (activeCategory === 'tpb') {
-        const queryToSearch = searchTerm || 'Breaking Bad';
-        const res = await fetchPirateBayTorrents({ query: queryToSearch, cat: '200' });
+        const queryToSearch = searchTerm.trim();
+        const res = await fetchPirateBayTorrents({ query: queryToSearch, cat: '0' });
         setTorrents(res.torrents || []);
-        setMirrorUsed('APIBay (The Pirate Bay Official API)');
+        setMirrorUsed(res.mirrorUsed || 'Pirate Bay API Engine');
         setIsCached(!!res.cached);
       } else if (activeCategory === 'tv') {
         const imdbId = selectedShow ? selectedShow.imdb_id : (searchTerm.startsWith('tt') ? searchTerm : '');
@@ -124,11 +124,7 @@ export default function App() {
   const handleCategorySwitch = (cat) => {
     setActiveCategory(cat);
     setPage(1);
-    if (cat === 'tpb') {
-      setSearchTerm('Breaking Bad');
-    } else {
-      setSearchTerm('');
-    }
+    setSearchTerm('');
     setSelectedShow(null);
     setSelectedQuality('ALL');
   };
@@ -213,7 +209,7 @@ export default function App() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '5rem 1rem' }}>
               <Loader2 size={42} className="animate-spin" color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching torrent list from {activeCategory === 'tpb' ? 'The Pirate Bay (APIBay)...' : 'mirror proxy...'}</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching torrent list from {activeCategory === 'tpb' ? 'Pirate Bay API Engine...' : 'mirror proxy...'}</p>
             </div>
           ) : error ? (
             <div className="glass-panel" style={{ textAlign: 'center', padding: '3rem 1.5rem', borderColor: 'var(--accent-red)' }}>
@@ -226,7 +222,7 @@ export default function App() {
             <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 1.5rem' }}>
               <Sparkles size={38} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '0.4rem' }}>No Torrents Found</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Try adjusting your search query, clear quality tags, or search for a different show/season pack.</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Try searching for a title, season pack, movie, software, or audio keyword above.</p>
             </div>
           ) : (
             <>
@@ -234,7 +230,7 @@ export default function App() {
                 <span>Showing <strong>{processedTorrents.length}</strong> results</span>
                 {activeCategory === 'tpb' && (
                   <span style={{ fontSize: '0.78rem', color: '#00e5ff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <Anchor size={14} /> Official APIBay REST Search
+                    <Anchor size={14} /> Full Unconstrained Pirate Bay Search
                   </span>
                 )}
               </div>

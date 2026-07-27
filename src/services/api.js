@@ -34,10 +34,10 @@ export async function fetchYTSMovies({ page = 1, limit = 30, query_term = '', qu
   return res.json();
 }
 
-export async function fetchPirateBayTorrents({ query = 'Breaking Bad', cat = '200' }) {
+export async function fetchPirateBayTorrents({ query = '', cat = '0' }) {
   const params = new URLSearchParams({
-    q: query || 'Breaking Bad',
-    cat: cat || '200'
+    q: query || '',
+    cat: cat || '0'
   });
 
   const res = await fetch(`/api/tpb/search?${params.toString()}`);

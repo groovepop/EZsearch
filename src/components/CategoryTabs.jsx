@@ -82,7 +82,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       >
         <Anchor size={18} color="#00e5ff" />
         <span>Pirate Bay</span>
-        <span className="badge badge-green" style={{ fontSize: '0.65rem' }}>SEASON PACKS</span>
+        <span className="badge badge-green" style={{ fontSize: '0.65rem' }}>ALL MEDIA</span>
       </button>
 
       <button
