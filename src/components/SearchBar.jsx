@@ -64,6 +64,8 @@ export default function SearchBar({ searchTerm, setSearchTerm, onSelectShow, act
           placeholder={
             activeCategory === 'tv' 
               ? "Search TV show title (e.g. Breaking Bad, House of the Dragon, tt0903747)..." 
+              : activeCategory === 'tpb'
+              ? "Search TV Season Packs & Torrent Releases (e.g. Breaking Bad S01, Game of Thrones Complete)..."
               : "Search movies by title, actor, or genre (e.g. Inception, Avatar, Action)..."
           }
           style={{

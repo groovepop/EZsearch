@@ -2,6 +2,19 @@ import React from 'react';
 import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
 
 export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefresh, mirrorUsed, isCached }) {
+  let mirrorHostname = '';
+  if (mirrorUsed) {
+    try {
+      if (mirrorUsed.startsWith('http://') || mirrorUsed.startsWith('https://')) {
+        mirrorHostname = new URL(mirrorUsed).hostname;
+      } else {
+        mirrorHostname = mirrorUsed;
+      }
+    } catch (e) {
+      mirrorHostname = mirrorUsed;
+    }
+  }
+
   return (
     <header className="glass-panel" style={{ padding: '1rem 1.5rem', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem' }}>
@@ -23,7 +36,7 @@ export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefr
             <span className="badge badge-cyan" style={{ fontSize: '0.65rem' }}>FAST PROXY</span>
           </h1>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>
-            EZTV Shows & YTS Movies Direct Streamline
+            EZTV Shows, YTS Movies & Pirate Bay Season Packs
           </p>
         </div>
       </div>
@@ -32,7 +45,7 @@ export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefr
         {mirrorUsed && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.03)', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
             <ShieldCheck size={14} color="var(--accent-green)" />
-            <span>Mirror: <strong style={{ color: 'var(--text-main)' }}>{new URL(mirrorUsed).hostname}</strong></span>
+            <span>Mirror: <strong style={{ color: 'var(--text-main)' }}>{mirrorHostname}</strong></span>
             {isCached && <span className="badge badge-purple" style={{ fontSize: '0.6rem', marginLeft: '0.2rem' }}>CACHED</span>}
           </div>
         )}
