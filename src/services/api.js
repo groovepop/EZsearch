@@ -43,14 +43,21 @@ export async function searchTVShows(query) {
 }
 
 // ISS Space Station API Client with 24-Hour LocalStorage Caching Strategy
-const ISS_CACHE_KEY = 'iss_pass_cache_hamilton_v1';
 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
 
-export async function fetchISSPasses(forceRefresh = false) {
+export async function fetchISSPasses({
+  visibleOnly = true,
+  minElevation = 15,
+  daysAhead = 14,
+  sunAltMax = -3,
+  forceRefresh = false
+} = {}) {
+  const cacheKey = `iss_pass_hamilton_v2_${visibleOnly}_${minElevation}_${daysAhead}_${sunAltMax}`;
+
   // Check LocalStorage Cache first unless forceRefresh is true
   if (!forceRefresh) {
     try {
-      const cachedRaw = localStorage.getItem(ISS_CACHE_KEY);
+      const cachedRaw = localStorage.getItem(cacheKey);
       if (cachedRaw) {
         const cachedObj = JSON.parse(cachedRaw);
         const age = Date.now() - (cachedObj.timestamp || 0);
@@ -73,9 +80,10 @@ export async function fetchISSPasses(forceRefresh = false) {
   const params = new URLSearchParams({
     lat: '43.25',
     lon: '-79.87',
-    visible_only: 'true',
-    min_elevation: '30',
-    days_ahead: '7'
+    visible_only: visibleOnly.toString(),
+    min_elevation: minElevation.toString(),
+    days_ahead: daysAhead.toString(),
+    sun_alt_max: sunAltMax.toString()
   });
 
   let data;
@@ -85,7 +93,6 @@ export async function fetchISSPasses(forceRefresh = false) {
     data = await res.json();
   } catch (proxyError) {
     console.warn('[ISS API] Proxy fetch failed, trying direct endpoint:', proxyError);
-    // Direct browser fallback
     const directRes = await fetch(`https://iss-api.polluxlabs.io/iss-pass?${params.toString()}`);
     if (!directRes.ok) throw new Error('Failed to fetch ISS pass data from both proxy and direct API');
     data = await directRes.json();
@@ -94,7 +101,7 @@ export async function fetchISSPasses(forceRefresh = false) {
   // Store in LocalStorage
   const now = Date.now();
   try {
-    localStorage.setItem(ISS_CACHE_KEY, JSON.stringify({
+    localStorage.setItem(cacheKey, JSON.stringify({
       timestamp: now,
       data
     }));

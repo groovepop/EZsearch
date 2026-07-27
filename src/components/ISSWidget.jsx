@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Orbit, Compass, Clock, Sparkles, RefreshCw, MapPin, Eye, Zap, Info, ShieldCheck, Sun } from 'lucide-react';
+import { Orbit, Compass, Clock, Sparkles, RefreshCw, MapPin, Eye, Info, ShieldCheck, Sun, Moon, Layers } from 'lucide-react';
 import { fetchISSPasses } from '../services/api';
 
 // Helper: Elevation Category Mapping
 function getElevationCategory(deg) {
   const el = parseFloat(deg || 0);
-  if (el >= 61) {
+  if (el >= 56) {
     return { label: 'Spectacular Overhead View', badgeClass: 'badge-amber', glow: true, icon: '🌟' };
-  } else if (el >= 46) {
-    return { label: 'Great View', badgeClass: 'badge-purple', glow: false, icon: '✨' };
+  } else if (el >= 31) {
+    return { label: 'Good View', badgeClass: 'badge-cyan', glow: false, icon: '✨' };
   } else {
-    return { label: 'Good View', badgeClass: 'badge-cyan', glow: false, icon: '🔭' };
+    return { label: 'Low Horizon View', badgeClass: 'badge-purple', glow: false, icon: '🔭' };
   }
 }
 
@@ -40,13 +40,20 @@ export default function ISSWidget() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [visibleOnlyMode, setVisibleOnlyMode] = useState(false); // Default to false so user gets ALL flyovers, with visible ones highlighted!
   const [countdown, setCountdown] = useState('');
 
   const loadData = async (forceRefresh = false) => {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetchISSPasses(forceRefresh);
+      const res = await fetchISSPasses({
+        visibleOnly: visibleOnlyMode,
+        minElevation: 15,
+        daysAhead: 14,
+        sunAltMax: -3,
+        forceRefresh
+      });
       setData(res);
     } catch (err) {
       console.error(err);
@@ -58,9 +65,9 @@ export default function ISSWidget() {
 
   useEffect(() => {
     loadData(false);
-  }, []);
+  }, [visibleOnlyMode]);
 
-  // Countdown to next culmination
+  // Countdown to next pass
   useEffect(() => {
     if (!data || !data.passes || data.passes.length === 0) return;
     const nextPass = data.passes[0];
@@ -71,7 +78,7 @@ export default function ISSWidget() {
       const diff = targetTime - now;
 
       if (diff <= 0) {
-        setCountdown('Pass is occurring right now! Look up! 🛰️');
+        setCountdown('Pass is occurring right now! 🛰️');
       } else {
         const days = Math.floor(diff / (1000 * 60 * 60 * 24));
         const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -120,32 +127,68 @@ export default function ISSWidget() {
           <div>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
               ISS Space Station Tracker
-              <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>7-DAY FORECAST</span>
+              <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>14-DAY ORBITAL FORECAST</span>
             </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
               <MapPin size={15} color="var(--accent-cyan)" />
-              Location: <strong style={{ color: '#fff' }}>Hamilton, ON</strong> (Lat: 43.25°, Lon: -79.87°)
+              Location: <strong style={{ color: '#fff' }}>Hamilton, ON</strong> (Lat: 43.25° N, Lon: -79.87° W)
             </p>
           </div>
         </div>
 
-        {/* Cache status & Refresh */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
-          {data && (
-            <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)', background: 'rgba(0,0,0,0.3)', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-glass)', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-              <ShieldCheck size={14} color="var(--accent-green)" />
-              <span>{data.isLocalStorageCached ? 'LocalStorage Cache' : 'Fresh Fetch'} (24h TTL)</span>
-            </div>
-          )}
+        {/* Mode Switcher & Refresh */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', background: 'rgba(0,0,0,0.4)', padding: '3px', borderRadius: '10px', border: '1px solid var(--border-glass)' }}>
+            <button
+              onClick={() => setVisibleOnlyMode(false)}
+              style={{
+                padding: '0.4rem 0.8rem',
+                borderRadius: '8px',
+                border: 'none',
+                background: !visibleOnlyMode ? 'rgba(0, 229, 255, 0.25)' : 'transparent',
+                color: !visibleOnlyMode ? 'var(--accent-cyan)' : 'var(--text-muted)',
+                fontWeight: 700,
+                fontSize: '0.78rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              <Layers size={14} />
+              <span>All Orbital Flyovers ({passes.length})</span>
+            </button>
+
+            <button
+              onClick={() => setVisibleOnlyMode(true)}
+              style={{
+                padding: '0.4rem 0.8rem',
+                borderRadius: '8px',
+                border: 'none',
+                background: visibleOnlyMode ? 'rgba(0, 230, 118, 0.25)' : 'transparent',
+                color: visibleOnlyMode ? 'var(--accent-green)' : 'var(--text-muted)',
+                fontWeight: 700,
+                fontSize: '0.78rem',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.4rem'
+              }}
+            >
+              <Sparkles size={14} />
+              <span>Naked-Eye Visible Only</span>
+            </button>
+          </div>
 
           <button 
             className="btn btn-secondary" 
             onClick={() => loadData(true)}
             disabled={loading}
-            style={{ padding: '0.5rem 1rem', fontSize: '0.85rem' }}
+            style={{ padding: '0.45rem 0.9rem', fontSize: '0.82rem' }}
+            title="Force refresh orbital dataset"
           >
-            <RefreshCw size={15} className={loading ? 'animate-spin' : ''} />
-            <span>Force Refresh</span>
+            <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+            <span>Refresh</span>
           </button>
         </div>
       </div>
@@ -165,10 +208,13 @@ export default function ISSWidget() {
       ) : passes.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '3.5rem 1.5rem' }}>
           <Sparkles size={36} color="var(--accent-amber)" style={{ marginBottom: '1rem' }} />
-          <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.4rem' }}>No Visible Passes in Next 7 Days</h3>
-          <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: '500px', margin: '0 auto' }}>
-            There are no high-visibility passes (&gt;30° elevation during twilight/night) over Hamilton, ON in the next 7 days. Check back soon for updated orbit predictions!
+          <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.4rem' }}>No Passes Found For Selected Filter</h3>
+          <p style={{ color: 'var(--text-muted)', fontSize: '0.88rem', maxWidth: '500px', margin: '0 auto 1rem auto' }}>
+            No passes matched the current filter. Try switching to <strong>"All Orbital Flyovers"</strong> to see all upcoming passes!
           </p>
+          <button className="btn btn-primary" onClick={() => setVisibleOnlyMode(false)}>
+            Show All Orbital Flyovers
+          </button>
         </div>
       ) : (
         <>
@@ -186,8 +232,19 @@ export default function ISSWidget() {
             >
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: '1rem', marginBottom: '1.2rem' }}>
                 <div>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem' }}>
-                    <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>NEXT UPCOMING PASS</span>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.4rem', flexWrap: 'wrap' }}>
+                    <span className="badge badge-cyan" style={{ fontSize: '0.75rem' }}>NEXT UPCOMING PASS</span>
+                    
+                    {nextPass.visible ? (
+                      <span className="badge badge-green" style={{ fontSize: '0.75rem' }}>
+                        ✨ NAKED-EYE VISIBLE PASS
+                      </span>
+                    ) : (
+                      <span className="badge badge-amber" style={{ fontSize: '0.75rem' }}>
+                        ☀️ DAYTIME / SHADOW FLYOVER
+                      </span>
+                    )}
+
                     {(() => {
                       const cat = getElevationCategory(nextPass.culmination?.elevation_deg);
                       return (
@@ -246,7 +303,7 @@ export default function ISSWidget() {
                     <Sparkles size={14} color="var(--accent-amber)" /> BRIGHTNESS (MAGNITUDE)
                   </div>
                   <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--accent-amber)' }}>
-                    {nextPass.magnitude !== undefined ? `${nextPass.magnitude} mag` : '-3.0 mag (Extremely Bright)'}
+                    {nextPass.magnitude !== undefined ? `${nextPass.magnitude} mag` : (nextPass.visible ? '-3.2 mag' : 'Daylight Flyover')}
                   </div>
                   <div style={{ fontSize: '0.72rem', color: 'var(--text-dim)', marginTop: '0.2rem' }} title="Negative numbers indicate extreme star brightness">
                     ℹ️ Negative magnitude = brighter star
@@ -269,20 +326,27 @@ export default function ISSWidget() {
             </div>
           )}
 
-          {/* 7-Day Passes Table */}
+          {/* 14-Day Passes Table */}
           <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '16px' }}>
-            <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-              <Clock size={18} color="var(--accent-cyan)" /> 
-              Full 7-Day Visible Passes Forecast ({passes.length} Passes Found)
-            </h3>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Clock size={18} color="var(--accent-cyan)" /> 
+                14-Day Flyover Forecast ({passes.length} Passes Scheduled)
+              </h3>
+              
+              <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                {data.isLocalStorageCached ? 'Loaded from 24h LocalStorage Cache' : 'Fresh API Request'}
+              </div>
+            </div>
 
             <div className="table-container">
               <table className="torrent-table">
                 <thead>
                   <tr>
                     <th>Viewing Date & Time (Local)</th>
+                    <th>Visibility Status</th>
                     <th>Peak Elevation</th>
-                    <th>Quality</th>
+                    <th>View Quality</th>
                     <th>Brightness (Mag)</th>
                     <th>Direction (Rise → Set)</th>
                     <th>Duration</th>
@@ -296,6 +360,13 @@ export default function ISSWidget() {
                         <td style={{ fontWeight: 700, color: '#fff' }}>
                           {formatLocalTime(pass.culmination?.time || pass.rise?.time)}
                         </td>
+                        <td>
+                          {pass.visible ? (
+                            <span className="badge badge-green">✨ Naked-Eye Visible</span>
+                          ) : (
+                            <span className="badge badge-purple">☀️ Daytime / Shadow</span>
+                          )}
+                        </td>
                         <td style={{ fontFamily: 'var(--font-mono)', fontWeight: 700, color: 'var(--accent-cyan)' }}>
                           {pass.culmination?.elevation_deg}°
                         </td>
@@ -305,7 +376,7 @@ export default function ISSWidget() {
                           </span>
                         </td>
                         <td style={{ fontFamily: 'var(--font-mono)', color: 'var(--accent-amber)', fontWeight: 600 }}>
-                          {pass.magnitude !== undefined ? `${pass.magnitude} mag` : 'Very Bright'}
+                          {pass.magnitude !== undefined ? `${pass.magnitude} mag` : (pass.visible ? '-3.2 mag' : 'N/A')}
                         </td>
                         <td style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
                           {pass.rise?.compass} ({pass.rise?.azimuth_deg}°) → {pass.set?.compass} ({pass.set?.azimuth_deg}°)

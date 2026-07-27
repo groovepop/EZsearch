@@ -291,15 +291,16 @@ app.get('/api/search/shows', async (req, res) => {
   }
 });
 
-// 4. ISS Space Station Pass Endpoint (24 Hour Server-Side Cache)
+// 4. ISS Space Station Pass Endpoint (Dynamic Parameters + 24 Hour Cache)
 app.get('/api/iss/passes', async (req, res) => {
   const lat = req.query.lat || '43.25';
   const lon = req.query.lon || '-79.87';
-  const visible_only = req.query.visible_only || 'true';
-  const min_elevation = req.query.min_elevation || '30';
-  const days_ahead = req.query.days_ahead || '7';
+  const visible_only = req.query.visible_only !== undefined ? req.query.visible_only : 'true';
+  const min_elevation = req.query.min_elevation || '15';
+  const days_ahead = req.query.days_ahead || '14';
+  const sun_alt_max = req.query.sun_alt_max || '-3';
 
-  const cacheKey = `iss_pass_${lat}_${lon}_${visible_only}_${min_elevation}_${days_ahead}`;
+  const cacheKey = `iss_pass_${lat}_${lon}_${visible_only}_${min_elevation}_${days_ahead}_${sun_alt_max}`;
   const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
 
   const cached = getCached(cacheKey, TWENTY_FOUR_HOURS);
@@ -308,8 +309,8 @@ app.get('/api/iss/passes', async (req, res) => {
   }
 
   try {
-    const params = new URLSearchParams({ lat, lon, visible_only, min_elevation, days_ahead });
-    const url = `${ISS_API_URL}?${params.toString()}`;
+    const queryParams = { lat, lon, visible_only, min_elevation, days_ahead, sun_alt_max };
+    const url = `${ISS_API_URL}?${new URLSearchParams(queryParams).toString()}`;
     console.log(`[Proxy] Fetching ISS Passes: ${url}`);
 
     const response = await fetch(url, {
