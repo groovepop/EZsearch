@@ -1,4 +1,4 @@
-// API Client Service for EZTV, YTS, TVMaze, ISS Space Station & NASA Mars Weather
+// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS & NASA Mars Weather
 
 export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
   const params = new URLSearchParams({
@@ -34,6 +34,20 @@ export async function fetchYTSMovies({ page = 1, limit = 30, query_term = '', qu
   return res.json();
 }
 
+export async function fetchPirateBayTorrents({ query = 'Breaking Bad', cat = '200' }) {
+  const params = new URLSearchParams({
+    q: query || 'Breaking Bad',
+    cat: cat || '200'
+  });
+
+  const res = await fetch(`/api/tpb/search?${params.toString()}`);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to fetch torrents from The Pirate Bay');
+  }
+  return res.json();
+}
+
 export async function searchTVShows(query) {
   if (!query || query.trim().length < 2) return [];
   const res = await fetch(`/api/search/shows?q=${encodeURIComponent(query)}`);
@@ -62,7 +76,6 @@ export async function fetchISSPasses({
         const cachedObj = JSON.parse(cachedRaw);
         const age = Date.now() - (cachedObj.timestamp || 0);
         if (age < TWENTY_FOUR_HOURS_MS) {
-          console.log(`[ISS Cache] Using valid LocalStorage cache (Age: ${Math.round(age / 3600000)}h)`);
           return {
             ...cachedObj.data,
             isLocalStorageCached: true,
@@ -92,7 +105,6 @@ export async function fetchISSPasses({
     if (!res.ok) throw new Error(`Proxy error ${res.status}`);
     data = await res.json();
   } catch (proxyError) {
-    console.warn('[ISS API] Proxy fetch failed, trying direct endpoint:', proxyError);
     const directRes = await fetch(`https://iss-api.polluxlabs.io/iss-pass?${params.toString()}`);
     if (!directRes.ok) throw new Error('Failed to fetch ISS pass data from both proxy and direct API');
     data = await directRes.json();
@@ -128,7 +140,6 @@ export async function fetchMarsWeather(forceRefresh = false) {
         const cachedObj = JSON.parse(cachedRaw);
         const age = Date.now() - (cachedObj.timestamp || 0);
         if (age < TWELVE_HOURS_MS) {
-          console.log(`[Mars Cache] Using valid LocalStorage cache (Age: ${Math.round(age / 3600000)}h)`);
           return {
             ...cachedObj.data,
             isLocalStorageCached: true,
@@ -148,7 +159,6 @@ export async function fetchMarsWeather(forceRefresh = false) {
     if (!res.ok) throw new Error(`Proxy error ${res.status}`);
     data = await res.json();
   } catch (proxyError) {
-    console.warn('[Mars API] Proxy fetch failed, trying direct endpoint:', proxyError);
     const directRes = await fetch('https://api.nasa.gov/insight_weather/?api_key=HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP&feedtype=json&ver=1.0');
     if (!directRes.ok) throw new Error('Failed to fetch Mars weather from NASA API');
     data = await directRes.json();

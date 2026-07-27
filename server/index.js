@@ -49,6 +49,7 @@ const YTS_MIRRORS = [
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
 const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
 const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
+const APIBAY_URL = 'https://apibay.org/q.php';
 
 // Helper: Fetch with timeout and mirror fallback
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
@@ -123,8 +124,8 @@ const DEFAULT_TRACKERS = [
   'udp://tracker.leechers-paradise.org:6969'
 ];
 
-function buildYTSMagnet(hash, title, quality) {
-  const dn = encodeURIComponent(`${title} [${quality}] [YTS]`);
+function buildMagnetUrl(hash, title) {
+  const dn = encodeURIComponent(title || 'torrent');
   const tr = DEFAULT_TRACKERS.map(t => `tr=${encodeURIComponent(t)}`).join('&');
   return `magnet:?xt=urn:btih:${hash}&dn=${dn}&${tr}`;
 }
@@ -232,7 +233,7 @@ app.get('/api/yts/movies', async (req, res) => {
           formatted_size: t.size || formatSizeBytes(t.size_bytes),
           quality: t.quality,
           type: t.type,
-          magnet_url: buildYTSMagnet(t.hash, movie.title, t.quality),
+          magnet_url: buildMagnetUrl(t.hash, movie.title),
           torrent_url: t.url,
           date_released: t.date_uploaded || movie.year.toString(),
           poster: movie.medium_cover_image || movie.small_cover_image,
@@ -260,7 +261,65 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Search TV Shows
+// 3. The Pirate Bay (APIBay API) Endpoint - TV Season Packs & Media (5 Min Cache)
+app.get('/api/tpb/search', async (req, res) => {
+  const { q = 'Breaking Bad', cat = '200' } = req.query;
+  const cacheKey = `tpb_${q.toLowerCase()}_${cat}`;
+
+  const cached = getCached(cacheKey, 5 * 60 * 1000);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  try {
+    const url = `${APIBAY_URL}?q=${encodeURIComponent(q)}&cat=${cat}`;
+    console.log(`[Proxy] Fetching APIBay TPB: ${url}`);
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) throw new Error(`APIBay responded with status ${response.status}`);
+    const data = await response.json();
+
+    // Filter out dummy/empty response if no results
+    const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+
+    const torrents = rawList.map(item => ({
+      id: `tpb_${item.id}_${item.info_hash}`,
+      title: item.name,
+      category: 'Pirate Bay (Season Packs)',
+      uploader: item.username || 'Anonymous',
+      imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
+      seeds: parseInt(item.seeders || 0, 10),
+      peers: parseInt(item.leechers || 0, 10),
+      size_bytes: item.size,
+      formatted_size: formatSizeBytes(item.size),
+      quality: parseQuality(item.name),
+      magnet_url: buildMagnetUrl(item.info_hash, item.name),
+      date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+      num_files: item.num_files,
+      source: 'Pirate Bay'
+    }));
+
+    const responsePayload = {
+      torrents,
+      total_count: torrents.length,
+      query: q
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (err) {
+    console.error('[TPB APIBay Error]', err);
+    res.status(500).json({ error: 'Failed to fetch torrents from The Pirate Bay API.', message: err.message });
+  }
+});
+
+// 4. Search TV Shows
 app.get('/api/search/shows', async (req, res) => {
   const { q } = req.query;
   if (!q) return res.json({ shows: [] });
@@ -293,7 +352,7 @@ app.get('/api/search/shows', async (req, res) => {
   }
 });
 
-// 4. ISS Space Station Pass Endpoint (20 Max Results + 24 Hour Cache)
+// 5. ISS Space Station Pass Endpoint (20 Max Results + 24 Hour Cache)
 app.get('/api/iss/passes', async (req, res) => {
   const lat = req.query.lat || '43.25';
   const lon = req.query.lon || '-79.87';
@@ -337,7 +396,7 @@ app.get('/api/iss/passes', async (req, res) => {
   }
 });
 
-// 5. NASA Mars InSight Weather Endpoint (12 Hour Server Cache)
+// 6. NASA Mars InSight Weather Endpoint (12 Hour Server Cache)
 app.get('/api/mars/weather', async (req, res) => {
   const cacheKey = 'nasa_mars_weather';
   const TWELVE_HOURS = 12 * 60 * 60 * 1000;

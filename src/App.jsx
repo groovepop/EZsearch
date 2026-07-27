@@ -9,20 +9,20 @@ import Pagination from './components/Pagination';
 import WatchlistDrawer from './components/WatchlistDrawer';
 import ISSWidget from './components/ISSWidget';
 import MarsWidget from './components/MarsWidget';
-import { fetchEZTVTorrents, fetchYTSMovies } from './services/api';
-import { Loader2, Check, AlertTriangle, Sparkles } from 'lucide-react';
+import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
+import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
 
 export default function App() {
   // State
-  const [activeCategory, setActiveCategory] = useState('tv'); // 'tv', 'movies', 'iss', or 'mars'
-  const [activeTab, setActiveTab] = useState('main'); // 'main' or 'watchlist'
+  const [activeCategory, setActiveCategory] = useState('tpb'); // Default to 'tpb', 'tv', 'movies', 'iss', or 'mars'
+  const [activeTab, setActiveTab] = useState('main');
   const [torrents, setTorrents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(30);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState('Breaking Bad');
   const [selectedShow, setSelectedShow] = useState(null);
   
   const [selectedQuality, setSelectedQuality] = useState('ALL');
@@ -42,7 +42,6 @@ export default function App() {
     }
   });
 
-  // Copy Toast state
   const [toastMessage, setToastMessage] = useState('');
 
   const showToast = (msg) => {
@@ -50,7 +49,6 @@ export default function App() {
     setTimeout(() => setToastMessage(''), 3000);
   };
 
-  // Sync watchlist to LocalStorage
   useEffect(() => {
     try {
       localStorage.setItem('eztv_yts_watchlist', JSON.stringify(watchlist));
@@ -86,7 +84,13 @@ export default function App() {
     setLoading(true);
     setError(null);
     try {
-      if (activeCategory === 'tv') {
+      if (activeCategory === 'tpb') {
+        const queryToSearch = searchTerm || 'Breaking Bad';
+        const res = await fetchPirateBayTorrents({ query: queryToSearch, cat: '200' });
+        setTorrents(res.torrents || []);
+        setMirrorUsed('APIBay (The Pirate Bay Official API)');
+        setIsCached(!!res.cached);
+      } else if (activeCategory === 'tv') {
         const imdbId = selectedShow ? selectedShow.imdb_id : (searchTerm.startsWith('tt') ? searchTerm : '');
         const res = await fetchEZTVTorrents({ page, limit, imdb_id: imdbId });
         setTorrents(res.torrents || []);
@@ -120,7 +124,11 @@ export default function App() {
   const handleCategorySwitch = (cat) => {
     setActiveCategory(cat);
     setPage(1);
-    setSearchTerm('');
+    if (cat === 'tpb') {
+      setSearchTerm('Breaking Bad');
+    } else {
+      setSearchTerm('');
+    }
     setSelectedShow(null);
     setSelectedQuality('ALL');
   };
@@ -205,7 +213,7 @@ export default function App() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '5rem 1rem' }}>
               <Loader2 size={42} className="animate-spin" color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching fastest torrent list via mirror proxy...</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching torrent list from {activeCategory === 'tpb' ? 'The Pirate Bay (APIBay)...' : 'mirror proxy...'}</p>
             </div>
           ) : error ? (
             <div className="glass-panel" style={{ textAlign: 'center', padding: '3rem 1.5rem', borderColor: 'var(--accent-red)' }}>
@@ -218,12 +226,17 @@ export default function App() {
             <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 1.5rem' }}>
               <Sparkles size={38} color="var(--text-dim)" style={{ marginBottom: '1rem' }} />
               <h3 style={{ fontSize: '1.1rem', color: '#fff', marginBottom: '0.4rem' }}>No Torrents Found</h3>
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Try adjusting your search filters, clear quality tags, or select a different page.</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem' }}>Try adjusting your search query, clear quality tags, or search for a different show/season pack.</p>
             </div>
           ) : (
             <>
-              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
-                Showing <strong>{processedTorrents.length}</strong> results (Page {page})
+              <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span>Showing <strong>{processedTorrents.length}</strong> results</span>
+                {activeCategory === 'tpb' && (
+                  <span style={{ fontSize: '0.78rem', color: '#00e5ff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <Anchor size={14} /> Official APIBay REST Search
+                  </span>
+                )}
               </div>
 
               {viewMode === 'grid' ? (
@@ -242,14 +255,16 @@ export default function App() {
                 />
               )}
 
-              <Pagination
-                currentPage={page}
-                onPageChange={(newPage) => {
-                  setPage(newPage);
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-                loading={loading}
-              />
+              {activeCategory !== 'tpb' && (
+                <Pagination
+                  currentPage={page}
+                  onPageChange={(newPage) => {
+                    setPage(newPage);
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  loading={loading}
+                />
+              )}
             </>
           )}
         </>
