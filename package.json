@@ -1,10 +1,11 @@
 {
-  "name": "eztv-torrent-browser",
+  "name": "ezsearch",
   "private": true,
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "node server/index.js",
+    "start": "node server/index.js",
     "build": "vite build",
     "preview": "vite preview"
   },
