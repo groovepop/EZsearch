@@ -13,14 +13,13 @@ const HOST = '0.0.0.0';
 app.use(cors());
 app.use(express.json());
 
-// In-Memory Cache (5 Minutes TTL)
+// In-Memory Cache Helper
 const cache = new Map();
-const CACHE_TTL = 5 * 60 * 1000;
 
-function getCached(key) {
+function getCached(key, ttlMs) {
   const item = cache.get(key);
   if (!item) return null;
-  if (Date.now() - item.timestamp > CACHE_TTL) {
+  if (Date.now() - item.timestamp > ttlMs) {
     cache.delete(key);
     return null;
   }
@@ -31,7 +30,7 @@ function setCache(key, data) {
   cache.set(key, { timestamp: Date.now(), data });
 }
 
-// Track mirror health
+// Mirrors & Endpoints
 const EZTV_MIRRORS = [
   'https://eztvx.to/api/get-torrents',
   'https://eztv.re/api/get-torrents',
@@ -47,6 +46,8 @@ const YTS_MIRRORS = [
   'https://yts.lt/api/v2/list_movies.json'
 ];
 
+const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
+
 // Helper: Fetch with timeout and mirror fallback
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
   let lastError = null;
@@ -61,7 +62,7 @@ async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
 
       const res = await fetch(url, {
         headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
           'Accept': 'application/json'
         },
         signal: controller.signal
@@ -109,7 +110,6 @@ function parseQuality(title) {
   return 'HDTV';
 }
 
-// Trackers list for magnet link generation
 const DEFAULT_TRACKERS = [
   'udp://open.demonii.com:1337/announce',
   'udp://tracker.openbittorrent.com:80',
@@ -134,12 +134,12 @@ app.get('/health', (req, res) => {
 
 // ==================== ENDPOINTS ====================
 
-// 1. EZTV Torrents Endpoint
+// 1. EZTV Torrents Endpoint (5 Min Cache)
 app.get('/api/eztv/torrents', async (req, res) => {
   const { limit = '30', page = '1', imdb_id = '' } = req.query;
   const cacheKey = `eztv_${limit}_${page}_${imdb_id}`;
 
-  const cached = getCached(cacheKey);
+  const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) {
     return res.json({ ...cached, cached: true });
   }
@@ -189,12 +189,12 @@ app.get('/api/eztv/torrents', async (req, res) => {
   }
 });
 
-// 2. YTS Movies Endpoint
+// 2. YTS Movies Endpoint (5 Min Cache)
 app.get('/api/yts/movies', async (req, res) => {
   const { limit = '30', page = '1', query_term = '', quality = '', genre = '', sort_by = 'date_added', order_by = 'desc' } = req.query;
   const cacheKey = `yts_${limit}_${page}_${query_term}_${quality}_${genre}_${sort_by}_${order_by}`;
 
-  const cached = getCached(cacheKey);
+  const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) {
     return res.json({ ...cached, cached: true });
   }
@@ -264,7 +264,7 @@ app.get('/api/search/shows', async (req, res) => {
   if (!q) return res.json({ shows: [] });
 
   const cacheKey = `show_search_${q.toLowerCase()}`;
-  const cached = getCached(cacheKey);
+  const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) return res.json(cached);
 
   try {
@@ -291,6 +291,48 @@ app.get('/api/search/shows', async (req, res) => {
   }
 });
 
+// 4. ISS Space Station Pass Endpoint (24 Hour Server-Side Cache)
+app.get('/api/iss/passes', async (req, res) => {
+  const lat = req.query.lat || '43.25';
+  const lon = req.query.lon || '-79.87';
+  const visible_only = req.query.visible_only || 'true';
+  const min_elevation = req.query.min_elevation || '30';
+  const days_ahead = req.query.days_ahead || '7';
+
+  const cacheKey = `iss_pass_${lat}_${lon}_${visible_only}_${min_elevation}_${days_ahead}`;
+  const TWENTY_FOUR_HOURS = 24 * 60 * 60 * 1000;
+
+  const cached = getCached(cacheKey, TWENTY_FOUR_HOURS);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  try {
+    const params = new URLSearchParams({ lat, lon, visible_only, min_elevation, days_ahead });
+    const url = `${ISS_API_URL}?${params.toString()}`;
+    console.log(`[Proxy] Fetching ISS Passes: ${url}`);
+
+    const response = await fetch(url, {
+      headers: { 'Accept': 'application/json' }
+    });
+
+    if (!response.ok) throw new Error(`ISS API responded with status ${response.status}`);
+    const data = await response.json();
+
+    const responsePayload = {
+      ...data,
+      fetched_at: Date.now(),
+      cached: false
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (err) {
+    console.error('[ISS API Error]', err);
+    res.status(500).json({ error: 'Failed to fetch ISS orbital pass data.', message: err.message });
+  }
+});
+
 // Serve frontend static build
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
@@ -303,6 +345,6 @@ app.get('*', (req, res) => {
 
 app.listen(PORT, HOST, () => {
   console.log(`====================================================`);
-  console.log(`🚀 EZTV + YTS Server running on http://${HOST}:${PORT}`);
+  console.log(`🚀 EZsearch Multi-API Server running on http://${HOST}:${PORT}`);
   console.log(`====================================================`);
 });
