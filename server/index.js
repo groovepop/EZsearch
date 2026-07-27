@@ -49,9 +49,7 @@ const YTS_MIRRORS = [
 ];
 
 const TPB_MIRRORS = [
-  'https://apibay.org/q.php',
-  'https://tpb23.uk/q.php',
-  'https://thepiratebay.zone/q.php'
+  'https://apibay.org/q.php'
 ];
 
 const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
@@ -98,7 +96,6 @@ function fetchJsonUrl(urlStr, timeoutMs = 7000) {
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
   let lastError = null;
 
-  // Build query string with %20 instead of + for space compatibility
   const queryString = Object.entries(queryParams)
     .filter(([_, v]) => v !== undefined && v !== '')
     .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
