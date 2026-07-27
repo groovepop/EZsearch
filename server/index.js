@@ -58,7 +58,7 @@ const ISS_API_URL = 'https://iss-api.polluxlabs.io/iss-pass';
 const NASA_MARS_API_KEY = process.env.NASA_API_KEY || 'HjDzwXUG8xus968xQkgPC0MKB6hcUN1hF4x5TvaP';
 const NASA_MARS_URL = `https://api.nasa.gov/insight_weather/?api_key=${NASA_MARS_API_KEY}&feedtype=json&ver=1.0`;
 
-// Helper: Reliable HTTPS/HTTP JSON fetcher (IPv4 compatible)
+// Helper: Reliable HTTPS/HTTP JSON fetcher
 function fetchJsonUrl(urlStr, timeoutMs = 7000) {
   return new Promise((resolve, reject) => {
     const parsedUrl = new URL(urlStr);
@@ -67,7 +67,8 @@ function fetchJsonUrl(urlStr, timeoutMs = 7000) {
     const req = transport.get(urlStr, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'Accept': 'application/json, text/plain, */*'
+        'Accept': 'application/json, text/plain, */*',
+        'Host': parsedUrl.hostname
       }
     }, (res) => {
       let data = '';
@@ -97,9 +98,15 @@ function fetchJsonUrl(urlStr, timeoutMs = 7000) {
 async function fetchWithFallback(mirrors, queryParams, timeoutMs = 7000) {
   let lastError = null;
 
+  // Build query string with %20 instead of + for space compatibility
+  const queryString = Object.entries(queryParams)
+    .filter(([_, v]) => v !== undefined && v !== '')
+    .map(([k, v]) => `${encodeURIComponent(k)}=${encodeURIComponent(v)}`)
+    .join('&');
+
   for (const mirror of mirrors) {
     try {
-      const url = `${mirror}?${new URLSearchParams(queryParams).toString()}`;
+      const url = `${mirror}?${queryString}`;
       console.log(`[Proxy] Fetching: ${url}`);
       const data = await fetchJsonUrl(url, timeoutMs);
       return { data, mirrorUsed: mirror };
