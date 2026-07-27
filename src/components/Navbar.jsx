@@ -1,7 +1,16 @@
-import React from 'react';
-import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw, Moon } from 'lucide-react';
+import { fetchMoonPhase } from '../services/api';
 
 export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefresh, mirrorUsed, isCached }) {
+  const [moonData, setMoonData] = useState(null);
+
+  useEffect(() => {
+    fetchMoonPhase()
+      .then(data => setMoonData(data))
+      .catch(e => console.warn('[Moon Navbar Error]', e));
+  }, []);
+
   let mirrorHostname = '';
   if (mirrorUsed) {
     try {
@@ -41,7 +50,51 @@ export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefr
         </div>
       </div>
 
+      {/* Center/Right Space: NASA SVS Moon Phase Pill */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
+        {moonData && moonData.image_url && (
+          <div 
+            title={`NASA Scientific Visualization Studio Dial-A-Moon (LRO Telemetry)\nIllumination: ${moonData.phase}%\nMoon Age: ${moonData.age} days`}
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: '0.6rem',
+              background: 'rgba(255, 255, 255, 0.04)',
+              padding: '0.35rem 0.8rem 0.35rem 0.4rem',
+              borderRadius: '24px',
+              border: '1px solid rgba(255, 255, 255, 0.15)',
+              boxShadow: '0 0 15px rgba(255, 255, 255, 0.08)',
+              transition: 'all 0.2s ease'
+            }}
+          >
+            <div style={{
+              width: '34px',
+              height: '34px',
+              borderRadius: '50%',
+              overflow: 'hidden',
+              background: '#000',
+              border: '1px solid rgba(255, 255, 255, 0.3)',
+              boxShadow: '0 0 10px rgba(255, 255, 255, 0.35)',
+              flexShrink: 0
+            }}>
+              <img 
+                src={moonData.image_url} 
+                alt="NASA Moon Phase"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </div>
+            <div style={{ display: 'flex', flexDirection: 'column', lineHeight: '1.2' }}>
+              <span style={{ fontSize: '0.75rem', fontWeight: 700, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                <Moon size={12} color="var(--accent-cyan)" />
+                {moonData.phase}% Illuminated
+              </span>
+              <span style={{ fontSize: '0.65rem', color: 'var(--text-muted)' }}>
+                NASA SVS Age: {moonData.age}d
+              </span>
+            </div>
+          </div>
+        )}
+
         {mirrorUsed && (
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.75rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.03)', padding: '0.4rem 0.8rem', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
             <ShieldCheck size={14} color="var(--accent-green)" />

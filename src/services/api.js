@@ -1,4 +1,4 @@
-// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS & NASA Mars Weather
+// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS, NASA Mars & NASA SVS Moon
 
 export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
   const params = new URLSearchParams({
@@ -180,4 +180,55 @@ export async function fetchMarsWeather(forceRefresh = false) {
     cachedAt: now,
     cacheExpiresInMs: SIX_HOURS_MS
   };
+}
+
+// NASA SVS Dial-A-Moon Phase Client (6-Hour LocalStorage Caching Strategy)
+const MOON_PHASE_CACHE_KEY = 'nasa_svs_moon_phase_v1';
+
+export async function fetchMoonPhase(forceRefresh = false) {
+  if (!forceRefresh) {
+    try {
+      const cachedRaw = localStorage.getItem(MOON_PHASE_CACHE_KEY);
+      if (cachedRaw) {
+        const cachedObj = JSON.parse(cachedRaw);
+        const age = Date.now() - (cachedObj.timestamp || 0);
+        if (age < SIX_HOURS_MS) {
+          return cachedObj.data;
+        }
+      }
+    } catch (e) {
+      console.warn('[Moon Cache] LocalStorage error:', e);
+    }
+  }
+
+  let data;
+  try {
+    const res = await fetch('/api/nasa/moon');
+    if (!res.ok) throw new Error(`Proxy error ${res.status}`);
+    data = await res.json();
+  } catch (proxyError) {
+    const now = new Date();
+    const formatStr = now.toISOString().substring(0, 13) + ':00';
+    const directRes = await fetch(`https://svs.gsfc.nasa.gov/api/dialamoon/${formatStr}`);
+    if (!directRes.ok) throw new Error('Failed to fetch NASA SVS Moon phase from NASA API');
+    const svsData = await directRes.json();
+    data = {
+      image_url: svsData.image?.url || '',
+      phase: svsData.phase !== undefined ? parseFloat(svsData.phase.toFixed(1)) : 50.0,
+      age: svsData.age !== undefined ? parseFloat(svsData.age.toFixed(1)) : 14.0,
+      time: svsData.time || formatStr
+    };
+  }
+
+  const now = Date.now();
+  try {
+    localStorage.setItem(MOON_PHASE_CACHE_KEY, JSON.stringify({
+      timestamp: now,
+      data
+    }));
+  } catch (e) {
+    console.warn('[Moon Cache] Failed to save to LocalStorage:', e);
+  }
+
+  return data;
 }
