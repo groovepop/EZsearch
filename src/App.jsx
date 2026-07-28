@@ -22,7 +22,7 @@ export default function App() {
   
   const [page, setPage] = useState(1);
   const [limit, setLimit] = useState(30);
-  const [searchTerm, setSearchTerm] = useState(''); // Clean empty search bar by default
+  const [searchTerm, setSearchTerm] = useState('');
   const [selectedShow, setSelectedShow] = useState(null);
   
   const [selectedQuality, setSelectedQuality] = useState('ALL');
@@ -86,7 +86,7 @@ export default function App() {
     try {
       if (activeCategory === 'tpb') {
         const queryToSearch = searchTerm.trim();
-        const res = await fetchPirateBayTorrents({ query: queryToSearch, cat: '0' });
+        const res = await fetchPirateBayTorrents({ query: queryToSearch, cat: '0', page, limit: 100 });
         setTorrents(res.torrents || []);
         setMirrorUsed(res.mirrorUsed || 'Pirate Bay API Engine');
         setIsCached(!!res.cached);
@@ -209,7 +209,7 @@ export default function App() {
           {loading ? (
             <div style={{ textAlign: 'center', padding: '5rem 1rem' }}>
               <Loader2 size={42} className="animate-spin" color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching torrent list from {activeCategory === 'tpb' ? 'Pirate Bay API Engine...' : 'mirror proxy...'}</p>
+              <p style={{ color: 'var(--text-muted)', fontSize: '0.95rem' }}>Fetching torrent list from {activeCategory === 'tpb' ? 'Pirate Bay API Engine (100 Results/Page)...' : 'mirror proxy...'}</p>
             </div>
           ) : error ? (
             <div className="glass-panel" style={{ textAlign: 'center', padding: '3rem 1.5rem', borderColor: 'var(--accent-red)' }}>
@@ -227,10 +227,10 @@ export default function App() {
           ) : (
             <>
               <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', marginBottom: '0.5rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <span>Showing <strong>{processedTorrents.length}</strong> results</span>
+                <span>Showing <strong>{processedTorrents.length}</strong> results (Page {page})</span>
                 {activeCategory === 'tpb' && (
                   <span style={{ fontSize: '0.78rem', color: '#00e5ff', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                    <Anchor size={14} /> Full Unconstrained Pirate Bay Search
+                    <Anchor size={14} /> Full Multi-Page Pirate Bay Engine (100 Results/Page)
                   </span>
                 )}
               </div>
@@ -251,16 +251,14 @@ export default function App() {
                 />
               )}
 
-              {activeCategory !== 'tpb' && (
-                <Pagination
-                  currentPage={page}
-                  onPageChange={(newPage) => {
-                    setPage(newPage);
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  loading={loading}
-                />
-              )}
+              <Pagination
+                currentPage={page}
+                onPageChange={(newPage) => {
+                  setPage(newPage);
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+                loading={loading}
+              />
             </>
           )}
         </>

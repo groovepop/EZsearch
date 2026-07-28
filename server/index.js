@@ -292,24 +292,26 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Unconstrained Pirate Bay & Season Packs Search API (5 Min Cache)
+// 3. Unconstrained Pirate Bay Search API (100 Results per Page + Multi-Page Pagination)
 app.get('/api/tpb/search', async (req, res) => {
-  const { q = '', cat = '0' } = req.query;
+  const { q = '', cat = '0', page = '1', limit = '100' } = req.query;
   const searchTermToUse = q.trim() || '2026';
-  const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}`;
+  const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}_${page}_${limit}`;
 
   const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) {
     return res.json({ ...cached, cached: true });
   }
 
-  // 1st Try: BitSearch API (Unconstrained across ALL categories)
+  // 1st Try: BitSearch API (Limit 100 per page + Multi-Page Support)
   try {
-    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(searchTermToUse)}`;
-    console.log(`[Proxy] Fetching BitSearch API (Unconstrained): ${solidUrl}`);
+    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(searchTermToUse)}&limit=${limit}&page=${page}`;
+    console.log(`[Proxy] Fetching BitSearch API (100 Results/Page): ${solidUrl}`);
     const solidData = await fetchJsonUrl(solidUrl, 6000);
 
     const rawList = solidData?.results || [];
+    const totalCount = solidData?.pagination?.total || rawList.length;
+
     if (rawList.length > 0) {
       const torrents = rawList.map(item => ({
         id: `solid_${item.id}_${item.infohash || item.hash}`,
@@ -328,7 +330,16 @@ app.get('/api/tpb/search', async (req, res) => {
         source: 'Pirate Bay (BitSearch API)'
       }));
 
-      const responsePayload = { torrents, total_count: torrents.length, query: q, mirrorUsed: 'https://bitsearch.eu' };
+      const responsePayload = {
+        torrents,
+        total_count: totalCount,
+        torrents_count: totalCount,
+        query: q,
+        page: parseInt(page, 10),
+        limit: parseInt(limit, 10),
+        mirrorUsed: 'https://bitsearch.eu'
+      };
+
       setCache(cacheKey, responsePayload);
       return res.json(responsePayload);
     }
@@ -336,10 +347,10 @@ app.get('/api/tpb/search', async (req, res) => {
     console.warn(`[Proxy] BitSearch API failed: ${solidErr.message}. Trying APIBay...`);
   }
 
-  // 2nd Try: Official APIBay API (apibay.org - cat=0 for ALL categories)
+  // 2nd Try: Official APIBay API (apibay.org - Up to 100 results)
   try {
     const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(searchTermToUse)}&cat=${cat || '0'}`;
-    console.log(`[Proxy] Fetching APIBay (Unconstrained): ${apibayUrl}`);
+    console.log(`[Proxy] Fetching APIBay: ${apibayUrl}`);
     const data = await fetchJsonUrl(apibayUrl, 5000);
 
     const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
@@ -361,7 +372,16 @@ app.get('/api/tpb/search', async (req, res) => {
       source: 'Pirate Bay (APIBay)'
     }));
 
-    const responsePayload = { torrents, total_count: torrents.length, query: q, mirrorUsed: 'https://apibay.org' };
+    const responsePayload = {
+      torrents,
+      total_count: torrents.length,
+      torrents_count: torrents.length,
+      query: q,
+      page: parseInt(page, 10),
+      limit: parseInt(limit, 10),
+      mirrorUsed: 'https://apibay.org'
+    };
+
     setCache(cacheKey, responsePayload);
     return res.json(responsePayload);
   } catch (apibayErr) {
