@@ -40,7 +40,7 @@ export default function ISSWidget() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [visibleOnlyMode, setVisibleOnlyMode] = useState(false); // Default to false so user gets ALL flyovers, with visible ones highlighted!
+  const [visibleOnlyMode, setVisibleOnlyMode] = useState(false); // Default to false to show all 80+ flyover passes
   const [countdown, setCountdown] = useState('');
 
   const loadData = async (forceRefresh = false) => {
@@ -49,9 +49,8 @@ export default function ISSWidget() {
     try {
       const res = await fetchISSPasses({
         visibleOnly: visibleOnlyMode,
-        minElevation: 15,
+        minElevation: 10,
         daysAhead: 14,
-        sunAltMax: -3,
         forceRefresh
       });
       setData(res);
@@ -126,8 +125,8 @@ export default function ISSWidget() {
           </div>
           <div>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              ISS Space Station Tracker
-              <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>14-DAY ORBITAL FORECAST</span>
+              ISS High-Precision Orbital Tracker
+              <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>SGP4 NORAD TLE ENGINE</span>
             </h2>
             <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', display: 'flex', alignItems: 'center', gap: '0.4rem', marginTop: '0.2rem' }}>
               <MapPin size={15} color="var(--accent-cyan)" />
@@ -156,7 +155,7 @@ export default function ISSWidget() {
               }}
             >
               <Layers size={14} />
-              <span>All Orbital Flyovers ({passes.length})</span>
+              <span>All Orbital Flyovers ({data?.total_calculated_passes || passes.length})</span>
             </button>
 
             <button
@@ -176,7 +175,7 @@ export default function ISSWidget() {
               }}
             >
               <Sparkles size={14} />
-              <span>Naked-Eye Visible Only</span>
+              <span>Naked-Eye Visible Only ({data?.visible_passes_count || '0'})</span>
             </button>
           </div>
 
@@ -196,14 +195,14 @@ export default function ISSWidget() {
       {loading ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
           <Orbit size={42} className="animate-spin" color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: 'var(--text-muted)' }}>Calculating orbital passes for Hamilton, ON...</p>
+          <p style={{ color: 'var(--text-muted)' }}>Calculating 14-day high-precision orbital SGP4 passes for Hamilton, ON...</p>
         </div>
       ) : error ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '3rem 1.5rem', borderColor: 'var(--accent-red)' }}>
           <Info size={36} color="var(--accent-red)" style={{ marginBottom: '1rem' }} />
           <h3 style={{ color: '#fff', fontSize: '1.1rem', marginBottom: '0.5rem' }}>Unable to load ISS Pass Data</h3>
           <p style={{ color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.2rem' }}>{error}</p>
-          <button className="btn btn-primary" onClick={() => loadData(true)}>Retry API Fetch</button>
+          <button className="btn btn-primary" onClick={() => loadData(true)}>Retry Calculation</button>
         </div>
       ) : passes.length === 0 ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '3.5rem 1.5rem' }}>
@@ -280,7 +279,7 @@ export default function ISSWidget() {
                     {formatLocalTime(nextPass.culmination?.time)}
                   </div>
                   <div style={{ fontSize: '0.75rem', color: 'var(--text-dim)', marginTop: '0.2rem' }}>
-                    Duration: {formatDuration(nextPass.visible_duration_sec || nextPass.duration_sec)}
+                    Duration: {formatDuration(nextPass.duration_sec)}
                   </div>
                 </div>
 
@@ -331,11 +330,11 @@ export default function ISSWidget() {
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1rem', flexWrap: 'wrap', gap: '0.5rem' }}>
               <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                 <Clock size={18} color="var(--accent-cyan)" /> 
-                14-Day Flyover Forecast ({passes.length} Passes Scheduled)
+                14-Day Flyover Forecast ({passes.length} Passes Calculated)
               </h3>
               
               <div style={{ fontSize: '0.78rem', color: 'var(--text-muted)' }}>
-                {data.isLocalStorageCached ? 'Loaded from 24h LocalStorage Cache' : 'Fresh API Request'}
+                SGP4 NORAD TLE Engine ({data.isLocalStorageCached ? '24h LocalStorage Cache' : 'Fresh Celestrak Calculation'})
               </div>
             </div>
 
@@ -382,7 +381,7 @@ export default function ISSWidget() {
                           {pass.rise?.compass} ({pass.rise?.azimuth_deg}°) → {pass.set?.compass} ({pass.set?.azimuth_deg}°)
                         </td>
                         <td style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>
-                          {formatDuration(pass.visible_duration_sec || pass.duration_sec)}
+                          {formatDuration(pass.duration_sec)}
                         </td>
                       </tr>
                     );

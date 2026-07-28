@@ -1,4 +1,4 @@
-// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS, NASA Mars & NASA SVS Moon
+// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars & NASA SVS Moon
 
 export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
   const params = new URLSearchParams({
@@ -58,18 +58,16 @@ export async function searchTVShows(query) {
   return data.shows || [];
 }
 
-// ISS Space Station API Client with 24-Hour LocalStorage Caching Strategy
+// ISS Space Station High-Precision SGP4 Engine (24-Hour LocalStorage Caching Strategy)
 const TWENTY_FOUR_HOURS_MS = 24 * 60 * 60 * 1000;
 
 export async function fetchISSPasses({
   visibleOnly = false,
-  minElevation = 15,
+  minElevation = 10,
   daysAhead = 14,
-  sunAltMax = -3,
-  n = 20,
   forceRefresh = false
 } = {}) {
-  const cacheKey = `iss_pass_hamilton_v3_${visibleOnly}_${minElevation}_${daysAhead}_${sunAltMax}_${n}`;
+  const cacheKey = `iss_pass_sgp4_v4_${visibleOnly}_${minElevation}_${daysAhead}`;
 
   if (!forceRefresh) {
     try {
@@ -96,21 +94,12 @@ export async function fetchISSPasses({
     lon: '-79.87',
     visible_only: visibleOnly.toString(),
     min_elevation: minElevation.toString(),
-    days_ahead: daysAhead.toString(),
-    sun_alt_max: sunAltMax.toString(),
-    n: n.toString()
+    days_ahead: daysAhead.toString()
   });
 
-  let data;
-  try {
-    const res = await fetch(`/api/iss/passes?${params.toString()}`);
-    if (!res.ok) throw new Error(`Proxy error ${res.status}`);
-    data = await res.json();
-  } catch (proxyError) {
-    const directRes = await fetch(`https://iss-api.polluxlabs.io/iss-pass?${params.toString()}`);
-    if (!directRes.ok) throw new Error('Failed to fetch ISS pass data from both proxy and direct API');
-    data = await directRes.json();
-  }
+  const res = await fetch(`/api/iss/passes?${params.toString()}`);
+  if (!res.ok) throw new Error(`Proxy error ${res.status}`);
+  const data = await res.json();
 
   const now = Date.now();
   try {
