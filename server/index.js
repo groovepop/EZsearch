@@ -4,7 +4,7 @@ import path from 'path';
 import https from 'https';
 import http from 'http';
 import { fileURLToPath } from 'url';
-import satellite from 'satellite.js';
+import * as satellite from 'satellite.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
