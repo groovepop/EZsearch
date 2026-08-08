@@ -1,5 +1,5 @@
 import React from 'react';
-import { Tv, Film, Anchor, Orbit, Flame } from 'lucide-react';
+import { Tv, Film, Anchor, Orbit, Flame, CloudSun } from 'lucide-react';
 
 export default function CategoryTabs({ activeCategory, setCategory }) {
   return (
@@ -9,7 +9,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '150px',
+          minWidth: '140px',
           padding: '0.85rem 1.1rem',
           display: 'flex',
           alignItems: 'center',
@@ -36,7 +36,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '150px',
+          minWidth: '140px',
           padding: '0.85rem 1.1rem',
           display: 'flex',
           alignItems: 'center',
@@ -63,7 +63,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '150px',
+          minWidth: '140px',
           padding: '0.85rem 1.1rem',
           display: 'flex',
           alignItems: 'center',
@@ -86,11 +86,38 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       </button>
 
       <button
-        onClick={() => setCategory('iss')}
+        onClick={() => setCategory('weather')}
         className="glass-panel"
         style={{
           flex: 1,
           minWidth: '140px',
+          padding: '0.85rem 1.1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.6rem',
+          fontWeight: 700,
+          fontSize: '0.9rem',
+          cursor: 'pointer',
+          border: activeCategory === 'weather' ? '1px solid #0096ff' : '1px solid var(--border-glass)',
+          background: activeCategory === 'weather' ? 'rgba(0, 150, 255, 0.15)' : 'var(--bg-glass)',
+          color: activeCategory === 'weather' ? '#0096ff' : 'var(--text-muted)',
+          boxShadow: activeCategory === 'weather' ? '0 0 20px rgba(0, 150, 255, 0.25)' : 'none',
+          transition: 'all 0.2s ease',
+          borderRadius: '12px'
+        }}
+      >
+        <CloudSun size={18} color="#0096ff" />
+        <span>Hamilton Weather</span>
+        <span className="badge badge-cyan" style={{ fontSize: '0.65rem' }}>7-DAY</span>
+      </button>
+
+      <button
+        onClick={() => setCategory('iss')}
+        className="glass-panel"
+        style={{
+          flex: 1,
+          minWidth: '130px',
           padding: '0.85rem 1.1rem',
           display: 'flex',
           alignItems: 'center',
@@ -116,7 +143,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         className="glass-panel"
         style={{
           flex: 1,
-          minWidth: '140px',
+          minWidth: '130px',
           padding: '0.85rem 1.1rem',
           display: 'flex',
           alignItems: 'center',

@@ -9,12 +9,13 @@ import Pagination from './components/Pagination';
 import WatchlistDrawer from './components/WatchlistDrawer';
 import ISSWidget from './components/ISSWidget';
 import MarsWidget from './components/MarsWidget';
+import WeatherWidget from './components/WeatherWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
 
 export default function App() {
   // State
-  const [activeCategory, setActiveCategory] = useState('tpb'); // Default to 'tpb', 'tv', 'movies', 'iss', or 'mars'
+  const [activeCategory, setActiveCategory] = useState('tpb'); // Default to 'tpb', 'tv', 'movies', 'weather', 'iss', or 'mars'
   const [activeTab, setActiveTab] = useState('main');
   const [torrents, setTorrents] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -79,7 +80,7 @@ export default function App() {
 
   // Fetch Torrents Logic
   const loadData = useCallback(async () => {
-    if (activeCategory === 'iss' || activeCategory === 'mars') return;
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather') return;
 
     setLoading(true);
     setError(null);
@@ -130,7 +131,7 @@ export default function App() {
   };
 
   const processedTorrents = React.useMemo(() => {
-    if (activeCategory === 'iss' || activeCategory === 'mars') return [];
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather') return [];
     let list = [...torrents];
 
     if (activeCategory === 'tv' && searchTerm && !selectedShow && !searchTerm.startsWith('tt')) {
@@ -168,7 +169,9 @@ export default function App() {
       <CategoryTabs activeCategory={activeCategory} setCategory={handleCategorySwitch} />
 
       {/* Render Widgets or Torrent Views */}
-      {activeCategory === 'iss' ? (
+      {activeCategory === 'weather' ? (
+        <WeatherWidget />
+      ) : activeCategory === 'iss' ? (
         <ISSWidget />
       ) : activeCategory === 'mars' ? (
         <MarsWidget />

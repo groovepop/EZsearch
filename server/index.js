@@ -51,6 +51,9 @@ const YTS_MIRRORS = [
 
 const NASA_MARS_CURIOSITY_URL = 'https://mars.nasa.gov/rss/api/?feed=weather&category=msl&feedtype=json';
 
+const XWEATHER_CLIENT_ID = process.env.XWEATHER_CLIENT_ID || 'kNPY5XGr0SDofXdyLH9Z6';
+const XWEATHER_CLIENT_SECRET = process.env.XWEATHER_CLIENT_SECRET || 'k88PkimT0tLyeFa8lhDRGMdGMMZdjvB3JgiCvCnA';
+
 // Helper: Reliable HTTPS/HTTP JSON fetcher with automatic 301/302 Redirect Following
 function fetchTextUrl(urlStr, timeoutMs = 7000, redirectCount = 0) {
   return new Promise((resolve, reject) => {
@@ -628,6 +631,142 @@ app.get('/api/nasa/moon', async (req, res) => {
   } catch (err) {
     console.error('[NASA SVS Moon API Error]', err);
     res.status(500).json({ error: 'Failed to fetch NASA SVS Moon phase telemetry.', message: err.message });
+  }
+});
+
+// 8. Xweather Hamilton ON Local 7-Day Weather & Observations Endpoint (30 Min Cache)
+app.get('/api/weather/hamilton', async (req, res) => {
+  const cacheKey = 'xweather_hamilton_7day_v1';
+  const THIRTY_MINS = 30 * 60 * 1000;
+
+  const cached = getCached(cacheKey, THIRTY_MINS);
+  if (cached) {
+    return res.json({ ...cached, cached: true });
+  }
+
+  // 1st Try: Official Xweather (AerisWeather) API
+  try {
+    const forecastUrl = `https://data.api.xweather.com/forecasts/hamilton,on?client_id=${XWEATHER_CLIENT_ID}&client_secret=${XWEATHER_CLIENT_SECRET}`;
+    const obsUrl = `https://data.api.xweather.com/observations/hamilton,on?client_id=${XWEATHER_CLIENT_ID}&client_secret=${XWEATHER_CLIENT_SECRET}`;
+
+    console.log(`[Proxy] Fetching Xweather Forecasts & Observations for Hamilton, ON...`);
+    const [forecastData, obsData] = await Promise.all([
+      fetchJsonUrl(forecastUrl, 6000),
+      fetchJsonUrl(obsUrl, 6000).catch(() => null)
+    ]);
+
+    if (forecastData?.success && forecastData?.response?.[0]?.periods) {
+      const forecastItem = forecastData.response[0];
+      const obItem = obsData?.response?.ob || null;
+
+      const periods = forecastItem.periods.map((p) => ({
+        timestamp: p.timestamp,
+        dateTimeISO: p.dateTimeISO,
+        validTime: p.validTime,
+        weather: p.weatherPrimary || p.weather || 'Clear',
+        icon: p.icon ? `https://cdn.xweather.com/icons/${p.icon}` : null,
+        rawIcon: p.icon,
+        maxTempC: p.maxTempC,
+        minTempC: p.minTempC,
+        avgTempC: p.avgTempC,
+        maxTempF: p.maxTempF,
+        minTempF: p.minTempF,
+        avgTempF: p.avgTempF,
+        humidity: p.humidity,
+        windSpeedKPH: p.windSpeedKPH,
+        windDir: p.windDir,
+        pop: p.pop || 0,
+        precipMM: p.precipMM || 0,
+        uv: p.uv || 0
+      }));
+
+      const current = obItem ? {
+        tempC: obItem.tempC,
+        feelslikeC: obItem.feelslikeC,
+        tempF: obItem.tempF,
+        feelslikeF: obItem.feelslikeF,
+        weather: obItem.weatherPrimary || obItem.weather || 'Clear',
+        icon: obItem.icon ? `https://cdn.xweather.com/icons/${obItem.icon}` : null,
+        humidity: obItem.humidity,
+        windSpeedKPH: obItem.windSpeedKPH,
+        windDir: obItem.windDir,
+        pressureMB: obItem.pressureMB,
+        visibilityKM: obItem.visibilityKM,
+        uv: obItem.solrad?.uv || obItem.uv || 0,
+        dateTimeISO: obItem.dateTimeISO
+      } : {
+        tempC: periods[0].avgTempC,
+        feelslikeC: periods[0].avgTempC,
+        weather: periods[0].weather,
+        humidity: periods[0].humidity,
+        windSpeedKPH: periods[0].windSpeedKPH,
+        windDir: periods[0].windDir
+      };
+
+      const responsePayload = {
+        source: 'Xweather (AerisWeather API)',
+        location: 'Hamilton, ON',
+        profile: forecastItem.profile || { tz: 'America/Toronto' },
+        current,
+        periods,
+        fetched_at: Date.now(),
+        cached: false
+      };
+
+      setCache(cacheKey, responsePayload);
+      return res.json(responsePayload);
+    }
+  } catch (xerr) {
+    console.warn(`[Proxy] Xweather API warning: ${xerr.message}. Trying Open-Meteo fallback...`);
+  }
+
+  // 2nd Try: High-Resolution Open-Meteo Fallback
+  try {
+    const omUrl = 'https://api.open-meteo.com/v1/forecast?latitude=43.25&longitude=-79.87&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,windspeed_10m_max,uv_index_max&current_weather=true&timezone=America%2FToronto';
+    console.log(`[Proxy] Fetching Open-Meteo fallback for Hamilton, ON: ${omUrl}`);
+
+    const omData = await fetchJsonUrl(omUrl, 6000);
+
+    const wmoMap = {
+      0: 'Clear Sky ☀️', 1: 'Mainly Clear 🌤️', 2: 'Partly Cloudy ⛅', 3: 'Overcast ☁️',
+      45: 'Foggy 🌫️', 48: 'Depositing Rime Fog 🌫️', 51: 'Light Drizzle 🌧️', 53: 'Moderate Drizzle 🌧️', 55: 'Dense Drizzle 🌧️',
+      61: 'Slight Rain 🌧️', 63: 'Moderate Rain 🌧️', 65: 'Heavy Rain 🌧️', 71: 'Slight Snow ❄️', 73: 'Moderate Snow ❄️', 75: 'Heavy Snow ❄️',
+      80: 'Rain Showers 🌦️', 81: 'Moderate Rain Showers 🌦️', 82: 'Violent Rain Showers ⛈️', 95: 'Thunderstorm 🌩️'
+    };
+
+    const daily = omData.daily || {};
+    const periods = (daily.time || []).map((t, idx) => ({
+      dateTimeISO: t,
+      weather: wmoMap[daily.weathercode?.[idx]] || 'Partly Cloudy',
+      maxTempC: daily.temperature_2m_max?.[idx],
+      minTempC: daily.temperature_2m_min?.[idx],
+      maxTempF: parseFloat((daily.temperature_2m_max?.[idx] * 1.8 + 32).toFixed(1)),
+      minTempF: parseFloat((daily.temperature_2m_min?.[idx] * 1.8 + 32).toFixed(1)),
+      pop: daily.precipitation_probability_max?.[idx] || 0,
+      precipMM: daily.precipitation_sum?.[idx] || 0,
+      windSpeedKPH: daily.windspeed_10m_max?.[idx] || 0,
+      uv: daily.uv_index_max?.[idx] || 0
+    }));
+
+    const responsePayload = {
+      source: 'Open-Meteo Weather API',
+      location: 'Hamilton, ON',
+      current: {
+        tempC: omData.current_weather?.temperature,
+        feelslikeC: omData.current_weather?.temperature,
+        weather: wmoMap[omData.current_weather?.weathercode] || 'Clear',
+        windSpeedKPH: omData.current_weather?.windspeed
+      },
+      periods,
+      fetched_at: Date.now(),
+      cached: false
+    };
+
+    setCache(cacheKey, responsePayload);
+    res.json(responsePayload);
+  } catch (omErr) {
+    console.error('[Weather API Error]', omErr);
+    res.status(500).json({ error: 'Failed to fetch Hamilton local weather forecast.', message: omErr.message });
   }
 });
 

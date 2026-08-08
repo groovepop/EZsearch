@@ -1,4 +1,4 @@
-// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars & NASA SVS Moon
+// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars, NASA SVS Moon & Xweather Hamilton
 
 export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
   const params = new URLSearchParams({
@@ -222,4 +222,51 @@ export async function fetchMoonPhase(forceRefresh = false) {
   }
 
   return data;
+}
+
+// Xweather Hamilton ON Local 7-Day Weather Client (30-Minute LocalStorage Cache)
+const HAMILTON_WEATHER_CACHE_KEY = 'xweather_hamilton_weather_v1';
+const THIRTY_MINS_MS = 30 * 60 * 1000;
+
+export async function fetchHamiltonWeather(forceRefresh = false) {
+  if (!forceRefresh) {
+    try {
+      const cachedRaw = localStorage.getItem(HAMILTON_WEATHER_CACHE_KEY);
+      if (cachedRaw) {
+        const cachedObj = JSON.parse(cachedRaw);
+        const age = Date.now() - (cachedObj.timestamp || 0);
+        if (age < THIRTY_MINS_MS) {
+          return {
+            ...cachedObj.data,
+            isLocalStorageCached: true,
+            cachedAt: cachedObj.timestamp,
+            cacheExpiresInMs: THIRTY_MINS_MS - age
+          };
+        }
+      }
+    } catch (e) {
+      console.warn('[Weather Cache] LocalStorage error:', e);
+    }
+  }
+
+  const res = await fetch('/api/weather/hamilton');
+  if (!res.ok) throw new Error(`Weather proxy error ${res.status}`);
+  const data = await res.json();
+
+  const now = Date.now();
+  try {
+    localStorage.setItem(HAMILTON_WEATHER_CACHE_KEY, JSON.stringify({
+      timestamp: now,
+      data
+    }));
+  } catch (e) {
+    console.warn('[Weather Cache] Failed to save to LocalStorage:', e);
+  }
+
+  return {
+    ...data,
+    isLocalStorageCached: false,
+    cachedAt: now,
+    cacheExpiresInMs: THIRTY_MINS_MS
+  };
 }
