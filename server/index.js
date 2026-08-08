@@ -634,9 +634,9 @@ app.get('/api/nasa/moon', async (req, res) => {
   }
 });
 
-// 8. Xweather Hamilton ON Local 7-Day Weather & Observations Endpoint (30 Min Cache)
+// 8. Xweather Hamilton ON Local 7-Day & 12-Hour Hourly Weather Endpoint (30 Min Cache)
 app.get('/api/weather/hamilton', async (req, res) => {
-  const cacheKey = 'xweather_hamilton_7day_v2';
+  const cacheKey = 'xweather_hamilton_7day_12hr_v3';
   const THIRTY_MINS = 30 * 60 * 1000;
 
   const cached = getCached(cacheKey, THIRTY_MINS);
@@ -644,14 +644,16 @@ app.get('/api/weather/hamilton', async (req, res) => {
     return res.json({ ...cached, cached: true });
   }
 
-  // 1st Try: Official Xweather (AerisWeather) API
+  // 1st Try: Official Xweather (AerisWeather) API (Daily + 12-Hour Hourly + Current Obs)
   try {
     const forecastUrl = `https://data.api.xweather.com/forecasts/hamilton,on?client_id=${XWEATHER_CLIENT_ID}&client_secret=${XWEATHER_CLIENT_SECRET}`;
+    const hourlyUrl = `https://data.api.xweather.com/forecasts/hamilton,on?client_id=${XWEATHER_CLIENT_ID}&client_secret=${XWEATHER_CLIENT_SECRET}&filter=1hr&limit=12`;
     const obsUrl = `https://data.api.xweather.com/observations/hamilton,on?client_id=${XWEATHER_CLIENT_ID}&client_secret=${XWEATHER_CLIENT_SECRET}`;
 
-    console.log(`[Proxy] Fetching Xweather Forecasts & Observations for Hamilton, ON...`);
-    const [forecastData, obsData] = await Promise.all([
+    console.log(`[Proxy] Fetching Xweather Daily, 12-Hour Hourly & Observations for Hamilton, ON...`);
+    const [forecastData, hourlyData, obsData] = await Promise.all([
       fetchJsonUrl(forecastUrl, 6000),
+      fetchJsonUrl(hourlyUrl, 6000).catch(() => null),
       fetchJsonUrl(obsUrl, 6000).catch(() => null)
     ]);
 
@@ -678,6 +680,25 @@ app.get('/api/weather/hamilton', async (req, res) => {
         pop: p.pop || 0,
         precipMM: p.precipMM || 0,
         uv: p.uv || 0
+      }));
+
+      const hourlyPeriods = (hourlyData?.response?.[0]?.periods || []).map((h) => ({
+        timestamp: h.timestamp,
+        dateTimeISO: h.dateTimeISO,
+        validTime: h.validTime,
+        tempC: h.tempC !== undefined ? h.tempC : h.avgTempC,
+        feelslikeC: h.feelslikeC !== undefined ? h.feelslikeC : h.avgTempC,
+        tempF: h.tempF !== undefined ? h.tempF : h.avgTempF,
+        feelslikeF: h.feelslikeF !== undefined ? h.feelslikeF : h.avgTempF,
+        weather: h.weatherPrimary || h.weather || 'Clear',
+        icon: h.icon ? `https://cdn.aerisapi.com/wxicons/v2/${h.icon}` : null,
+        rawIcon: h.icon,
+        humidity: h.humidity,
+        windSpeedKPH: h.windSpeedKPH,
+        windDir: h.windDir,
+        pop: h.pop || 0,
+        precipMM: h.precipMM || 0,
+        uv: h.uv || 0
       }));
 
       const current = obItem ? {
@@ -708,6 +729,7 @@ app.get('/api/weather/hamilton', async (req, res) => {
         location: 'Hamilton, ON',
         profile: forecastItem.profile || { tz: 'America/Toronto' },
         current,
+        hourlyPeriods,
         periods,
         fetched_at: Date.now(),
         cached: false
@@ -720,9 +742,9 @@ app.get('/api/weather/hamilton', async (req, res) => {
     console.warn(`[Proxy] Xweather API warning: ${xerr.message}. Trying Open-Meteo fallback...`);
   }
 
-  // 2nd Try: High-Resolution Open-Meteo Fallback
+  // 2nd Try: High-Resolution Open-Meteo Fallback (Daily + Hourly)
   try {
-    const omUrl = 'https://api.open-meteo.com/v1/forecast?latitude=43.25&longitude=-79.87&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,windspeed_10m_max,uv_index_max&current_weather=true&timezone=America%2FToronto';
+    const omUrl = 'https://api.open-meteo.com/v1/forecast?latitude=43.25&longitude=-79.87&hourly=temperature_2m,precipitation_probability,weathercode,windspeed_10m&daily=weathercode,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,windspeed_10m_max,uv_index_max&current_weather=true&timezone=America%2FToronto';
     console.log(`[Proxy] Fetching Open-Meteo fallback for Hamilton, ON: ${omUrl}`);
 
     const omData = await fetchJsonUrl(omUrl, 6000);
@@ -748,6 +770,16 @@ app.get('/api/weather/hamilton', async (req, res) => {
       uv: daily.uv_index_max?.[idx] || 0
     }));
 
+    const hourly = omData.hourly || {};
+    const hourlyPeriods = (hourly.time || []).slice(0, 12).map((t, idx) => ({
+      dateTimeISO: t,
+      tempC: hourly.temperature_2m?.[idx],
+      feelslikeC: hourly.temperature_2m?.[idx],
+      weather: wmoMap[hourly.weathercode?.[idx]] || 'Clear',
+      pop: hourly.precipitation_probability?.[idx] || 0,
+      windSpeedKPH: hourly.windspeed_10m?.[idx] || 0
+    }));
+
     const responsePayload = {
       source: 'Open-Meteo Weather API',
       location: 'Hamilton, ON',
@@ -757,6 +789,7 @@ app.get('/api/weather/hamilton', async (req, res) => {
         weather: wmoMap[omData.current_weather?.weathercode] || 'Clear',
         windSpeedKPH: omData.current_weather?.windspeed
       },
+      hourlyPeriods,
       periods,
       fetched_at: Date.now(),
       cached: false

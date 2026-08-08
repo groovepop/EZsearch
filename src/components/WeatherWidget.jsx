@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { CloudSun, Thermometer, Wind, Droplets, Gauge, Sun, Calendar, RefreshCw, MapPin, ShieldCheck, Info, Umbrella } from 'lucide-react';
+import { CloudSun, Thermometer, Wind, Droplets, Gauge, Sun, Calendar, RefreshCw, MapPin, ShieldCheck, Info, Umbrella, Clock } from 'lucide-react';
 import { fetchHamiltonWeather } from '../services/api';
 
 // Unit conversion helpers
@@ -42,6 +42,7 @@ export default function WeatherWidget() {
   const [error, setError] = useState(null);
   const [unit, setUnit] = useState('C'); // Default to Metric (°C)
   const [imgErrors, setImgErrors] = useState({});
+  const [hourlyImgErrors, setHourlyImgErrors] = useState({});
 
   const loadData = async (forceRefresh = false) => {
     setLoading(true);
@@ -63,9 +64,14 @@ export default function WeatherWidget() {
 
   const current = rawData?.current || null;
   const periods = rawData?.periods || [];
+  const hourlyPeriods = rawData?.hourlyPeriods || [];
 
   const handleImageError = (key) => {
     setImgErrors(prev => ({ ...prev, [key]: true }));
+  };
+
+  const handleHourlyImageError = (key) => {
+    setHourlyImgErrors(prev => ({ ...prev, [key]: true }));
   };
 
   const formatTemp = (tempC, tempF) => {
@@ -115,7 +121,7 @@ export default function WeatherWidget() {
           </div>
           <div>
             <h2 style={{ fontSize: '1.4rem', fontWeight: 800, color: '#fff', display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-              Hamilton Local 7-Day Weather Report
+              Hamilton Weather — 12-Hour & 7-Day Forecast
               <span className="badge badge-cyan" style={{ fontSize: '0.7rem' }}>
                 {rawData?.source || 'XWEATHER TELEMETRY'}
               </span>
@@ -177,7 +183,7 @@ export default function WeatherWidget() {
       {loading ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '4rem 1rem' }}>
           <CloudSun size={42} className="animate-spin" color="var(--accent-cyan)" style={{ marginBottom: '1rem' }} />
-          <p style={{ color: 'var(--text-muted)' }}>Loading live Xweather 7-day forecast telemetry for Hamilton, ON...</p>
+          <p style={{ color: 'var(--text-muted)' }}>Loading live Xweather 12-hour & 7-day forecast telemetry for Hamilton, ON...</p>
         </div>
       ) : error ? (
         <div className="glass-panel" style={{ textAlign: 'center', padding: '3rem 1.5rem', borderColor: 'var(--accent-red)' }}>
@@ -282,11 +288,83 @@ export default function WeatherWidget() {
             </div>
           </div>
 
-          {/* 7-Day Forecast Grid */}
+          {/* 12-Hour Hourly Forecast Section */}
+          {hourlyPeriods.length > 0 && (
+            <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '16px' }}>
+              <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                <Clock size={18} color="#00e5ff" />
+                12-Hour Next Hourly Forecast (Hamilton, ON)
+              </h3>
+
+              <div 
+                style={{ 
+                  display: 'grid', 
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(110px, 1fr))', 
+                  gap: '0.8rem',
+                  overflowX: 'auto',
+                  paddingBottom: '0.4rem'
+                }}
+              >
+                {hourlyPeriods.map((h, idx) => {
+                  const dateObj = new Date(h.dateTimeISO || h.validTime || Date.now());
+                  const hourStr = dateObj.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true });
+                  const badge = getWeatherBadge(h.weather);
+                  const iconUrl = getIconUrl(h.icon, h.rawIcon);
+                  const isErr = hourlyImgErrors[idx];
+
+                  return (
+                    <div 
+                      key={idx}
+                      style={{
+                        background: idx === 0 ? 'rgba(0, 229, 255, 0.12)' : 'rgba(255,255,255,0.03)',
+                        border: idx === 0 ? '1px solid var(--accent-cyan)' : '1px solid var(--border-glass)',
+                        padding: '0.9rem 0.6rem',
+                        borderRadius: '12px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        gap: '0.35rem',
+                        alignItems: 'center'
+                      }}
+                    >
+                      <span style={{ fontSize: '0.82rem', fontWeight: 800, color: idx === 0 ? 'var(--accent-cyan)' : '#fff' }}>
+                        {idx === 0 ? 'Now' : hourStr}
+                      </span>
+
+                      {iconUrl && !isErr ? (
+                        <img 
+                          src={iconUrl} 
+                          alt={h.weather} 
+                          onError={() => handleHourlyImageError(idx)}
+                          style={{ width: '40px', height: '40px', objectFit: 'contain', margin: '0.1rem 0' }} 
+                        />
+                      ) : (
+                        <span style={{ fontSize: '1.6rem', margin: '0.1rem 0' }}>{badge.icon}</span>
+                      )}
+
+                      <div style={{ fontSize: '1.1rem', fontWeight: 800, color: '#00e5ff' }}>
+                        {formatTemp(h.tempC, h.tempF)}
+                      </div>
+
+                      <div style={{ fontSize: '0.7rem', color: 'var(--text-muted)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis', maxWidth: '100px' }} title={h.weather}>
+                        {h.weather}
+                      </div>
+
+                      <div style={{ fontSize: '0.72rem', color: 'var(--accent-cyan)', display: 'flex', alignItems: 'center', gap: '0.2rem', marginTop: '0.1rem' }}>
+                        <Umbrella size={11} color="var(--accent-cyan)" /> {h.pop}%
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
+
+          {/* 7-Day Daily Forecast Overview */}
           <div className="glass-panel" style={{ padding: '1.5rem', borderRadius: '16px' }}>
             <h3 style={{ fontSize: '1.1rem', fontWeight: 800, color: '#fff', marginBottom: '1.2rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Calendar size={18} color="var(--accent-cyan)" />
-              7-Day Daily Forecast Overview ({periods.length} Days)
+              7-Day Daily Forecast Outlook ({periods.length} Days)
             </h3>
 
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '0.9rem' }}>
