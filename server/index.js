@@ -636,7 +636,7 @@ app.get('/api/nasa/moon', async (req, res) => {
 
 // 8. Xweather Hamilton ON Local 7-Day Weather & Observations Endpoint (30 Min Cache)
 app.get('/api/weather/hamilton', async (req, res) => {
-  const cacheKey = 'xweather_hamilton_7day_v1';
+  const cacheKey = 'xweather_hamilton_7day_v2';
   const THIRTY_MINS = 30 * 60 * 1000;
 
   const cached = getCached(cacheKey, THIRTY_MINS);
@@ -664,7 +664,7 @@ app.get('/api/weather/hamilton', async (req, res) => {
         dateTimeISO: p.dateTimeISO,
         validTime: p.validTime,
         weather: p.weatherPrimary || p.weather || 'Clear',
-        icon: p.icon ? `https://cdn.xweather.com/icons/${p.icon}` : null,
+        icon: p.icon ? `https://cdn.aerisapi.com/wxicons/v2/${p.icon}` : null,
         rawIcon: p.icon,
         maxTempC: p.maxTempC,
         minTempC: p.minTempC,
@@ -686,7 +686,7 @@ app.get('/api/weather/hamilton', async (req, res) => {
         tempF: obItem.tempF,
         feelslikeF: obItem.feelslikeF,
         weather: obItem.weatherPrimary || obItem.weather || 'Clear',
-        icon: obItem.icon ? `https://cdn.xweather.com/icons/${obItem.icon}` : null,
+        icon: obItem.icon ? `https://cdn.aerisapi.com/wxicons/v2/${obItem.icon}` : null,
         humidity: obItem.humidity,
         windSpeedKPH: obItem.windSpeedKPH,
         windDir: obItem.windDir,

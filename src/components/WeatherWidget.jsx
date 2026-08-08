@@ -22,11 +22,18 @@ function getWeatherBadge(conditionStr) {
     return { badgeClass: 'badge-purple', icon: '❄️' };
   } else if (cond.includes('thunder') || cond.includes('storm')) {
     return { badgeClass: 'badge-amber', icon: '🌩️' };
-  } else if (cond.includes('clear') || cond.includes('sun')) {
+  } else if (cond.includes('clear') || cond.includes('sun') || cond.includes('fair')) {
     return { badgeClass: 'badge-amber', icon: '☀️' };
   } else {
     return { badgeClass: 'badge-purple', icon: '⛅' };
   }
+}
+
+function getIconUrl(iconField, rawIcon) {
+  const file = rawIcon || iconField;
+  if (!file) return null;
+  if (file.startsWith('http')) return file.replace('cdn.xweather.com/icons', 'cdn.aerisapi.com/wxicons/v2');
+  return `https://cdn.aerisapi.com/wxicons/v2/${file}`;
 }
 
 export default function WeatherWidget() {
@@ -34,6 +41,7 @@ export default function WeatherWidget() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [unit, setUnit] = useState('C'); // Default to Metric (°C)
+  const [imgErrors, setImgErrors] = useState({});
 
   const loadData = async (forceRefresh = false) => {
     setLoading(true);
@@ -55,6 +63,10 @@ export default function WeatherWidget() {
 
   const current = rawData?.current || null;
   const periods = rawData?.periods || [];
+
+  const handleImageError = (key) => {
+    setImgErrors(prev => ({ ...prev, [key]: true }));
+  };
 
   const formatTemp = (tempC, tempF) => {
     if (tempC === null || tempC === undefined) return 'N/A';
@@ -282,6 +294,8 @@ export default function WeatherWidget() {
                 const dateObj = new Date(p.dateTimeISO || p.validTime || Date.now());
                 const dayName = dateObj.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
                 const badge = getWeatherBadge(p.weather);
+                const iconUrl = getIconUrl(p.icon, p.rawIcon);
+                const isErr = imgErrors[idx];
 
                 return (
                   <div 
@@ -302,10 +316,15 @@ export default function WeatherWidget() {
                       {idx === 0 ? 'Today' : dayName}
                     </span>
 
-                    {p.icon ? (
-                      <img src={p.icon} alt={p.weather} style={{ width: '42px', height: '42px', objectFit: 'contain', margin: '0.2rem 0' }} />
+                    {iconUrl && !isErr ? (
+                      <img 
+                        src={iconUrl} 
+                        alt={p.weather} 
+                        onError={() => handleImageError(idx)}
+                        style={{ width: '48px', height: '48px', objectFit: 'contain', margin: '0.2rem 0', filter: 'drop-shadow(0 0 6px rgba(0, 229, 255, 0.3))' }} 
+                      />
                     ) : (
-                      <span style={{ fontSize: '1.8rem', margin: '0.2rem 0' }}>{badge.icon}</span>
+                      <span style={{ fontSize: '2rem', margin: '0.2rem 0' }}>{badge.icon}</span>
                     )}
 
                     <div style={{ fontSize: '1.05rem', fontWeight: 800, color: '#fff' }}>
