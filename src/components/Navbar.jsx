@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw, Moon } from 'lucide-react';
+import { Zap, Film, Tv, Bookmark, ShieldCheck, RefreshCw, Moon, Bot } from 'lucide-react';
 import { fetchMoonPhase } from '../services/api';
 
-export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefresh, mirrorUsed, isCached }) {
+export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefresh, mirrorUsed, isCached, onToggleAssistant, isAssistantOpen }) {
   const [moonData, setMoonData] = useState(null);
 
   useEffect(() => {
@@ -125,6 +125,23 @@ export default function Navbar({ activeTab, setActiveTab, watchlistCount, onRefr
               {watchlistCount}
             </span>
           )}
+        </button>
+
+        <button
+          className={`btn ${isAssistantOpen ? 'btn-primary' : 'btn-secondary'}`}
+          onClick={onToggleAssistant}
+          title="Open AI Assistant & Chat Buddy"
+          style={{
+            padding: '0.5rem 1rem',
+            fontSize: '0.85rem',
+            background: isAssistantOpen ? 'linear-gradient(135deg, #00e5ff 0%, #7928ca 100%)' : undefined,
+            borderColor: isAssistantOpen ? 'rgba(0, 229, 255, 0.6)' : undefined,
+            boxShadow: isAssistantOpen ? '0 0 15px rgba(0, 229, 255, 0.4)' : undefined
+          }}
+        >
+          <Bot size={16} color={isAssistantOpen ? '#fff' : 'var(--accent-cyan)'} />
+          <span>EZ Chat</span>
+          <span className="badge badge-cyan" style={{ fontSize: '0.6rem' }}>GPT-4o</span>
         </button>
       </div>
     </header>

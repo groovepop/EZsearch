@@ -5,6 +5,8 @@ import https from 'https';
 import http from 'http';
 import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
+import { processAgentChat, getAgentStatus } from './agentService.js';
+import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -801,6 +803,33 @@ app.get('/api/weather/hamilton', async (req, res) => {
     console.error('[Weather API Error]', omErr);
     res.status(500).json({ error: 'Failed to fetch Hamilton local weather forecast.', message: omErr.message });
   }
+});
+
+// 9. HSR Transit Endpoint (Hamilton Street Railway - Anchored at 200 Bay St S)
+app.get('/api/transit/hsr', async (req, res) => {
+  try {
+    const data = await getHSRTransitInfo(req.query);
+    res.json(data);
+  } catch (err) {
+    console.error('[HSR Transit API Error]', err);
+    res.status(500).json({ error: 'Failed to fetch HSR transit info', message: err.message });
+  }
+});
+
+// 10. AI Agent Endpoint (Azure OpenAI GPT-4o ezchat Deployment)
+app.post('/api/agent/chat', async (req, res) => {
+  try {
+    const { messages, userMessage } = req.body || {};
+    const result = await processAgentChat({ messages, userMessage });
+    res.json(result);
+  } catch (err) {
+    console.error('[Agent API Error]', err);
+    res.status(500).json({ error: 'Agent chat processing failed', message: err.message });
+  }
+});
+
+app.get('/api/agent/status', (req, res) => {
+  res.json(getAgentStatus());
 });
 
 // Serve frontend static build

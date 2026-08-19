@@ -10,6 +10,7 @@ import WatchlistDrawer from './components/WatchlistDrawer';
 import ISSWidget from './components/ISSWidget';
 import MarsWidget from './components/MarsWidget';
 import WeatherWidget from './components/WeatherWidget';
+import AIAssistantDrawer from './components/AIAssistantDrawer';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
 
@@ -17,6 +18,7 @@ export default function App() {
   // State
   const [activeCategory, setActiveCategory] = useState('tpb'); // Default to 'tpb', 'tv', 'movies', 'weather', 'iss', or 'mars'
   const [activeTab, setActiveTab] = useState('main');
+  const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [torrents, setTorrents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -164,6 +166,8 @@ export default function App() {
         onRefresh={loadData}
         mirrorUsed={mirrorUsed}
         isCached={isCached}
+        onToggleAssistant={() => setIsAssistantOpen(prev => !prev)}
+        isAssistantOpen={isAssistantOpen}
       />
 
       <CategoryTabs activeCategory={activeCategory} setCategory={handleCategorySwitch} />
@@ -284,6 +288,12 @@ export default function App() {
           <span style={{ fontSize: '0.9rem', fontWeight: 600 }}>{toastMessage}</span>
         </div>
       )}
+
+      {/* AI Assistant & Chat Buddy Drawer */}
+      <AIAssistantDrawer
+        isOpen={isAssistantOpen}
+        setIsOpen={setIsAssistantOpen}
+      />
     </div>
   );
 }

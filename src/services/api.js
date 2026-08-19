@@ -270,3 +270,40 @@ export async function fetchHamiltonWeather(forceRefresh = false) {
     cacheExpiresInMs: THIRTY_MINS_MS
   };
 }
+
+// 9. HSR Transit Service (Hamilton Street Railway)
+export async function fetchHSRTransit({ destination = '', route_number = '' } = {}) {
+  const params = new URLSearchParams();
+  if (destination) params.append('destination', destination);
+  if (route_number) params.append('route_number', route_number);
+
+  const res = await fetch(`/api/transit/hsr?${params.toString()}`);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to fetch HSR transit data');
+  }
+  return res.json();
+}
+
+// 10. AI Agent Service (Azure OpenAI GPT-4o ezchat Deployment)
+export async function sendAgentMessage({ messages = [], userMessage = '' } = {}) {
+  const res = await fetch('/api/agent/chat', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ messages, userMessage })
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Agent request failed');
+  }
+  return res.json();
+}
+
+export async function fetchAgentStatus() {
+  const res = await fetch('/api/agent/status');
+  if (!res.ok) return { deployment: 'ezchat', available: false };
+  return res.json();
+}
