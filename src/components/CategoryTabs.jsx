@@ -1,9 +1,37 @@
 import React from 'react';
-import { Tv, Film, Anchor, Orbit, Flame, CloudSun } from 'lucide-react';
+import { Tv, Film, Anchor, Orbit, Flame, CloudSun, Bot } from 'lucide-react';
 
 export default function CategoryTabs({ activeCategory, setCategory }) {
   return (
     <div style={{ display: 'flex', gap: '0.8rem', marginBottom: '1.2rem', flexWrap: 'wrap' }}>
+      <button
+        onClick={() => setCategory('chat')}
+        className="glass-panel"
+        style={{
+          flex: 1,
+          minWidth: '150px',
+          padding: '0.85rem 1.1rem',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '0.6rem',
+          fontWeight: 800,
+          fontSize: '0.9rem',
+          cursor: 'pointer',
+          border: activeCategory === 'chat' ? '1px solid #00e5ff' : '1px solid rgba(0, 229, 255, 0.4)',
+          background: activeCategory === 'chat' 
+            ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.25) 0%, rgba(121, 40, 202, 0.25) 100%)' 
+            : 'linear-gradient(135deg, rgba(0, 229, 255, 0.08) 0%, rgba(121, 40, 202, 0.08) 100%)',
+          color: activeCategory === 'chat' ? '#00e5ff' : '#fff',
+          boxShadow: activeCategory === 'chat' ? '0 0 25px rgba(0, 229, 255, 0.4)' : '0 0 10px rgba(0, 229, 255, 0.15)',
+          transition: 'all 0.2s ease',
+          borderRadius: '12px'
+        }}
+      >
+        <Bot size={19} color="#00e5ff" />
+        <span>EZ Chat</span>
+        <span className="badge badge-cyan" style={{ fontSize: '0.65rem' }}>GPT-4o</span>
+      </button>
       <button
         onClick={() => setCategory('tv')}
         className="glass-panel"
