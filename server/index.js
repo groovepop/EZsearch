@@ -209,13 +209,15 @@ function normalizeTPBQuery(raw) {
 
 // 1. EZTV Torrents Endpoint (Supports IMDb ID, Show Title search, Episode indicators, and Smart Fallback)
 app.get('/api/eztv/torrents', async (req, res) => {
-  const { limit = '100', page = '1', imdb_id = '', q = '' } = req.query;
+  const { limit = '100', page = '1', imdb_id = '', q = '', refresh = '' } = req.query;
   const rawQuery = (q || '').trim();
   const cacheKey = `eztv_${limit}_${page}_${imdb_id}_${rawQuery.toLowerCase()}`;
 
-  const cached = getCached(cacheKey, 5 * 60 * 1000);
-  if (cached) {
-    return res.json({ ...cached, cached: true });
+  if (!refresh) {
+    const cached = getCached(cacheKey, rawQuery ? 60 * 1000 : 5 * 60 * 1000);
+    if (cached) {
+      return res.json({ ...cached, cached: true });
+    }
   }
 
   try {
