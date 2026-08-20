@@ -11,6 +11,7 @@ import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
 import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
+import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -850,6 +851,17 @@ app.get('/api/agent/greet', async (req, res) => {
   } catch (err) {
     console.error('[Agent Greet Error]', err);
     res.status(500).json({ error: 'Failed to generate greeting', message: err.message });
+  }
+});
+
+// 11. Celestial & ISS Naked-Eye Viewing Forecast (Hamilton Anchor)
+app.get('/api/sky/tonight', async (req, res) => {
+  try {
+    const data = await getSkyViewingForecast(req.query);
+    res.json(data);
+  } catch (err) {
+    console.error('[Sky Tonight API Error]', err);
+    res.status(500).json({ error: 'Failed to fetch sky viewing forecast', message: err.message });
   }
 });
 

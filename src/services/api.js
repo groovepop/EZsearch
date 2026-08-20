@@ -317,3 +317,17 @@ export async function fetchAgentGreeting(modelDeployment = 'ezchat') {
   if (!res.ok) return { greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant. What's on your mind?" };
   return res.json();
 }
+
+// 11. Celestial & ISS Viewing Forecast Helper
+export async function fetchSkyViewingForecast({ time_window = 'next_48h', event_type = 'all' } = {}) {
+  const params = new URLSearchParams();
+  if (time_window) params.append('time_window', time_window);
+  if (event_type) params.append('event_type', event_type);
+
+  const res = await fetch(`/api/sky/tonight?${params.toString()}`);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Failed to fetch sky viewing data');
+  }
+  return res.json();
+}

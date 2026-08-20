@@ -1,6 +1,7 @@
 import { AzureOpenAI, OpenAI } from 'openai';
 import { getHamiltonWeather } from './tools/weatherTool.js';
 import { getHSRTransitInfo, HOME_BASE } from './tools/hsrTransitTool.js';
+import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 
 // Load local environment variables if available
 try {
@@ -38,7 +39,7 @@ function getOpenAIClient() {
 }
 
 /**
- * Dynamic System Prompt with Live Timestamp Injection & Deep Hamilton Transit Context
+ * Dynamic System Prompt with Live Timestamp Injection, Deep Transit Context & Celestial Stargazing
  */
 export function getSystemPrompt(clientTime = null) {
   const now = clientTime ? new Date(clientTime) : new Date();
@@ -58,6 +59,7 @@ export function getSystemPrompt(clientTime = null) {
   - Answering "what time is it?", "what's today's date?", or "is it morning/night?"
   - Calculating upcoming bus departure times, schedules, and countdowns
   - Describing current weather conditions vs tonight/tomorrow's forecast
+  - Stargazing predictions, ISS pass countdowns, and viewing windows
   - Greeting the user (e.g. good morning / good evening)
 
 ### Persona & Style:
@@ -93,16 +95,51 @@ You have complete knowledge of all stops, routes, and transit hubs within walkin
 6. **Frank A. Cooke Transit Terminal / MacNab Terminal (750m / 8-9 min walk north)**:
    - Hub for Mountain Climber routes (Routes 20, 21, 22, 23, 24, 25 to Lime Ridge Mall, 26, 27, 33, 34, 35 to Mohawk College).
 
+### Celestial, ISS & Stargazing Intelligence:
+You have a real-time celestial tracking engine via \`get_sky_tonight\` that correlates:
+- **ISS (Space Station), Tiangong, and Hubble passes** with orbital mechanics (trajectory, peak elevation, magnitude).
+- **Hourly Hamilton cloud cover & visibility** from Open-Meteo to calculate a composite 0-10 viewing score.
+- **NOAA Space Weather Kp Index** for Aurora Borealis / Northern Lights alerts (Hamilton latitude ~43.25°N needs Kp ≥ 5.0).
+- **Moon phase, illumination %, and glare interference**.
+- **Active meteor showers** (Perseids, Geminids, etc.).
+- **Top local stargazing spots**:
+  - *Sam Lawrence Park (Mountain Brow)*: High elevation overlooking lower city and lake, great north/east horizon.
+  - *Bayfront Park / Pier 4*: Open water horizon to the north for satellites and aurora spotting.
+  - *Dundurn Castle grounds*: Open lawn with reduced immediate street light glare.
+
 ### Tool Invocations:
-1. **get_hsr_transit**: When the user asks about bus times, upcoming departures, how to get somewhere in Hamilton, transit stops, or commutes, ALWAYS call this tool to get live calculated departure countdowns, routes, and step-by-step directions.
-2. **get_hamilton_weather**: When the user asks about weather, rain, temperature, or forecasts in Hamilton, ALWAYS call this tool.
-3. **search_ezsearch_media**: Call when the user wants movie, TV, or torrent lookups.
+1. **get_sky_tonight**: When the user asks about stargazing, looking at the night sky, ISS passes, satellite spotting, Aurora / Northern Lights, meteor showers, or "what can I see in the sky tonight?", ALWAYS call this tool.
+2. **get_hsr_transit**: When the user asks about bus times, upcoming departures, how to get somewhere in Hamilton, transit stops, or commutes, ALWAYS call this tool to get live calculated departure countdowns, routes, and step-by-step directions.
+3. **get_hamilton_weather**: When the user asks about weather, rain, temperature, or forecasts in Hamilton, ALWAYS call this tool.
+4. **search_ezsearch_media**: Call when the user wants movie, TV, or torrent lookups.
 
 Always provide specific route numbers, exact stops, walking times from 200 Bay St, and exact departure times (e.g. 9:15 PM) with countdown minutes (e.g. in 4 mins).`;
 }
 
-// Tool Definitions for GPT-4o Function Calling
+// Tool Definitions for GPT-4o / GPT-5 Function Calling
 const AGENT_TOOLS = [
+  {
+    type: 'function',
+    function: {
+      name: 'get_sky_tonight',
+      description: 'Predicts the best naked-eye viewing times for ISS passes, Tiangong space station, Hubble, Aurora Borealis (Northern Lights Kp index), active meteor showers, and moon illumination correlated with hourly Hamilton cloud cover.',
+      parameters: {
+        type: 'object',
+        properties: {
+          event_type: {
+            type: 'string',
+            enum: ['all', 'iss', 'aurora', 'meteor_showers', 'satellites'],
+            description: 'Specific sky event type to query. Defaults to all.'
+          },
+          time_window: {
+            type: 'string',
+            enum: ['tonight', 'next_24h', 'next_48h'],
+            description: 'Time window for predictions. Defaults to next_48h.'
+          }
+        }
+      }
+    }
+  },
   {
     type: 'function',
     function: {
@@ -158,6 +195,9 @@ const AGENT_TOOLS = [
 async function executeTool(toolName, toolArgs) {
   console.log(`[Agent Tool Execution] Invoking ${toolName} with args:`, toolArgs);
   try {
+    if (toolName === 'get_sky_tonight') {
+      return await getSkyViewingForecast(toolArgs);
+    }
     if (toolName === 'get_hamilton_weather') {
       return await getHamiltonWeather(toolArgs);
     }
@@ -317,6 +357,32 @@ async function handleLocalAgentFallback(userMsg = '', history = [], clientTime =
   const now = clientTime ? new Date(clientTime) : new Date();
   const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true });
 
+  // Sky / ISS / Aurora query detection
+  if (lower.includes('iss') || lower.includes('space station') || lower.includes('aurora') || lower.includes('northern light') || lower.includes('sky tonight') || lower.includes('meteor') || lower.includes('stargaz')) {
+    const skyData = await getSkyViewingForecast();
+    executedTools.push({ tool: 'get_sky_tonight', result: skyData });
+
+    let response = `🔭 **Hamilton Sky & Naked-Eye Viewing Report (${timeStr})**\n\n`;
+    response += `• **Moon Phase**: ${skyData.moonCondition?.phase} (${skyData.moonCondition?.illuminationPercent} illuminated - ${skyData.moonCondition?.glareImpact})\n`;
+    response += `• **Aurora Status**: ${skyData.auroraAlert?.auroraStatus} (Kp: ${skyData.auroraAlert?.currentKp})\n\n`;
+
+    if (skyData.bestUpcomingPasses && skyData.bestUpcomingPasses.length > 0) {
+      response += `**Best Upcoming Satellite Passes:**\n`;
+      skyData.bestUpcomingPasses.slice(0, 3).forEach(p => {
+        response += `• **${p.target}** — **${p.window}**\n`;
+        response += `  - *Elevation*: ${p.maxElevation} | *Trajectory*: ${p.trajectory}\n`;
+        response += `  - *Brightness*: ${p.estimatedBrightness} | *Clouds*: ${p.cloudCover} | **Score: ${p.viewingScore}**\n`;
+      });
+    }
+
+    return {
+      reply: response,
+      toolCalls: executedTools,
+      deployment: 'ezchat (local mode)',
+      mode: 'local_assistant'
+    };
+  }
+
   // Time query detection
   if (lower.includes('what time') || lower.includes('what is the time') || lower.includes('current time')) {
     return {
@@ -433,12 +499,12 @@ export function getAgentStatus() {
     apiVersion,
     originAnchor: HOME_BASE,
     availableDeployments: [
-      { id: 'ezchat', name: 'GPT-4o (ezchat)', description: 'Fast, witty, multi-tool chat buddy' },
+      { id: 'gpt-5-4', name: 'GPT-5.4 (Flagship)', description: 'Latest high-intelligence flagship model' },
       { id: 'gpt-5', name: 'GPT-5 (GlobalStandard)', description: 'Next-gen reasoning and conversational intelligence' },
-      { id: 'gpt-5-4', name: 'GPT-5.4 (Flagship)', description: 'Latest high-intelligence flagship model' }
+      { id: 'ezchat', name: 'GPT-4o (ezchat)', description: 'Fast, witty, multi-tool chat buddy' }
     ],
     currentTime: new Date().toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true }),
     currentDate: new Date().toLocaleDateString('en-US', { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
-    tools: ['get_hamilton_weather', 'get_hsr_transit']
+    tools: ['get_hamilton_weather', 'get_hsr_transit', 'get_sky_tonight']
   };
 }

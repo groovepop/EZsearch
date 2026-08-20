@@ -19,10 +19,11 @@ import {
 import { sendAgentMessage, fetchAgentStatus, fetchAgentGreeting } from '../services/api';
 
 const QUICK_PROMPTS = [
+  { label: "🔭 Sky Tonight & ISS", prompt: "What can I see in the sky tonight in Hamilton? Give me the best ISS and satellite passes correlated with cloud cover." },
+  { label: "🌌 Aurora Alert", prompt: "What is the NOAA Space Weather Kp index right now and is there any chance of seeing Northern Lights in Hamilton?" },
   { label: "🌤️ Hamilton Weather", prompt: "What's the weather in Hamilton right now and what's the forecast for the next couple days?" },
   { label: "🚌 Next Bus from 200 Bay", prompt: "What are the next upcoming HSR bus departures from 200 Bay St S?" },
   { label: "🎓 Trip to McMaster", prompt: "How do I take HSR transit from 200 Bay St to McMaster University?" },
-  { label: "🛍️ Trip to Lime Ridge", prompt: "What's the best bus route from my place to Lime Ridge Mall?" },
   { label: "🎬 Movie Recommendation", prompt: "Recommend a high-rated thriller or sci-fi movie to watch tonight" }
 ];
 
@@ -108,7 +109,9 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
 
     // Dynamic tool status hint
     const lower = text.toLowerCase();
-    if (lower.includes('weather') || lower.includes('rain') || lower.includes('temp') || lower.includes('forecast')) {
+    if (lower.includes('sky') || lower.includes('iss') || lower.includes('satellite') || lower.includes('aurora') || lower.includes('northern light') || lower.includes('meteor') || lower.includes('stargaz')) {
+      setActiveToolStatus('🔭 Calculating ISS Orbit, NOAA Space Weather & Cloud Cover...');
+    } else if (lower.includes('weather') || lower.includes('rain') || lower.includes('temp') || lower.includes('forecast')) {
       setActiveToolStatus('🌤️ Calling Hamilton Weather Tool...');
     } else if (lower.includes('bus') || lower.includes('hsr') || lower.includes('transit') || lower.includes('mcmaster') || lower.includes('mohawk') || lower.includes('route')) {
       setActiveToolStatus('🚌 Querying HSR Transit from 200 Bay St S...');
