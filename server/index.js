@@ -501,115 +501,114 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Unconstrained Pirate Bay Search API (100 Results per Page + Smart Multi-Word & Episode Query Normalization)
+// 3. Unconstrained Pirate Bay Search API (100 Results per Page + Parallel Multi-Source Search & Seed Sorting)
 app.get('/api/tpb/search', async (req, res) => {
-  const { q = '', cat = '0', page = '1', limit = '100' } = req.query;
+  const { q = '', cat = '0', page = '1', limit = '100', refresh = '' } = req.query;
   const rawSearch = q.trim();
   const normalizedSearch = normalizeTPBQuery(rawSearch);
   const searchTermToUse = normalizedSearch || '2026';
   const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}_${page}_${limit}`;
 
-  const cached = getCached(cacheKey, 5 * 60 * 1000);
-  if (cached) {
-    return res.json({ ...cached, cached: true });
-  }
-
-  // 1st Try: BitSearch API with Normalized Query
-  try {
-    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(searchTermToUse)}&limit=${limit}&page=${page}`;
-    console.log(`[Proxy] Fetching BitSearch API (100 Results/Page): ${solidUrl}`);
-    const solidData = await fetchJsonUrl(solidUrl, 6000);
-
-    const rawList = solidData?.results || [];
-    const totalCount = solidData?.pagination?.total || rawList.length;
-
-    if (rawList.length > 0) {
-      const torrents = rawList.map(item => ({
-        id: `solid_${item.id}_${item.infohash || item.hash}`,
-        title: item.title,
-        category: 'Pirate Bay (All Categories)',
-        uploader: item.verified ? 'Verified Uploader' : 'Community',
-        imdb_id: '',
-        seeds: parseInt(item.seeders || item.seeds || 0, 10),
-        peers: parseInt(item.leechers || item.peers || 0, 10),
-        size_bytes: item.size,
-        formatted_size: formatSizeBytes(item.size),
-        quality: parseQuality(item.title),
-        magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
-        date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
-        date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
-        num_files: item.downloads || 1,
-        source: 'Pirate Bay (BitSearch API)'
-      }));
-
-      const responsePayload = {
-        torrents,
-        total_count: totalCount,
-        torrents_count: totalCount,
-        query: q,
-        page: parseInt(page, 10),
-        limit: parseInt(limit, 10),
-        mirrorUsed: 'https://bitsearch.eu'
-      };
-
-      setCache(cacheKey, responsePayload);
-      return res.json(responsePayload);
+  if (!refresh) {
+    const cached = getCached(cacheKey, rawSearch ? 60 * 1000 : 5 * 60 * 1000);
+    if (cached) {
+      return res.json({ ...cached, cached: true });
     }
-  } catch (solidErr) {
-    console.warn(`[Proxy] BitSearch API failed: ${solidErr.message}. Trying APIBay...`);
   }
 
-  // 2nd Try: Official APIBay API (apibay.org) with Normalized Query
-  try {
-    const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(searchTermToUse)}&cat=${cat || '0'}`;
-    console.log(`[Proxy] Fetching APIBay: ${apibayUrl}`);
-    const data = await fetchJsonUrl(apibayUrl, 5000);
+  const seenHashes = new Set();
+  const combinedTorrents = [];
+  let mirrorUsed = '';
 
-    let rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+  const searchQueriesToTry = [searchTermToUse, rawSearch].filter((v, i, a) => v && a.indexOf(v) === i);
 
-    // If normalized query returned 0 results and differed from raw query, try raw query as fallback
-    if (rawList.length === 0 && rawSearch && rawSearch !== searchTermToUse) {
-      try {
-        const rawApibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(rawSearch)}&cat=${cat || '0'}`;
-        const rawData = await fetchJsonUrl(rawApibayUrl, 4000);
-        rawList = Array.isArray(rawData) ? rawData.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
-      } catch (e) {}
+  for (const queryToTry of searchQueriesToTry) {
+    if (combinedTorrents.length > 0) break;
+
+    const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(queryToTry)}&limit=${limit}&page=${page}`;
+    const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(queryToTry)}&cat=${cat || '0'}`;
+
+    const [bitRes, apibayRes] = await Promise.allSettled([
+      fetchJsonUrl(solidUrl, 6000),
+      fetchJsonUrl(apibayUrl, 5000)
+    ]);
+
+    // 1. Process APIBay results
+    if (apibayRes.status === 'fulfilled' && Array.isArray(apibayRes.value)) {
+      const rawList = apibayRes.value.filter(item => item.id !== '0' && item.name !== 'No results returned');
+      rawList.forEach(item => {
+        const h = (item.info_hash || '').toLowerCase();
+        if (h && !seenHashes.has(h)) {
+          seenHashes.add(h);
+          combinedTorrents.push({
+            id: `tpb_${item.id}_${item.info_hash}`,
+            title: item.name,
+            category: 'Pirate Bay (All Categories)',
+            uploader: item.username || 'Anonymous',
+            imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
+            seeds: parseInt(item.seeders || 0, 10),
+            peers: parseInt(item.leechers || 0, 10),
+            size_bytes: item.size,
+            formatted_size: formatSizeBytes(item.size),
+            quality: parseQuality(item.name),
+            magnet_url: buildMagnetUrl(item.info_hash, item.name),
+            date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+            date_released_unix: parseInt(item.added, 10) || 0,
+            num_files: item.num_files,
+            source: 'Pirate Bay (APIBay)'
+          });
+        }
+      });
+      if (rawList.length > 0) mirrorUsed = 'https://apibay.org';
     }
 
-    const torrents = rawList.map(item => ({
-      id: `tpb_${item.id}_${item.info_hash}`,
-      title: item.name,
-      category: 'Pirate Bay (All Categories)',
-      uploader: item.username || 'Anonymous',
-      imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : '',
-      seeds: parseInt(item.seeders || 0, 10),
-      peers: parseInt(item.leechers || 0, 10),
-      size_bytes: item.size,
-      formatted_size: formatSizeBytes(item.size),
-      quality: parseQuality(item.name),
-      magnet_url: buildMagnetUrl(item.info_hash, item.name),
-      date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
-      date_released_unix: parseInt(item.added, 10) || 0,
-      num_files: item.num_files,
-      source: 'Pirate Bay (APIBay)'
-    }));
-
-    const responsePayload = {
-      torrents,
-      total_count: torrents.length,
-      torrents_count: torrents.length,
-      query: q,
-      page: parseInt(page, 10),
-      limit: parseInt(limit, 10),
-      mirrorUsed: 'https://apibay.org'
-    };
-
-    setCache(cacheKey, responsePayload);
-    res.json(responsePayload);
-  } catch (apibayErr) {
-    console.error('[Pirate Bay Search Error]', apibayErr);
-    res.status(500).json({ error: 'Failed to fetch torrents from Pirate Bay APIs.', message: apibayErr.message });
+    // 2. Process BitSearch results
+    if (bitRes.status === 'fulfilled' && bitRes.value?.results) {
+      const rawList = bitRes.value.results;
+      rawList.forEach(item => {
+        const h = (item.infohash || item.hash || '').toLowerCase();
+        if (!h || !seenHashes.has(h)) {
+          if (h) seenHashes.add(h);
+          combinedTorrents.push({
+            id: `solid_${item.id}_${item.infohash || item.hash}`,
+            title: item.title,
+            category: 'Pirate Bay (All Categories)',
+            uploader: item.verified ? 'Verified Uploader' : 'Community',
+            imdb_id: '',
+            seeds: parseInt(item.seeders || item.seeds || 0, 10),
+            peers: parseInt(item.leechers || item.peers || 0, 10),
+            size_bytes: item.size,
+            formatted_size: formatSizeBytes(item.size),
+            quality: parseQuality(item.title),
+            magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
+            date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
+            date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
+            num_files: item.downloads || 1,
+            source: 'Pirate Bay (BitSearch API)'
+          });
+        }
+      });
+      if (rawList.length > 0) {
+        mirrorUsed = mirrorUsed ? `${mirrorUsed} + https://bitsearch.eu` : 'https://bitsearch.eu';
+      }
+    }
   }
+
+  // Sort by seeds
+  combinedTorrents.sort((a, b) => (b.seeds || 0) - (a.seeds || 0));
+
+  const responsePayload = {
+    torrents: combinedTorrents,
+    total_count: combinedTorrents.length,
+    torrents_count: combinedTorrents.length,
+    query: q,
+    page: parseInt(page, 10),
+    limit: parseInt(limit, 10),
+    mirrorUsed: mirrorUsed || 'Pirate Bay Multi-Engine'
+  };
+
+  setCache(cacheKey, responsePayload);
+  res.json(responsePayload);
 });
 
 // 4. Search TV Shows
