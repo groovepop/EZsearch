@@ -1,11 +1,12 @@
 // API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars, NASA SVS Moon & Xweather Hamilton
 
-export async function fetchEZTVTorrents({ page = 1, limit = 30, imdb_id = '' }) {
+export async function fetchEZTVTorrents({ page = 1, limit = 100, imdb_id = '', q = '' }) {
   const params = new URLSearchParams({
     page: page.toString(),
     limit: limit.toString()
   });
   if (imdb_id) params.append('imdb_id', imdb_id);
+  if (q) params.append('q', q);
 
   const res = await fetch(`/api/eztv/torrents?${params.toString()}`);
   if (!res.ok) {

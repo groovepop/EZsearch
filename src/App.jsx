@@ -17,7 +17,7 @@ import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
 
 export default function App() {
   // State
-  const [activeCategory, setActiveCategory] = useState('tpb'); // Default to 'tpb', 'tv', 'movies', 'weather', 'iss', or 'mars'
+  const [activeCategory, setActiveCategory] = useState('tv'); // Default to EZTV tab
   const [activeTab, setActiveTab] = useState('main');
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
   const [torrents, setTorrents] = useState([]);
@@ -25,13 +25,13 @@ export default function App() {
   const [error, setError] = useState(null);
   
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(30);
+  const [limit, setLimit] = useState(100); // Default to 100 per page
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedShow, setSelectedShow] = useState(null);
   
   const [selectedQuality, setSelectedQuality] = useState('ALL');
-  const [sortBy, setSortBy] = useState('seeds');
-  const [viewMode, setViewMode] = useState('grid');
+  const [sortBy, setSortBy] = useState('date'); // Default sorted by Date Released
+  const [viewMode, setViewMode] = useState('table'); // Default Table Layout
   
   const [mirrorUsed, setMirrorUsed] = useState('');
   const [isCached, setIsCached] = useState(false);
@@ -96,7 +96,8 @@ export default function App() {
         setIsCached(!!res.cached);
       } else if (activeCategory === 'tv') {
         const imdbId = selectedShow ? selectedShow.imdb_id : (searchTerm.startsWith('tt') ? searchTerm : '');
-        const res = await fetchEZTVTorrents({ page, limit, imdb_id: imdbId });
+        const queryStr = !selectedShow && !searchTerm.startsWith('tt') ? searchTerm.trim() : '';
+        const res = await fetchEZTVTorrents({ page, limit, imdb_id: imdbId, q: queryStr });
         setTorrents(res.torrents || []);
         setMirrorUsed(res.mirrorUsed || '');
         setIsCached(!!res.cached);
@@ -137,11 +138,6 @@ export default function App() {
     if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat') return [];
     let list = [...torrents];
 
-    if (activeCategory === 'tv' && searchTerm && !selectedShow && !searchTerm.startsWith('tt')) {
-      const q = searchTerm.toLowerCase();
-      list = list.filter((t) => (t.title || '').toLowerCase().includes(q) || (t.filename || '').toLowerCase().includes(q));
-    }
-
     if (selectedQuality !== 'ALL') {
       const q = selectedQuality.toLowerCase();
       list = list.filter((t) => (t.quality || '').toLowerCase().includes(q));
@@ -152,11 +148,16 @@ export default function App() {
       if (sortBy === 'peers') return (b.peers || 0) - (a.peers || 0);
       if (sortBy === 'size') return (parseInt(b.size_bytes || 0) - parseInt(a.size_bytes || 0));
       if (sortBy === 'title') return (a.title || '').localeCompare(b.title || '');
+      if (sortBy === 'date') {
+        const timeA = a.date_released_unix ? a.date_released_unix * 1000 : (Date.parse(a.date_released) || 0);
+        const timeB = b.date_released_unix ? b.date_released_unix * 1000 : (Date.parse(b.date_released) || 0);
+        return timeB - timeA;
+      }
       return 0;
     });
 
     return list;
-  }, [torrents, activeCategory, searchTerm, selectedShow, selectedQuality, sortBy]);
+  }, [torrents, activeCategory, selectedQuality, sortBy]);
 
   return (
     <div className="app-container">

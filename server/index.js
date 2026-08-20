@@ -202,12 +202,34 @@ app.get('/health', (req, res) => {
   res.send('OK');
 });
 
+// Helper: Normalize query for Pirate Bay & BitSearch
+function normalizeTPBQuery(raw) {
+  if (!raw) return '';
+  let q = raw.trim();
+
+  // Replace 'season X episode Y' or 'sX eY' or 'XxY' with 'SXEY'
+  q = q.replace(/season\s*(\d+)\s*(?:episode|ep)\s*(\d+)/gi, (_, s, e) => 'S' + s.padStart(2, '0') + 'E' + e.padStart(2, '0'));
+  q = q.replace(/[sS](\d+)\s*[eE](\d+)/g, (_, s, e) => 'S' + s.padStart(2, '0') + 'E' + e.padStart(2, '0'));
+  q = q.replace(/(\d+)x(\d+)/g, (_, s, e) => 'S' + s.padStart(2, '0') + 'E' + e.padStart(2, '0'));
+
+  // Replace 'season X pack' or 'season X complete' or 'season X' with 'S0X'
+  q = q.replace(/season\s*(\d+)\s*(?:pack|complete|full)?/gi, (_, s) => 'S' + s.padStart(2, '0'));
+
+  // Strip noisy filler words
+  q = q.replace(/\b(pack|download|torrent|full\s*series|complete\s*series)\b/gi, '');
+  
+  // Clean redundant whitespace
+  q = q.replace(/\s+/g, ' ').trim();
+  return q;
+}
+
 // ==================== ENDPOINTS ====================
 
-// 1. EZTV Torrents Endpoint (5 Min Cache)
+// 1. EZTV Torrents Endpoint (Supports IMDb ID, Show Title search, Episode indicators, and Smart Fallback)
 app.get('/api/eztv/torrents', async (req, res) => {
-  const { limit = '30', page = '1', imdb_id = '' } = req.query;
-  const cacheKey = `eztv_${limit}_${page}_${imdb_id}`;
+  const { limit = '100', page = '1', imdb_id = '', q = '' } = req.query;
+  const rawQuery = (q || '').trim();
+  const cacheKey = `eztv_${limit}_${page}_${imdb_id}_${rawQuery.toLowerCase()}`;
 
   const cached = getCached(cacheKey, 5 * 60 * 1000);
   if (cached) {
@@ -215,47 +237,174 @@ app.get('/api/eztv/torrents', async (req, res) => {
   }
 
   try {
-    const params = { limit, page };
-    if (imdb_id) {
-      params.imdb_id = imdb_id.replace(/^tt/, '');
+    let resolvedImdbId = imdb_id ? imdb_id.replace(/^tt/, '') : '';
+    let seasonFilter = null;
+    let episodeFilter = null;
+    let cleanShowName = rawQuery;
+
+    if (!resolvedImdbId && rawQuery) {
+      if (rawQuery.startsWith('tt')) {
+        resolvedImdbId = rawQuery.replace(/^tt/, '');
+      } else {
+        // Extract Season & Episode indicators from free-text query
+        const seMatch = rawQuery.match(/[sS](\d+)[eE](\d+)/) || rawQuery.match(/season\s*(\d+)\s*(?:episode|ep)\s*(\d+)/i) || rawQuery.match(/(\d+)x(\d+)/);
+        const sOnlyMatch = rawQuery.match(/[sS](\d+)(?![eE]\d+)/) || rawQuery.match(/season\s*(\d+)/i);
+
+        if (seMatch) {
+          seasonFilter = parseInt(seMatch[1], 10);
+          episodeFilter = parseInt(seMatch[2], 10);
+          cleanShowName = rawQuery.replace(seMatch[0], '').replace(/season|episode|ep/gi, '').trim();
+        } else if (sOnlyMatch) {
+          seasonFilter = parseInt(sOnlyMatch[1], 10);
+          cleanShowName = rawQuery.replace(sOnlyMatch[0], '').replace(/season/gi, '').trim();
+        }
+
+        // Query TVMaze to find the official IMDb ID for the show
+        if (cleanShowName) {
+          try {
+            const tvmData = await fetchJsonUrl(`https://api.tvmaze.com/singlesearch/shows?q=${encodeURIComponent(cleanShowName)}`, 4000);
+            if (tvmData?.externals?.imdb) {
+              resolvedImdbId = tvmData.externals.imdb.replace(/^tt/, '');
+              console.log(`[EZTV Search] TVMaze resolved "${cleanShowName}" -> IMDb: tt${resolvedImdbId} (${tvmData.name})`);
+            }
+          } catch (tvmErr) {
+            console.warn(`[EZTV Search] TVMaze singlesearch lookup failed for "${cleanShowName}":`, tvmErr.message);
+          }
+        }
+      }
     }
 
-    const { data, mirrorUsed } = await fetchWithFallback(EZTV_MIRRORS, params);
+    // Attempt 1: Fetch directly from EZTV API using resolved IMDb ID or general feed
+    let ezTorrents = [];
+    let mirrorUsed = '';
 
-    const torrents = (data.torrents || []).map(item => ({
-      id: item.id || item.hash,
-      title: item.title || item.filename,
-      filename: item.filename,
-      category: 'TV Shows',
-      imdb_id: item.imdb_id ? `tt${item.imdb_id.padStart(7, '0')}` : '',
-      season: item.season || '0',
-      episode: item.episode || '0',
-      seeds: parseInt(item.seeds || 0, 10),
-      peers: parseInt(item.peers || 0, 10),
-      size_bytes: item.size_bytes,
-      formatted_size: formatSizeBytes(item.size_bytes),
-      quality: parseQuality(item.title || item.filename),
-      magnet_url: item.magnet_url,
-      torrent_url: item.torrent_url,
-      date_released: item.date_released_unix ? new Date(item.date_released_unix * 1000).toLocaleDateString() : 'N/A',
-      small_screenshot: item.small_screenshot,
-      large_screenshot: item.large_screenshot,
-      source: 'EZTV'
-    }));
+    try {
+      const params = { limit, page };
+      if (resolvedImdbId) {
+        params.imdb_id = resolvedImdbId;
+      }
+
+      const ezResult = await fetchWithFallback(EZTV_MIRRORS, params, 6000);
+      mirrorUsed = ezResult.mirrorUsed;
+      const rawList = ezResult.data.torrents || [];
+
+      ezTorrents = rawList.map(item => ({
+        id: item.id || item.hash,
+        title: item.title || item.filename,
+        filename: item.filename,
+        category: 'TV Shows',
+        imdb_id: item.imdb_id ? `tt${item.imdb_id.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
+        season: item.season || '0',
+        episode: item.episode || '0',
+        seeds: parseInt(item.seeds || 0, 10),
+        peers: parseInt(item.peers || 0, 10),
+        size_bytes: item.size_bytes,
+        formatted_size: formatSizeBytes(item.size_bytes),
+        quality: parseQuality(item.title || item.filename),
+        magnet_url: item.magnet_url,
+        torrent_url: item.torrent_url,
+        date_released: item.date_released_unix ? new Date(item.date_released_unix * 1000).toLocaleDateString() : 'N/A',
+        date_released_unix: item.date_released_unix || 0,
+        small_screenshot: item.small_screenshot,
+        large_screenshot: item.large_screenshot,
+        source: 'EZTV'
+      }));
+
+      // Apply season / episode filtering if specified in the query
+      if (seasonFilter !== null) {
+        ezTorrents = ezTorrents.filter(t => parseInt(t.season, 10) === seasonFilter);
+      }
+      if (episodeFilter !== null) {
+        ezTorrents = ezTorrents.filter(t => parseInt(t.episode, 10) === episodeFilter);
+      }
+    } catch (ezErr) {
+      console.warn(`[EZTV API Warning] Direct EZTV mirror fetch failed: ${ezErr.message}`);
+    }
+
+    // Attempt 2: If query was provided but returned 0 results from EZTV, search TV categories on BitSearch & APIBay
+    if (rawQuery && ezTorrents.length === 0) {
+      console.log(`[EZTV Search] 0 direct EZTV results. Running smart TV search for "${rawQuery}"...`);
+      const normalizedQ = normalizeTPBQuery(rawQuery);
+
+      // Try BitSearch (TV categories)
+      try {
+        const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(normalizedQ)}&limit=${limit}&page=${page}`;
+        const bitData = await fetchJsonUrl(bitUrl, 5000);
+        const bitList = bitData?.results || [];
+
+        if (bitList.length > 0) {
+          ezTorrents = bitList.map(item => ({
+            id: `solid_${item.id}_${item.infohash || item.hash}`,
+            title: item.title,
+            filename: item.title,
+            category: 'TV Shows',
+            imdb_id: resolvedImdbId ? `tt${resolvedImdbId}` : '',
+            season: seasonFilter ? String(seasonFilter) : '0',
+            episode: episodeFilter ? String(episodeFilter) : '0',
+            seeds: parseInt(item.seeders || item.seeds || 0, 10),
+            peers: parseInt(item.leechers || item.peers || 0, 10),
+            size_bytes: item.size,
+            formatted_size: formatSizeBytes(item.size),
+            quality: parseQuality(item.title),
+            magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
+            date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
+            date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
+            source: 'EZTV (BitSearch Engine)'
+          }));
+          mirrorUsed = 'https://bitsearch.eu';
+        }
+      } catch (bitErr) {
+        console.warn(`[EZTV Search] BitSearch TV fallback failed: ${bitErr.message}`);
+      }
+
+      // Try APIBay (cat=205,208 for TV Shows)
+      if (ezTorrents.length === 0) {
+        try {
+          const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(normalizedQ)}&cat=205,208`;
+          const apibayData = await fetchJsonUrl(apibayUrl, 5000);
+          const rawList = Array.isArray(apibayData) ? apibayData.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+
+          if (rawList.length > 0) {
+            ezTorrents = rawList.map(item => ({
+              id: `tpb_${item.id}_${item.info_hash}`,
+              title: item.name,
+              filename: item.name,
+              category: 'TV Shows',
+              imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
+              season: seasonFilter ? String(seasonFilter) : '0',
+              episode: episodeFilter ? String(episodeFilter) : '0',
+              seeds: parseInt(item.seeders || 0, 10),
+              peers: parseInt(item.leechers || 0, 10),
+              size_bytes: item.size,
+              formatted_size: formatSizeBytes(item.size),
+              quality: parseQuality(item.name),
+              magnet_url: buildMagnetUrl(item.info_hash, item.name),
+              date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+              date_released_unix: parseInt(item.added, 10) || 0,
+              num_files: item.num_files,
+              source: 'EZTV (APIBay Engine)'
+            }));
+            mirrorUsed = 'https://apibay.org';
+          }
+        } catch (apibayErr) {
+          console.warn(`[EZTV Search] APIBay TV fallback failed: ${apibayErr.message}`);
+        }
+      }
+    }
 
     const responsePayload = {
-      torrents,
-      torrents_count: data.torrents_count || torrents.length,
+      torrents: ezTorrents,
+      torrents_count: ezTorrents.length,
       limit: parseInt(limit, 10),
       page: parseInt(page, 10),
-      mirrorUsed
+      mirrorUsed: mirrorUsed || 'EZTV Engine'
     };
 
     setCache(cacheKey, responsePayload);
     res.json(responsePayload);
   } catch (err) {
     console.error('[EZTV Error]', err);
-    res.status(500).json({ error: 'Failed to fetch EZTV torrents. Please try again.', message: err.message });
+    res.status(500).json({ error: 'Failed to fetch TV torrents. Please try again.', message: err.message });
   }
 });
 
@@ -303,6 +452,7 @@ app.get('/api/yts/movies', async (req, res) => {
           magnet_url: buildMagnetUrl(t.hash, movie.title),
           torrent_url: t.url,
           date_released: t.date_uploaded || movie.year.toString(),
+          date_released_unix: t.date_uploaded_unix || (parseInt(movie.year, 10) ? Math.floor(new Date(movie.year, 0, 1).getTime() / 1000) : 0),
           poster: movie.medium_cover_image || movie.small_cover_image,
           large_poster: movie.large_cover_image,
           summary: movie.summary,
@@ -328,10 +478,12 @@ app.get('/api/yts/movies', async (req, res) => {
   }
 });
 
-// 3. Unconstrained Pirate Bay Search API (100 Results per Page + Multi-Page Pagination)
+// 3. Unconstrained Pirate Bay Search API (100 Results per Page + Smart Multi-Word & Episode Query Normalization)
 app.get('/api/tpb/search', async (req, res) => {
   const { q = '', cat = '0', page = '1', limit = '100' } = req.query;
-  const searchTermToUse = q.trim() || '2026';
+  const rawSearch = q.trim();
+  const normalizedSearch = normalizeTPBQuery(rawSearch);
+  const searchTermToUse = normalizedSearch || '2026';
   const cacheKey = `tpb_${searchTermToUse.toLowerCase()}_${cat}_${page}_${limit}`;
 
   const cached = getCached(cacheKey, 5 * 60 * 1000);
@@ -339,7 +491,7 @@ app.get('/api/tpb/search', async (req, res) => {
     return res.json({ ...cached, cached: true });
   }
 
-  // 1st Try: BitSearch API (Limit 100 per page + Multi-Page Support)
+  // 1st Try: BitSearch API with Normalized Query
   try {
     const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(searchTermToUse)}&limit=${limit}&page=${page}`;
     console.log(`[Proxy] Fetching BitSearch API (100 Results/Page): ${solidUrl}`);
@@ -362,6 +514,7 @@ app.get('/api/tpb/search', async (req, res) => {
         quality: parseQuality(item.title),
         magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
         date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
+        date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
         num_files: item.downloads || 1,
         source: 'Pirate Bay (BitSearch API)'
       }));
@@ -383,13 +536,22 @@ app.get('/api/tpb/search', async (req, res) => {
     console.warn(`[Proxy] BitSearch API failed: ${solidErr.message}. Trying APIBay...`);
   }
 
-  // 2nd Try: Official APIBay API (apibay.org - Up to 100 results)
+  // 2nd Try: Official APIBay API (apibay.org) with Normalized Query
   try {
     const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(searchTermToUse)}&cat=${cat || '0'}`;
     console.log(`[Proxy] Fetching APIBay: ${apibayUrl}`);
     const data = await fetchJsonUrl(apibayUrl, 5000);
 
-    const rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+    let rawList = Array.isArray(data) ? data.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+
+    // If normalized query returned 0 results and differed from raw query, try raw query as fallback
+    if (rawList.length === 0 && rawSearch && rawSearch !== searchTermToUse) {
+      try {
+        const rawApibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(rawSearch)}&cat=${cat || '0'}`;
+        const rawData = await fetchJsonUrl(rawApibayUrl, 4000);
+        rawList = Array.isArray(rawData) ? rawData.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+      } catch (e) {}
+    }
 
     const torrents = rawList.map(item => ({
       id: `tpb_${item.id}_${item.info_hash}`,
@@ -404,6 +566,7 @@ app.get('/api/tpb/search', async (req, res) => {
       quality: parseQuality(item.name),
       magnet_url: buildMagnetUrl(item.info_hash, item.name),
       date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+      date_released_unix: parseInt(item.added, 10) || 0,
       num_files: item.num_files,
       source: 'Pirate Bay (APIBay)'
     }));
