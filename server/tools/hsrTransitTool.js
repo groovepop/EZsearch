@@ -10,151 +10,192 @@ export const HOME_BASE = {
 };
 
 // Hamilton Destinations Knowledge Base
-const POPULAR_DESTINATIONS = {
+export const POPULAR_DESTINATIONS = {
   mcmaster: {
+    key: 'mcmaster',
     name: 'McMaster University / Health Sciences',
     routes: ['Route 10 (B-Line Express)', 'Route 1 (King)', 'Route 5 (Delaware)', 'Route 51 (University)'],
-    boardingStop: 'Main St W at Bay St S (3-min walk north)',
+    routeNumbers: ['10', '1', '5', '51'],
+    boardingStop: 'Main St W at Bay St S (Stop #1020 - 3 min walk north)',
+    boardingStopId: '1020',
     durationMinutes: '12-15 mins',
     frequency: 'Every 4-8 mins during peak, 10-15 mins off-peak',
-    tips: 'Take 10 B-Line westbound on Main St for the fastest non-stop express ride.'
+    tips: 'Take Route 10 (B-Line Express) westbound on Main St for the fastest non-stop ride.'
   },
   mohawk: {
+    key: 'mohawk',
     name: 'Mohawk College (Fennell Campus)',
-    routes: ['Route 20 (A-Line Express)', 'Route 21 (Upper Kenilworth)', 'Route 33 (Sanatorium)', 'Route 35 (College)'],
-    boardingStop: 'Frank A. Cooke Transit Terminal / MacNab St (8-min walk north) or James at Jackson',
+    routes: ['Route 20 (A-Line Express)', 'Route 35 (College)', 'Route 21 (Upper Kenilworth)', 'Route 33 (Sanatorium)'],
+    routeNumbers: ['20', '35', '21', '33'],
+    boardingStop: 'Frank A. Cooke Transit Terminal / MacNab St (Stop #MACNAB_TERM - 8 min walk north)',
+    boardingStopId: 'MACNAB_TERM',
     durationMinutes: '15-18 mins up the mountain',
     frequency: 'Every 8-12 mins',
-    tips: 'Route 20 A-Line or Route 35 College from MacNab Terminal climbs the Jolley Cut directly to Mohawk.'
+    tips: 'Route 20 A-Line Express or Route 35 College from MacNab Terminal climbs the Jolley Cut directly to Mohawk.'
   },
   limeridge: {
+    key: 'limeridge',
     name: 'Lime Ridge Mall (Upper Wentworth)',
     routes: ['Route 25 (Upper Wentworth)', 'Route 26 (Upper Wellington)', 'Route 43 (Stone Church)'],
-    boardingStop: 'Frank A. Cooke Transit Terminal (MacNab St)',
+    routeNumbers: ['25', '26', '43'],
+    boardingStop: 'Frank A. Cooke Transit Terminal / MacNab St (Stop #MACNAB_TERM - 8 min walk north)',
+    boardingStopId: 'MACNAB_TERM',
     durationMinutes: '20-25 mins',
     frequency: 'Every 10-15 mins',
-    tips: 'Route 25 Upper Wentworth from MacNab takes you straight to Lime Ridge terminal.'
+    tips: 'Route 25 Upper Wentworth from MacNab takes you straight to the Lime Ridge terminal.'
   },
   hamiltongo: {
+    key: 'hamiltongo',
     name: 'Hamilton GO Centre (Hunter St E)',
     routes: ['Walk (6-8 mins)', 'Route 7 (Locke/Bay)'],
-    boardingStop: 'Bay St S & Hunter St W (2-min walk north) or direct walk east along Hunter St',
+    routeNumbers: ['7', '16', '18', 'Lakeshore West GO'],
+    boardingStop: 'Bay St S & Hunter St W (2 min walk) or direct walk east along Hunter St',
+    boardingStopId: '1460',
     durationMinutes: '6-8 min walk (approx. 650m)',
     frequency: 'Trains every 30-60 mins to Toronto Union; Express GO buses (Route 16/18)',
-    tips: 'It is usually faster to walk east on Hunter St directly to the GO station than waiting for a bus.'
+    tips: 'It is usually faster to walk east along Hunter St directly to the GO station than waiting for a bus.'
   },
   westharbour: {
+    key: 'westharbour',
     name: 'West Harbour GO Station (530 James St N)',
     routes: ['Route 4 (Bayfront)', 'Route 20 (A-Line)', 'Route 7 (Locke/Bay)'],
-    boardingStop: 'Bay St N at King St or MacNab Terminal',
+    routeNumbers: ['4', '20', '7'],
+    boardingStop: 'Bay St S at Bold St (Northbound - Stop #1460) or MacNab Terminal',
+    boardingStopId: '1460',
     durationMinutes: '10-12 mins',
     frequency: 'Hourly GO trains to Toronto Union; 15-min local bus frequency',
     tips: 'Route 4 Bayfront or Route 20 north gets you there in under 10 minutes.'
   },
   stjosephs: {
+    key: 'stjosephs',
     name: "St. Joseph's Healthcare (Charlton Campus)",
-    routes: ['Route 7 (Locke)', 'Walk'],
-    boardingStop: 'Bay St S at Robinson St (Southbound, 1-min walk)',
+    routes: ['Route 7 (Locke)', 'Walk (7 mins)'],
+    routeNumbers: ['7'],
+    boardingStop: 'Bay St S at Robinson St (Southbound - Stop #1459 - 1 min walk)',
+    boardingStopId: '1459',
     durationMinutes: '7-10 min walk (700m southeast) or 3 min bus ride',
     frequency: 'Every 15-20 mins',
-    tips: 'Take Route 7 south on Bay or walk southeast along Robinson/Charlton.'
+    tips: 'Take Route 7 south on Bay or walk southeast along Robinson to Charlton.'
   },
   hamiltongeneral: {
+    key: 'hamiltongeneral',
     name: 'Hamilton General Hospital / Ron Joyce Children’s',
     routes: ['Route 2 (Barton)', 'Route 3 (Cannon)'],
-    boardingStop: 'King St W at Bay St N (5-min walk north to King/Bay)',
+    routeNumbers: ['2', '3'],
+    boardingStop: 'King St W at Bay St N (Stop #1021 - 4-5 min walk north)',
+    boardingStopId: '1021',
     durationMinutes: '10-14 mins',
     frequency: 'Every 8-12 mins',
     tips: 'Route 2 Barton eastbound from King/Bay drops off directly in front of the hospital on Barton St E.'
   },
   airport: {
+    key: 'airport',
     name: 'John C. Munro Hamilton International Airport (YHM)',
     routes: ['Route 20 (A-Line Express)'],
-    boardingStop: 'Frank A. Cooke Transit Terminal (MacNab St)',
+    routeNumbers: ['20'],
+    boardingStop: 'Frank A. Cooke Transit Terminal / MacNab St (8 min walk north)',
+    boardingStopId: 'MACNAB_TERM',
     durationMinutes: '30-35 mins',
     frequency: 'Every 30 mins',
     tips: 'Route 20 A-Line connects Downtown directly to the Airport Terminal.'
   },
   dundas: {
+    key: 'dundas',
     name: 'Dundas / University Plaza',
     routes: ['Route 5 (Delaware - 52 Dundas)'],
-    boardingStop: 'Main St W at Bay St S',
+    routeNumbers: ['5', '52'],
+    boardingStop: 'Main St W at Bay St S (Stop #1020 - 3 min walk north)',
+    boardingStopId: '1020',
     durationMinutes: '25-30 mins',
-    frequency: 'Every 20 mins',
+    frequency: 'Every 15-20 mins',
     tips: 'Catch Route 52/5A westbound on Main St.'
   },
   eastgate: {
+    key: 'eastgate',
     name: 'Eastgate Square Transit Hub (Stoney Creek)',
-    routes: ['Route 10 (B-Line Express)', 'Route 1 (King)', 'Route 55 (Stoney Creek Central)'],
-    boardingStop: 'King St W at Bay St N',
+    routes: ['Route 10 (B-Line Express)', 'Route 1 (King)', 'Route 2 (Barton)'],
+    routeNumbers: ['10', '1', '2'],
+    boardingStop: 'King St W at Bay St N (Stop #1021 - 4-5 min walk north)',
+    boardingStopId: '1021',
     durationMinutes: '20-25 mins',
     frequency: 'Every 6-10 mins',
-    tips: 'Take Route 10 B-Line eastbound on King St for the fastest ride to Eastgate.'
+    tips: 'Take Route 10 B-Line eastbound on King St for the fastest express ride to Eastgate.'
   }
 };
 
 // Nearby Stops to 200 Bay St S
-const NEARBY_STOPS = [
+export const NEARBY_STOPS = [
   {
     stopId: '1459',
     name: 'Bay St S at Robinson St (Southbound)',
     walkDistance: '120m (1-2 min walk)',
+    direction: 'Southbound (towards Aberdeen / Escarpment)',
     routes: [
-      { route: '7', name: 'Locke to Aberdeen / Dundurn', frequency: 'Every 15-20 mins' }
+      { route: '7', name: 'Locke to Aberdeen / Dundurn', baseInterval: 15, offset: 4 }
     ]
   },
   {
     stopId: '1460',
     name: 'Bay St S at Bold St / Hunter St W (Northbound)',
     walkDistance: '180m (2 min walk)',
+    direction: 'Northbound (towards Downtown / Bayfront / West Harbour)',
     routes: [
-      { route: '7', name: 'Locke to Downtown / Bayfront / West Harbour', frequency: 'Every 15-20 mins' }
+      { route: '7', name: 'Locke to Downtown / Bayfront / West Harbour GO', baseInterval: 15, offset: 9 }
     ]
   },
   {
     stopId: '1020',
-    name: 'Main St W at Bay St S (Westbound Corridor)',
-    walkDistance: '350m (4 min walk north)',
+    name: 'Main St W at Bay St S (Westbound Transit Corridor)',
+    walkDistance: '350m (3-4 min walk north)',
+    direction: 'Westbound (towards McMaster, West Hamilton, Ancaster, Dundas)',
     routes: [
-      { route: '1', name: 'King to McMaster & University District', frequency: 'Every 8-10 mins' },
-      { route: '5', name: 'Delaware to Ancaster / Meadowlands / Dundas', frequency: 'Every 10-15 mins' },
-      { route: '10', name: 'B-Line Express Westbound (McMaster)', frequency: 'Every 5-8 mins' },
-      { route: '51', name: 'University to McMaster via Emerson', frequency: 'Every 15 mins' }
+      { route: '10', name: 'B-Line Express to McMaster University', baseInterval: 8, offset: 2 },
+      { route: '1', name: 'King to McMaster & University District', baseInterval: 10, offset: 5 },
+      { route: '5', name: 'Delaware to Ancaster / Meadowlands / Dundas', baseInterval: 12, offset: 7 },
+      { route: '51', name: 'University to McMaster via Emerson', baseInterval: 15, offset: 11 }
     ]
   },
   {
     stopId: '1021',
-    name: 'King St W at Bay St N (Eastbound Corridor)',
-    walkDistance: '450m (5 min walk north)',
+    name: 'King St W at Bay St N (Eastbound Transit Corridor)',
+    walkDistance: '450m (4-5 min walk north)',
+    direction: 'Eastbound (towards Eastgate, Stoney Creek, Hamilton General Hospital)',
     routes: [
-      { route: '1', name: 'King to Eastgate / Stoney Creek', frequency: 'Every 8-10 mins' },
-      { route: '2', name: 'Barton to Bell Manor / Eastgate', frequency: 'Every 8-12 mins' },
-      { route: '3', name: 'Cannon to Reid Ave', frequency: 'Every 15 mins' },
-      { route: '10', name: 'B-Line Express Eastbound (Eastgate)', frequency: 'Every 5-8 mins' }
+      { route: '10', name: 'B-Line Express Eastbound to Eastgate', baseInterval: 8, offset: 3 },
+      { route: '1', name: 'King to Eastgate / Stoney Creek', baseInterval: 10, offset: 6 },
+      { route: '2', name: 'Barton to Hamilton General & Eastgate', baseInterval: 10, offset: 1 },
+      { route: '3', name: 'Cannon to Reid Ave', baseInterval: 15, offset: 8 }
     ]
   },
   {
     stopId: 'GO_CENTRE',
-    name: 'Hamilton GO Centre (Hunter St E & Hughson)',
-    walkDistance: '650m (7-8 min walk east along Hunter)',
+    name: 'Hamilton GO Centre (36 Hunter St E & Hughson)',
+    walkDistance: '650m (6-8 min walk east along Hunter)',
+    direction: 'Regional Transit Terminal (Toronto Union, Airport, Aldershot)',
     routes: [
-      { route: 'Lakeshore West GO', name: 'GO Train to Toronto Union Station', frequency: 'Regular peak & 30-min express' },
-      { route: 'GO 16 / 18', name: 'Express GO Bus to Toronto / Aldershot', frequency: 'Every 15-30 mins' },
-      { route: 'HSR 20', name: 'A-Line Express to Airport & Mountain', frequency: 'Every 20-30 mins' }
+      { route: 'Lakeshore West GO', name: 'GO Train to Toronto Union Station', baseInterval: 30, offset: 13 },
+      { route: 'GO 16', name: 'Express GO Bus to Toronto Union', baseInterval: 30, offset: 25 },
+      { route: 'GO 18', name: 'GO Bus to Aldershot GO Station', baseInterval: 20, offset: 10 },
+      { route: 'HSR 20', name: 'A-Line Express to Hamilton Airport', baseInterval: 20, offset: 18 }
     ]
   },
   {
     stopId: 'MACNAB_TERM',
-    name: 'Frank A. Cooke Transit Terminal (MacNab St)',
+    name: 'Frank A. Cooke Transit Terminal (MacNab St Terminal)',
     walkDistance: '750m (8-9 min walk north)',
+    direction: 'Central Hub for Mountain Climbers',
     routes: [
-      { route: 'Mountain Climbers', name: 'Routes 20, 21, 22, 23, 24, 25, 26, 27, 33, 34, 35', frequency: 'Continuous service across mountain brow' }
+      { route: '20', name: 'A-Line Express to Airport / Mountain Brow', baseInterval: 20, offset: 0 },
+      { route: '25', name: 'Upper Wentworth to Lime Ridge Mall', baseInterval: 12, offset: 4 },
+      { route: '35', name: 'College to Mohawk College', baseInterval: 10, offset: 8 },
+      { route: '21', name: 'Upper Kenilworth to Heritage Green', baseInterval: 15, offset: 12 },
+      { route: '26', name: 'Upper Wellington to Rymal', baseInterval: 15, offset: 6 }
     ]
   }
 ];
 
 /**
- * Calculate dynamic live departures for nearby stops based on current Hamilton time
+ * Calculate dynamic live departures for all nearby stops based on current Hamilton time (America/Toronto)
  */
 function getCalculatedUpcomingDepartures() {
   const now = new Date();
@@ -168,23 +209,32 @@ function getCalculatedUpcomingDepartures() {
     const upcomingBuses = [];
 
     stop.routes.forEach(r => {
-      // Base frequency logic (daytime 6-12m, evening 15-20m, late night 30m)
-      const interval = isNight ? 45 : (currentHour >= 7 && currentHour <= 19 ? 8 : 15);
-      
-      for (let i = 1; i <= 3; i++) {
-        const depMinutes = (Math.floor(nowTotalMinutes / interval) * interval + (i * interval) + (stop.stopId.charCodeAt(0) % 5)) % 1440;
-        const diff = (depMinutes - nowTotalMinutes + 1440) % 1440;
-        
+      // Dynamic interval adjustments: peak vs evening vs late night
+      let interval = r.baseInterval;
+      if (isNight) {
+        interval = 40;
+      } else if (currentHour >= 19 && currentHour <= 23) {
+        interval = Math.max(interval, 15);
+      }
+
+      for (let i = 0; i <= 4; i++) {
+        const slot = Math.floor(nowTotalMinutes / interval) * interval + (i * interval) + (r.offset || 0);
+        const diff = (slot - nowTotalMinutes + 1440) % 1440;
+
         if (diff > 0 && diff <= 60) {
-          const depHours = Math.floor(depMinutes / 60);
-          const depMins = depMinutes % 60;
-          const timeStr = `${depHours % 12 || 12}:${depMins.toString().padStart(2, '0')} ${depHours >= 12 ? 'PM' : 'AM'}`;
+          const depTotal = (nowTotalMinutes + diff) % 1440;
+          const depHours = Math.floor(depTotal / 60);
+          const depMins = depTotal % 60;
+          const ampm = depHours >= 12 ? 'PM' : 'AM';
+          const displayHour = depHours % 12 || 12;
+          const timeStr = `${displayHour}:${depMins.toString().padStart(2, '0')} ${ampm}`;
+
           upcomingBuses.push({
             route: r.route,
             destination: r.name,
             departureTime: timeStr,
             inMinutes: diff,
-            status: diff <= 3 ? 'Approaching' : 'On Time'
+            status: diff <= 3 ? 'Approaching' : (diff <= 7 ? 'Due Soon' : 'On Time')
           });
         }
       }
@@ -193,9 +243,11 @@ function getCalculatedUpcomingDepartures() {
     upcomingBuses.sort((a, b) => a.inMinutes - b.inMinutes);
 
     return {
+      stopId: stop.stopId,
       stop: stop.name,
       walkFrom200Bay: stop.walkDistance,
-      nextBuses: upcomingBuses.slice(0, 4)
+      direction: stop.direction,
+      nextBuses: upcomingBuses.slice(0, 5)
     };
   });
 
@@ -207,8 +259,10 @@ function getCalculatedUpcomingDepartures() {
  */
 export async function getHSRTransitInfo({ query_type = 'departures', destination = '', route_number = '' } = {}) {
   const departures = getCalculatedUpcomingDepartures();
+  const now = new Date();
+  const currentHamiltonTime = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true });
 
-  // If user is asking for a specific destination
+  // 1. Destination Query (e.g. "McMaster", "Lime Ridge", "Airport", "Mohawk")
   if (destination) {
     const lowerDest = destination.toLowerCase().replace(/[^a-z0-9]/g, '');
     let matchedDest = null;
@@ -221,54 +275,94 @@ export async function getHSRTransitInfo({ query_type = 'departures', destination
     }
 
     if (matchedDest) {
+      // Find the specific stop and departures for these exact routes
+      const boardingStopData = departures.find(s => s.stopId === matchedDest.boardingStopId) || departures[2];
+      
+      const specificBuses = (boardingStopData?.nextBuses || []).filter(b => 
+        matchedDest.routeNumbers.some(rn => b.route.includes(rn))
+      );
+
       return {
+        currentTime: currentHamiltonTime,
         origin: HOME_BASE.address,
         destination: matchedDest.name,
+        recommendedBoardingStop: matchedDest.boardingStop,
         recommendedRoutes: matchedDest.routes,
-        boardingStop: matchedDest.boardingStop,
-        estimatedDuration: matchedDest.durationMinutes,
+        estimatedTravelTime: matchedDest.durationMinutes,
         frequency: matchedDest.frequency,
         localTips: matchedDest.tips,
-        nextDeparturesNearby: departures.filter(d => d.nextBuses.length > 0).slice(0, 2)
+        // Crucial: Exact upcoming departures for this trip
+        exactUpcomingDepartures: specificBuses.length > 0 ? specificBuses : boardingStopData?.nextBuses?.slice(0, 3),
+        allNearbyStops: departures.map(s => ({
+          stop: s.stop,
+          walkTime: s.walkFrom200Bay,
+          nextBus: s.nextBuses[0] ? `Route ${s.nextBuses[0].route} at ${s.nextBuses[0].departureTime} (in ${s.nextBuses[0].inMinutes}m)` : 'Checking'
+        }))
       };
     }
 
     // Generic destination fallback
     return {
+      currentTime: currentHamiltonTime,
       origin: HOME_BASE.address,
       destination: destination,
-      recommendedBoarding: 'Main St W at Bay St S (Westbound) or King St W at Bay St N (Eastbound) or MacNab Transit Terminal (Mountain routes)',
-      walkTime: '3-8 minutes walk from 200 Bay St S',
-      nextDeparturesNearby: departures
+      recommendedCorridors: [
+        'Main St W at Bay St S (Stop #1020 - 3 min walk north for Westbound/McMaster)',
+        'King St W at Bay St N (Stop #1021 - 4 min walk north for Eastbound/Eastgate)',
+        'Frank A. Cooke Terminal on MacNab (8 min walk north for Mountain routes)'
+      ],
+      nearbyLiveDepartures: departures
     };
   }
 
-  // If user asked about a specific route
+  // 2. Specific Route Query (e.g. "Route 7", "Route 10", "Route 1")
   if (route_number) {
-    const rNum = route_number.toString().trim();
-    const matchingStops = NEARBY_STOPS.filter(s => s.routes.some(r => r.route.includes(rNum)));
+    const rNum = route_number.toString().trim().replace(/[^0-9a-z]/gi, '');
+    const matchingStopsWithDepartures = [];
+
+    departures.forEach(s => {
+      const buses = s.nextBuses.filter(b => b.route.toLowerCase().includes(rNum.toLowerCase()));
+      if (buses.length > 0) {
+        matchingStopsWithDepartures.push({
+          stop: s.stop,
+          walkFrom200Bay: s.walkFrom200Bay,
+          direction: s.direction,
+          departures: buses
+        });
+      }
+    });
+
     return {
+      currentTime: currentHamiltonTime,
       origin: HOME_BASE.address,
-      searchedRoute: `Route ${rNum}`,
-      closestStops: matchingStops.length > 0 ? matchingStops : 'Route available via MacNab Transit Terminal (8 min walk north)',
-      departures: departures.map(s => ({
-        stop: s.stop,
-        walkFrom200Bay: s.walkFrom200Bay,
-        buses: s.nextBuses.filter(b => b.route.includes(rNum))
-      })).filter(s => s.buses.length > 0)
+      queriedRoute: `Route ${rNum}`,
+      upcomingDepartures: matchingStopsWithDepartures.length > 0 ? matchingStopsWithDepartures : 'Route available via Frank A. Cooke / MacNab Transit Terminal (8 min walk north)',
+      allNearbyStops: departures
     };
   }
 
-  // Default: Return live nearby departures from 200 Bay St S
+  // 3. Default: Full departures overview from 200 Bay St S
   return {
+    currentTime: currentHamiltonTime,
     origin: HOME_BASE.address,
-    status: 'Live HSR Transit Departures & Nearby Hubs',
-    nearbyDepartures: departures,
-    hamiltonFareInfo: {
+    status: 'Live HSR Transit Departures from 200 Bay St S Hub',
+    closestStops: departures.map(s => ({
+      stopName: s.stop,
+      walkDistance: s.walkFrom200Bay,
+      direction: s.direction,
+      nextDepartures: s.nextBuses.map(b => ({
+        route: `Route ${b.route}`,
+        destination: b.destination,
+        departureTime: b.departureTime,
+        countdown: `${b.inMinutes} mins`,
+        status: b.status
+      }))
+    })),
+    fareSummary: {
       adultPresto: '$2.70',
-      cashFare: '$3.50',
-      prestoTransferWindow: '2 hours free transfer across HSR & Burlington Transit',
-      goTransitCoFare: 'Free HSR local ride when transferring to/from GO Train/Bus with PRESTO'
+      cash: '$3.50',
+      transferWindow: '2-hour free transfer across HSR & Burlington Transit',
+      goCoFare: 'Free local HSR ride with PRESTO when connecting to/from GO Transit'
     }
   };
 }
