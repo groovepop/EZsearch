@@ -61,51 +61,33 @@ const NASA_MARS_CURIOSITY_URL = 'https://mars.nasa.gov/rss/api/?feed=weather&cat
 const XWEATHER_CLIENT_ID = process.env.XWEATHER_CLIENT_ID || 'kNPY5XGr0SDofXdyLH9Z6';
 const XWEATHER_CLIENT_SECRET = process.env.XWEATHER_CLIENT_SECRET || 'k88PkimT0tLyeFa8lhDRGMdGMMZdjvB3JgiCvCnA';
 
-// Helper: Reliable HTTPS/HTTP JSON fetcher with automatic 301/302 Redirect Following
-function fetchTextUrl(urlStr, timeoutMs = 7000, redirectCount = 0) {
-  return new Promise((resolve, reject) => {
-    if (redirectCount > 5) return reject(new Error('Too many HTTP redirects'));
-
-    const parsedUrl = new URL(urlStr);
-    const transport = parsedUrl.protocol === 'https:' ? https : http;
-
-    const req = transport.get(urlStr, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
-        'Accept': '*/*',
-        'Host': parsedUrl.hostname
-      }
-    }, (res) => {
-      if ((res.statusCode === 301 || res.statusCode === 302 || res.statusCode === 307 || res.statusCode === 308) && res.headers.location) {
-        let redirectUrl = res.headers.location;
-        if (redirectUrl.startsWith('/')) {
-          redirectUrl = `${parsedUrl.protocol}//${parsedUrl.host}${redirectUrl}`;
-        }
-        return resolve(fetchTextUrl(redirectUrl, timeoutMs, redirectCount + 1));
-      }
-
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode >= 200 && res.statusCode < 300) {
-          resolve(data);
-        } else {
-          reject(new Error(`HTTP status ${res.statusCode}`));
-        }
-      });
-    });
-
-    req.on('error', reject);
-    req.setTimeout(timeoutMs, () => {
-      req.destroy();
-      reject(new Error(`Request timed out after ${timeoutMs}ms`));
-    });
+// Helper: Reliable HTTPS/HTTP JSON fetcher
+async function fetchTextUrl(urlStr, timeoutMs = 7000) {
+  const res = await fetch(urlStr, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+      'Accept': '*/*'
+    },
+    signal: AbortSignal.timeout(timeoutMs)
   });
+  if (!res.ok) {
+    throw new Error(`HTTP status ${res.status}`);
+  }
+  return res.text();
 }
 
 async function fetchJsonUrl(urlStr, timeoutMs = 7000) {
-  const text = await fetchTextUrl(urlStr, timeoutMs);
-  return JSON.parse(text);
+  const res = await fetch(urlStr, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36',
+      'Accept': 'application/json, text/plain, */*'
+    },
+    signal: AbortSignal.timeout(timeoutMs)
+  });
+  if (!res.ok) {
+    throw new Error(`HTTP status ${res.status}`);
+  }
+  return res.json();
 }
 
 // Helper: Fetch with timeout and mirror fallback
