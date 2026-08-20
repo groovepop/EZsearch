@@ -823,8 +823,8 @@ app.get('/api/transit/hsr', async (req, res) => {
 // 10. AI Agent Endpoint (Azure OpenAI GPT-4o ezchat Deployment)
 app.post('/api/agent/chat', async (req, res) => {
   try {
-    const { messages, userMessage } = req.body || {};
-    const result = await processAgentChat({ messages, userMessage });
+    const { messages, userMessage, clientTime, timezone } = req.body || {};
+    const result = await processAgentChat({ messages, userMessage, clientTime, timezone });
     res.json(result);
   } catch (err) {
     console.error('[Agent API Error]', err);
@@ -838,7 +838,8 @@ app.get('/api/agent/status', (req, res) => {
 
 app.get('/api/agent/greet', async (req, res) => {
   try {
-    const greeting = await generateAgentGreeting();
+    const { clientTime } = req.query || {};
+    const greeting = await generateAgentGreeting(clientTime);
     res.json(greeting);
   } catch (err) {
     console.error('[Agent Greet Error]', err);

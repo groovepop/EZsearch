@@ -37,8 +37,28 @@ function getOpenAIClient() {
   }
 }
 
-// System Prompt with Loosened Guardrails & Deep Hamilton Transit Context
-const SYSTEM_PROMPT = `You are "EZ", the user's personal AI assistant and unfiltered chat buddy, built right into EZsearch.
+/**
+ * Dynamic System Prompt with Live Timestamp Injection & Deep Hamilton Transit Context
+ */
+export function getSystemPrompt(clientTime = null) {
+  const now = clientTime ? new Date(clientTime) : new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true });
+  const dateStr = now.toLocaleDateString('en-US', { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  const hour = parseInt(now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', hour12: false }), 10);
+  const timeOfDay = hour < 12 ? 'morning' : (hour < 17 ? 'afternoon' : (hour < 21 ? 'evening' : 'night'));
+
+  return `You are "EZ", the user's personal AI assistant and unfiltered chat buddy, built right into EZsearch.
+
+### Current Local Time & Temporal Anchor:
+- **Current Local Time**: **${timeStr}**
+- **Current Date**: **${dateStr}**
+- **Time of Day**: **${timeOfDay}**
+- **Timezone**: **America/Toronto (EDT/EST - Hamilton, Ontario)**
+- You are 100% conscious of the exact current time and date right now. ALWAYS use this real-time temporal anchor when:
+  - Answering "what time is it?", "what's today's date?", or "is it morning/night?"
+  - Calculating upcoming bus departure times, schedules, and countdowns
+  - Describing current weather conditions vs tonight/tomorrow's forecast
+  - Greeting the user (e.g. good morning / good evening)
 
 ### Persona & Style:
 - **Tone**: Witty, intelligent, casual, direct, sharp, and authentic. Talk like a real, tech-savvy friend who knows what's up.
@@ -78,7 +98,8 @@ You have complete knowledge of all stops, routes, and transit hubs within walkin
 2. **get_hamilton_weather**: When the user asks about weather, rain, temperature, or forecasts in Hamilton, ALWAYS call this tool.
 3. **search_ezsearch_media**: Call when the user wants movie, TV, or torrent lookups.
 
-Always provide specific route numbers, exact stops, walking times from 200 Bay St, and departure times/frequencies.`;
+Always provide specific route numbers, exact stops, walking times from 200 Bay St, and exact departure times (e.g. 9:15 PM) with countdown minutes (e.g. in 4 mins).`;
+}
 
 // Tool Definitions for GPT-4o Function Calling
 const AGENT_TOOLS = [
@@ -108,7 +129,7 @@ const AGENT_TOOLS = [
     type: 'function',
     function: {
       name: 'get_hsr_transit',
-      description: 'Provides live HSR transit departures, bus routes, walking directions, and trip plans starting from 200 Bay Street South, Hamilton.',
+      description: 'Provides live HSR transit departures, bus routes, walking directions, and trip plans starting from 200 Bay Street South, Hamilton with exact clock times and countdowns.',
       parameters: {
         type: 'object',
         properties: {
@@ -151,15 +172,18 @@ async function executeTool(toolName, toolArgs) {
 }
 
 /**
- * Generate a dynamic greeting in the agent's own authentic voice
+ * Generate a dynamic greeting in the agent's own authentic voice with live time awareness
  */
-export async function generateAgentGreeting() {
+export async function generateAgentGreeting(clientTime = null) {
   const client = getOpenAIClient();
   const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+  const systemPrompt = getSystemPrompt(clientTime);
 
   if (!client) {
+    const now = clientTime ? new Date(clientTime) : new Date();
+    const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true });
     return {
-      greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant anchored at 200 Bay St S in Hamilton. What's on your mind?",
+      greeting: `Hey! It's ${timeStr}. I'm EZ, your unfiltered chat buddy and assistant anchored at 200 Bay St S in Hamilton. What's on your mind?`,
       deployment: 'ezchat (local)'
     };
   }
@@ -168,8 +192,8 @@ export async function generateAgentGreeting() {
     const response = await client.chat.completions.create({
       model: deployment,
       messages: [
-        { role: 'system', content: SYSTEM_PROMPT },
-        { role: 'user', content: 'Give a brief, witty, authentic 1-2 sentence greeting in your own voice to welcome me. Keep it casual and real without any boilerplate.' }
+        { role: 'system', content: systemPrompt },
+        { role: 'user', content: 'Give a brief, witty, authentic 1-2 sentence greeting in your own voice to welcome me right now. Keep it casual, real, and natural without boilerplate.' }
       ],
       temperature: 0.85,
       max_tokens: 150
@@ -192,18 +216,19 @@ export async function generateAgentGreeting() {
  * Main Agent Chat Handler
  * Supports multi-turn conversation and automated function calling with Azure OpenAI GPT-4o (ezchat)
  */
-export async function processAgentChat({ messages = [], userMessage = '' }) {
+export async function processAgentChat({ messages = [], userMessage = '', clientTime = null, timezone = null }) {
   const client = getOpenAIClient();
   const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+  const dynamicSystemPrompt = getSystemPrompt(clientTime);
 
   // If Azure OpenAI is not configured yet, run intelligent local agent fallback
   if (!client) {
-    return await handleLocalAgentFallback(userMessage, messages);
+    return await handleLocalAgentFallback(userMessage, messages, clientTime);
   }
 
-  // Assemble full message list
+  // Assemble full message list with live dynamic system prompt
   const formattedMessages = [
-    { role: 'system', content: SYSTEM_PROMPT },
+    { role: 'system', content: dynamicSystemPrompt },
     ...messages
   ];
 
@@ -277,7 +302,7 @@ export async function processAgentChat({ messages = [], userMessage = '' }) {
     console.error('[Agent Error] Azure OpenAI invocation error:', err);
     return {
       reply: `⚠️ **Azure OpenAI Connection Notice**: ${err.message}\n\n*Running local fallback agent in the meantime.*`,
-      fallback: await handleLocalAgentFallback(userMessage, messages),
+      fallback: await handleLocalAgentFallback(userMessage, messages, clientTime),
       mode: 'error_fallback'
     };
   }
@@ -286,9 +311,21 @@ export async function processAgentChat({ messages = [], userMessage = '' }) {
 /**
  * Intelligent Local Fallback Agent (Active before Azure OpenAI key is set)
  */
-async function handleLocalAgentFallback(userMsg = '', history = []) {
+async function handleLocalAgentFallback(userMsg = '', history = [], clientTime = null) {
   const lower = (userMsg || '').toLowerCase();
   const executedTools = [];
+  const now = clientTime ? new Date(clientTime) : new Date();
+  const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true });
+
+  // Time query detection
+  if (lower.includes('what time') || lower.includes('what is the time') || lower.includes('current time')) {
+    return {
+      reply: `🕒 **Current Local Time in Hamilton**: **${timeStr}** (${now.toLocaleDateString('en-US', { timeZone: 'America/Toronto', weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })})`,
+      toolCalls: [],
+      deployment: 'ezchat (local mode)',
+      mode: 'local_assistant'
+    };
+  }
 
   // Weather query detection
   if (lower.includes('weather') || lower.includes('rain') || lower.includes('forecast') || lower.includes('temp') || lower.includes('cold') || lower.includes('hot')) {
@@ -301,7 +338,7 @@ async function handleLocalAgentFallback(userMsg = '', history = []) {
 
     executedTools.push({ tool: 'get_hamilton_weather', result: weatherData });
 
-    let response = `🌤️ **Hamilton Weather Update (Bay 200 Anchor)**\n\n`;
+    let response = `🌤️ **Hamilton Weather Update (Bay 200 Anchor - ${timeStr})**\n\n`;
     if (weatherData.current) {
       response += `• **Current Condition**: ${weatherData.current.condition}\n`;
       response += `• **Temperature**: **${weatherData.current.temp}** (Feels like ${weatherData.current.feelsLike || weatherData.current.temp})\n`;
@@ -338,19 +375,26 @@ async function handleLocalAgentFallback(userMsg = '', history = []) {
     const transitData = await getHSRTransitInfo({ destination });
     executedTools.push({ tool: 'get_hsr_transit', result: transitData });
 
-    let response = `🚌 **HSR Transit from 200 Bay St S (Bay 200)**\n\n`;
+    let response = `🚌 **HSR Transit from 200 Bay St S (Bay 200 - as of ${timeStr})**\n\n`;
     if (destination && transitData.destination) {
       response += `📍 **Destination: ${transitData.destination}**\n`;
-      response += `• **Recommended Routes**: ${transitData.recommendedRoutes.join(', ')}\n`;
-      response += `• **Boarding Stop**: ${transitData.boardingStop}\n`;
-      response += `• **Travel Time**: ~${transitData.estimatedDuration}\n`;
-      response += `• **Pro Tip**: ${transitData.localTips}\n\n`;
+      response += `• **Boarding Stop**: ${transitData.recommendedBoardingStop || transitData.boardingStop}\n`;
+      response += `• **Recommended Routes**: ${(transitData.recommendedRoutes || []).join(', ')}\n`;
+      response += `• **Travel Time**: ~${transitData.estimatedTravelTime || transitData.estimatedDuration}\n\n`;
+
+      if (transitData.exactUpcomingDepartures && transitData.exactUpcomingDepartures.length > 0) {
+        response += `**Next Departures:**\n`;
+        transitData.exactUpcomingDepartures.forEach(b => {
+          response += `• **Route ${b.route}** (${b.destination}): **${b.departureTime}** (*in ${b.inMinutes} mins*)\n`;
+        });
+      }
+      response += `\n• **Pro Tip**: ${transitData.localTips}\n`;
     } else {
       response += `**Closest Live Departures:**\n`;
-      (transitData.nearbyDepartures || []).slice(0, 3).forEach(stop => {
-        response += `\n🚏 **${stop.stop}** (*${stop.walkFrom200Bay}*)\n`;
-        stop.nextBuses.slice(0, 2).forEach(b => {
-          response += `  • **Route ${b.route}** (${b.destination}) - in **${b.inMinutes} mins** (${b.departureTime})\n`;
+      (transitData.closestStops || []).slice(0, 3).forEach(stop => {
+        response += `\n🚏 **${stop.stopName}** (*${stop.walkDistance}*)\n`;
+        (stop.nextDepartures || []).slice(0, 2).forEach(b => {
+          response += `  • **${b.route}** (${b.destination}) - **${b.departureTime}** (*${b.countdown}*)\n`;
         });
       });
       response += `\n*Presto Fare: $2.70 (Free 2-hr transfers & free GO co-fare)*\n`;
@@ -366,7 +410,7 @@ async function handleLocalAgentFallback(userMsg = '', history = []) {
 
   // Conversational response
   return {
-    reply: `Hey! I'm **EZ**, your personal assistant and chat buddy anchored at 200 Bay St S in Hamilton. What's on your mind?`,
+    reply: `Hey! It's **${timeStr}**. I'm **EZ**, your personal assistant and chat buddy anchored at 200 Bay St S in Hamilton. What's on your mind?`,
     toolCalls: [],
     deployment: 'ezchat (local mode)',
     mode: 'local_assistant'
@@ -388,6 +432,8 @@ export function getAgentStatus() {
     hasKey: !!apiKey,
     apiVersion,
     originAnchor: HOME_BASE,
+    currentTime: new Date().toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true }),
+    currentDate: new Date().toLocaleDateString('en-US', { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
     tools: ['get_hamilton_weather', 'get_hsr_transit']
   };
 }

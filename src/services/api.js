@@ -287,12 +287,15 @@ export async function fetchHSRTransit({ destination = '', route_number = '' } = 
 
 // 10. AI Agent Service (Azure OpenAI GPT-4o ezchat Deployment)
 export async function sendAgentMessage({ messages = [], userMessage = '' } = {}) {
+  const clientTime = new Date().toISOString();
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Toronto';
+
   const res = await fetch('/api/agent/chat', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ messages, userMessage })
+    body: JSON.stringify({ messages, userMessage, clientTime, timezone })
   });
 
   if (!res.ok) {
@@ -309,7 +312,8 @@ export async function fetchAgentStatus() {
 }
 
 export async function fetchAgentGreeting() {
-  const res = await fetch('/api/agent/greet');
+  const clientTime = encodeURIComponent(new Date().toISOString());
+  const res = await fetch(`/api/agent/greet?clientTime=${clientTime}`);
   if (!res.ok) return { greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant. What's on your mind?" };
   return res.json();
 }
