@@ -323,65 +323,66 @@ app.get('/api/eztv/torrents', async (req, res) => {
       }
     }
 
-    // Attempt 2: If a search query was provided and EZTV returned 0 results, run fallback search on APIBay & BitSearch
+    // Attempt 2: If a search query was provided and EZTV returned 0 results, run fallback search on APIBay & BitSearch in parallel
     if (rawQuery && ezTorrents.length === 0) {
       console.log(`[EZTV Search] 0 direct EZTV results. Running smart TV search for "${rawQuery}"...`);
       const normalizedQ = normalizeTPBQuery(rawQuery);
       const searchTermsToTry = [rawQuery, normalizedQ, cleanShowName].filter((v, i, a) => v && a.indexOf(v) === i);
 
-      // Try APIBay first (cat=205,208 for TV Shows)
+      const seenHashes = new Set();
+      const combinedTorrents = [];
+
       for (const st of searchTermsToTry) {
-        if (ezTorrents.length > 0) break;
+        if (combinedTorrents.length > 0) break;
         try {
           const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(st)}&cat=0`;
-          const apibayData = await fetchJsonUrl(apibayUrl, 5000);
-          const rawList = Array.isArray(apibayData) ? apibayData.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
+          const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(st)}&limit=${limit}&page=${page}`;
 
-          if (rawList.length > 0) {
-            let filteredList = rawList;
-            if (seasonFilter !== null && episodeFilter !== null) {
-              const epRegex = new RegExp(`[sS]0*${seasonFilter}[eE]0*${episodeFilter}|${seasonFilter}x0*${episodeFilter}`, 'i');
-              const matched = filteredList.filter(item => epRegex.test(item.name));
-              if (matched.length > 0) filteredList = matched;
+          const [apibayRes, bitRes] = await Promise.allSettled([
+            fetchJsonUrl(apibayUrl, 5000),
+            fetchJsonUrl(bitUrl, 5000)
+          ]);
+
+          const rawApibay = (apibayRes.status === 'fulfilled' && Array.isArray(apibayRes.value))
+            ? apibayRes.value.filter(item => item.id !== '0' && item.name !== 'No results returned')
+            : [];
+          const rawBit = (bitRes.status === 'fulfilled' && bitRes.value?.results)
+            ? bitRes.value.results
+            : [];
+
+          // Add APIBay results
+          rawApibay.forEach(item => {
+            const h = (item.info_hash || '').toLowerCase();
+            if (h && !seenHashes.has(h)) {
+              seenHashes.add(h);
+              combinedTorrents.push({
+                id: `tpb_${item.id}_${item.info_hash}`,
+                title: item.name,
+                filename: item.name,
+                category: 'TV Shows',
+                imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
+                season: seasonFilter ? String(seasonFilter) : '0',
+                episode: episodeFilter ? String(episodeFilter) : '0',
+                seeds: parseInt(item.seeders || 0, 10),
+                peers: parseInt(item.leechers || 0, 10),
+                size_bytes: item.size,
+                formatted_size: formatSizeBytes(item.size),
+                quality: parseQuality(item.name),
+                magnet_url: buildMagnetUrl(item.info_hash, item.name),
+                date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
+                date_released_unix: parseInt(item.added, 10) || 0,
+                num_files: item.num_files,
+                source: 'EZTV (APIBay Engine)'
+              });
             }
+          });
 
-            ezTorrents = filteredList.map(item => ({
-              id: `tpb_${item.id}_${item.info_hash}`,
-              title: item.name,
-              filename: item.name,
-              category: 'TV Shows',
-              imdb_id: item.imdb ? `tt${item.imdb.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
-              season: seasonFilter ? String(seasonFilter) : '0',
-              episode: episodeFilter ? String(episodeFilter) : '0',
-              seeds: parseInt(item.seeders || 0, 10),
-              peers: parseInt(item.leechers || 0, 10),
-              size_bytes: item.size,
-              formatted_size: formatSizeBytes(item.size),
-              quality: parseQuality(item.name),
-              magnet_url: buildMagnetUrl(item.info_hash, item.name),
-              date_released: item.added ? new Date(parseInt(item.added, 10) * 1000).toLocaleDateString() : 'N/A',
-              date_released_unix: parseInt(item.added, 10) || 0,
-              num_files: item.num_files,
-              source: 'EZTV (APIBay Engine)'
-            }));
-            mirrorUsed = 'https://apibay.org';
-          }
-        } catch (apibayErr) {
-          console.warn(`[EZTV Search] APIBay TV fallback failed: ${apibayErr.message}`);
-        }
-      }
-
-      // Try BitSearch (TV categories) if still 0
-      if (ezTorrents.length === 0) {
-        for (const st of searchTermsToTry) {
-          if (ezTorrents.length > 0) break;
-          try {
-            const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(st)}&limit=${limit}&page=${page}`;
-            const bitData = await fetchJsonUrl(bitUrl, 5000);
-            const bitList = bitData?.results || [];
-
-            if (bitList.length > 0) {
-              ezTorrents = bitList.map(item => ({
+          // Add BitSearch results
+          rawBit.forEach(item => {
+            const h = (item.infohash || item.hash || '').toLowerCase();
+            if (!h || !seenHashes.has(h)) {
+              if (h) seenHashes.add(h);
+              combinedTorrents.push({
                 id: `solid_${item.id}_${item.infohash || item.hash}`,
                 title: item.title,
                 filename: item.title,
@@ -398,13 +399,35 @@ app.get('/api/eztv/torrents', async (req, res) => {
                 date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
                 date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
                 source: 'EZTV (BitSearch Engine)'
-              }));
-              mirrorUsed = 'https://bitsearch.eu';
+              });
             }
-          } catch (bitErr) {
-            console.warn(`[EZTV Search] BitSearch TV fallback failed: ${bitErr.message}`);
+          });
+
+          if (combinedTorrents.length > 0) {
+            mirrorUsed = 'https://apibay.org + https://bitsearch.eu';
+            break;
           }
+        } catch (fallbackErr) {
+          console.warn(`[EZTV Search] Parallel fallback search failed for "${st}":`, fallbackErr.message);
         }
+      }
+
+      if (combinedTorrents.length > 0) {
+        // Apply episode / season filter if specified
+        if (seasonFilter !== null && episodeFilter !== null) {
+          const epRegex = new RegExp(`[sS]0*${seasonFilter}[eE]0*${episodeFilter}|${seasonFilter}x0*${episodeFilter}`, 'i');
+          const matched = combinedTorrents.filter(item => epRegex.test(item.title));
+          if (matched.length > 0) {
+            ezTorrents = matched;
+          } else {
+            ezTorrents = combinedTorrents;
+          }
+        } else {
+          ezTorrents = combinedTorrents;
+        }
+
+        // Sort by seeds
+        ezTorrents.sort((a, b) => (b.seeds || 0) - (a.seeds || 0));
       }
     }
 
