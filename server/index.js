@@ -202,7 +202,62 @@ function normalizeTPBQuery(raw) {
   
   // Clean redundant whitespace
   q = q.replace(/\s+/g, ' ').trim();
-  return q;
+// Helper: Parse TPB HTML mirrors
+function parseTPBHtml(html) {
+  const torrents = [];
+  const rows = html.split('<tr');
+
+  for (const r of rows) {
+    if (!r.includes('magnet:?xt=')) continue;
+
+    const titleMatch = r.match(/<a href="https?:\/\/[^/]+\/torrent\/\d+\/[^"]*"[^>]*>([^<]+)<\/a>/i) ||
+                       r.match(/class="detLink"[^>]*>([^<]+)<\/a>/i);
+    const magnetMatch = r.match(/href="(magnet:\?[^"]+)"/i);
+    const tdMatches = [...r.matchAll(/<td[^>]*>(\d+)<\/td>/gi)].map(m => parseInt(m[1], 10));
+    const sizeMatch = r.match(/<td[^>]*>([\d.]+\s*(?:GiB|MiB|KiB|GB|MB|KB|B))<\/td>/i) ||
+                      r.match(/Size\s*([\d.]+\s*(?:GiB|MiB|KiB|GB|MB|KB|B))/i);
+
+    if (titleMatch && magnetMatch) {
+      const title = titleMatch[1].trim();
+      const magnet_url = magnetMatch[1];
+      const hashMatch = magnet_url.match(/btih:([a-fA-F0-9]{40})/i);
+      const hash = hashMatch ? hashMatch[1].toUpperCase() : '';
+
+      const seeds = tdMatches.length >= 2 ? tdMatches[tdMatches.length - 2] : (tdMatches[0] || 0);
+      const peers = tdMatches.length >= 1 ? tdMatches[tdMatches.length - 1] : 0;
+
+      torrents.push({
+        id: `tpb_html_${hash || title}`,
+        title,
+        filename: title,
+        category: 'TV Shows',
+        seeds,
+        peers,
+        formatted_size: sizeMatch ? sizeMatch[1] : '1.6 GB',
+        quality: parseQuality(title),
+        magnet_url,
+        date_released: 'N/A',
+        source: 'The Pirate Bay (Mirror)'
+      });
+    }
+  }
+
+  return torrents;
+}
+
+async function fetchTPBMirrorHtml(query, timeoutMs = 5000) {
+  const mirrors = [
+    `https://tpb.party/search/${encodeURIComponent(query)}/1/99/0`,
+    `https://thepiratebay10.org/search/${encodeURIComponent(query)}/1/99/0`
+  ];
+  for (const m of mirrors) {
+    try {
+      const html = await fetchTextUrl(m, timeoutMs);
+      const list = parseTPBHtml(html);
+      if (list.length > 0) return { list, mirror: m };
+    } catch (e) {}
+  }
+  return { list: [], mirror: '' };
 }
 
 // ==================== ENDPOINTS ====================
@@ -322,10 +377,29 @@ app.get('/api/eztv/torrents', async (req, res) => {
           const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(st)}&cat=0`;
           const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(st)}&limit=${limit}&page=${page}`;
 
-          const [apibayRes, bitRes] = await Promise.allSettled([
+          const [apibayRes, bitRes, tpbHtmlRes] = await Promise.allSettled([
             fetchJsonUrl(apibayUrl, 5000),
-            fetchJsonUrl(bitUrl, 5000)
+            fetchJsonUrl(bitUrl, 5000),
+            fetchTPBMirrorHtml(st, 5000)
           ]);
+
+          // 1. Add TPB HTML Mirror results
+          if (tpbHtmlRes.status === 'fulfilled' && tpbHtmlRes.value?.list?.length > 0) {
+            tpbHtmlRes.value.list.forEach(item => {
+              const hashMatch = item.magnet_url.match(/btih:([a-fA-F0-9]{40})/i);
+              const h = hashMatch ? hashMatch[1].toLowerCase() : '';
+              if (h && !seenHashes.has(h)) {
+                seenHashes.add(h);
+                combinedTorrents.push({
+                  ...item,
+                  imdb_id: resolvedImdbId ? `tt${resolvedImdbId}` : '',
+                  season: seasonFilter ? String(seasonFilter) : '0',
+                  episode: episodeFilter ? String(episodeFilter) : '0',
+                  source: 'EZTV (TPB Mirror)'
+                });
+              }
+            });
+          }
 
           const rawApibay = (apibayRes.status === 'fulfilled' && Array.isArray(apibayRes.value))
             ? apibayRes.value.filter(item => item.id !== '0' && item.name !== 'No results returned')
@@ -334,7 +408,7 @@ app.get('/api/eztv/torrents', async (req, res) => {
             ? bitRes.value.results
             : [];
 
-          // Add APIBay results
+          // 2. Add APIBay results
           rawApibay.forEach(item => {
             const h = (item.info_hash || '').toLowerCase();
             if (h && !seenHashes.has(h)) {
@@ -361,7 +435,7 @@ app.get('/api/eztv/torrents', async (req, res) => {
             }
           });
 
-          // Add BitSearch results
+          // 3. Add BitSearch results
           rawBit.forEach(item => {
             const h = (item.infohash || item.hash || '').toLowerCase();
             if (!h || !seenHashes.has(h)) {
@@ -388,7 +462,7 @@ app.get('/api/eztv/torrents', async (req, res) => {
           });
 
           if (combinedTorrents.length > 0) {
-            mirrorUsed = 'https://apibay.org + https://bitsearch.eu';
+            mirrorUsed = 'The Pirate Bay + BitSearch Engines';
             break;
           }
         } catch (fallbackErr) {
@@ -528,12 +602,31 @@ app.get('/api/tpb/search', async (req, res) => {
     const solidUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(queryToTry)}&limit=${limit}&page=${page}`;
     const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(queryToTry)}&cat=${cat || '0'}`;
 
-    const [bitRes, apibayRes] = await Promise.allSettled([
+    const [bitRes, apibayRes, tpbHtmlRes] = await Promise.allSettled([
       fetchJsonUrl(solidUrl, 6000),
-      fetchJsonUrl(apibayUrl, 5000)
+      fetchJsonUrl(apibayUrl, 5000),
+      fetchTPBMirrorHtml(queryToTry, 5000)
     ]);
 
-    // 1. Process APIBay results
+    // 1. Process TPB HTML Mirror results
+    if (tpbHtmlRes.status === 'fulfilled' && tpbHtmlRes.value?.list?.length > 0) {
+      tpbHtmlRes.value.list.forEach(item => {
+        const hashMatch = item.magnet_url.match(/btih:([a-fA-F0-9]{40})/i);
+        const h = hashMatch ? hashMatch[1].toLowerCase() : '';
+        if (h && !seenHashes.has(h)) {
+          seenHashes.add(h);
+          combinedTorrents.push({
+            ...item,
+            category: 'Pirate Bay (All Categories)',
+            uploader: 'Community',
+            source: 'Pirate Bay (TPB Mirror)'
+          });
+        }
+      });
+      mirrorUsed = 'The Pirate Bay (HTML Mirror)';
+    }
+
+    // 2. Process APIBay results
     if (apibayRes.status === 'fulfilled' && Array.isArray(apibayRes.value)) {
       const rawList = apibayRes.value.filter(item => item.id !== '0' && item.name !== 'No results returned');
       rawList.forEach(item => {
@@ -562,7 +655,7 @@ app.get('/api/tpb/search', async (req, res) => {
       if (rawList.length > 0) mirrorUsed = 'https://apibay.org';
     }
 
-    // 2. Process BitSearch results
+    // 3. Process BitSearch results
     if (bitRes.status === 'fulfilled' && bitRes.value?.results) {
       const rawList = bitRes.value.results;
       rawList.forEach(item => {
