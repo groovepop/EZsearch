@@ -274,98 +274,78 @@ app.get('/api/eztv/torrents', async (req, res) => {
       }
     }
 
-    // Attempt 1: Fetch directly from EZTV API using resolved IMDb ID or general feed
+    // Attempt 1: If we have an IMDb ID or no search query (general feed), fetch directly from EZTV API
     let ezTorrents = [];
     let mirrorUsed = '';
 
-    try {
-      const params = { limit, page };
-      if (resolvedImdbId) {
-        params.imdb_id = resolvedImdbId;
-      }
+    if (resolvedImdbId || !rawQuery) {
+      try {
+        const params = { limit, page };
+        if (resolvedImdbId) {
+          params.imdb_id = resolvedImdbId;
+        }
 
-      const ezResult = await fetchWithFallback(EZTV_MIRRORS, params, 6000);
-      mirrorUsed = ezResult.mirrorUsed;
-      const rawList = ezResult.data.torrents || [];
+        const ezResult = await fetchWithFallback(EZTV_MIRRORS, params, 6000);
+        mirrorUsed = ezResult.mirrorUsed;
+        const rawList = ezResult.data.torrents || [];
 
-      ezTorrents = rawList.map(item => ({
-        id: item.id || item.hash,
-        title: item.title || item.filename,
-        filename: item.filename,
-        category: 'TV Shows',
-        imdb_id: item.imdb_id ? `tt${item.imdb_id.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
-        season: item.season || '0',
-        episode: item.episode || '0',
-        seeds: parseInt(item.seeds || 0, 10),
-        peers: parseInt(item.peers || 0, 10),
-        size_bytes: item.size_bytes,
-        formatted_size: formatSizeBytes(item.size_bytes),
-        quality: parseQuality(item.title || item.filename),
-        magnet_url: item.magnet_url,
-        torrent_url: item.torrent_url,
-        date_released: item.date_released_unix ? new Date(item.date_released_unix * 1000).toLocaleDateString() : 'N/A',
-        date_released_unix: item.date_released_unix || 0,
-        small_screenshot: item.small_screenshot,
-        large_screenshot: item.large_screenshot,
-        source: 'EZTV'
-      }));
+        ezTorrents = rawList.map(item => ({
+          id: item.id || item.hash,
+          title: item.title || item.filename,
+          filename: item.filename,
+          category: 'TV Shows',
+          imdb_id: item.imdb_id ? `tt${item.imdb_id.padStart(7, '0')}` : (resolvedImdbId ? `tt${resolvedImdbId}` : ''),
+          season: item.season || '0',
+          episode: item.episode || '0',
+          seeds: parseInt(item.seeds || 0, 10),
+          peers: parseInt(item.peers || 0, 10),
+          size_bytes: item.size_bytes,
+          formatted_size: formatSizeBytes(item.size_bytes),
+          quality: parseQuality(item.title || item.filename),
+          magnet_url: item.magnet_url,
+          torrent_url: item.torrent_url,
+          date_released: item.date_released_unix ? new Date(item.date_released_unix * 1000).toLocaleDateString() : 'N/A',
+          date_released_unix: item.date_released_unix || 0,
+          small_screenshot: item.small_screenshot,
+          large_screenshot: item.large_screenshot,
+          source: 'EZTV'
+        }));
 
-      // Apply season / episode filtering if specified in the query
-      if (seasonFilter !== null) {
-        ezTorrents = ezTorrents.filter(t => parseInt(t.season, 10) === seasonFilter);
+        // Apply season / episode filtering if specified in the query
+        if (seasonFilter !== null) {
+          ezTorrents = ezTorrents.filter(t => parseInt(t.season, 10) === seasonFilter);
+        }
+        if (episodeFilter !== null) {
+          ezTorrents = ezTorrents.filter(t => parseInt(t.episode, 10) === episodeFilter);
+        }
+      } catch (ezErr) {
+        console.warn(`[EZTV API Warning] Direct EZTV mirror fetch failed: ${ezErr.message}`);
       }
-      if (episodeFilter !== null) {
-        ezTorrents = ezTorrents.filter(t => parseInt(t.episode, 10) === episodeFilter);
-      }
-    } catch (ezErr) {
-      console.warn(`[EZTV API Warning] Direct EZTV mirror fetch failed: ${ezErr.message}`);
     }
 
-    // Attempt 2: If query was provided but returned 0 results from EZTV, search TV categories on BitSearch & APIBay
+    // Attempt 2: If a search query was provided and EZTV returned 0 results, run fallback search on APIBay & BitSearch
     if (rawQuery && ezTorrents.length === 0) {
       console.log(`[EZTV Search] 0 direct EZTV results. Running smart TV search for "${rawQuery}"...`);
       const normalizedQ = normalizeTPBQuery(rawQuery);
+      const searchTermsToTry = [rawQuery, normalizedQ, cleanShowName].filter((v, i, a) => v && a.indexOf(v) === i);
 
-      // Try BitSearch (TV categories)
-      try {
-        const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(normalizedQ)}&limit=${limit}&page=${page}`;
-        const bitData = await fetchJsonUrl(bitUrl, 5000);
-        const bitList = bitData?.results || [];
-
-        if (bitList.length > 0) {
-          ezTorrents = bitList.map(item => ({
-            id: `solid_${item.id}_${item.infohash || item.hash}`,
-            title: item.title,
-            filename: item.title,
-            category: 'TV Shows',
-            imdb_id: resolvedImdbId ? `tt${resolvedImdbId}` : '',
-            season: seasonFilter ? String(seasonFilter) : '0',
-            episode: episodeFilter ? String(episodeFilter) : '0',
-            seeds: parseInt(item.seeders || item.seeds || 0, 10),
-            peers: parseInt(item.leechers || item.peers || 0, 10),
-            size_bytes: item.size,
-            formatted_size: formatSizeBytes(item.size),
-            quality: parseQuality(item.title),
-            magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
-            date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
-            date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
-            source: 'EZTV (BitSearch Engine)'
-          }));
-          mirrorUsed = 'https://bitsearch.eu';
-        }
-      } catch (bitErr) {
-        console.warn(`[EZTV Search] BitSearch TV fallback failed: ${bitErr.message}`);
-      }
-
-      // Try APIBay (cat=205,208 for TV Shows)
-      if (ezTorrents.length === 0) {
+      // Try APIBay first (cat=205,208 for TV Shows)
+      for (const st of searchTermsToTry) {
+        if (ezTorrents.length > 0) break;
         try {
-          const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(normalizedQ)}&cat=205,208`;
+          const apibayUrl = `https://apibay.org/q.php?q=${encodeURIComponent(st)}&cat=0`;
           const apibayData = await fetchJsonUrl(apibayUrl, 5000);
           const rawList = Array.isArray(apibayData) ? apibayData.filter(item => item.id !== '0' && item.name !== 'No results returned') : [];
 
           if (rawList.length > 0) {
-            ezTorrents = rawList.map(item => ({
+            let filteredList = rawList;
+            if (seasonFilter !== null && episodeFilter !== null) {
+              const epRegex = new RegExp(`[sS]0*${seasonFilter}[eE]0*${episodeFilter}|${seasonFilter}x0*${episodeFilter}`, 'i');
+              const matched = filteredList.filter(item => epRegex.test(item.name));
+              if (matched.length > 0) filteredList = matched;
+            }
+
+            ezTorrents = filteredList.map(item => ({
               id: `tpb_${item.id}_${item.info_hash}`,
               title: item.name,
               filename: item.name,
@@ -388,6 +368,42 @@ app.get('/api/eztv/torrents', async (req, res) => {
           }
         } catch (apibayErr) {
           console.warn(`[EZTV Search] APIBay TV fallback failed: ${apibayErr.message}`);
+        }
+      }
+
+      // Try BitSearch (TV categories) if still 0
+      if (ezTorrents.length === 0) {
+        for (const st of searchTermsToTry) {
+          if (ezTorrents.length > 0) break;
+          try {
+            const bitUrl = `https://bitsearch.eu/api/v1/search?q=${encodeURIComponent(st)}&limit=${limit}&page=${page}`;
+            const bitData = await fetchJsonUrl(bitUrl, 5000);
+            const bitList = bitData?.results || [];
+
+            if (bitList.length > 0) {
+              ezTorrents = bitList.map(item => ({
+                id: `solid_${item.id}_${item.infohash || item.hash}`,
+                title: item.title,
+                filename: item.title,
+                category: 'TV Shows',
+                imdb_id: resolvedImdbId ? `tt${resolvedImdbId}` : '',
+                season: seasonFilter ? String(seasonFilter) : '0',
+                episode: episodeFilter ? String(episodeFilter) : '0',
+                seeds: parseInt(item.seeders || item.seeds || 0, 10),
+                peers: parseInt(item.leechers || item.peers || 0, 10),
+                size_bytes: item.size,
+                formatted_size: formatSizeBytes(item.size),
+                quality: parseQuality(item.title),
+                magnet_url: buildMagnetUrl(item.infohash || item.hash, item.title),
+                date_released: item.updatedAt ? new Date(item.updatedAt).toLocaleDateString() : 'N/A',
+                date_released_unix: item.updatedAt ? Math.floor(Date.parse(item.updatedAt) / 1000) : 0,
+                source: 'EZTV (BitSearch Engine)'
+              }));
+              mirrorUsed = 'https://bitsearch.eu';
+            }
+          } catch (bitErr) {
+            console.warn(`[EZTV Search] BitSearch TV fallback failed: ${bitErr.message}`);
+          }
         }
       }
     }
