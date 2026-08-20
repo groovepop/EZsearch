@@ -202,6 +202,9 @@ function normalizeTPBQuery(raw) {
   
   // Clean redundant whitespace
   q = q.replace(/\s+/g, ' ').trim();
+  return q;
+}
+
 // Helper: Parse TPB HTML mirrors
 function parseTPBHtml(html) {
   const torrents = [];
