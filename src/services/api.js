@@ -307,3 +307,9 @@ export async function fetchAgentStatus() {
   if (!res.ok) return { deployment: 'ezchat', available: false };
   return res.json();
 }
+
+export async function fetchAgentGreeting() {
+  const res = await fetch('/api/agent/greet');
+  if (!res.ok) return { greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant. What's on your mind?" };
+  return res.json();
+}

@@ -1,3 +1,7 @@
+try {
+  if (process.loadEnvFile) process.loadEnvFile();
+} catch (e) {}
+
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
@@ -5,7 +9,7 @@ import https from 'https';
 import http from 'http';
 import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
-import { processAgentChat, getAgentStatus } from './agentService.js';
+import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -830,6 +834,16 @@ app.post('/api/agent/chat', async (req, res) => {
 
 app.get('/api/agent/status', (req, res) => {
   res.json(getAgentStatus());
+});
+
+app.get('/api/agent/greet', async (req, res) => {
+  try {
+    const greeting = await generateAgentGreeting();
+    res.json(greeting);
+  } catch (err) {
+    console.error('[Agent Greet Error]', err);
+    res.status(500).json({ error: 'Failed to generate greeting', message: err.message });
+  }
 });
 
 // Serve frontend static build

@@ -16,7 +16,7 @@ import {
   Flame,
   ArrowRight
 } from 'lucide-react';
-import { sendAgentMessage, fetchAgentStatus } from '../services/api';
+import { sendAgentMessage, fetchAgentStatus, fetchAgentGreeting } from '../services/api';
 
 const QUICK_PROMPTS = [
   { label: "🌤️ Hamilton Weather & Rain", prompt: "What's the weather in Hamilton right now and what's the forecast for the next couple days?" },
@@ -31,14 +31,8 @@ const QUICK_PROMPTS = [
 export default function AgentWidget() {
   const [messages, setMessages] = useState(() => {
     try {
-      const saved = localStorage.getItem('ezchat_messages_v1');
-      return saved ? JSON.parse(saved) : [
-        {
-          role: 'assistant',
-          content: `Hey! I'm **EZ**, your personal assistant and chat buddy. I'm anchored right at **200 Bay Street South, Hamilton (L8P 4S4)**.\n\nAsk me about **live Hamilton weather**, **HSR bus routes/departures**, movie/TV lookups, or anything else. Guardrails are loosened, so let's keep it real.`,
-          timestamp: Date.now()
-        }
-      ];
+      const saved = localStorage.getItem('ezchat_messages_v3');
+      return saved ? JSON.parse(saved) : [];
     } catch (e) {
       return [];
     }
@@ -55,11 +49,33 @@ export default function AgentWidget() {
     fetchAgentStatus()
       .then(cfg => setAgentConfig(cfg))
       .catch(e => console.warn('[Agent Config Error]', e));
+
+    if (messages.length === 0) {
+      setLoading(true);
+      setActiveToolStatus('⚡ Initializing EZ...');
+      fetchAgentGreeting()
+        .then(res => {
+          if (res && res.greeting) {
+            setMessages([
+              {
+                role: 'assistant',
+                content: res.greeting,
+                timestamp: Date.now()
+              }
+            ]);
+          }
+        })
+        .catch(e => console.warn('[Greeting Error]', e))
+        .finally(() => {
+          setLoading(false);
+          setActiveToolStatus('');
+        });
+    }
   }, []);
 
   useEffect(() => {
     try {
-      localStorage.setItem('ezchat_messages_v1', JSON.stringify(messages));
+      localStorage.setItem('ezchat_messages_v3', JSON.stringify(messages));
     } catch (e) {
       console.warn('[LocalStorage Error]', e);
     }
@@ -133,15 +149,27 @@ export default function AgentWidget() {
 
   const handleClearHistory = () => {
     if (window.confirm('Clear conversation history?')) {
-      const resetMsg = [
-        {
-          role: 'assistant',
-          content: `Chat cleared! Ready for whatever you need. Ask about Hamilton weather, HSR buses from 200 Bay St, or anything else.`,
-          timestamp: Date.now()
-        }
-      ];
-      setMessages(resetMsg);
-      localStorage.setItem('ezchat_messages_v1', JSON.stringify(resetMsg));
+      setMessages([]);
+      localStorage.removeItem('ezchat_messages_v3');
+      setLoading(true);
+      setActiveToolStatus('⚡ Initializing EZ...');
+      fetchAgentGreeting()
+        .then(res => {
+          if (res && res.greeting) {
+            setMessages([
+              {
+                role: 'assistant',
+                content: res.greeting,
+                timestamp: Date.now()
+              }
+            ]);
+          }
+        })
+        .catch(e => console.warn('[Greeting Error]', e))
+        .finally(() => {
+          setLoading(false);
+          setActiveToolStatus('');
+        });
     }
   };
 

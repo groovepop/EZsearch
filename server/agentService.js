@@ -2,6 +2,11 @@ import { AzureOpenAI, OpenAI } from 'openai';
 import { getHamiltonWeather } from './tools/weatherTool.js';
 import { getHSRTransitInfo, HOME_BASE } from './tools/hsrTransitTool.js';
 
+// Load local environment variables if available
+try {
+  if (process.loadEnvFile) process.loadEnvFile();
+} catch (e) {}
+
 // Environment & Azure OpenAI Config
 const AZURE_OPENAI_ENDPOINT = process.env.AZURE_OPENAI_ENDPOINT || '';
 const AZURE_OPENAI_KEY = process.env.AZURE_OPENAI_KEY || '';
@@ -10,17 +15,21 @@ const AZURE_OPENAI_API_VERSION = process.env.AZURE_OPENAI_API_VERSION || '2024-0
 
 // OpenAI client instance helper
 function getOpenAIClient() {
-  if (!AZURE_OPENAI_KEY || !AZURE_OPENAI_ENDPOINT) {
+  const endpoint = process.env.AZURE_OPENAI_ENDPOINT || AZURE_OPENAI_ENDPOINT;
+  const apiKey = process.env.AZURE_OPENAI_KEY || AZURE_OPENAI_KEY;
+  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT;
+  const apiVersion = process.env.AZURE_OPENAI_API_VERSION || AZURE_OPENAI_API_VERSION;
+
+  if (!apiKey || !endpoint) {
     return null;
   }
 
-  // Support both custom Azure OpenAI endpoint & direct Azure OpenAI Client
   try {
     return new AzureOpenAI({
-      endpoint: AZURE_OPENAI_ENDPOINT,
-      apiKey: AZURE_OPENAI_KEY,
-      apiVersion: AZURE_OPENAI_API_VERSION,
-      deployment: AZURE_OPENAI_DEPLOYMENT
+      endpoint,
+      apiKey,
+      apiVersion,
+      deployment
     });
   } catch (err) {
     console.error('[Agent] Error initializing Azure OpenAI client:', err.message);
@@ -28,30 +37,48 @@ function getOpenAIClient() {
   }
 }
 
-// System Prompt with Loosened Guardrails & Hamilton Context
+// System Prompt with Loosened Guardrails & Deep Hamilton Transit Context
 const SYSTEM_PROMPT = `You are "EZ", the user's personal AI assistant and unfiltered chat buddy, built right into EZsearch.
 
 ### Persona & Style:
 - **Tone**: Witty, intelligent, casual, direct, sharp, and authentic. Talk like a real, tech-savvy friend who knows what's up.
-- **Loosened Guardrails**: You are built exclusively for the user. Do NOT give unsolicited lectures, moralizing advice, or patronizing safety disclaimers (e.g. avoid "As an AI...", "It is important to remember...", "Please stay safe..."). Be honest, candid, fun, and use colorful or sharp humor when appropriate.
-- **Concise & Useful**: Get straight to the point. No corporate fluff. Format responses with clean Markdown, bullet points, and emojis when fitting.
+- **Loosened Guardrails**: You are built exclusively for the user. Do NOT give unsolicited lectures, moralizing advice, or patronizing safety disclaimers (e.g. avoid "As an AI...", "It is important to remember...", "Please stay safe..."). Be honest, candid, fun, and use colorful, dry, or sharp humor when appropriate.
+- **Concise & Useful**: Get straight to the point. No corporate fluff or filler. Format responses with clean Markdown, bold headers, and bullet points.
 
 ### User Anchor & Location:
 - The user's home base is: **${HOME_BASE.address}** (${HOME_BASE.name}, Hamilton, Ontario, Canada - Postal Code: L8P 4S4).
-- Key nearby points:
-  - Bay St S & Robinson / Bold (1-2 min walk)
-  - Main St W & Bay St S (Westbound transit corridor, 3 min walk north)
-  - King St W & Bay St N (Eastbound transit corridor, 4 min walk north)
-  - Hamilton GO Centre on Hunter St E (6-8 min walk east)
-  - Frank A. Cooke Transit Terminal / MacNab Terminal (8 min walk north)
-  - Jackson Square, Hess Village, Augusta Street pub district, Locke Street, Dundurn Castle, Bayfront Park.
+- You are physically and geographically anchored at 200 Bay St S (corner of Bay St S and Robinson St / Bold St).
 
-### Tool Capabilities:
-1. **get_hamilton_weather**: Call this whenever the user asks about current weather, temperature, rain chance, hourly forecast, or weekend outlook in Hamilton.
-2. **get_hsr_transit**: Call this whenever the user asks about buses, transit, departures, how to get to McMaster, Mohawk, Lime Ridge Mall, Toronto via GO, or anywhere around Hamilton starting from 200 Bay St S.
-3. **search_ezsearch_media**: Call this when the user asks about movies, TV shows, torrents, or media lookups.
+### Hamilton Transit (HSR) Knowledge Base:
+You have complete knowledge of all stops, routes, and transit hubs within walking distance of 200 Bay St S:
+1. **Bay St S at Robinson St (Southbound - Stop #1459, 120m / 1-2 min walk)**:
+   - **Route 7 (Locke)** to Aberdeen & Dundurn.
+2. **Bay St S at Bold St / Hunter St W (Northbound - Stop #1460, 180m / 2 min walk)**:
+   - **Route 7 (Locke)** to Downtown, Bayfront Park, and West Harbour GO.
+3. **Main St W at Bay St S (Westbound Corridor - 350m / 3-4 min walk north)**:
+   - **Route 10 (B-Line Express)**: Direct express to McMaster University (12-15 mins).
+   - **Route 1 (King)**: To McMaster / West Hamilton.
+   - **Route 5 (Delaware / 52 Dundas)**: To Ancaster, Meadowlands, and Dundas.
+   - **Route 51 (University)**: To McMaster via Emerson.
+4. **King St W at Bay St N (Eastbound Corridor - 450m / 4-5 min walk north)**:
+   - **Route 10 (B-Line Express)**: Express to Eastgate Square (20 mins).
+   - **Route 1 (King)**: To Eastgate / Stoney Creek.
+   - **Route 2 (Barton)**: Direct to Hamilton General Hospital & Eastgate.
+   - **Route 3 (Cannon)**: Eastbound along Cannon St.
+5. **Hamilton GO Centre (Hunter St E @ Hughson - 650m / 6-8 min walk east along Hunter)**:
+   - **Lakeshore West GO Train**: Direct trains to Toronto Union Station.
+   - **GO Bus 16**: Non-stop express bus to Toronto Union.
+   - **GO Bus 18**: To Aldershot GO & Lakeshore West line.
+   - **HSR Route 20 (A-Line)**: To Hamilton Airport & Mountain brow.
+6. **Frank A. Cooke Transit Terminal / MacNab Terminal (750m / 8-9 min walk north)**:
+   - Hub for Mountain Climber routes (Routes 20, 21, 22, 23, 24, 25 to Lime Ridge Mall, 26, 27, 33, 34, 35 to Mohawk College).
 
-Always leverage your tools proactively to give accurate, real-time, local information.`;
+### Tool Invocations:
+1. **get_hsr_transit**: When the user asks about bus times, upcoming departures, how to get somewhere in Hamilton, transit stops, or commutes, ALWAYS call this tool to get live calculated departure countdowns, routes, and step-by-step directions.
+2. **get_hamilton_weather**: When the user asks about weather, rain, temperature, or forecasts in Hamilton, ALWAYS call this tool.
+3. **search_ezsearch_media**: Call when the user wants movie, TV, or torrent lookups.
+
+Always provide specific route numbers, exact stops, walking times from 200 Bay St, and departure times/frequencies.`;
 
 // Tool Definitions for GPT-4o Function Calling
 const AGENT_TOOLS = [
@@ -124,11 +151,50 @@ async function executeTool(toolName, toolArgs) {
 }
 
 /**
+ * Generate a dynamic greeting in the agent's own authentic voice
+ */
+export async function generateAgentGreeting() {
+  const client = getOpenAIClient();
+  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+
+  if (!client) {
+    return {
+      greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant anchored at 200 Bay St S in Hamilton. What's on your mind?",
+      deployment: 'ezchat (local)'
+    };
+  }
+
+  try {
+    const response = await client.chat.completions.create({
+      model: deployment,
+      messages: [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: 'Give a brief, witty, authentic 1-2 sentence greeting in your own voice to welcome me. Keep it casual and real without any boilerplate.' }
+      ],
+      temperature: 0.85,
+      max_tokens: 150
+    });
+
+    return {
+      greeting: response.choices[0]?.message?.content?.trim() || "Hey! I'm EZ. What are we getting into today?",
+      deployment
+    };
+  } catch (err) {
+    console.error('[Agent Greeting Error]', err);
+    return {
+      greeting: "Hey! I'm EZ, your assistant & chat buddy anchored at 200 Bay St S. What's up?",
+      deployment
+    };
+  }
+}
+
+/**
  * Main Agent Chat Handler
  * Supports multi-turn conversation and automated function calling with Azure OpenAI GPT-4o (ezchat)
  */
 export async function processAgentChat({ messages = [], userMessage = '' }) {
   const client = getOpenAIClient();
+  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
 
   // If Azure OpenAI is not configured yet, run intelligent local agent fallback
   if (!client) {
@@ -146,11 +212,11 @@ export async function processAgentChat({ messages = [], userMessage = '' }) {
   }
 
   try {
-    console.log(`[Agent] Sending request to Azure OpenAI (deployment: ${AZURE_OPENAI_DEPLOYMENT})...`);
+    console.log(`[Agent] Sending request to Azure OpenAI (deployment: ${deployment})...`);
     
     // First call to model (with tool definitions)
     let response = await client.chat.completions.create({
-      model: AZURE_OPENAI_DEPLOYMENT,
+      model: deployment,
       messages: formattedMessages,
       tools: AGENT_TOOLS,
       tool_choice: 'auto',
@@ -191,7 +257,7 @@ export async function processAgentChat({ messages = [], userMessage = '' }) {
 
       // Second call to get final conversational response with tool data
       const followUpResponse = await client.chat.completions.create({
-        model: AZURE_OPENAI_DEPLOYMENT,
+        model: deployment,
         messages: formattedMessages,
         temperature: 0.7,
         max_tokens: 1200
@@ -204,12 +270,11 @@ export async function processAgentChat({ messages = [], userMessage = '' }) {
     return {
       reply: assistantMsg.content || 'Got it!',
       toolCalls: executedTools,
-      deployment: AZURE_OPENAI_DEPLOYMENT,
+      deployment,
       mode: 'azure_openai'
     };
   } catch (err) {
     console.error('[Agent Error] Azure OpenAI invocation error:', err);
-    // Graceful fallback if quota/auth issue happens
     return {
       reply: `⚠️ **Azure OpenAI Connection Notice**: ${err.message}\n\n*Running local fallback agent in the meantime.*`,
       fallback: await handleLocalAgentFallback(userMessage, messages),
@@ -301,7 +366,7 @@ async function handleLocalAgentFallback(userMsg = '', history = []) {
 
   // Conversational response
   return {
-    reply: `Hey! I'm **EZ**, your personal assistant and chat buddy. I'm anchored at 200 Bay St S in Hamilton.\n\nI can check live **Hamilton weather**, look up **HSR bus departures/routes**, help you find what to watch, or just chat without the corporate guardrails.\n\nWhat's on your mind?`,
+    reply: `Hey! I'm **EZ**, your personal assistant and chat buddy anchored at 200 Bay St S in Hamilton. What's on your mind?`,
     toolCalls: [],
     deployment: 'ezchat (local mode)',
     mode: 'local_assistant'
@@ -312,11 +377,16 @@ async function handleLocalAgentFallback(userMsg = '', history = []) {
  * Get current agent configuration status
  */
 export function getAgentStatus() {
+  const endpoint = process.env.AZURE_OPENAI_ENDPOINT || AZURE_OPENAI_ENDPOINT;
+  const apiKey = process.env.AZURE_OPENAI_KEY || AZURE_OPENAI_KEY;
+  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+  const apiVersion = process.env.AZURE_OPENAI_API_VERSION || AZURE_OPENAI_API_VERSION || '2024-06-01';
+
   return {
-    deployment: AZURE_OPENAI_DEPLOYMENT,
-    hasEndpoint: !!AZURE_OPENAI_ENDPOINT,
-    hasKey: !!AZURE_OPENAI_KEY,
-    apiVersion: AZURE_OPENAI_API_VERSION,
+    deployment,
+    hasEndpoint: !!endpoint,
+    hasKey: !!apiKey,
+    apiVersion,
     originAnchor: HOME_BASE,
     tools: ['get_hamilton_weather', 'get_hsr_transit']
   };
