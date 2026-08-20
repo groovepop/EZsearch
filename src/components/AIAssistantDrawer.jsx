@@ -36,6 +36,10 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
     }
   });
 
+  const [selectedModel, setSelectedModel] = useState(() => {
+    return localStorage.getItem('ezchat_model') || 'gpt-5-4';
+  });
+
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -52,7 +56,7 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
     if (messages.length === 0) {
       setLoading(true);
       setActiveToolStatus('⚡ Initializing EZ...');
-      fetchAgentGreeting()
+      fetchAgentGreeting(selectedModel)
         .then(res => {
           if (res && res.greeting) {
             setMessages([
@@ -109,7 +113,8 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
     } else if (lower.includes('bus') || lower.includes('hsr') || lower.includes('transit') || lower.includes('mcmaster') || lower.includes('mohawk') || lower.includes('route')) {
       setActiveToolStatus('🚌 Querying HSR Transit from 200 Bay St S...');
     } else {
-      setActiveToolStatus('⚡ Thinking with GPT-4o (ezchat)...');
+      const modelLabel = selectedModel === 'gpt-5-4' ? 'GPT-5.4' : (selectedModel === 'gpt-5' ? 'GPT-5' : 'GPT-4o');
+      setActiveToolStatus(`⚡ Thinking with ${modelLabel}...`);
     }
 
     try {
@@ -121,14 +126,15 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
 
       const res = await sendAgentMessage({
         messages: apiHistory.slice(0, -1),
-        userMessage: text
+        userMessage: text,
+        modelDeployment: selectedModel
       });
 
       const assistantReply = {
         role: 'assistant',
         content: res.reply || "Got it!",
         toolCalls: res.toolCalls || [],
-        deployment: res.deployment || 'ezchat',
+        deployment: res.deployment || selectedModel,
         mode: res.mode,
         timestamp: Date.now()
       };
@@ -334,8 +340,32 @@ export default function AIAssistantDrawer({ isOpen, setIsOpen }) {
               </div>
             </div>
 
-            {/* Window Controls */}
+            {/* Window Controls & Model Switcher */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+              <select
+                value={selectedModel}
+                onChange={(e) => {
+                  const m = e.target.value;
+                  setSelectedModel(m);
+                  localStorage.setItem('ezchat_model', m);
+                }}
+                style={{
+                  background: 'rgba(0, 0, 0, 0.4)',
+                  color: 'var(--accent-cyan)',
+                  border: '1px solid rgba(0, 229, 255, 0.3)',
+                  borderRadius: '8px',
+                  padding: '0.25rem 0.4rem',
+                  fontSize: '0.72rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  outline: 'none'
+                }}
+              >
+                <option value="gpt-5-4" style={{ background: '#111', color: '#fff' }}>GPT-5.4</option>
+                <option value="gpt-5" style={{ background: '#111', color: '#fff' }}>GPT-5</option>
+                <option value="ezchat" style={{ background: '#111', color: '#fff' }}>GPT-4o</option>
+              </select>
+
               <button
                 onClick={handleClearHistory}
                 title="Clear Chat History"

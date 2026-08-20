@@ -174,9 +174,9 @@ async function executeTool(toolName, toolArgs) {
 /**
  * Generate a dynamic greeting in the agent's own authentic voice with live time awareness
  */
-export async function generateAgentGreeting(clientTime = null) {
+export async function generateAgentGreeting(clientTime = null, modelDeployment = null) {
   const client = getOpenAIClient();
-  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+  const deployment = modelDeployment || process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
   const systemPrompt = getSystemPrompt(clientTime);
 
   if (!client) {
@@ -214,11 +214,11 @@ export async function generateAgentGreeting(clientTime = null) {
 
 /**
  * Main Agent Chat Handler
- * Supports multi-turn conversation and automated function calling with Azure OpenAI GPT-4o (ezchat)
+ * Supports multi-turn conversation and automated function calling with Azure OpenAI
  */
-export async function processAgentChat({ messages = [], userMessage = '', clientTime = null, timezone = null }) {
+export async function processAgentChat({ messages = [], userMessage = '', clientTime = null, timezone = null, modelDeployment = null }) {
   const client = getOpenAIClient();
-  const deployment = process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
+  const deployment = modelDeployment || process.env.AZURE_OPENAI_DEPLOYMENT || AZURE_OPENAI_DEPLOYMENT || 'ezchat';
   const dynamicSystemPrompt = getSystemPrompt(clientTime);
 
   // If Azure OpenAI is not configured yet, run intelligent local agent fallback
@@ -432,6 +432,11 @@ export function getAgentStatus() {
     hasKey: !!apiKey,
     apiVersion,
     originAnchor: HOME_BASE,
+    availableDeployments: [
+      { id: 'ezchat', name: 'GPT-4o (ezchat)', description: 'Fast, witty, multi-tool chat buddy' },
+      { id: 'gpt-5', name: 'GPT-5 (GlobalStandard)', description: 'Next-gen reasoning and conversational intelligence' },
+      { id: 'gpt-5-4', name: 'GPT-5.4 (Flagship)', description: 'Latest high-intelligence flagship model' }
+    ],
     currentTime: new Date().toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true }),
     currentDate: new Date().toLocaleDateString('en-US', { timeZone: 'America/Toronto', weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }),
     tools: ['get_hamilton_weather', 'get_hsr_transit']

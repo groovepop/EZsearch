@@ -38,6 +38,10 @@ export default function AgentWidget() {
     }
   });
 
+  const [selectedModel, setSelectedModel] = useState(() => {
+    return localStorage.getItem('ezchat_model') || 'gpt-5-4';
+  });
+
   const [inputText, setInputText] = useState('');
   const [loading, setLoading] = useState(false);
   const [agentConfig, setAgentConfig] = useState(null);
@@ -53,7 +57,7 @@ export default function AgentWidget() {
     if (messages.length === 0) {
       setLoading(true);
       setActiveToolStatus('⚡ Initializing EZ...');
-      fetchAgentGreeting()
+      fetchAgentGreeting(selectedModel)
         .then(res => {
           if (res && res.greeting) {
             setMessages([
@@ -106,7 +110,8 @@ export default function AgentWidget() {
     } else if (lower.includes('bus') || lower.includes('hsr') || lower.includes('transit') || lower.includes('mcmaster') || lower.includes('mohawk') || lower.includes('route') || lower.includes('depart')) {
       setActiveToolStatus('🚌 Querying HSR Transit from 200 Bay St S...');
     } else {
-      setActiveToolStatus('⚡ Thinking with GPT-4o (ezchat)...');
+      const modelLabel = selectedModel === 'gpt-5-4' ? 'GPT-5.4' : (selectedModel === 'gpt-5' ? 'GPT-5' : 'GPT-4o');
+      setActiveToolStatus(`⚡ Thinking with ${modelLabel}...`);
     }
 
     try {
@@ -117,14 +122,15 @@ export default function AgentWidget() {
 
       const res = await sendAgentMessage({
         messages: apiHistory.slice(0, -1),
-        userMessage: text
+        userMessage: text,
+        modelDeployment: selectedModel
       });
 
       const assistantReply = {
         role: 'assistant',
         content: res.reply || "Got it!",
         toolCalls: res.toolCalls || [],
-        deployment: res.deployment || 'ezchat',
+        deployment: res.deployment || selectedModel,
         mode: res.mode,
         timestamp: Date.now()
       };
@@ -262,12 +268,39 @@ export default function AgentWidget() {
           </div>
         </div>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.8rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', background: 'rgba(0, 0, 0, 0.4)', padding: '0.3rem 0.6rem', borderRadius: '10px', border: '1px solid rgba(0, 229, 255, 0.25)' }}>
+            <Sparkles size={14} color="var(--accent-cyan)" />
+            <label style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>Model:</label>
+            <select
+              value={selectedModel}
+              onChange={(e) => {
+                const m = e.target.value;
+                setSelectedModel(m);
+                localStorage.setItem('ezchat_model', m);
+              }}
+              style={{
+                background: 'transparent',
+                color: 'var(--accent-cyan)',
+                border: 'none',
+                fontSize: '0.82rem',
+                fontWeight: 700,
+                cursor: 'pointer',
+                outline: 'none',
+                padding: '0.1rem 0.2rem'
+              }}
+            >
+              <option value="gpt-5-4" style={{ background: '#111', color: '#fff' }}>GPT-5.4 (Flagship)</option>
+              <option value="gpt-5" style={{ background: '#111', color: '#fff' }}>GPT-5 (Standard)</option>
+              <option value="ezchat" style={{ background: '#111', color: '#fff' }}>GPT-4o (ezchat)</option>
+            </select>
+          </div>
+
           <button
             onClick={handleClearHistory}
             className="btn btn-secondary"
             title="Clear Chat History"
-            style={{ padding: '0.5rem 0.9rem', fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
+            style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}
           >
             <Trash2 size={14} />
             <span>Clear History</span>

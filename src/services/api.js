@@ -285,8 +285,8 @@ export async function fetchHSRTransit({ destination = '', route_number = '' } = 
   return res.json();
 }
 
-// 10. AI Agent Service (Azure OpenAI GPT-4o ezchat Deployment)
-export async function sendAgentMessage({ messages = [], userMessage = '' } = {}) {
+// 10. AI Agent Service (Azure OpenAI GPT-4o / GPT-5 Deployments)
+export async function sendAgentMessage({ messages = [], userMessage = '', modelDeployment = 'ezchat' } = {}) {
   const clientTime = new Date().toISOString();
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'America/Toronto';
 
@@ -295,7 +295,7 @@ export async function sendAgentMessage({ messages = [], userMessage = '' } = {})
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ messages, userMessage, clientTime, timezone })
+    body: JSON.stringify({ messages, userMessage, clientTime, timezone, modelDeployment })
   });
 
   if (!res.ok) {
@@ -311,9 +311,9 @@ export async function fetchAgentStatus() {
   return res.json();
 }
 
-export async function fetchAgentGreeting() {
+export async function fetchAgentGreeting(modelDeployment = 'ezchat') {
   const clientTime = encodeURIComponent(new Date().toISOString());
-  const res = await fetch(`/api/agent/greet?clientTime=${clientTime}`);
+  const res = await fetch(`/api/agent/greet?clientTime=${clientTime}&modelDeployment=${encodeURIComponent(modelDeployment)}`);
   if (!res.ok) return { greeting: "Hey! I'm EZ, your unfiltered chat buddy and assistant. What's on your mind?" };
   return res.json();
 }
