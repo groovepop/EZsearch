@@ -12,6 +12,7 @@ import * as satellite from 'satellite.js';
 import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 import { getSkyViewingForecast } from './tools/skyViewingTool.js';
+import { executeEngineTransform, executeEngineCaption } from './groovepopEngine.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1147,88 +1148,56 @@ app.get('/api/sky/tonight', async (req, res) => {
   }
 });
 
-// 12. GROOVE POP Engine API Proxy
-const GROOVEPOP_ENGINE_URL = process.env.GROOVEPOP_ENGINE_URL || 'http://localhost:7071';
-const GROOVEPOP_API_KEY = process.env.GROOVEPOP_API_KEY || 'dev-engine-secret-key-123';
-
+// 12. GROOVE POP Engine API (Direct Engine & Azure OpenAI Vision Integration)
 app.get('/api/groovepop/health', async (req, res) => {
-  try {
-    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/health`;
-    const response = await fetch(targetUrl, {
-      signal: AbortSignal.timeout(5000)
-    });
-    if (!response.ok) {
-      return res.status(response.status).json({ ok: false, error: `Engine returned status ${response.status}` });
-    }
-    const data = await response.json();
-    res.json(data);
-  } catch (err) {
-    res.status(503).json({ ok: false, error: 'Engine API unreachable', message: err.message });
-  }
+  res.json({
+    ok: true,
+    service: 'groovepop-engine-api',
+    endpoints: ['/api/groovepop/health', '/api/groovepop/caption', '/api/groovepop/transform']
+  });
 });
 
 app.post('/api/groovepop/transform', async (req, res) => {
   try {
-    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/transform`;
-    const response = await fetch(targetUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-groovepop-api-key': GROOVEPOP_API_KEY
-      },
-      body: JSON.stringify(req.body),
-      signal: AbortSignal.timeout(120000)
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      return res.status(response.status).json(data.error ? data : {
-        success: false,
-        error: 'transform_failed',
-        message: data.message || `Transformation failed with HTTP ${response.status}`
-      });
-    }
-
-    res.json(data);
+    const result = await executeEngineTransform(req.body);
+    res.json(result);
   } catch (err) {
     console.error('[GroovePop Transform Error]', err);
-    res.status(500).json({
+    const status = err.status || 500;
+    const rawMsg = err.message || '';
+    let errorType = 'generation_failed';
+    let userMsg = rawMsg || 'Transformation failed';
+
+    if (rawMsg.includes('Vision') || rawMsg.includes('caption') || rawMsg.includes('classification')) {
+      errorType = 'caption_failed';
+    }
+    if (status === 429 || rawMsg.includes('429') || rawMsg.includes('RateLimit') || rawMsg.includes('EngineOverloaded')) {
+      errorType = 'rate_limited';
+      userMsg = 'Azure OpenAI rate limit reached. Please retry shortly.';
+    } else if (rawMsg.includes('content_filter') || rawMsg.includes('ResponsibleAI') || rawMsg.includes('content_policy') || status === 400) {
+      errorType = 'content_policy';
+      userMsg = 'The submitted image or prompt could not be processed due to content filtering policies.';
+    }
+
+    res.status(status >= 400 && status < 600 ? status : 500).json({
       success: false,
-      error: 'proxy_error',
-      message: err.message || 'Failed to communicate with Groove Pop engine'
+      error: errorType,
+      message: userMsg
     });
   }
 });
 
 app.post('/api/groovepop/caption', async (req, res) => {
   try {
-    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/caption`;
-    const response = await fetch(targetUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-groovepop-api-key': GROOVEPOP_API_KEY
-      },
-      body: JSON.stringify(req.body),
-      signal: AbortSignal.timeout(60000)
-    });
-
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      return res.status(response.status).json(data.error ? data : {
-        success: false,
-        error: 'caption_failed',
-        message: data.message || `Captioning failed with HTTP ${response.status}`
-      });
-    }
-
-    res.json(data);
+    const result = await executeEngineCaption(req.body);
+    res.json(result);
   } catch (err) {
     console.error('[GroovePop Caption Error]', err);
-    res.status(500).json({
+    const status = err.status || 500;
+    res.status(status >= 400 && status < 600 ? status : 500).json({
       success: false,
-      error: 'proxy_error',
-      message: err.message || 'Failed to communicate with Groove Pop caption engine'
+      error: 'caption_failed',
+      message: err.message || 'Vision captioning failed'
     });
   }
 });
