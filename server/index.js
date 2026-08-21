@@ -13,6 +13,16 @@ import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agent
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 import { executeEngineTransform, executeEngineCaption } from './groovepopEngine.js';
+import {
+  getRegisteredModes,
+  getStylesForMode,
+  executeGuessFaceModeRun,
+  getModeRunById,
+  createPartySession,
+  reportPartyRound,
+  getPartyById,
+  getPartyRounds
+} from './guessfaceEngine.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1198,6 +1208,131 @@ app.post('/api/groovepop/caption', async (req, res) => {
       success: false,
       error: 'caption_failed',
       message: err.message || 'Vision captioning failed'
+    });
+  }
+});
+
+// 13. GuessFace Engine & Multi-Tenant Game API
+app.get('/api/guessface/health', async (req, res) => {
+  res.json({
+    ok: true,
+    service: 'guessface-engine-api',
+    modesCount: 9,
+    endpoints: [
+      '/api/guessface/health',
+      '/api/guessface/modes',
+      '/api/guessface/mode-runs',
+      '/api/guessface/mode-runs/:id',
+      '/api/guessface/parties',
+      '/api/guessface/parties/:id/rounds',
+      '/api/guessface/parties/:id'
+    ]
+  });
+});
+
+app.get('/api/guessface/modes', (req, res) => {
+  try {
+    const modes = getRegisteredModes();
+    res.json({ modes });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/guessface/modes/:modeId/styles', (req, res) => {
+  try {
+    const styles = getStylesForMode(req.params.modeId);
+    res.json({ modeId: req.params.modeId, styles });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/guessface/mode-runs', async (req, res) => {
+  try {
+    const result = await executeGuessFaceModeRun(req.body);
+    res.status(201).json(result);
+  } catch (err) {
+    console.error('[GuessFace Mode-Run Error]', err);
+    res.status(err.status || 500).json({
+      success: false,
+      error: err.message || 'GuessFace mode-run execution failed'
+    });
+  }
+});
+
+app.get('/api/guessface/mode-runs/:id', (req, res) => {
+  const result = getModeRunById(req.params.id);
+  if (!result) {
+    return res.status(404).json({ error: 'Mode-run not found' });
+  }
+  res.json(result);
+});
+
+app.post('/api/guessface/parties', (req, res) => {
+  try {
+    const party = createPartySession(req.body || {});
+    res.status(201).json(party);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.post('/api/guessface/parties/:id/rounds', (req, res) => {
+  try {
+    const party = reportPartyRound(req.params.id, req.body);
+    res.json(party);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+app.get('/api/guessface/parties/:id', (req, res) => {
+  const party = getPartyById(req.params.id);
+  if (!party) {
+    return res.status(404).json({ error: 'Party not found' });
+  }
+  res.json(party);
+});
+
+app.get('/api/guessface/parties/:id/rounds', (req, res) => {
+  const rounds = getPartyRounds(req.params.id);
+  res.json({ rounds });
+});
+
+// Custom Proxy to external GuessFace API Server (e.g. localhost:7071 or Azure Functions)
+app.post('/api/guessface/proxy', async (req, res) => {
+  const { targetUrl, method = 'GET', headers = {}, body = null } = req.body;
+  if (!targetUrl) {
+    return res.status(400).json({ error: 'targetUrl is required' });
+  }
+  try {
+    const fetchOptions = {
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        ...headers
+      },
+      signal: AbortSignal.timeout(60000)
+    };
+    if (body && ['POST', 'PUT', 'PATCH'].includes(method.toUpperCase())) {
+      fetchOptions.body = typeof body === 'string' ? body : JSON.stringify(body);
+    }
+
+    const targetRes = await fetch(targetUrl, fetchOptions);
+    const contentType = targetRes.headers.get('content-type') || '';
+    if (contentType.includes('application/json')) {
+      const data = await targetRes.json();
+      return res.status(targetRes.status).json(data);
+    } else {
+      const text = await targetRes.text();
+      return res.status(targetRes.status).send(text);
+    }
+  } catch (err) {
+    console.error('[GuessFace Proxy Error]', err);
+    res.status(502).json({
+      error: 'Proxy request failed',
+      message: err.message
     });
   }
 });

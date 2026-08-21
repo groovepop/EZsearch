@@ -418,3 +418,121 @@ export async function captionGroovePopImage({
   return data;
 }
 
+// 13. GuessFace Engine Client Services
+export async function fetchGuessFaceHealth() {
+  const res = await fetch('/api/guessface/health');
+  if (!res.ok) throw new Error(`Health check failed (${res.status})`);
+  return res.json();
+}
+
+export async function fetchGuessFaceModes() {
+  const res = await fetch('/api/guessface/modes');
+  if (!res.ok) throw new Error(`Failed to load GuessFace modes (${res.status})`);
+  return res.json();
+}
+
+export async function fetchGuessFaceStyles(modeId) {
+  const res = await fetch(`/api/guessface/modes/${modeId}/styles`);
+  if (!res.ok) throw new Error(`Failed to load styles for mode ${modeId}`);
+  return res.json();
+}
+
+export async function runGuessFaceMode({
+  modeId,
+  subjects,
+  seedValues = null,
+  styleVariantKey = null,
+  simulate = false,
+  customEndpoint = null,
+  apiKey = ''
+}) {
+  if (customEndpoint && customEndpoint.trim()) {
+    // Execute through custom endpoint proxy
+    const proxyPayload = {
+      targetUrl: `${customEndpoint.trim().replace(/\/$/, '')}/v1/mode-runs`,
+      method: 'POST',
+      headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : {},
+      body: {
+        modeId,
+        subjects,
+        seedValues
+      }
+    };
+    const res = await fetch('/api/guessface/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(proxyPayload)
+    });
+    if (!res.ok) {
+      const err = await res.json().catch(() => ({}));
+      throw new Error(err.message || `External API returned status ${res.status}`);
+    }
+    return res.json();
+  }
+
+  const res = await fetch('/api/guessface/mode-runs', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      modeId,
+      subjects,
+      seedValues,
+      styleVariantKey,
+      simulate
+    })
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.error || data.message || `Mode run failed (${res.status})`);
+  }
+  return data;
+}
+
+export async function pollGuessFaceModeRun(modeRunId, customEndpoint = null, apiKey = '') {
+  if (customEndpoint && customEndpoint.trim()) {
+    const proxyPayload = {
+      targetUrl: `${customEndpoint.trim().replace(/\/$/, '')}/v1/mode-runs/${modeRunId}`,
+      method: 'GET',
+      headers: apiKey ? { Authorization: `Bearer ${apiKey}` } : {}
+    };
+    const res = await fetch('/api/guessface/proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(proxyPayload)
+    });
+    return res.json();
+  }
+
+  const res = await fetch(`/api/guessface/mode-runs/${modeRunId}`);
+  if (!res.ok) throw new Error(`Mode-run not found (${res.status})`);
+  return res.json();
+}
+
+export async function createGuessFaceParty({ hostName = 'Host Party' } = {}) {
+  const res = await fetch('/api/guessface/parties', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ hostName })
+  });
+  if (!res.ok) throw new Error(`Failed to create party (${res.status})`);
+  return res.json();
+}
+
+export async function reportGuessFaceRound(partyId, payload) {
+  const res = await fetch(`/api/guessface/parties/${partyId}/rounds`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error(`Failed to report round (${res.status})`);
+  return res.json();
+}
+
+export async function fetchGuessFaceParty(partyId) {
+  const res = await fetch(`/api/guessface/parties/${partyId}`);
+  if (!res.ok) throw new Error(`Failed to fetch party (${res.status})`);
+  return res.json();
+}
+
+

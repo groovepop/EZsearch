@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react';
-import { Tv, Film, Anchor, Orbit, Flame, CloudSun, Bot, Clapperboard, Compass, Sparkles } from 'lucide-react';
+import { Tv, Film, Anchor, Orbit, Flame, CloudSun, Bot, Clapperboard, Compass, Sparkles, Gamepad2 } from 'lucide-react';
 
 export default function CategoryTabs({ activeCategory, setCategory }) {
   // Determine active primary group based on activeCategory
   const isTorrentGroup = ['tv', 'movies', 'tpb'].includes(activeCategory);
   const isSpaceGroup = ['weather', 'iss', 'mars'].includes(activeCategory);
-  const isChatGroup = activeCategory === 'chat';
-  const isGroovePopGroup = activeCategory === 'groovepop';
+  const isAiGroup = ['groovepop', 'chat', 'guessface'].includes(activeCategory);
 
   // Track last active subcategory per group
   const [lastTorrentSub, setLastTorrentSub] = useState('tv');
   const [lastSpaceSub, setLastSpaceSub] = useState('weather');
+  const [lastAiSub, setLastAiSub] = useState('groovepop');
 
   useEffect(() => {
     if (['tv', 'movies', 'tpb'].includes(activeCategory)) {
       setLastTorrentSub(activeCategory);
     } else if (['weather', 'iss', 'mars'].includes(activeCategory)) {
       setLastSpaceSub(activeCategory);
+    } else if (['groovepop', 'chat', 'guessface'].includes(activeCategory)) {
+      setLastAiSub(activeCategory);
     }
   }, [activeCategory]);
 
@@ -25,10 +27,8 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       setCategory(lastTorrentSub || 'tv');
     } else if (group === 'space') {
       setCategory(lastSpaceSub || 'weather');
-    } else if (group === 'chat') {
-      setCategory('chat');
-    } else if (group === 'groovepop') {
-      setCategory('groovepop');
+    } else if (group === 'ai') {
+      setCategory(lastAiSub || 'groovepop');
     }
   };
 
@@ -96,13 +96,13 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
           <span className="badge badge-green" style={{ fontSize: '0.62rem' }}>HAMILTON</span>
         </button>
 
-        {/* GROOVE POP Top Level Tab */}
+        {/* AI Top Level Tab */}
         <button
-          onClick={() => handleGroupSwitch('groovepop')}
+          onClick={() => handleGroupSwitch('ai')}
           className="glass-panel"
           style={{
-            flex: 1,
-            minWidth: '150px',
+            flex: 1.2,
+            minWidth: '180px',
             padding: '0.75rem 1rem',
             display: 'flex',
             alignItems: 'center',
@@ -111,49 +111,19 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
             fontWeight: 800,
             fontSize: '0.92rem',
             cursor: 'pointer',
-            border: isGroovePopGroup ? '1px solid #ff0080' : '1px solid rgba(255, 0, 128, 0.35)',
-            background: isGroovePopGroup 
+            border: isAiGroup ? '1px solid #ff0080' : '1px solid rgba(255, 0, 128, 0.35)',
+            background: isAiGroup 
               ? 'linear-gradient(135deg, rgba(255, 0, 128, 0.28) 0%, rgba(121, 40, 202, 0.28) 100%)' 
               : 'rgba(255, 0, 128, 0.08)',
-            color: isGroovePopGroup ? '#ff55b0' : '#fff',
-            boxShadow: isGroovePopGroup ? '0 0 25px rgba(255, 0, 128, 0.4)' : 'none',
+            color: isAiGroup ? '#ff55b0' : '#fff',
+            boxShadow: isAiGroup ? '0 0 25px rgba(255, 0, 128, 0.4)' : 'none',
             transition: 'all 0.2s ease',
             borderRadius: '12px'
           }}
         >
           <Sparkles size={18} color="#ff0080" />
-          <span>GROOVE POP</span>
-          <span className="badge badge-purple" style={{ fontSize: '0.62rem' }}>AI STUDIO</span>
-        </button>
-
-        {/* EZ Chat AI Assistant */}
-        <button
-          onClick={() => handleGroupSwitch('chat')}
-          className="glass-panel"
-          style={{
-            flex: '0 0 auto',
-            minWidth: '130px',
-            padding: '0.75rem 1rem',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: '0.5rem',
-            fontWeight: 800,
-            fontSize: '0.92rem',
-            cursor: 'pointer',
-            border: isChatGroup ? '1px solid #00e5ff' : '1px solid rgba(0, 229, 255, 0.3)',
-            background: isChatGroup 
-              ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.22) 0%, rgba(121, 40, 202, 0.22) 100%)' 
-              : 'rgba(0, 229, 255, 0.08)',
-            color: isChatGroup ? 'var(--accent-cyan)' : '#fff',
-            boxShadow: isChatGroup ? '0 0 25px rgba(0, 229, 255, 0.35)' : 'none',
-            transition: 'all 0.2s ease',
-            borderRadius: '12px'
-          }}
-        >
-          <Bot size={18} color={isChatGroup ? 'var(--accent-cyan)' : '#00e5ff'} />
-          <span>EZ Chat</span>
-          <span className="badge badge-cyan" style={{ fontSize: '0.62rem' }}>AI</span>
+          <span>AI Studio & Suite</span>
+          <span className="badge badge-purple" style={{ fontSize: '0.62rem' }}>3 TOOLS</span>
         </button>
       </div>
 
@@ -338,6 +308,97 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
           </button>
         </div>
       )}
+
+      {isAiGroup && (
+        <div 
+          className="glass-panel animate-fade-in"
+          style={{
+            display: 'flex',
+            gap: '0.5rem',
+            padding: '0.45rem',
+            borderRadius: '12px',
+            background: 'rgba(14, 18, 26, 0.7)',
+            border: '1px solid rgba(255, 0, 128, 0.25)',
+            flexWrap: 'wrap'
+          }}
+        >
+          <button
+            onClick={() => setCategory('groovepop')}
+            style={{
+              flex: 1,
+              minWidth: '140px',
+              padding: '0.55rem 0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              borderRadius: '8px',
+              border: activeCategory === 'groovepop' ? '1px solid #ff0080' : '1px solid transparent',
+              background: activeCategory === 'groovepop' ? 'rgba(255, 0, 128, 0.22)' : 'transparent',
+              color: activeCategory === 'groovepop' ? '#ff55b0' : 'var(--text-muted)',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <Sparkles size={16} color="#ff0080" />
+            <span>Groove Pop</span>
+            <span className="badge badge-purple" style={{ fontSize: '0.6rem' }}>TRANSFORMS</span>
+          </button>
+
+          <button
+            onClick={() => setCategory('chat')}
+            style={{
+              flex: 1,
+              minWidth: '140px',
+              padding: '0.55rem 0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              borderRadius: '8px',
+              border: activeCategory === 'chat' ? '1px solid #00e5ff' : '1px solid transparent',
+              background: activeCategory === 'chat' ? 'rgba(0, 229, 255, 0.22)' : 'transparent',
+              color: activeCategory === 'chat' ? '#00e5ff' : 'var(--text-muted)',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <Bot size={16} color="#00e5ff" />
+            <span>EZ Assistant</span>
+            <span className="badge badge-cyan" style={{ fontSize: '0.6rem' }}>AGENT & CHAT</span>
+          </button>
+
+          <button
+            onClick={() => setCategory('guessface')}
+            style={{
+              flex: 1,
+              minWidth: '140px',
+              padding: '0.55rem 0.9rem',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: '0.5rem',
+              fontWeight: 700,
+              fontSize: '0.85rem',
+              cursor: 'pointer',
+              borderRadius: '8px',
+              border: activeCategory === 'guessface' ? '1px solid #ffd700' : '1px solid transparent',
+              background: activeCategory === 'guessface' ? 'rgba(255, 215, 0, 0.2)' : 'transparent',
+              color: activeCategory === 'guessface' ? '#ffd700' : 'var(--text-muted)',
+              transition: 'all 0.15s ease'
+            }}
+          >
+            <Gamepad2 size={16} color="#ffd700" />
+            <span>GuessFace</span>
+            <span className="badge badge-amber" style={{ fontSize: '0.6rem' }}>9-MODE API</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
+

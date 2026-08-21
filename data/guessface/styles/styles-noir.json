@@ -1,0 +1,46 @@
+[
+  {
+    "key": "noir_1",
+    "size": "768x1024",
+    "prompt": [
+      "high contrast film noir cinematographic setting - fire escape stairwell with city skyline behind",
+      "subject transformed into a mysterious 50's era film noir character of shadow and consequence",
+      "subject leaning weight shifted looking back  -  guarded and dangerous as facial expression",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "single vivid color accent drawn from start image bleeding into the monochrome world"
+    ]
+  },
+  {
+    "key": "noir_2",
+    "size": "768x1024",
+    "prompt": [
+      "high contrast film noir cinematographic setting - train platform at night",
+      "subject transformed into a shady 50's era film noir criminal character of dangerous consequence with intimidating facial expression",
+      "henchmen lurking in background",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "prominent vivid color accents drawn from start image bleeding into the monochrome world"
+    ]
+  },
+  {
+    "key": "noir_3",
+    "size": "768x1024",
+    "prompt": [
+      "high contrast film noir cinematographic setting - crowded noir-style 50s era jazz lounge",
+      "subject transformed into a glamorous entertainer on stage captured during an emotional performance",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "prominent vivid color accents drawn from start image bleeding into the monochrome world"
+    ]
+  },
+  {
+    "key": "noir_4",
+    "size": "768x1024",
+    "prompt": [
+      "high contrast film noir cinematographic setting - 50s era detective office",
+      "subject transformed into hard-boiled cybernetic private detective with suspicious facial expression",
+      "venetian blind light bars across the desk, low desk lamp glow",
+      "multiple exposed glowing cybernetic implants as the only colour in an otherwise monochrome world",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "prominent vivid color accents drawn from start image bleeding into the monochrome world"
+    ]
+  }
+]

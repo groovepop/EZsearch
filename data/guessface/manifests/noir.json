@@ -1,0 +1,39 @@
+{
+  "modeId": "noir",
+  "displayName": "Noir",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-noir.json",
+    "notes": "Base prompt renders subject in black-and-white detective-noir portrait style; caption prompt requests hardboiled detective narration voice."
+  },
+  "input": {
+    "imageCount": "single",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "none",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 1,
+      "requiresSecondPassCompose": false
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "single_text_field"
+  },
+  "reveal": {
+    "sequence": "standard",
+    "surfaceBehavior": {}
+  },
+  "hooks": {
+    "pairing": "default",
+    "captionParsing": "default",
+    "revealSequencing": "default"
+  }
+}

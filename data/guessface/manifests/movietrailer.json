@@ -1,0 +1,39 @@
+{
+  "modeId": "movietrailer",
+  "displayName": "Movie Trailer",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-movietrailer.json",
+    "notes": "Content already exists in repo. Structural fields below (pairing/seed/reveal behavior) are best-effort defaults pending confirmation against actual mode design; adjust once mode mechanics are finalized."
+  },
+  "input": {
+    "imageCount": "single",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "none",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 43,
+      "requiresSecondPassCompose": false
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "single_text_field"
+  },
+  "reveal": {
+    "sequence": "standard",
+    "surfaceBehavior": {}
+  },
+  "hooks": {
+    "pairing": "default",
+    "captionParsing": "default",
+    "revealSequencing": "default"
+  }
+}

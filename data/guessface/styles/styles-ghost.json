@@ -1,0 +1,53 @@
+[
+  {
+    "key": "ghost_solarization",
+    "size": "768x1024",
+    "prompt": [
+      "darkroom solarization Sabattier effect aesthetic",
+      "subject reimagined as a malevolent spectre caught mid-eruption  -  lunging forward directly at camera, eyes locked on viewer with furious expression",
+      "Mackie lines of bright halation tracing the figure's edges like burning electricity",
+      "partial tone reversal radiating outward from the figure  -  the subject is the source of the inversion",
+      "figure rendered in luminous white silhouette on deep black ground",
+      "personal objects and possessions inspired by setting suspended in the void around the figure",
+      "deep blacks and searing whites coexisting in the same tonal plane",
+      "fabric and hair erupting outward as if charged by the spectral force",
+      "fine grain silver gelatin print surface with chemical luminosity",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "ghost_photogram",
+    "size": "768x1024",
+    "prompt": [
+      "photogram camera-less photographic process aesthetic",
+      "subject reimagined as a haunting spectre caught on light-sensitive paper",
+      "mid-float and arms reaching to viewer with blank expression",
+      "figure rendered in luminous white silhouette on deep black ground",
+      "body partially dissolving at edges where presence fades from the paper surface",
+      "personal objects and possessions inspired by setting suspended in the void around the figure",
+      "fabric and hair caught mid-motion as if gravity released",
+      "semi-transparent zones where the ghost thins and light passed through",
+      "luminous contact edges where figure pressed closest to the paper",
+      "no lens, no camera  -  only presence and light",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "ghost_strip",
+    "size": "768x1024",
+    "prompt": [
+      "photographic film negative strip on a light table aesthetic",
+      "vertical strip of three 35mm frames presented in sequence",
+      "subject unaware of threatening apparition emerging from the setting",
+      "frame 1: apparition emerging faintly from setting",
+      "frame 2: apparition moving closer and more defined",
+      "frame 3: apparition hand on subject's shoulder, subject reacting in abject terror",
+      "inverted tonal values throughout  -  light becomes dark, dark becomes light",
+      "orange-brown film base tint with cyan and blue shadow areas",
+      "skin tones rendered in cool grey-green with inverted detail",
+      "sprocket holes and film rebate borders framing each frame",
+      "translucent film strip quality with cool backlit glow from light table beneath",
+      "ASPECT RATIO 3:4"
+    ]
+  }
+]

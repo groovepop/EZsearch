@@ -1,0 +1,49 @@
+{
+  "modeId": "asseenontv",
+  "displayName": "As Seen on TV",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-asseenontv.json",
+    "notes": "Base prompt transforms subject into a 1990s infomercial host portrait. Vision output must be parsed into two named fields rather than treated as one free-text caption."
+  },
+  "input": {
+    "imageCount": "single",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "none",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 1,
+      "requiresSecondPassCompose": false
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "structured_multi_field",
+    "fields": [
+      {
+        "name": "productName",
+        "description": "Invented product name extracted from the rendered infomercial-host image."
+      },
+      {
+        "name": "tagline",
+        "description": "Invented product tagline extracted from the rendered infomercial-host image."
+      }
+    ]
+  },
+  "reveal": {
+    "sequence": "standard",
+    "surfaceBehavior": {}
+  },
+  "hooks": {
+    "pairing": "default",
+    "captionParsing": "asSeenOnTvTwoFieldParse",
+    "revealSequencing": "default"
+  }
+}

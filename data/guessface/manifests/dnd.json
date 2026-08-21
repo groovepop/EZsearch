@@ -1,0 +1,39 @@
+{
+  "modeId": "dnd",
+  "displayName": "D&D",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-dnd.json",
+    "notes": "Base prompt renders subject as a medieval fantasy portrait; caption prompt requests poetic, medieval-register narration."
+  },
+  "input": {
+    "imageCount": "single",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "none",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 1,
+      "requiresSecondPassCompose": false
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "single_text_field"
+  },
+  "reveal": {
+    "sequence": "standard",
+    "surfaceBehavior": {}
+  },
+  "hooks": {
+    "pairing": "default",
+    "captionParsing": "default",
+    "revealSequencing": "default"
+  }
+}

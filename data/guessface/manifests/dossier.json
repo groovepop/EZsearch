@@ -1,0 +1,50 @@
+{
+  "modeId": "dossier",
+  "displayName": "Dossier",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-dossier.json",
+    "notes": "Base prompt for satirical intelligence-agency surveillance file narration lives under the mode's primary prompt key. Style tag applies per-pair, not per-subject."
+  },
+  "input": {
+    "imageCount": "multi",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "cycle_derangement_paired",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 1,
+      "requiresSecondPassCompose": false
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "single_text_field"
+  },
+  "reveal": {
+    "sequence": "last_subject_held_back",
+    "surfaceBehavior": {
+      "live": "Shows paired dossier caption text only.",
+      "screen": "Shows paired dossier caption alongside generated surveillance-file image.",
+      "admin": "Shows full pairing map including the held-back spy assignment before it is revealed to guests."
+    }
+  },
+  "scoring": {
+    "pointsPerCorrectGuess": 1,
+    "subjectSelfGuessLockout": true
+  },
+  "hooks": {
+    "pairing": "dossierCycleDerangementPaired",
+    "captionParsing": "default",
+    "revealSequencing": "dossierLastSpyReveal"
+  },
+  "_extensions": {
+    "pairingNotes": "P-1 subjects fill standard pairs; when guest count is even, one dossier contains 3 subjects instead of 2 to resolve the odd-one-out."
+  }
+}

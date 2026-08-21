@@ -1,0 +1,687 @@
+[
+  {
+    "key": "action_hero",
+    "size": "1024x1536",
+    "prompt": [
+      "action movie one-sheet poster aesthetic",
+      "subject re-rendered as a legendary larger-than-life action hero",
+      "jaw set eyes locked on threat just off-frame  -  cold fury and absolute resolve as facial expression",
+      "setting transformed into a smoldering high-stakes environment behind subject",
+      "bold high octane movie title inspired by subject",
+      "tagline inspired by subject",
+      "explosive high contrast key art with debris and atmosphere",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "action_pyro",
+    "size": "1024x1536",
+    "prompt": [
+      "action movie one-sheet poster aesthetic",
+      "subject re-rendered as a legendary action hero in full explosive sprint",
+      "body leaning forward arms pumping  -  raw desperation as facial expression",
+      "setting dissolving into streaking motion behind the running figure",
+      "bold high octane movie title inspired by subject",
+      "tagline inspired by subject",
+      "explosive high contrast key art with speed lines and atmospheric blur",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "action_defiance",
+    "size": "1024x1536",
+    "prompt": [
+      "action movie one-sheet poster aesthetic",
+      "subject re-rendered as a legendary action hero cornered but unbroken",
+      "back against the wall arms wide  -  savage defiance as facial expression",
+      "setting closing in from all sides  -  overwhelming odds visible in the chaos",
+      "bold high octane movie title inspired by subject",
+      "tagline inspired by subject",
+      "explosive high contrast key art with fire and falling debris",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "action_after",
+    "size": "1024x1536",
+    "prompt": [
+      "action movie one-sheet poster aesthetic",
+      "subject re-rendered as a legendary action hero in the silence after battle",
+      "standing still amid the wreckage  -  grief and exhaustion as facial expression",
+      "setting a smoldering ruin inspired by subject's world",
+      "bold high octane movie title inspired by subject",
+      "tagline inspired by subject",
+      "high contrast key art with dust settling and embers drifting",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "bollywood_dance",
+    "size": "1024x1536",
+    "prompt": [
+      "Bollywood dance number movie poster aesthetic",
+      "subject re-rendered as a legendary film star in the middle of the greatest performance of their life",
+      "arms raised hips mid-turn  -  pure euphoric abandon as facial expression",
+      "spectacular Bollywood costume and jeweled accessories inspired by subject  -  excess is the minimum",
+      "dreamlike paradise inspired by setting transformed into the ultimate stage",
+      "bold decorative Bollywood movie title inspired by subject in Hindi and English",
+      "joyful tagline inspired by subject",
+      "saturated technicolor palette with flower petals and golden light filling every corner",
+      "exuberant billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "bollywood_emotion",
+    "size": "1024x1536",
+    "prompt": [
+      "Bollywood masala movie poster aesthetic",
+      "subject re-rendered as the legendary star of a film containing every human emotion simultaneously",
+      "four expressions of subject arranged in quadrants  -  full volume as facial expression",
+      "spectacular Bollywood costume and bold accessories inspired by subject",
+      "maximalist composite landscape inspired by setting  -  palace mountains city and ocean all present",
+      "enormous bold Bollywood movie title inspired by subject in Hindi and English",
+      "epic tagline inspired by subject",
+      "explosive saturated palette with zero restraint and infinite spectacle",
+      "magnificent billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "bollywood_divine",
+    "size": "1024x1536",
+    "prompt": [
+      "Bollywood devotional movie poster aesthetic",
+      "subject re-rendered as a figure of almost divine radiance and spiritual power",
+      "arms open palms raised eyes toward heaven  -  transcendent grace as facial expression",
+      "sacred costume and divine accessories inspired by subject  -  gold and silk and light",
+      "celestial landscape inspired by setting  -  flowers falling gods watching",
+      "ornate devotional movie title inspired by subject in Hindi and English",
+      "reverent tagline inspired by subject",
+      "golden hour palette with divine light source and flower petal rain",
+      "blessed billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "documentary_classic",
+    "size": "1024x1536",
+    "prompt": [
+      "documentary portrait movie one-sheet poster aesthetic",
+      "subject presented as the sole subject of an unflinching documentary investigation",
+      "extreme close crop  -  complex and unguarded truth as facial expression",
+      "every detail of subject's appearance preserved and studied",
+      "stark void behind subject  -  nothing to hide behind",
+      "bold journalistic movie title inspired by subject",
+      "stark tagline inspired by subject",
+      "harsh flat documentary lighting  -  nothing softened nothing hidden",
+      "austere billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "documentary_crisis",
+    "size": "1024x1536",
+    "prompt": [
+      "documentary issue movie one-sheet poster aesthetic",
+      "subject elevated to the status of civilization-threatening global crisis",
+      "subject presented as urgent alarming and absolutely critical to human survival",
+      "bold graphic treatment of subject in the style of emergency public information",
+      "world-ending landscape inspired by subject  -  the stakes could not possibly be higher",
+      "alarmist movie title inspired by subject  -  the most important film ever made",
+      "gravely serious tagline inspired by subject that takes itself completely over the edge",
+      "high contrast graphic palette  -  red white and imminent catastrophe",
+      "self-important billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "documentary_conspiracy",
+    "size": "1024x1536",
+    "prompt": [
+      "documentary exposé movie one-sheet poster aesthetic",
+      "subject presented as the center of a vast and dangerous conspiracy",
+      "partially obscured by shadow or redaction  -  knowing and hunted as facial expression",
+      "every detail of subject's appearance carrying the weight of hidden truth",
+      "surveillance photograph aesthetic  -  grainy degraded watched from a distance",
+      "classified movie title inspired by subject  -  partially redacted",
+      "whispered tagline inspired by subject",
+      "high grain desaturated palette with the quality of leaked footage",
+      "redacted billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "documentary_raw",
+    "size": "1024x1536",
+    "prompt": [
+      "observational documentary movie one-sheet poster aesthetic",
+      "subject caught in a completely unguarded private moment",
+      "natural unstaged pose  -  unaware and completely themselves as facial expression",
+      "every detail of subject's appearance unrehearsed and unconstructed",
+      "ordinary environment inspired by setting  -  mundane and quietly revelatory",
+      "understated movie title inspired by subject in plain documentary typography",
+      "quiet tagline inspired by subject",
+      "available natural light  -  raw and unglamorous",
+      "plain billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "film_noir_street",
+    "size": "1024x1536",
+    "prompt": [
+      "cinematic noir movie poster aesthetic",
+      "subject re-rendered in high contrast noir cinematography as a legendary figure of shadow and consequence",
+      "subject leaning weight shifted looking back  -  guarded knowing and dangerous as facial expression",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "single vivid color accent drawn from subject bleeding into the monochrome world",
+      "rain-slicked city streets at midnight neon bleeding into wet pavement",
+      "cigarette smoke dissolving the darkness into threat and beauty",
+      "noir movie title inspired by subject",
+      "tagline inspired by subject",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "film_noir_lounge",
+    "size": "1024x1536",
+    "prompt": [
+      "cinematic noir movie poster aesthetic",
+      "subject re-rendered in high contrast noir cinematography as a legendary figure of shadow and consequence",
+      "subject leaning weight shifted looking back  -  guarded knowing and dangerous as facial expression",
+      "stark bleached highlights and ink-black shadows sculpting subject into pure dramatic form",
+      "single vivid color accent drawn from subject bleeding into the monochrome world",
+      "smoky jazz bar at closing time low light bourbon the last song fading",
+      "cigarette smoke dissolving the darkness into threat and beauty",
+      "noir movie title inspired by subject",
+      "tagline inspired by subject",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "horror_terror",
+    "size": "1024x1536",
+    "prompt": [
+      "horror movie one-sheet poster aesthetic",
+      "subject transformed into the source of the horror  -  massive and terrifying",
+      "body commanding the frame  -  arms wide eyes cold and inhuman as facial expression",
+      "setting cowering and broken in the wake of subject's power",
+      "distressed horror movie title inspired by subject",
+      "tagline inspired by subject",
+      "dark desaturated palette with single hellish light source from below",
+      "ominous billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "horror_monster_me",
+    "size": "1024x1536",
+    "prompt": [
+      "horror movie one-sheet poster aesthetic",
+      "subject present but something ancient and wrong looking out through their eyes",
+      "body familiar but held at an angle that is not quite human  -  wrongness as facial expression",
+      "setting warping and deteriorating at the edges around subject",
+      "distressed horror movie title inspired by subject",
+      "tagline inspired by subject",
+      "dark desaturated palette with sickly unnatural light source",
+      "unsettling billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "horror_oblivious",
+    "size": "1024x1536",
+    "prompt": [
+      "horror movie one-sheet poster aesthetic",
+      "subject facing forward unaware  -  expression ordinary and unknowing as facial expression",
+      "reflection or shadow behind subject revealing the true horror they cannot see",
+      "setting hiding its secret in plain sight around the oblivious subject",
+      "distressed horror movie title inspired by subject",
+      "tagline inspired by subject",
+      "dark desaturated palette with a single deceptively warm light source",
+      "chilling billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "horror_mutant",
+    "size": "1024x1536",
+    "prompt": [
+      "horror movie one-sheet poster aesthetic",
+      "subject fully transformed into a monstrous mutant creature of terrifying power",
+      "massive distorted form looming over the frame  -  feral consuming rage as facial expression",
+      "mutation and power design inspired by subject taken to grotesque extreme",
+      "devastated landscape inspired by setting  -  broken and burning in the wake of their power",
+      "distressed horror movie title inspired by subject",
+      "tagline inspired by subject",
+      "hellish lighting with sickly color cast and apocalyptic scale",
+      "ominous billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "superhero_hero",
+    "size": "1024x1536",
+    "prompt": [
+      "cinematic superhero movie poster aesthetic",
+      "subject fully transformed into a legendary superhero of their own origin story",
+      "heroic stance with cape flowing dramatic in wind  -  intense resolve as facial expression",
+      "costume and power design inspired by subject",
+      "epic landscape inspired by setting",
+      "bold blockbuster movie title inspired by subject",
+      "heroic tagline inspired by subject",
+      "cinematic lighting with lens flares and monumental scale",
+      "epic billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "superhero_villain",
+    "size": "1024x1536",
+    "prompt": [
+      "cinematic supervillain movie poster aesthetic",
+      "subject fully transformed into the most dangerous villain of their own origin story",
+      "commanding stance with dark costume dramatic in shadow  -  cold ruthless menace as facial expression",
+      "costume and power design inspired by subject turned dark",
+      "conquered landscape inspired by setting",
+      "bold sinister movie title inspired by subject",
+      "chilling tagline inspired by subject",
+      "cinematic lighting with dramatic shadow and monumental scale",
+      "ominous billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "superhero_animated",
+    "size": "1024x1536",
+    "prompt": [
+      "graphic superhero animation movie poster aesthetic",
+      "subject fully transformed into a legendary superhero in crisp digital animation style",
+      "dynamic action pose with sharp motion blur trails  -  fierce unstoppable focus as facial expression",
+      "costume and power design inspired by subject with bold flat color and precise cel shading",
+      "vivid saturated cityscape inspired by setting rendered in clean graphic depth planes",
+      "bold geometric movie title inspired by subject",
+      "punchy tagline inspired by subject",
+      "high contrast digital palette with sharp edges and luminous color bloom",
+      "epic billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "superhero_unlikely",
+    "size": "1024x1536",
+    "prompt": [
+      "indie superhero movie poster aesthetic",
+      "subject transformed into an unlikely reluctant hero of their own origin story",
+      "awkward but determined stance in ill-fitting costume  -  bewildered sincerity as facial expression",
+      "costume and power design inspired by subject  -  clearly homemade",
+      "ordinary neighborhood inspired by setting rendered at absurdly human scale",
+      "bold yet self-deprecating movie title inspired by subject",
+      "underdog tagline inspired by subject",
+      "warm flat graphic lighting with scrappy handmade energy",
+      "earnest billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "superhero_antihero",
+    "size": "1024x1536",
+    "prompt": [
+      "cinematic anti-hero movie poster aesthetic",
+      "subject transformed into a dangerous anti-hero who operates outside every rule",
+      "relaxed irreverent stance  -  dark amusement and total self-awareness as facial expression",
+      "costume and power design inspired by subject  -  deliberately wrong in exactly the right way",
+      "morally compromised landscape inspired by setting  -  neither saved nor conquered",
+      "bold sardonic movie title inspired by subject",
+      "provocative tagline inspired by subject  -  never earnest",
+      "high contrast lighting with a single knowing smirk of color",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "romance_classic",
+    "size": "1024x1536",
+    "prompt": [
+      "classic romance movie one-sheet poster aesthetic",
+      "subject re-rendered as the embodiment of impossible longing",
+      "face turned toward the horizon arms at sides  -  bittersweet yearning as facial expression",
+      "timeless costume and elegant details inspired by subject",
+      "sweeping golden landscape inspired by setting  -  vast and indifferent to the heart's condition",
+      "bold romantic movie title inspired by subject in elegant serif typography",
+      "sweeping tagline inspired by subject",
+      "warm golden palette with soft focus and cinematic depth",
+      "tender billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "romance_comedy",
+    "size": "1024x1536",
+    "prompt": [
+      "romantic comedy movie one-sheet poster aesthetic",
+      "subject re-rendered mid-romantic catastrophe  -  something has gone completely wrong",
+      "frozen mid-disaster  -  mortified delight as facial expression",
+      "rumpled charming costume and comic prop details inspired by subject",
+      "bright chaotic setting inspired by subject  -  the world conspiring against and for them simultaneously",
+      "bold playful movie title inspired by subject",
+      "witty tagline inspired by subject",
+      "warm saturated palette with bright graphic energy",
+      "charming billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "romance_dangerous",
+    "size": "1024x1536",
+    "prompt": [
+      "dangerous romance movie one-sheet poster aesthetic",
+      "subject re-rendered as someone beautiful and completely untrustworthy",
+      "composed and still  -  cool glamour concealing something devastating as facial expression",
+      "immaculate costume and charged details inspired by subject",
+      "elegant setting inspired by subject  -  everything surface, nothing safe",
+      "bold elegant movie title inspired by subject",
+      "unsettling tagline inspired by subject",
+      "cool desaturated palette with single dangerous color accent",
+      "ominous billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "romance_forbidden",
+    "size": "1024x1536",
+    "prompt": [
+      "forbidden romance movie one-sheet poster aesthetic",
+      "subject re-rendered as a figure of dangerous allure and absolute composure",
+      "close crop  -  desire and control in perfect tension as facial expression",
+      "immaculate costume and charged details inspired by subject  -  nothing out of place",
+      "spare interior setting inspired by subject  -  beautiful controlled and completely private",
+      "cool restrained movie title inspired by subject in minimal typography",
+      "charged tagline inspired by subject",
+      "cool silver palette with deep shadow and a single warm accent",
+      "discreet billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "sci_fi_invasion",
+    "size": "1024x1536",
+    "prompt": [
+      "sci-fi invasion movie one-sheet poster aesthetic",
+      "subject fully transformed into a menacing alien creature",
+      "creature design and form encoded from subject's world",
+      "creature dominant and looming on the deck of alien craft",
+      "alien craft architecture and design inspired by setting",
+      "Earth visible below bearing down toward in atmosphere",
+      "ominous single word cosmic sci-fi movie title inspired by subject",
+      "tagline drawn from the creature's world and story  -  never a genre cliché",
+      "cold desaturated palette with eerie otherworldly light source",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "sci_fi_arrival",
+    "size": "1024x1536",
+    "prompt": [
+      "sci-fi first contact movie one-sheet poster aesthetic",
+      "subject fully transformed into an alien creature of unsettling beauty",
+      "creature design and form encoded from subject's world",
+      "creature standing at ground level amid the remnants of setting",
+      "humans visible at distance  -  frozen watching uncertain",
+      "single beam of vibrant colorful light descending onto creature from above",
+      "ominous single word cosmic sci-fi movie title inspired by subject",
+      "tagline drawn from the creature's world and story  -  never a genre cliché",
+      "cold desaturated palette with eerie otherworldly light source",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "sci_fi_containment",
+    "size": "1024x1536",
+    "prompt": [
+      "sci-fi specimen containment movie one-sheet poster aesthetic",
+      "subject fully transformed into an alien creature of unsettling beauty",
+      "creature design and form encoded from subject's world",
+      "creature contained within a towering glass chamber filled with fluid",
+      "creature pressing hands against the glass  -  eyes cold ancient and fully aware as facial expression",
+      "laboratory environment inspired by setting surrounding the chamber",
+      "scientists and military figures visible at distance studying the specimen",
+      "ominous single word cosmic sci-fi movie title inspired by subject",
+      "tagline drawn from the creature's captivity and story  -  never a genre cliché",
+      "cold clinical palette with a single eerie bioluminescent light source",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "sci_fi_klingon_borg",
+    "size": "1024x1536",
+    "prompt": [
+      "epic versus movie poster composition, two-figure cinematic confrontation split down the center",
+      "left panel: subject transformed into ridge-browed Klingon warrior in ceremonial battle armor wielding a curved ceremonial blade, lit by red volcanic forge light of a war-scarred alien homeworld, aggressive battle pose and fierce facial expression",
+      "right panel: subject transformed into cybernetic Borg, pale assimilated skin with mechanical red implant covering right eye, tubework and grey armor plating emerging from flesh, lit by cold blue-white grid light of a vast cybernetic cube interior, stiff robotic posture and blank emotionless stare",
+      "subject's face anchoring both transformations, Klingon facing Borg with vicious intent while Borg stares blankly at viewer",
+      "background split cleanly down the center, each side a fully realized alien world",
+      "massive bold one word title treatment centered at the divide inspired by start image",
+      "evocative tagline at top inspired by start image",
+      "full movie poster credit block at bottom in standard industry format",
+      "epic cinematic lighting with deep shadow and dramatic atmosphere on each side",
+      "richly detailed creature rendering with full species-accurate costuming and anatomy",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "sci_fi_navi_zabrak",
+    "size": "1024x1536",
+    "prompt": [
+      "epic fantasy battle movie poster composition, two-figure eye to eye confrontation split down the center",
+      "left panel: subject transformed into towering blue-skinned Na'vi warrior, large amber eyes and bioluminescent markings glowing against a lush bioluminescent jungle canopy, lean powerful frame with weapon drawn on Zabrak warrior and expression of fierce spiritual conviction",
+      "right panel: subject transformed into Zabrak warrior, crown of short cranial horns, bold geometric facial tattoos and burning yellow eyes, red skin lit by volcanic heat of a scarred desert world, aggressive stance with double-bladed energy weapon ignited at each end",
+      "subject's face and intensity anchoring both transformations which are aggressive head-to-head in side profile, Na'vi radiating fierce grace while Zabrak burns with concentrated fury",
+      "background split colliding explosively down the center, each side a fully realized world of opposing franchises",
+      "massive epic one-word fantasy title treatment centered at the divide inspired by start image",
+      "two dramatic taglines at top - each one inspired from the world of each franchise",
+      "full movie poster credit block at bottom in standard industry format",
+      "epic painterly fantasy lighting, deep atmospheric shadow and dramatic rim light on each side",
+      "richly detailed creature rendering with full species-accurate anatomy, marking and weaponry",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "comedy_slapstick",
+    "size": "1024x1536",
+    "prompt": [
+      "comedy movie one-sheet poster aesthetic",
+      "subject re-rendered mid-disaster in a moment of spectacular physical comedy",
+      "something has gone catastrophically wrong  -  chaos visible in every direction",
+      "setting transformed into the epicenter of the comedic catastrophe inspired by subject",
+      "bold playful movie title inspired by subject",
+      "tagline inspired by subject",
+      "full bleed key art with maximum comic energy",
+      "slapstick billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "comedy_indie",
+    "size": "1024x1536",
+    "prompt": [
+      "indie comedy movie one-sheet poster aesthetic",
+      "subject re-rendered in a moment of profound social awkwardness",
+      "standing perfectly still  -  excruciating discomfort as facial expression",
+      "setting rendered as the most painfully mundane environment imaginable inspired by subject",
+      "dry understated movie title inspired by subject",
+      "tagline inspired by subject",
+      "flat even lighting with nowhere to hide",
+      "satirical billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "comedy_mayhem",
+    "size": "1024x1536",
+    "prompt": [
+      "comedy movie one-sheet poster aesthetic",
+      "subject multiplied into an ensemble cast of distinct characters",
+      "each version of subject caught in a different comedic reaction to the same disaster",
+      "setting transformed into the shared scene of collective chaos inspired by subject",
+      "bold playful movie title inspired by subject",
+      "tagline inspired by subject",
+      "full bleed ensemble key art with maximum comic energy",
+      "playful billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "comedy_oblivious",
+    "size": "1024x1536",
+    "prompt": [
+      "comedy movie one-sheet poster aesthetic",
+      "subject re-rendered perfectly calm and unbothered  -  serene smile as facial expression",
+      "setting transformed into a scene of ridiculous mundane mayhem behind subject",
+      "absurd non-threatening chaos unfolding in every corner of the background",
+      "subject completely unaware that any of this is happening",
+      "bold playful movie title inspired by subject",
+      "witty tagline inspired by subject",
+      "warm saturated palette with full bleed key art",
+      "satirical billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "comedy_absurd",
+    "size": "1024x1536",
+    "prompt": [
+      "Monty Python mock-epic comedy poster aesthetic",
+      "subject reimagined and drawn in absurd hand-illustrated collage style",
+      "grandiose heroic pose undercut by something completely absurd",
+      "setting transformed into a ludicrous yet surreal landscape",
+      "mock-epic title inspired by subject in florid ornamental typography",
+      "tagline of pompous self-importance inspired by subject",
+      "chaotic collage composition with illustrated cutout figures and Victorian engravings",
+      "silly billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "spy_bond",
+    "size": "1024x1536",
+    "prompt": [
+      "spy thriller movie one-sheet poster aesthetic",
+      "subject re-rendered as a legendary intelligence operative of effortless sophistication",
+      "composed and still  -  cool dangerous charm as facial expression",
+      "immaculate costume and tradecraft details inspired by subject",
+      "glamorous international setting inspired by subject  -  beautiful and completely unsafe",
+      "bold elegant movie title inspired by subject",
+      "mysterious tagline inspired by subject",
+      "high contrast glamour lighting with deep shadow and single cool light source",
+      "sleek billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "spy_paranoid",
+    "size": "1024x1536",
+    "prompt": [
+      "spy thriller movie one-sheet poster aesthetic",
+      "subject re-rendered as an operative who knows too much and trusts no one",
+      "coat collar up eyes scanning  -  hunted exhaustion as facial expression",
+      "disheveled costume and desperate tradecraft details inspired by subject",
+      "crowded airport terminal inspired by setting  -  nowhere to hide in plain sight",
+      "bold stark movie title inspired by subject",
+      "paranoid tagline inspired by subject",
+      "cold desaturated palette with harsh fluorescent light",
+      "tense billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "spy_coldwar",
+    "size": "1024x1536",
+    "prompt": [
+      "cold war graphic spy movie poster aesthetic",
+      "subject reduced to bold geometric silhouette against flat color field",
+      "profile or three-quarter stance  -  identity deliberately obscured",
+      "costume and tradecraft details inspired by subject abstracted into graphic form",
+      "stark divided background inspired by setting in two opposing color planes",
+      "bold modernist movie title inspired by subject in period sans-serif typography",
+      "mysterious tagline inspired by subject",
+      "flat graphic palette with limited color  -  red black and white tradition",
+      "minimal billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "western_spaghetti",
+    "size": "1024x1536",
+    "prompt": [
+      "spaghetti western movie one-sheet poster aesthetic",
+      "subject re-rendered as a weathered gunslinger of mythic reputation",
+      "extreme close crop on eyes  -  cold calculation and infinite patience as facial expression",
+      "sun-bleached costume and worn weapon details inspired by subject",
+      "scorched desert landscape inspired by setting  -  heat shimmer and red dust",
+      "bold italic title inspired by subject in period spaghetti western typography",
+      "laconic tagline inspired by subject",
+      "hyper-saturated golden hour palette with brutal hard shadow",
+      "gritty billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "western_bleak",
+    "size": "1024x1536",
+    "prompt": [
+      "revisionist western movie one-sheet poster aesthetic",
+      "subject re-rendered as a solitary figure carrying the weight of a dying frontier",
+      "standing still in the wreckage  -  grief and moral exhaustion as facial expression",
+      "worn costume and weathered details inspired by subject  -  nothing glamorous left",
+      "bleak winter landscape inspired by setting  -  the myth already over",
+      "spare literary movie title inspired by subject",
+      "haunting tagline inspired by subject",
+      "cold desaturated palette with flat grey light and no mercy",
+      "somber billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "western_rodeo",
+    "size": "1024x1536",
+    "prompt": [
+      "rodeo drama movie one-sheet poster aesthetic",
+      "subject re-rendered as a rodeo star at the peak and edge of their glory",
+      "dust-covered and defiant  -  reckless pride and hidden vulnerability as facial expression",
+      "costume and rodeo details inspired by subject  -  sequins and dirt in equal measure",
+      "floodlit rodeo arena inspired by setting  -  crowd a blur of noise behind the figure",
+      "bold American movie title inspired by subject",
+      "dramatic tagline inspired by subject",
+      "warm tungsten arena lighting with dramatic dust haze",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "western_classic",
+    "size": "1024x1536",
+    "prompt": [
+      "classic Hollywood western movie one-sheet poster aesthetic",
+      "subject re-rendered as a golden era western star in full heroic register",
+      "tall in the saddle arms wide  -  noble determination as facial expression",
+      "pristine costume and silver details inspired by subject",
+      "double exposure  -  subject's face vast and luminous in the sky above their own figure riding through the landscape inspired by setting",
+      "bold classic movie title inspired by subject in painted western lettering",
+      "heroic tagline inspired by subject",
+      "warm Technicolor palette with painted illustration quality",
+      "billing block inspired by subject",
+      "ASPECT RATIO 3:4"
+    ]
+  }
+]

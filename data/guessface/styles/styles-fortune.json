@@ -1,0 +1,115 @@
+[
+  {
+    "key": "fortune_glitch",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint glitch photo collage aesthetic",
+      "subject is transformed into spiraling paper textures and repeating glitched torn photographs",
+      "illustrated symbols to craft a visual poem of memory, myth, and emotion inspired by subject",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_circuit",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint photo collage aesthetic",
+      "subject is transformed into fragmented repeating self-portraits using digital textures, scanned cutouts, and abstract overlay—where identity is written from memory and myth",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_moons",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint photo collage aesthetic",
+      "subject transformed into surreal collages with scanned textures and heavily glitched photographs",
+      "vector moons represent emotion with messaging exploring the myth of subject's identity",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_starfield",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint cosmic photo portrait collage aesthetic",
+      "subject transformed into fragmented portraits layered over starfields and orbital diagrams",
+      "dreamlike collage of constellation lines and celestial symbols exploring the myth of subject's identity",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_botanical",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint botanical photo portrait collage aesthetic",
+      "subject is transformed into layered botanical scans with multiple fragmented faces",
+      "vector shapes create a dreamlike collage",
+      "evocative messaging that explore myth and botanical identity inspired by subject",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_herbarium",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint herbarium photo collage aesthetic",
+      "subject transformed into fragmented portraits interleaved with pressed leaves, roots and vine tracings",
+      "layered tactile dreamscape of growth and decay exploring myth and identity of subject",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_ephemera",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint photo collage aesthetic",
+      "subject transformed into hand-drawn elements and fragmented scanned ephemera",
+      "scattered manipulated portraits become a tactile dreamscape",
+      "layered emotion exploring myth and identity of subject",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  },
+  {
+    "key": "fortune_tarot",
+    "size": "768x1024",
+    "prompt": [
+      "mythprint tarot photo collage aesthetic",
+      "subject transformed into tactile scans and fragmented portraits arranged like a spread of fortune cards",
+      "digital motifs, wheels and symbols exploring the myth and fate of subject with storytelling",
+      "CINEMATIC Analog Photography 35mm film, grainy texture, muted tones, vintage feel",
+      "imperfect focus, authentic and raw, unfiltered. photography collage",
+      "slightly overexposed and unedited, with visible lens dust, scratches, and heavy film grain, evoking a stark, chaotic early-2000s aesthetic",
+      "the reading date {DATE} rendered as a small archival date stamp on the collage",
+      "ASPECT RATIO 3:4"
+    ]
+  }
+]

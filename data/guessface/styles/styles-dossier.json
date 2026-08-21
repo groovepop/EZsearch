@@ -1,0 +1,38 @@
+[
+  {
+    "key": "dossier_surveillance",
+    "size": "1024x768",
+    "prompt": [
+      "satirical intelligence agency surveillance dossier aesthetic",
+      "Department of Absurd Intelligence (AI)",
+      "open manila folder spread with string tie closure, classification stamps and case reference number",
+      "one main subject from each start image are identified with playful codenames — candid surveillance shots at distance, slightly grainy",
+      "multiple exposure angles with timestamps assembled on folder interior as silly evidence spread",
+      "outrageous handwritten field notes and typed observation logs describing subjects's movements and contacts",
+      "field notes signed by observing agent {CODENAME}",
+      "redacted text blocks obscuring names and locations throughout",
+      "absurd agent codenames and operation title invented from setting",
+      "known associates and frequented locations listed in sidebar inspired by setting",
+      "ASPECT RATIO 4:3"
+    ]
+  },
+  {
+    "key": "dossier_operative",
+    "size": "1024x768",
+    "prompt": [
+      "satirical spy agency operative personnel file aesthetic",
+      "Department of Absurd Intelligence (AI)",
+      "open manila folder spread with classification stamps, operative designation and case reference number",
+      "operative designation is exactly {CODENAME}",
+      "subject in official field operative portrait — composed, direct, aware of the camera",
+      "capability profile sidebar listing absurd skills, languages and specializations invented from setting",
+      "silly mission history log with operation codenames and deployment regions invented from setting",
+      "playful psychological assessment notes and field commendations in typed institutional format",
+      "redacted text blocks throughout concealing sensitive operational details",
+      "TOP SECRET stamp overlaid on document surface",
+      "agency seal and operative status designation invented from setting",
+      "aged document texture with coffee ring and paper clip impression and handling wear",
+      "ASPECT RATIO 4:3"
+    ]
+  }
+]

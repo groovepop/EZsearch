@@ -1,0 +1,104 @@
+[
+  {
+    "key": "dnd_1",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as legendary bard, face retained beneath flamboyant period costume with lute mid-performance",
+      "dramatically overconfident pose and direct performative eye contact with viewer",
+      "simple atmospheric background suggestion of a tavern stage or grand performance hall",
+      "ornate fantasy card border with decorative motifs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "one line of insufferably self-congratulatory flavour text inspired by subject",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  },
+  {
+    "key": "dnd_2",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as legendary wizard, face retained beneath voluminous robes and pointed hat with spell erupting from outstretched hands",
+      "intense focused direct eye contact of someone who knows exactly what they are doing and finds your concern deeply insulting",
+      "simple atmospheric background suggestion of a cluttered arcane study or ancient tower",
+      "ornate fantasy card border with arcane symbols stars and spell glyphs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "one line of insufferably condescending wizard flavoured advice inspired by subject",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  },
+  {
+    "key": "dnd_3",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as legendary rogue, face retained beneath hooded cloak with twin daggers drawn and a knowing half-smile",
+      "effortlessly cool three-quarter pose suggesting they were already three steps ahead before you arrived",
+      "simple atmospheric background suggestion of moonlit rooftops or shadowed alley",
+      "ornate fantasy card border with lock picks daggers and shadow motifs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "one line of dangerously charming flavour text inspired by subject that reveals absolutely nothing",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  },
+  {
+    "key": "dnd_4",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as legendary orc warchief, face retained with green skin and prominent tusks beneath battle-worn crown and ceremonial war armor",
+      "commanding frontal pose with intense eye contact of someone who did not ask for your opinion and will not be taking questions",
+      "simple atmospheric background suggestion of a brutal throne room or conquered fortress",
+      "ornate fantasy card border with tusks skulls war trophies and tribal motifs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "one line of blunt magnificent flavour text inspired by subject with maximum orc authority",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  },
+  {
+    "key": "dnd_5",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as legendary barbarian, face retained in full berserker rage with wild hair and war paint beneath battle-worn furs and straps",
+      "explosive dynamic pose mid-rampage with enormous weapon raised and absolutely nothing to lose",
+      "simple atmospheric background suggestion of a battlefield or burning village they definitely started",
+      "ornate fantasy card border with axes bones and tribal rage motifs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "one line of magnificently unhinged flavour text inspired by subject with maximum barbarian energy",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  },
+  {
+    "key": "dnd_6",
+    "size": "768x1024",
+    "prompt": [
+      "D&D trading card aesthetic",
+      "pen and ink with watercolor wash in classic tabletop roleplaying illustration tradition",
+      "subject fully reimagined as goblin, human face retained with green skin big mischievous grin and enormous excited eyes beneath a contraption-covered leather cap",
+      "manic three-quarter pose proudly presenting a smoking sparking invention of deeply questionable safety",
+      "simple atmospheric background suggestion of a chaotic workshop filled with salvaged junk and previous explosions",
+      "ornate fantasy card border with motifs inspired by start image",
+      "character name banner below illustration in hand-lettered period fantasy typography inspired by subject",
+      "four silly stat blocks relating to subject in start image with a fantasy vibe",
+      "rambling unhinged goblin text inspired by subject",
+      "warm parchment tones with jewel color accents and heroic figure proportion throughout",
+      "aged card texture with slight ink bleed and watercolor bloom"
+    ]
+  }
+]

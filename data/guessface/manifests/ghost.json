@@ -1,0 +1,46 @@
+{
+  "modeId": "ghost",
+  "displayName": "Guess the Ghost",
+  "status": "active",
+  "manifestVersion": "1.0.0",
+  "styleSource": {
+    "path": "styles/styles-ghost.json",
+    "notes": "Two-stage generation: spectre portrait generated first from the ghost-subject's selfie, then composited with the victim-subject's selfie into a film-negative haunting strip."
+  },
+  "input": {
+    "imageCount": "paired",
+    "collectsFields": []
+  },
+  "pipeline": {
+    "pairingStrategy": "single_cycle_derangement",
+    "seedRules": {
+      "usesSeed": false,
+      "injectionTarget": "none"
+    },
+    "imageGeneration": {
+      "deployment": "gpt-image-2",
+      "styleTagVariantCount": 1,
+      "requiresSecondPassCompose": true
+    }
+  },
+  "captionParse": {
+    "visionDeployment": "groovepop-vision",
+    "outputShape": "single_text_field"
+  },
+  "reveal": {
+    "sequence": "standard",
+    "surfaceBehavior": {
+      "live": "Shows haunting strip composite image only.",
+      "screen": "Shows both the spectre portrait and the haunting strip composite in sequence.",
+      "admin": "Shows ghost/victim assignment for the round before reveal."
+    }
+  },
+  "hooks": {
+    "pairing": "default",
+    "captionParsing": "default",
+    "revealSequencing": "default"
+  },
+  "_extensions": {
+    "pairingNotes": "Each player is ghost and victim exactly once across the round set, via single-cycle derangement. Round order is shuffled at the mode level (not just within pairing) to prevent order from leaking the ghost/victim mapping."
+  }
+}

@@ -1,0 +1,90 @@
+[
+  {
+    "key": "limerick_1",
+    "size": "768x1024",
+    "prompt": [
+      "ancient Greek black-figure amphora painting style",
+      "silhouetted figure rendered in slip-painted terracotta technique",
+      "friezes of meander and key borders framing the figure above and below",
+      "deep orange-red Attic clay ground with matte black figure in profile or three-quarter stance",
+      "setting enclosed within the belly of an amphora vessel with visible curve of the clay form",
+      "secondary decorative registers with palmette and lotus chain motifs",
+      "archaic Greek inscription naming the figure in painted letterforms along the vessel shoulder",
+      "title rendered as painted archaic Greek lettering along the neck of the vessel",
+      "aged terracotta surface with hairline cracks and excavation patina",
+      "single harsh museum spotlight illuminating the vessel against deep black background with hard cast shadow"
+    ]
+  },
+  {
+    "key": "limerick_2",
+    "size": "768x1024",
+    "prompt": [
+      "Imperial Fabergé egg display case aesthetic",
+      "subject presented as miniature hand-painted portrait medallion set into the egg surface",
+      "dress reinterpreted as guilloche enamel pattern across the egg’s curved surface panels",
+      "egg form constructed in jeweled gold with translucent enamel over engine-turned ground",
+      "hinged opening at egg equator revealing miniature surprise element inspired by subject",
+      "rose-cut diamond, ruby, and sapphire encrustation along panel borders and seam lines",
+      "egg mounted on ornate gold tripod stand with claw feet and acanthus detailing",
+      "guilloche sunburst or wave engine-turning visible beneath translucent enamel panels",
+      "aged gold with slight patina suggesting imperial provenance and museum handling",
+      "adjacent Fabergé eggs partially visible at edges",
+      "intimate collectible scale implying extreme rarity and dynastic ownership"
+    ]
+  },
+  {
+    "key": "limerick_3",
+    "size": "1024x768",
+    "prompt": [
+      "Japanese game show chaos aesthetic",
+      "subject transformed into contestant inside an insane Japanese game show set",
+      "extreme physical outdoor water challenge in full progress",
+      "garish neon set design with flashing lights and absurd props",
+      "enthusiastic host and screaming studio audience visible in background",
+      "score counter, timer, and game show graphics overlaid on scene",
+      "subject's expression of maximum bewildered effort"
+    ]
+  },
+  {
+    "key": "limerick_4",
+    "size": "768x1024",
+    "prompt": [
+      "vintage CRT television head surrealist aesthetic",
+      "subject's head replaced by a bulky retro television set with rounded screen and plastic casing",
+      "TV screen displaying the start image in high contrast color blast",
+      "subject standing alone before a floor-to-ceiling wall of vintage monitors in various sizes",
+      "each background monitor displaying a different fragmented evocative closeup from the start image",
+      "subject cradling own detached human head in arms while it looks up inquisitively at the television head",
+      "human head held tenderly like a precious found object",
+      "monitors flickering with scan lines, static interference, and signal noise"
+    ]
+  },
+  {
+    "key": "limerick_5",
+    "size": "768x1024",
+    "prompt": [
+      "authentic tarot card aesthetic",
+      "medieval woodcut print style with harsh black line and crude hand-pressed texture",
+      "subject rendered as major arcana figure in stark symbolic illustration",
+      "card title and roman numeral inspired by subject in period woodcut lettering",
+      "symbolic objects and background iconography inspired by subject",
+      "ornate border of dense woodcut linework with occult and celestial motifs",
+      "limited palette of aged ochre, deep umber, and faded black on yellowed stock",
+      "worn card edges and surface cracking from generations of handling",
+      "foxing and ink fade consuming detail at margins"
+    ]
+  },
+  {
+    "key": "limerick_6",
+    "size": "768x1024",
+    "prompt": [
+      "South Park construction paper cutout animation style",
+      "simple geometric shapes with flat solid colors and harsh digital edges",
+      "oversized round head sitting directly on body with no neck",
+      "minimal facial features  -  dot eyes and simple line mouth",
+      "visible construction paper grain and texture on every shape",
+      "crude cardboard cutout edges with deliberate imprecision",
+      "static poses with no articulation between body parts"
+    ]
+  }
+]
