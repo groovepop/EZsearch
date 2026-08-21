@@ -21,7 +21,8 @@ const PORT = process.env.PORT || 5001;
 const HOST = '0.0.0.0';
 
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 
 // In-Memory Cache Helper
 const cache = new Map();
@@ -1143,6 +1144,92 @@ app.get('/api/sky/tonight', async (req, res) => {
   } catch (err) {
     console.error('[Sky Tonight API Error]', err);
     res.status(500).json({ error: 'Failed to fetch sky viewing forecast', message: err.message });
+  }
+});
+
+// 12. GROOVE POP Engine API Proxy
+const GROOVEPOP_ENGINE_URL = process.env.GROOVEPOP_ENGINE_URL || 'http://localhost:7071';
+const GROOVEPOP_API_KEY = process.env.GROOVEPOP_API_KEY || 'dev-engine-secret-key-123';
+
+app.get('/api/groovepop/health', async (req, res) => {
+  try {
+    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/health`;
+    const response = await fetch(targetUrl, {
+      signal: AbortSignal.timeout(5000)
+    });
+    if (!response.ok) {
+      return res.status(response.status).json({ ok: false, error: `Engine returned status ${response.status}` });
+    }
+    const data = await response.json();
+    res.json(data);
+  } catch (err) {
+    res.status(503).json({ ok: false, error: 'Engine API unreachable', message: err.message });
+  }
+});
+
+app.post('/api/groovepop/transform', async (req, res) => {
+  try {
+    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/transform`;
+    const response = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-groovepop-api-key': GROOVEPOP_API_KEY
+      },
+      body: JSON.stringify(req.body),
+      signal: AbortSignal.timeout(120000)
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return res.status(response.status).json(data.error ? data : {
+        success: false,
+        error: 'transform_failed',
+        message: data.message || `Transformation failed with HTTP ${response.status}`
+      });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error('[GroovePop Transform Error]', err);
+    res.status(500).json({
+      success: false,
+      error: 'proxy_error',
+      message: err.message || 'Failed to communicate with Groove Pop engine'
+    });
+  }
+});
+
+app.post('/api/groovepop/caption', async (req, res) => {
+  try {
+    const targetUrl = `${GROOVEPOP_ENGINE_URL.replace(/\/$/, '')}/api/caption`;
+    const response = await fetch(targetUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-groovepop-api-key': GROOVEPOP_API_KEY
+      },
+      body: JSON.stringify(req.body),
+      signal: AbortSignal.timeout(60000)
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      return res.status(response.status).json(data.error ? data : {
+        success: false,
+        error: 'caption_failed',
+        message: data.message || `Captioning failed with HTTP ${response.status}`
+      });
+    }
+
+    res.json(data);
+  } catch (err) {
+    console.error('[GroovePop Caption Error]', err);
+    res.status(500).json({
+      success: false,
+      error: 'proxy_error',
+      message: err.message || 'Failed to communicate with Groove Pop caption engine'
+    });
   }
 });
 

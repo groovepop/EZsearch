@@ -12,6 +12,7 @@ import MarsWidget from './components/MarsWidget';
 import WeatherWidget from './components/WeatherWidget';
 import AIAssistantDrawer from './components/AIAssistantDrawer';
 import AgentWidget from './components/AgentWidget';
+import GroovePopWidget from './components/GroovePopWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
 
@@ -83,7 +84,7 @@ export default function App() {
 
   // Fetch Torrents Logic
   const loadData = useCallback(async () => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat') return;
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'groovepop') return;
 
     setLoading(true);
     setError(null);
@@ -135,7 +136,7 @@ export default function App() {
   };
 
   const processedTorrents = React.useMemo(() => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat') return [];
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'groovepop') return [];
     let list = [...torrents];
 
     if (selectedQuality !== 'ALL') {
@@ -177,6 +178,8 @@ export default function App() {
       {/* Render Widgets or Torrent Views */}
       {activeCategory === 'chat' ? (
         <AgentWidget />
+      ) : activeCategory === 'groovepop' ? (
+        <GroovePopWidget />
       ) : activeCategory === 'weather' ? (
         <WeatherWidget />
       ) : activeCategory === 'iss' ? (

@@ -6,6 +6,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
   const isTorrentGroup = ['tv', 'movies', 'tpb'].includes(activeCategory);
   const isSpaceGroup = ['weather', 'iss', 'mars'].includes(activeCategory);
   const isChatGroup = activeCategory === 'chat';
+  const isGroovePopGroup = activeCategory === 'groovepop';
 
   // Track last active subcategory per group
   const [lastTorrentSub, setLastTorrentSub] = useState('tv');
@@ -26,6 +27,8 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       setCategory(lastSpaceSub || 'weather');
     } else if (group === 'chat') {
       setCategory('chat');
+    } else if (group === 'groovepop') {
+      setCategory('groovepop');
     }
   };
 
@@ -39,7 +42,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
           className="glass-panel"
           style={{
             flex: 1,
-            minWidth: '160px',
+            minWidth: '150px',
             padding: '0.75rem 1rem',
             display: 'flex',
             alignItems: 'center',
@@ -69,7 +72,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
           className="glass-panel"
           style={{
             flex: 1,
-            minWidth: '160px',
+            minWidth: '150px',
             padding: '0.75rem 1rem',
             display: 'flex',
             alignItems: 'center',
@@ -90,7 +93,37 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
         >
           <Compass size={18} color={isSpaceGroup ? '#00e676' : 'currentColor'} />
           <span>Space & Weather</span>
-          <span className="badge badge-green" style={{ fontSize: '0.62rem' }}>HAMILTON & NASA</span>
+          <span className="badge badge-green" style={{ fontSize: '0.62rem' }}>HAMILTON</span>
+        </button>
+
+        {/* GROOVE POP Top Level Tab */}
+        <button
+          onClick={() => handleGroupSwitch('groovepop')}
+          className="glass-panel"
+          style={{
+            flex: 1,
+            minWidth: '150px',
+            padding: '0.75rem 1rem',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '0.6rem',
+            fontWeight: 800,
+            fontSize: '0.92rem',
+            cursor: 'pointer',
+            border: isGroovePopGroup ? '1px solid #ff0080' : '1px solid rgba(255, 0, 128, 0.35)',
+            background: isGroovePopGroup 
+              ? 'linear-gradient(135deg, rgba(255, 0, 128, 0.28) 0%, rgba(121, 40, 202, 0.28) 100%)' 
+              : 'rgba(255, 0, 128, 0.08)',
+            color: isGroovePopGroup ? '#ff55b0' : '#fff',
+            boxShadow: isGroovePopGroup ? '0 0 25px rgba(255, 0, 128, 0.4)' : 'none',
+            transition: 'all 0.2s ease',
+            borderRadius: '12px'
+          }}
+        >
+          <Sparkles size={18} color="#ff0080" />
+          <span>GROOVE POP</span>
+          <span className="badge badge-purple" style={{ fontSize: '0.62rem' }}>AI STUDIO</span>
         </button>
 
         {/* EZ Chat AI Assistant */}
@@ -99,7 +132,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
           className="glass-panel"
           style={{
             flex: '0 0 auto',
-            minWidth: '140px',
+            minWidth: '130px',
             padding: '0.75rem 1rem',
             display: 'flex',
             alignItems: 'center',
@@ -108,21 +141,22 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
             fontWeight: 800,
             fontSize: '0.92rem',
             cursor: 'pointer',
-            border: isChatGroup ? '1px solid #ff0080' : '1px solid rgba(255, 0, 128, 0.3)',
+            border: isChatGroup ? '1px solid #00e5ff' : '1px solid rgba(0, 229, 255, 0.3)',
             background: isChatGroup 
-              ? 'linear-gradient(135deg, rgba(255, 0, 128, 0.25) 0%, rgba(121, 40, 202, 0.25) 100%)' 
-              : 'rgba(255, 0, 128, 0.08)',
-            color: isChatGroup ? '#ff40a0' : '#fff',
-            boxShadow: isChatGroup ? '0 0 25px rgba(255, 0, 128, 0.35)' : 'none',
+              ? 'linear-gradient(135deg, rgba(0, 229, 255, 0.22) 0%, rgba(121, 40, 202, 0.22) 100%)' 
+              : 'rgba(0, 229, 255, 0.08)',
+            color: isChatGroup ? 'var(--accent-cyan)' : '#fff',
+            boxShadow: isChatGroup ? '0 0 25px rgba(0, 229, 255, 0.35)' : 'none',
             transition: 'all 0.2s ease',
             borderRadius: '12px'
           }}
         >
-          <Bot size={18} color="#ff40a0" />
+          <Bot size={18} color={isChatGroup ? 'var(--accent-cyan)' : '#00e5ff'} />
           <span>EZ Chat</span>
-          <span className="badge badge-purple" style={{ fontSize: '0.62rem' }}>AI</span>
+          <span className="badge badge-cyan" style={{ fontSize: '0.62rem' }}>AI</span>
         </button>
       </div>
+
 
       {/* Level 2: Submenu Pills for the Active Group */}
       {isTorrentGroup && (

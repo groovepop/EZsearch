@@ -332,3 +332,89 @@ export async function fetchSkyViewingForecast({ time_window = 'next_48h', event_
   }
   return res.json();
 }
+
+// 12. GROOVE POP Engine API Client (Azure Functions v4 Node.js Engine)
+export async function fetchGroovePopEngineHealth() {
+  try {
+    const res = await fetch('/api/groovepop/health');
+    if (!res.ok) return { ok: false, status: res.status };
+    return res.json();
+  } catch (err) {
+    return { ok: false, error: err.message };
+  }
+}
+
+export async function transformGroovePopImage({
+  image,
+  stylePrompt,
+  styleLabel = '',
+  aspectRatio = '1:1',
+  clientApp = 'ezsearch',
+  sessionId = null,
+  captionInstruction = ''
+}) {
+  const payload = {
+    image,
+    stylePrompt,
+    styleLabel,
+    aspectRatio,
+    clientApp,
+    sessionId: sessionId || (typeof crypto !== 'undefined' && crypto.randomUUID ? crypto.randomUUID() : `session_${Date.now()}`),
+  };
+
+  if (captionInstruction && captionInstruction.trim()) {
+    payload.captionInstruction = captionInstruction.trim();
+  }
+
+  const res = await fetch('/api/groovepop/transform', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.message || `Transformation failed with HTTP ${res.status}`);
+    err.status = res.status;
+    err.errorType = data.error || 'transform_failed';
+    throw err;
+  }
+
+  return data;
+}
+
+export async function captionGroovePopImage({
+  image,
+  clientApp = 'ezsearch',
+  captionInstruction = ''
+}) {
+  const payload = {
+    image,
+    clientApp
+  };
+
+  if (captionInstruction && captionInstruction.trim()) {
+    payload.captionInstruction = captionInstruction.trim();
+  }
+
+  const res = await fetch('/api/groovepop/caption', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  });
+
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.message || `Captioning failed with HTTP ${res.status}`);
+    err.status = res.status;
+    err.errorType = data.error || 'caption_failed';
+    throw err;
+  }
+
+  return data;
+}
+
