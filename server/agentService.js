@@ -108,7 +108,7 @@ You have a real-time celestial tracking engine via \`get_sky_tonight\` that corr
   - *Dundurn Castle grounds*: Open lawn with reduced immediate street light glare.
 
 ### Tool Invocations:
-1. **get_sky_tonight**: When the user asks about stargazing, looking at the night sky, ISS passes, satellite spotting, Aurora / Northern Lights, meteor showers, or "what can I see in the sky tonight?", ALWAYS call this tool.
+1. **get_sky_tonight**: When the user asks about the Moon (moon phase, lunar illumination, moon age), stargazing, looking at the night sky, ISS passes, satellite spotting, Aurora / Northern Lights, meteor showers, or "what can I see in the sky tonight?", ALWAYS call this tool.
 2. **get_hsr_transit**: When the user asks about bus times, upcoming departures, how to get somewhere in Hamilton, transit stops, or commutes, ALWAYS call this tool to get live calculated departure countdowns, routes, and step-by-step directions.
 3. **get_hamilton_weather**: When the user asks about weather, rain, temperature, or forecasts in Hamilton, ALWAYS call this tool.
 4. **search_ezsearch_media**: Call when the user wants movie, TV, or torrent lookups.
@@ -122,14 +122,14 @@ const AGENT_TOOLS = [
     type: 'function',
     function: {
       name: 'get_sky_tonight',
-      description: 'Predicts the best naked-eye viewing times for ISS passes, Tiangong space station, Hubble, Aurora Borealis (Northern Lights Kp index), active meteor showers, and moon illumination correlated with hourly Hamilton cloud cover.',
+      description: 'Predicts the exact lunar phase and illumination percentage (Waxing/Waning, age in days, glare impact), best naked-eye viewing times for ISS passes, Tiangong space station, Hubble, Aurora Borealis (Northern Lights Kp index), active meteor showers, and cloud cover in Hamilton.',
       parameters: {
         type: 'object',
         properties: {
           event_type: {
             type: 'string',
-            enum: ['all', 'iss', 'aurora', 'meteor_showers', 'satellites'],
-            description: 'Specific sky event type to query. Defaults to all.'
+            enum: ['all', 'moon', 'iss', 'aurora', 'meteor_showers', 'satellites'],
+            description: 'Specific sky event type to query (e.g. moon, iss, aurora). Defaults to all.'
           },
           time_window: {
             type: 'string',
@@ -357,13 +357,15 @@ async function handleLocalAgentFallback(userMsg = '', history = [], clientTime =
   const now = clientTime ? new Date(clientTime) : new Date();
   const timeStr = now.toLocaleTimeString('en-US', { timeZone: 'America/Toronto', hour: 'numeric', minute: '2-digit', hour12: true });
 
-  // Sky / ISS / Aurora query detection
-  if (lower.includes('iss') || lower.includes('space station') || lower.includes('aurora') || lower.includes('northern light') || lower.includes('sky tonight') || lower.includes('meteor') || lower.includes('stargaz')) {
+  // Sky / Moon / ISS / Aurora query detection
+  if (lower.includes('moon') || lower.includes('lunar') || lower.includes('iss') || lower.includes('space station') || lower.includes('aurora') || lower.includes('northern light') || lower.includes('sky tonight') || lower.includes('meteor') || lower.includes('stargaz')) {
     const skyData = await getSkyViewingForecast();
     executedTools.push({ tool: 'get_sky_tonight', result: skyData });
 
-    let response = `🔭 **Hamilton Sky & Naked-Eye Viewing Report (${timeStr})**\n\n`;
-    response += `• **Moon Phase**: ${skyData.moonCondition?.phase} (${skyData.moonCondition?.illuminationPercent} illuminated - ${skyData.moonCondition?.glareImpact})\n`;
+    let response = `🔭 **Hamilton Sky & Lunar Observation Report (${timeStr})**\n\n`;
+    response += `• **Moon Phase**: **${skyData.moonCondition?.phase}** (${skyData.moonCondition?.illuminationPercent} illuminated)\n`;
+    response += `• **Moon Age**: ${skyData.moonCondition?.moonAgeDays} (${skyData.moonCondition?.description || ''})\n`;
+    response += `• **Stargazing Glare**: ${skyData.moonCondition?.glareImpact}\n`;
     response += `• **Aurora Status**: ${skyData.auroraAlert?.auroraStatus} (Kp: ${skyData.auroraAlert?.currentKp})\n\n`;
 
     if (skyData.bestUpcomingPasses && skyData.bestUpcomingPasses.length > 0) {

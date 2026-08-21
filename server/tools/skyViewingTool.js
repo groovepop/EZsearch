@@ -117,38 +117,65 @@ function getSunElevation(date, latDeg, lonDeg) {
   return Math.asin(sinAlt) * (180 / Math.PI);
 }
 
-// Moon illumination & phase calculator
+// Moon illumination & phase calculator (Astronomical Meeus Synodic Cycle)
 function getMoonData(date = new Date()) {
-  const year = date.getUTCFullYear();
-  const month = date.getUTCMonth() + 1;
-  const day = date.getUTCDate();
-
-  // Approximate moon phase calculation (0 to 1, where 0 = New, 0.5 = Full)
-  const c = Math.floor(year / 100);
-  const epact = (11 * (year % 19) + 20 + Math.floor((c - Math.floor(c / 4) - Math.floor((c - 17) / 25) + 4) / 30)) % 30;
-  const daysSinceNew = ((epact + day + [0, 2, 0, 2, 2, 4, 5, 7, 7, 9, 10, 12][month - 1]) % 29.53);
-  const phaseFraction = daysSinceNew / 29.53;
-  const illuminationPercent = Math.round((1 - Math.cos(phaseFraction * 2 * Math.PI)) / 2 * 100);
+  const d = date instanceof Date ? date : new Date(date);
+  
+  // Julian Date
+  const JD = d.getTime() / 86400000 + 2440587.5;
+  
+  // Synodic Month reference (New Moon on Jan 6, 2000 at 18:14 UTC: JD 2451549.5)
+  const synodic = 29.53058867;
+  const cycle = (JD - 2451549.5) / synodic;
+  const phaseFraction = cycle - Math.floor(cycle); // 0.0 = New Moon, 0.25 = First Quarter, 0.5 = Full Moon, 0.75 = Last Quarter
+  const ageDays = Math.round(phaseFraction * synodic * 10) / 10;
+  
+  // Accurate phase angle & illuminated fraction of the lunar disk
+  const phaseAngle = phaseFraction * 2 * Math.PI;
+  const illuminationPercent = Math.round(((1 - Math.cos(phaseAngle)) / 2) * 100);
 
   let phaseName = 'New Moon';
-  if (phaseFraction < 0.03 || phaseFraction > 0.97) phaseName = 'New Moon';
-  else if (phaseFraction < 0.22) phaseName = 'Waxing Crescent';
-  else if (phaseFraction < 0.28) phaseName = 'First Quarter';
-  else if (phaseFraction < 0.47) phaseName = 'Waxing Gibbous';
-  else if (phaseFraction < 0.53) phaseName = 'Full Moon';
-  else if (phaseFraction < 0.72) phaseName = 'Waning Gibbous';
-  else if (phaseFraction < 0.78) phaseName = 'Last Quarter';
-  else phaseName = 'Waning Crescent';
+  let phaseDescription = 'The Moon is between Earth and the Sun, unlit and invisible.';
+  if (phaseFraction < 0.03 || phaseFraction >= 0.97) {
+    phaseName = 'New Moon';
+    phaseDescription = 'Completely dark / unlit. Optimal dark-sky conditions for stargazing.';
+  } else if (phaseFraction < 0.22) {
+    phaseName = 'Waxing Crescent';
+    phaseDescription = 'A growing crescent visible in the western sky after sunset.';
+  } else if (phaseFraction < 0.28) {
+    phaseName = 'First Quarter';
+    phaseDescription = 'Half-illuminated moon, rises around midday and sets around midnight.';
+  } else if (phaseFraction < 0.47) {
+    phaseName = 'Waxing Gibbous';
+    phaseDescription = 'More than half lit, bright evening moon rising in late afternoon.';
+  } else if (phaseFraction < 0.53) {
+    phaseName = 'Full Moon';
+    phaseDescription = '100% illuminated, bright all night long. Washes out faint meteors and satellites.';
+  } else if (phaseFraction < 0.72) {
+    phaseName = 'Waning Gibbous';
+    phaseDescription = 'More than half lit, rises later in the evening and shines past midnight.';
+  } else if (phaseFraction < 0.78) {
+    phaseName = 'Last Quarter';
+    phaseDescription = 'Half-illuminated moon, rises around midnight and visible in morning sky.';
+  } else {
+    phaseName = 'Waning Crescent';
+    phaseDescription = 'A slimming crescent visible in the eastern sky before dawn.';
+  }
 
   const glareImpact = illuminationPercent > 75 
-    ? 'High (washes out faint stars & satellites)' 
-    : (illuminationPercent > 40 ? 'Moderate' : 'Low / Dark Sky (Optimal)');
+    ? 'High Glare (washes out faint stars & deep sky objects)' 
+    : (illuminationPercent > 35 ? 'Moderate Glare' : 'Low Glare / Dark Sky (Optimal)');
 
   return {
     phase: phaseName,
     illuminationPercent: `${illuminationPercent}%`,
+    illuminationNumeric: illuminationPercent,
+    phaseFraction: Math.round(phaseFraction * 1000) / 1000,
+    moonAgeDays: `${ageDays} days`,
+    isWaxing: phaseFraction > 0.03 && phaseFraction < 0.5,
+    description: phaseDescription,
     glareImpact,
-    darkSkyFriendly: illuminationPercent < 50
+    darkSkyFriendly: illuminationPercent < 45
   };
 }
 
