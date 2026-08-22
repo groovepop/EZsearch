@@ -11,7 +11,7 @@ echo Setting app settings...
 for /f "usebackq tokens=1,* delims==" %%a in (".env") do (
     if "%%a"=="AZURE_GROK_KEY" set GROK_KEY=%%b
 )
-call az webapp config appsettings set --resource-group EZsearch-rg --name ezsearch-hub --settings AZURE_GROK_ENDPOINT="https://green-mos1tune-eastus2.services.ai.azure.com/api/projects/green-mos1tune-eastus2-project" AZURE_GROK_KEY="%GROK_KEY%" AZURE_GROK_AGENT_NAME="ez-grok" AZURE_GROK_AGENT_VERSION="4"
+call az webapp config appsettings set --resource-group EZsearch-rg --name ezsearch-hub --settings AZURE_GROK_ENDPOINT="https://green-mos1tune-eastus2.services.ai.azure.com/api/projects/green-mos1tune-eastus2-project" AZURE_GROK_KEY="%GROK_KEY%" AZURE_GROK_AGENT_NAME="ez-grok" AZURE_GROK_AGENT_VERSION="4" AZURE_DEEPSEEK_AGENT_NAME="ez-deepseek" AZURE_DEEPSEEK_AGENT_VERSION="latest"
 echo Deploying code zip...
 call az webapp deploy --resource-group EZsearch-rg --name ezsearch-hub --src-path app.zip --type zip
 

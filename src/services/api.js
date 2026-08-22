@@ -351,6 +351,51 @@ export async function fetchGrokStatus() {
   return res.json();
 }
 
+// 10c. EZ-DeepSeek Agent API Helpers (ez-deepseek / DeepSeek-V4-Flash on Azure AI Services)
+export async function sendDeepSeekMessage({ messages = [], userMessage = '', version = 'latest' } = {}) {
+  const res = await fetch('/api/deepseek/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      userMessage,
+      version,
+      clientTime: new Date().toISOString()
+    })
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'DeepSeek request failed');
+  }
+  return res.json();
+}
+
+export async function fetchDeepSeekGreeting(version = 'latest') {
+  const clientTime = encodeURIComponent(new Date().toISOString());
+  const ver = encodeURIComponent(version);
+  const res = await fetch(`/api/deepseek/greet?clientTime=${clientTime}&version=${ver}`);
+  if (!res.ok) return { greeting: "💥 *BOOM!* Portal link online! I'm EZ-DeepSeek. Ready to dive into some unhinged music deep cuts or mind-bending TV shows?" };
+  return res.json();
+}
+
+export async function fetchDeepSeekStatus() {
+  const res = await fetch('/api/deepseek/status');
+  if (!res.ok) return { status: 'offline', agentName: 'ez-deepseek', activeVersion: '2' };
+  return res.json();
+}
+
+export async function fetchDeepSeekVersions(forceRefresh = false) {
+  const res = await fetch(`/api/deepseek/versions?refresh=${forceRefresh ? 'true' : 'false'}`);
+  if (!res.ok) return null;
+  return res.json();
+}
+
+export async function refreshFoundryVersions() {
+  const res = await fetch('/api/foundry/refresh-versions', { method: 'POST' });
+  return res.json();
+}
+
 // 11. Celestial & ISS Viewing Forecast Helper
 export async function fetchSkyViewingForecast({ time_window = 'next_48h', event_type = 'all' } = {}) {
   const params = new URLSearchParams();

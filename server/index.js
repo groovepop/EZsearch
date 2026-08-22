@@ -12,6 +12,13 @@ import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
 import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
 import { processGrokChat, generateGrokGreeting, getGrokStatus } from './grokService.js';
+import { 
+  processDeepSeekChat, 
+  generateDeepSeekGreeting, 
+  getDeepSeekStatus, 
+  fetchAgentMetadataFromFoundry, 
+  flushFoundryAgentCache 
+} from './foundryAgentService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 import { executeEngineTransform, executeEngineCaption } from './groovepopEngine.js';
@@ -1185,6 +1192,53 @@ app.get('/api/grok/greet', async (req, res) => {
 
 app.get('/api/grok/status', (req, res) => {
   res.json(getGrokStatus());
+});
+
+// 12b. EZ-DeepSeek Agent Endpoints (Azure AI Services - ez-deepseek:latest / DeepSeek-V4-Flash)
+app.post('/api/deepseek/chat', async (req, res) => {
+  try {
+    const { messages, userMessage, clientTime, version } = req.body || {};
+    const result = await processDeepSeekChat({ messages, userMessage, clientTime, version });
+    res.json(result);
+  } catch (err) {
+    console.error('[DeepSeek API Error]', err);
+    res.status(500).json({ error: 'DeepSeek chat processing failed', message: err.message });
+  }
+});
+
+app.get('/api/deepseek/greet', async (req, res) => {
+  try {
+    const { clientTime, version } = req.query || {};
+    const greeting = await generateDeepSeekGreeting(clientTime, version);
+    res.json(greeting);
+  } catch (err) {
+    console.error('[DeepSeek Greet Error]', err);
+    res.status(500).json({ error: 'Failed to generate DeepSeek greeting', message: err.message });
+  }
+});
+
+app.get('/api/deepseek/status', async (req, res) => {
+  try {
+    const status = await getDeepSeekStatus();
+    res.json(status);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch status', message: err.message });
+  }
+});
+
+app.get('/api/deepseek/versions', async (req, res) => {
+  try {
+    const force = req.query.refresh === 'true';
+    const metadata = await fetchAgentMetadataFromFoundry('ez-deepseek', force);
+    res.json(metadata);
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to fetch agent versions', message: err.message });
+  }
+});
+
+// Refresh Foundry version cache on demand
+app.post('/api/foundry/refresh-versions', (req, res) => {
+  res.json(flushFoundryAgentCache());
 });
 
 // 12. GROOVE POP Engine API (Direct Engine & Azure OpenAI Vision Integration)

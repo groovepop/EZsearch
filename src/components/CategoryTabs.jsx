@@ -13,6 +13,7 @@ const APPS = [
   { id: 'vibeq', name: 'VibeQ Music', banner: '/banners/banner-vibeq.jpg', color: '#ff007a', badge: 'MUSIC' },
   { id: 'chat', name: 'EZ Assistant', banner: '/banners/banner-ezchat.jpg', color: '#00e5ff', badge: 'GPT-4o' },
   { id: 'grok', name: 'EZ Grok', banner: '/banners/banner-grok.jpg', color: '#ff2d55', badge: 'GROK 4' },
+  { id: 'deepseek', name: 'EZ DeepSeek', banner: '/banners/banner-ds4.jpg', color: '#00e5ff', badge: 'DEEPSEEK V4' },
   { id: 'guessface', name: 'GuessFace', banner: '/banners/banner-guessface.jpg', color: '#ffd700', badge: 'GAME' },
 ];
 
@@ -27,7 +28,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       <div 
         className="collapsible-nav-header"
         onClick={() => setIsOpen(prev => !prev)}
-        title={isOpen ? 'Click to collapse navigation menu' : 'Click to expand 12-app navigation menu'}
+        title={isOpen ? 'Click to collapse navigation menu' : 'Click to expand 13-app navigation menu'}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div style={{
@@ -47,7 +48,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
               App Hub
             </span>
             <span className="badge badge-purple" style={{ fontSize: '0.62rem', marginLeft: '0.45rem', padding: '0.15rem 0.45rem' }}>
-              12 ENGINES
+              13 ENGINES
             </span>
           </div>
 
@@ -79,12 +80,12 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
             setIsOpen(prev => !prev);
           }}
         >
-          <span>{isOpen ? 'Collapse' : 'Expand All 12'}</span>
+          <span>{isOpen ? 'Collapse' : 'Expand All 13'}</span>
           {isOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
       </div>
 
-      {/* Collapsible 12-App Grid (75% compact size) */}
+      {/* Collapsible 13-App Grid (75% compact size) */}
       {isOpen && (
         <div className="collapsible-nav-grid">
           {APPS.map((app) => {
