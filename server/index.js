@@ -5,6 +5,7 @@ try {
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import fs from 'fs';
 import https from 'https';
 import http from 'http';
 import { fileURLToPath } from 'url';
@@ -1240,7 +1241,51 @@ app.post('/api/groovepop/caption', async (req, res) => {
   }
 });
 
-// 12b. GroovePop Dev V3 Proxy (Bypasses upstream X-Frame-Options: DENY for seamless iframe embed)
+// 12b. GroovePop Dev V3 Proxy & Style Manifests (Bypasses upstream X-Frame-Options: DENY & CORS)
+const STYLES_FILE_PATH = path.join(__dirname, '../public/styles.json');
+const STYLES_MULTI_FILE_PATH = path.join(__dirname, '../public/styles-multi.json');
+
+const sendStylesJson = (res) => {
+  try {
+    if (fs.existsSync(STYLES_FILE_PATH)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.sendFile(STYLES_FILE_PATH);
+    }
+    const rootPath = path.join(__dirname, '../styles.json');
+    if (fs.existsSync(rootPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.sendFile(rootPath);
+    }
+    res.status(404).json({ error: 'styles.json not found' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+const sendStylesMultiJson = (res) => {
+  try {
+    if (fs.existsSync(STYLES_MULTI_FILE_PATH)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.sendFile(STYLES_MULTI_FILE_PATH);
+    }
+    const rootPath = path.join(__dirname, '../styles-multi.json');
+    if (fs.existsSync(rootPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.setHeader('Access-Control-Allow-Origin', '*');
+      return res.sendFile(rootPath);
+    }
+    res.status(404).json({ error: 'styles-multi.json not found' });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+app.get(['/styles.json', '/api/dev/styles.json'], (req, res) => sendStylesJson(res));
+app.get(['/styles-multi.json', '/api/dev/styles-multi.json'], (req, res) => sendStylesMultiJson(res));
+
 app.get('/api/dev/app', async (req, res) => {
   try {
     const targetUrl = 'https://groovepop.ca/devV3.html';
@@ -1256,11 +1301,11 @@ app.get('/api/dev/app', async (req, res) => {
     }
 
     let html = await upstreamRes.text();
-    // Inject <base href="https://groovepop.ca/"> so relative assets resolve properly
+    // Inject <base href="/"> so relative assets (styles.json, styles-multi.json) load same-origin
     if (html.includes('<head>')) {
-      html = html.replace('<head>', '<head>\n  <base href="https://groovepop.ca/">');
+      html = html.replace('<head>', '<head>\n  <base href="/">');
     } else if (html.includes('<HEAD>')) {
-      html = html.replace('<HEAD>', '<HEAD>\n  <base href="https://groovepop.ca/">');
+      html = html.replace('<HEAD>', '<HEAD>\n  <base href="/">');
     }
 
     res.setHeader('Content-Type', 'text/html; charset=utf-8');
