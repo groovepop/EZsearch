@@ -16,6 +16,7 @@ import GroovePopWidget from './components/GroovePopWidget';
 import GuessFaceWidget from './components/GuessFaceWidget';
 import VibeQWidget from './components/VibeQWidget';
 import GrokWidget from './components/GrokWidget';
+import DevWidget from './components/DevWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
 
@@ -87,7 +88,7 @@ export default function App() {
 
   // Fetch Torrents Logic
   const loadData = useCallback(async () => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'grok' || activeCategory === 'groovepop' || activeCategory === 'guessface' || activeCategory === 'vibeq') return;
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'grok' || activeCategory === 'groovepop' || activeCategory === 'dev' || activeCategory === 'guessface' || activeCategory === 'vibeq') return;
 
     setLoading(true);
     setError(null);
@@ -189,6 +190,8 @@ export default function App() {
         <GrokWidget />
       ) : activeCategory === 'groovepop' ? (
         <GroovePopWidget />
+      ) : activeCategory === 'dev' ? (
+        <DevWidget />
       ) : activeCategory === 'vibeq' ? (
         <VibeQWidget />
       ) : activeCategory === 'guessface' ? (

@@ -9,6 +9,7 @@ const APPS = [
   { id: 'iss', name: 'ISS Tracker', banner: '/banners/banner-iss.jpg', color: '#00e676', badge: 'ORBIT' },
   { id: 'mars', name: 'Mars Curiosity', banner: '/banners/banner-mars.jpg', color: '#ff6b35', badge: 'MARS' },
   { id: 'groovepop', name: 'Groove Pop', banner: '/banners/banner-groovepop.jpg', color: '#ff55b0', badge: 'AI STYLES' },
+  { id: 'dev', name: 'GrooveDev V3', banner: '/banners/banner-dev.jpg', color: '#00e5ff', badge: 'DEV V3' },
   { id: 'vibeq', name: 'VibeQ Music', banner: '/banners/banner-vibeq.jpg', color: '#ff007a', badge: 'MUSIC' },
   { id: 'chat', name: 'EZ Assistant', banner: '/banners/banner-ezchat.jpg', color: '#00e5ff', badge: 'GPT-4o' },
   { id: 'grok', name: 'EZ Grok', banner: '/banners/banner-grok.jpg', color: '#ff2d55', badge: 'GROK 4' },
@@ -26,7 +27,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
       <div 
         className="collapsible-nav-header"
         onClick={() => setIsOpen(prev => !prev)}
-        title={isOpen ? 'Click to collapse navigation menu' : 'Click to expand 11-app navigation menu'}
+        title={isOpen ? 'Click to collapse navigation menu' : 'Click to expand 12-app navigation menu'}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem' }}>
           <div style={{
@@ -46,7 +47,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
               App Hub
             </span>
             <span className="badge badge-purple" style={{ fontSize: '0.62rem', marginLeft: '0.45rem', padding: '0.15rem 0.45rem' }}>
-              11 ENGINES
+              12 ENGINES
             </span>
           </div>
 
@@ -78,12 +79,12 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
             setIsOpen(prev => !prev);
           }}
         >
-          <span>{isOpen ? 'Collapse' : 'Expand All 11'}</span>
+          <span>{isOpen ? 'Collapse' : 'Expand All 12'}</span>
           {isOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
       </div>
 
-      {/* Collapsible 11-App Grid (75% compact size) */}
+      {/* Collapsible 12-App Grid (75% compact size) */}
       {isOpen && (
         <div className="collapsible-nav-grid">
           {APPS.map((app) => {
