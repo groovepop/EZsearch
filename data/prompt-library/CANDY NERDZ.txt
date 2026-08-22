@@ -1,0 +1,119 @@
+
+
+
+Subset 1: Nerds’ Whimsical Candy Carnival
+
+Prompt 1: A surreal carnival scene inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their round, candy-shaped bodies in vibrant pink, purple, and yellow hues, juggling glowing candy orbs atop a kaleidoscopic carousel with lollipop spokes. The background swirls with red and turquoise cotton candy clouds, and neon-lit Ferris wheels pulse with pixelated Nerds logos. Floating popcorn kernels emit a purple glow, all in a bold, flat color palette with a playful, dreamlike atmosphere.
+Prompt 2: A Miró-esque carnival midway where whimsical Nerds candy-like characters with googly eyes, their boxy, candy-colored bodies in pink, yellow, and red, operate a ring-toss game with candy-cane poles. The ground is a swirling mosaic of purple and turquoise Nerds candies, and a neon-lit tent with abstract Miró patterns looms behind. Floating balloons shaped like retro rotary phones glow in yellow, creating a trippy, whimsical vibe with bold, flat colors.
+Prompt 3: A Joan Miró-inspired carnival night bursting with whimsical Nerds candy-like characters with googly eyes, their round, candy-shaped bodies in vibrant pink, purple, and yellow hues, dancing joyfully under a glowing candy-striped archway. The ground swirls with kaleidoscopic red and turquoise candy patterns, and a vintage sci-fi cotton candy machine with neon dials spews glossy purple and yellow swirls. Pixelated 8-bit stars pulse in a black sky, casting surreal shadows, all in a bold, flat color palette with a dreamy, playful atmosphere.
+
+
+Subset 2: Nerds’ Surreal Amusement Park
+
+Prompt 1: A Joan Miró-inspired amusement park roller coaster scene bursting with whimsical Nerds candy-like characters with googly eyes, their round, candy-colored bodies in vibrant pink, purple, and yellow hues, zooming down gummy-worm tracks in lollipop-shaped carts. The sky swirls with kaleidoscopic red and turquoise patterns, and neon-lit ticket booths pulse with pixelated Nerds logos. Floating candy tickets with retro sci-fi dials glow in purple, all in a bold, flat color palette with a dreamy, playful atmosphere.
+Prompt 2: A surreal amusement park plaza inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their boxy, candy-shaped bodies in red, yellow, and pink, operating bumper cars shaped like glossy Nerds candies. The ground is a swirling mosaic of purple and turquoise candy tiles, and neon-lit arches flash abstract Miró shapes. Floating balloons with 8-bit pixelated textures glow in black and yellow, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque amusement park at dusk where whimsical Nerds candy-like characters with googly eyes, their round, candy-colored bodies in pink, purple, and red hues, ride a carousel with gummy-bear seats under a glowing candy-cane canopy. The pathway swirls with yellow and turquoise candy patterns, and a vintage sci-fi popcorn cart with neon dials emits glossy pink swirls. Pixelated stars pulse in a black sky, all in a bold, flat color palette with a surreal, joyful atmosphere.
+
+Subset 3: Nerds’ Circus of Sugary Spectacles
+
+Prompt 1: A Joan Miró-inspired circus big top bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant pink, purple, and yellow hues, bouncing on glowing licorice trapezes under a candy-striped tent. The floor swirls with kaleidoscopic red and turquoise candy patterns, and a neon-lit cotton candy cart with retro sci-fi dials spews glossy purple swirls. Floating sprinkle orbs glow in yellow, all in a bold, flat color palette with a dreamy, playful atmosphere.
+Prompt 2: A surreal circus act inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in red, yellow, and pink, juggling glowing sprinkle orbs in a neon-lit ring. The backdrop swirls with purple and turquoise Miró-esque candy patterns, and neon-lit hoops pulse with sugary textures. Floating retro sci-fi lanterns with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque circus night outside the big top where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, purple, and red hues, balance on a glowing gummy-worm tightrope. The sky pulses with yellow and turquoise kaleidoscopic stars, and a vintage sci-fi popcorn cart with neon dials emits glossy red swirls. Floating candy stars cast surreal shadows, all in a bold, flat color palette with a joyful, dreamy atmosphere.
+
+
+Candy Nerds Candy-Coated Fairground Prompts for Dataset
+Subset 4: Nerds’ Candy-Coated Fairground
+
+A Miró-esque fairground night where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, purple, and red hues, navigate a candy-mirror maze with reflective gummy surfaces. The pathway pulses with yellow and turquoise kaleidoscopic candy patterns, and a vintage sci-fi fortune-teller booth with neon dials emits glossy red candy orbs. Floating sprinkle stars cast surreal shadows, all in a bold, flat color palette with a joyful, dreamy atmosphere.
+A surreal fairground snack stand inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in red, yellow, and pink, offering glowing sugar-dusted churros in a neon-lit booth. The backdrop swirls with purple and turquoise Miró-esque candy patterns, and neon-lit signs pulse with sugary textures. Floating retro sci-fi balloons with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors
+A surreal fairground snack stand inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in red, yellow, and pink, offering glowing candy Apples in a neon-lit booth. The backdrop swirls with purple and turquoise Miró-esque candy patterns, and neon-lit signs pulse with sugary textures. Floating retro sci-fi balloons with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+
+Candy Nerds Dreamy Boardwalk Bash Prompts for Dataset
+Subset 5: Nerds’ Dreamy Boardwalk Bash
+
+Prompt 1: A Joan Miró-inspired boardwalk arcade scene bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, orange, and pink hues, playing glowing claw machines filled with candy pearls. The boardwalk swirls with kaleidoscopic blue and yellow candy patterns, and a retro sci-fi jukebox with neon dials pulses with glossy purple light. Floating gummy fish orbs glow in turquoise, all in a bold, flat color palette with a dreamy, playful atmosphere.
+Prompt 2: A surreal boardwalk taffy-pulling station inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, yellow, and red hues, stretching glowing taffy ropes under a neon-lit canopy. The backdrop swirls with orange and turquoise Miró-esque candy patterns, and neon-lit signs pulse with sugary textures. Floating retro sci-fi seashells with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque boardwalk night where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and purple hues, build glowing sandcastles with candy-shell turrets on a sparkling beach. The sand pulses with yellow and blue kaleidoscopic candy patterns, and a vintage sci-fi ice cream cart with neon dials emits glossy orange swirls. Floating candy starfish cast surreal shadows, all in a bold, flat color palette with a joyful, dreamy atmosphere.
+
+
+Candy Nerds Whimsical Parade of Sweets Prompts for Dataset
+Subset 6: Nerds’ Whimsical Parade of Sweets
+
+Prompt 1: A Joan Miró-inspired daytime parade bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and yellow hues, marching in a candy-fueled procession with glowing sprinkle confetti. The street swirls with kaleidoscopic orange and turquoise candy patterns, and a retro sci-fi float shaped like a giant Nerds candy emits glossy pink light. Floating gummy batons with neon dials glow in blue, all in a bold, flat color palette with a dreamy, playful atmosphere.
+Prompt 2: A surreal night parade inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in orange, red, and pink hues, twirling glowing candy batons under a neon-lit candy arch. The backdrop pulses with blue and yellow Miró-esque candy patterns, and neon-lit banners shimmer with sugary textures. Floating retro sci-fi lanterns with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque parade twilight where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in blue, pink, and green hues, ride a glowing float shaped like a candy rainbow. The pavement sparkles with purple and turquoise kaleidoscopic candy patterns, and a vintage sci-fi candy cannon with neon dials shoots glossy red sparkles. Floating candy hearts cast surreal shadows, all in a bold, flat color palette with a joyful, dreamy atmosphere.
+
+
+Candy Nerds Sugary Sideshow Alley Prompts for Dataset
+Subset 7: Nerds’ Sugary Sideshow Alley
+
+Prompt 1: A Joan Miró-inspired sideshow alley bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and orange hues, showcasing a glowing candy-beard act on a neon-lit stage. The ground swirls with kaleidoscopic yellow and blue candy patterns, and a retro sci-fi strength-test machine with neon dials pulses with glossy pink light. Floating gummy rings glow in turquoise, all in a bold, flat color palette with a dreamy, freaky atmosphere.
+Prompt 2: A surreal sideshow tent inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, red, and yellow hues, blowing glowing candy bubbles in a neon-lit arena. The backdrop pulses with orange and turquoise Miró-esque candy patterns, and neon-lit curtains shimmer with sugary textures. Floating retro sci-fi lanterns with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque sideshow night where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and red hues, perform a glowing candy-fire-breathing stunt under a sparkling canopy. The pathway pulses with purple and yellow kaleidoscopic candy patterns, and a vintage sci-fi fortune wheel with neon dials spins glossy blue sparkles. Floating candy moons cast surreal shadows, all in a bold, flat color palette with a joyful, freaky atmosphere.
+
+
+Candy Nerds Candy-Coated Funhouse Prompts for Dataset
+Subset 8: Nerds’ Candy-Coated Funhouse
+
+Prompt 1: A Joan Miró-inspired funhouse tunnel bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and orange hues, swirling through a glowing candy kaleidoscope tube with shimmering patterns. The walls pulse with kaleidoscopic yellow and blue candy designs, and a retro sci-fi spinning wheel with neon dials emits glossy pink sparkles. Floating gummy prisms glow in turquoise, all in a bold, flat color palette with a dreamy, disorienting atmosphere.
+Prompt 2: A surreal funhouse slide room inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, red, and yellow hues, sliding down a glowing gummy spiral slide under a neon-lit candy dome. The backdrop swirls with orange and turquoise Miró-esque candy patterns, and neon-lit panels pulse with sugary textures. Floating retro sci-fi orbs with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque funhouse clock room at twilight where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and red hues, dance around a distorted candy clock with melting hands. The floor pulses with purple and yellow kaleidoscopic candy patterns, and a vintage sci-fi candy fountain with neon dials spurts glossy blue streams. Floating candy spirals cast surreal shadows, all in a bold, flat color palette with a joyful, trippy atmosphere.
+
+
+Candy Nerds Whimsical Candy Speedway Prompts for Dataset
+Subset 9: Nerds’ Whimsical Candy Speedway
+
+Prompt 1: A Joan Miró-inspired candy speedway bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and orange hues, racing sprinkle-fueled karts on a glowing candy-wrapper track. The ground swirls with kaleidoscopic yellow and blue candy patterns, and a retro sci-fi scoreboard with neon dials flashes glossy pink scores. Floating gummy speed bumps glow in turquoise, all in a bold, flat color palette with a dreamy, high-speed atmosphere.
+Prompt 2: A surreal night speedway inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, red, and yellow hues, zooming through a neon-lit track with candy-cane barriers. The backdrop pulses with orange and turquoise Miró-esque candy patterns, and neon-lit pylons shimmer with sugary textures. Floating retro sci-fi flags with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque speedway at dusk where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and red hues, navigate a glowing obstacle course with licorice loops in sugar-dusted karts. The track pulses with purple and yellow kaleidoscopic candy patterns, and a vintage sci-fi finish line with neon dials emits glossy blue sparks. Floating candy comets cast surreal shadows, all in a bold, flat color palette with a joyful, racing atmosphere.
+
+
+
+Candy Nerds Moonlit Midway Dream Prompts for Dataset
+Subset 10: Nerds’ Moonlit Midway Dream
+
+Prompt 1: A Joan Miró-inspired moonlit midway bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and orange hues, dancing under glowing candy lanterns strung across a starry sky. The ground swirls with kaleidoscopic blue and yellow candy patterns, and a retro sci-fi music box with neon dials hums glossy pink melodies. Floating gummy fireflies glow in turquoise, all in a bold, flat color palette with a dreamy, enchanting atmosphere.
+Prompt 2: A surreal midway ride inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, red, and yellow hues, swinging on a glowing candy pendulum ride under a neon-lit crescent moon. The backdrop pulses with orange and turquoise Miró-esque candy patterns, and neon-lit arches shimmer with sugary textures. Floating retro sci-fi stars with glowing dials hover above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque midway night where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and red hues, play a glowing candy orb fortune-telling game at a neon-lit stall. The pathway pulses with purple and yellow kaleidoscopic candy patterns, and a vintage sci-fi carousel with neon dials spins glossy blue sparkles. Floating candy crescent moons cast surreal shadows, all in a bold, flat color palette with a joyful, mystical atmosphere.
+
+
+Candy Nerds Sugary Playground Pandemonium Prompts for Dataset
+Subset 11: Nerds’ Sugary Playground Pandemonium
+
+Prompt 1: A Joan Miró-inspired sunlit playground bursting with whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in vibrant green, purple, and orange hues, scampering up a sparkling candy-rope jungle gym under a bright, clear sky. The ground swirls with kaleidoscopic blue and yellow candy patterns, and a retro sci-fi slide with shiny chrome dials glints with glossy pink reflections. Sunlit gummy petals flutter in red, all in a bold, flat color palette with a joyful, sunny atmosphere.
+Prompt 2: A surreal playground seesaw zone inspired by Joan Miró, featuring whimsical Nerds candy-like characters with googly eyes, their blobby, candy-colored bodies in blue, red, and yellow hues, rocking on a sparkling sprinkle-dusted seesaw bathed in golden sunlight. The backdrop swirls with orange and turquoise Miró-esque candy patterns, and sunlit balance beams shimmer with sugary textures. Floating retro sci-fi kites with shiny dials soar above, creating a vibrant, whimsical vibe with flat colors.
+Prompt 3: A Miró-esque playground under a blazing sun where whimsical Nerds candy-like characters with googly eyes, their blobby, rounded bodies in pink, green, and red hues, leap in a shimmering gummy trampoline pit woven with candy vines. The surface pulses with purple and yellow kaleidoscopic candy patterns, and a vintage sci-fi climbing frame with chrome dials casts glossy blue sparkles. Sunlit candy butterflies flutter in turquoise, all in a bold, flat color palette with a cheerful, bouncy atmosphere.
+
+
+
+=========================================================================
+
+**Candy Nerds: Whimsical Nighttime Mayhem 🍬✨**
+
+Dive into a *surreal, Joan Miró-inspired* candy-coated universe with the **Candy Nerds LoRA**! 🌌 Watch **blobby, googly-eyed Nerds mascots** in vibrant hues—*green, orange, blue, pink, purple, yellow, red*—romp through neon-lit, sugary chaos. From **carnivals** and **circuses** to **speedways** and **funhouses**, these quirky candy critters bring *playful pandemonium* to 10 dazzling nighttime subsets, plus a sunny playground preview! 🎡🌞
+
+- **What’s Inside?** *Kaleidoscopic candy patterns*, retro sci-fi neon dials, and *glowing gummy props* in bold, flat colors. 🍭
+- **Perfect For:** Creating trippy digital art, candy-themed merch, or whimsical branding! 🎨
+- **Dataset Vibe:** 132+ images of *dreamy, chaotic fun* with a Miró twist—mostly moonlit, always magical! 🌙
+
+Unleash the Nerds and let the *sugary madness* begin! 🚀 #CandyNerds #SurrealArt #NightCafe
+
+
+
+============================
+
+
+Candy Nerds LoRA User Guide and Trigger Words
+User Guide
+Unleash blobby, googly-eyed Nerds in a Miró-inspired candy world! Use this LoRA for surreal art or merch. Input vivid prompts with trigger words for best results. Day/night settings, bold colors. 132+ images to train. Create sweet chaos! (134 characters)
+Trigger Words/Phrases
+
+Candy Nerds
+Googly eyes
+Blobby mascots
+Miró-inspired
+Sugary textures
+Neon dials
+
+
+

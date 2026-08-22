@@ -37,6 +37,25 @@ import {
   getPartyById,
   getPartyRounds
 } from './guessfaceEngine.js';
+import {
+  getWizardConfig,
+  composePromptPackage,
+  generateWizardImage,
+  scanLocalPromptLibrary,
+  commitApprovedCandidates,
+  searchPromptLibrary,
+  loadIndexedPrompts,
+  loadStagingCandidates,
+  getSavedPrompts,
+  savePromptRecord,
+  updatePromptRecord,
+  deleteSavedPrompt,
+  getGalleryImages,
+  saveGalleryImage,
+  deleteGalleryImage,
+  parsePromptDocument,
+  saveStagingCandidates
+} from './promptWizardService.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1526,6 +1545,193 @@ app.post('/api/guessface/proxy', async (req, res) => {
       error: 'Proxy request failed',
       message: err.message
     });
+  }
+});
+
+// ===========================================================================
+// 14. PROMPT WIZARD AGENT & RAG LIBRARY API ENDPOINTS
+// ===========================================================================
+
+// Get wizard diagnostics and configuration status
+app.get('/api/wizard/status', (req, res) => {
+  const config = getWizardConfig();
+  const indexed = loadIndexedPrompts();
+  const staged = loadStagingCandidates();
+  const saved = getSavedPrompts();
+  const gallery = getGalleryImages();
+
+  res.json({
+    ok: true,
+    engine: 'Prompt Wizard Studio',
+    config: {
+      endpoint: config.endpoint,
+      textDeployment: config.textDeployment,
+      textModelId: config.textModelId,
+      textModelVersion: config.textModelVersion,
+      embeddingDeployment: config.embeddingDeployment,
+      embeddingModelId: config.embeddingModelId,
+      embeddingDimensions: config.embeddingDimensions,
+      imageDeployment: config.imageDeployment,
+      imageModelId: config.imageModelId,
+      imageModelVersion: config.imageModelVersion,
+      region: config.region,
+      isConfigured: config.isConfigured
+    },
+    stats: {
+      indexedPromptsCount: indexed.length,
+      stagedCandidatesCount: staged.length,
+      savedPromptsCount: saved.length,
+      galleryImagesCount: gallery.length
+    }
+  });
+});
+
+// Compose structured prompt package via text model + RAG
+app.post('/api/wizard/compose', async (req, res) => {
+  try {
+    const { userRequest, messages = [], controls = {}, useRAG = true } = req.body;
+    if (!userRequest && (!messages || messages.length === 0)) {
+      return res.status(400).json({ error: 'userRequest or message history is required' });
+    }
+
+    const packageResult = await composePromptPackage({ userRequest, messages, controls, useRAG });
+    res.json({ success: true, package: packageResult });
+  } catch (err) {
+    console.error('[Wizard Compose Error]', err);
+    res.status(500).json({
+      error: 'Prompt composition failed',
+      message: err.message
+    });
+  }
+});
+
+// Explicit Image Generation (GPT Image 2)
+app.post('/api/wizard/generate-image', async (req, res) => {
+  try {
+    const { prompt, size = '1024x1024', quality = 'medium', output_format = 'jpeg', background = 'auto' } = req.body;
+    if (!prompt || !prompt.trim()) {
+      return res.status(400).json({ error: 'prompt is required for image generation' });
+    }
+
+    const result = await generateWizardImage({ prompt, size, quality, output_format, background });
+    res.json(result);
+  } catch (err) {
+    console.error('[Wizard Image Generation Error]', err);
+    res.status(err.status || 500).json({
+      error: err.errorType || 'image_generation_failed',
+      message: err.message || 'Image generation failed'
+    });
+  }
+});
+
+// Prompt Library & Ingestion Endpoints
+app.get('/api/wizard/library', (req, res) => {
+  const indexed = loadIndexedPrompts();
+  res.json({ success: true, prompts: indexed, total: indexed.length });
+});
+
+app.post('/api/wizard/library/search', (req, res) => {
+  const { query, maxResults = 10 } = req.body;
+  const results = searchPromptLibrary(query || '', { maxResults });
+  res.json({ success: true, results, total: results.length });
+});
+
+app.post('/api/wizard/library/scan', (req, res) => {
+  try {
+    const scanReport = scanLocalPromptLibrary();
+    const staged = loadStagingCandidates();
+    res.json({ success: true, scanReport, staged });
+  } catch (err) {
+    res.status(500).json({ error: 'Scan failed', message: err.message });
+  }
+});
+
+app.post('/api/wizard/library/ingest-content', (req, res) => {
+  try {
+    const { content, fileName = 'uploaded_collection.txt' } = req.body;
+    if (!content) return res.status(400).json({ error: 'content is required' });
+
+    const parsed = parsePromptDocument(content, fileName);
+    const existingStaged = loadStagingCandidates();
+    const combined = existingStaged.concat(parsed.candidates);
+    saveStagingCandidates(combined);
+
+    res.json({ success: true, parsedReport: parsed, totalStaged: combined.length });
+  } catch (err) {
+    res.status(500).json({ error: 'Ingestion failed', message: err.message });
+  }
+});
+
+app.get('/api/wizard/library/staged', (req, res) => {
+  const staged = loadStagingCandidates();
+  res.json({ success: true, staged, total: staged.length });
+});
+
+app.post('/api/wizard/library/commit', (req, res) => {
+  try {
+    const { approvedIds = [] } = req.body;
+    const result = commitApprovedCandidates(approvedIds);
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ error: 'Commit failed', message: err.message });
+  }
+});
+
+// Saved Prompts Persistence Endpoints
+app.get('/api/wizard/saved-prompts', (req, res) => {
+  const prompts = getSavedPrompts();
+  res.json({ success: true, prompts });
+});
+
+app.post('/api/wizard/saved-prompts', (req, res) => {
+  try {
+    const newRecord = savePromptRecord(req.body);
+    res.json({ success: true, record: newRecord });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save prompt', message: err.message });
+  }
+});
+
+app.patch('/api/wizard/saved-prompts/:id', (req, res) => {
+  try {
+    const updated = updatePromptRecord(req.params.id, req.body);
+    if (!updated) return res.status(404).json({ error: 'Prompt not found' });
+    res.json({ success: true, record: updated });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to update prompt', message: err.message });
+  }
+});
+
+app.delete('/api/wizard/saved-prompts/:id', (req, res) => {
+  try {
+    deleteSavedPrompt(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete prompt', message: err.message });
+  }
+});
+
+// Gallery Image Persistence Endpoints
+app.get('/api/wizard/gallery', (req, res) => {
+  const images = getGalleryImages();
+  res.json({ success: true, images });
+});
+
+app.post('/api/wizard/gallery/save', (req, res) => {
+  try {
+    const saved = saveGalleryImage(req.body);
+    res.json({ success: true, image: saved });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to save image to gallery', message: err.message });
+  }
+});
+
+app.delete('/api/wizard/gallery/:id', (req, res) => {
+  try {
+    deleteGalleryImage(req.params.id);
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: 'Failed to delete image', message: err.message });
   }
 });
 

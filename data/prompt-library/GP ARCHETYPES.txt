@@ -1,0 +1,892 @@
+
+
+--------
+WORKFLOW
+-----------
+GALLERY: 
+
+
+set-11
+{"id":"GP-ARTS-0091","title":"Treasure Answers The Call","theme":"MYTH","theme_confidence":"high","prompt":"Seductive, slim Scandinavian woman with large chest and cool fair skin and long honey blonde hair in loose waves with bandana in brown and gold treasure map-pattern corset / bustier dress with laced front and sea-worn distressed finish, coin necklaces layered, leather cuff bracelets, tall leather boots with buckles, standing on ship deck prop against backdrop of treasure map with X marks spot in sepia and gilt. Gold shimmer eyeshadow and coral lips. Pirate text logo \"GROOVE POP\" in weathered ship-wood letters with skull and crossbones, brown and gold with sea-worn texture, yo ho ho ho. Hand on hip with prop sword, pirate queen swagger. Dramatic Caribbean sunset studio lighting with rope shadows.","theme_category":"WILD"}
+
+
+
+UI: 
+
+the theme category pills should be different, separate colors for every theme group
+
+add search? that replaces theme and style menus when selected. the highlighted search result is displayed in prompt box?
+
+
+LEFT, RIGHT PANELS:
+
+add intro, description and created by blurb
+a fashion archive + a fever dream + a filing cabinet that fell down the stairs
+
+move the version details to bottom of page
+
+
+STYLE:
+
+update tarot style 1-8, coupon style? lego 2-8? 
+swimsuit/beach with 2 piece swimsuit
+
+refine lineup style tag, street art, surreal, postcard??
+new theme possibilities: wedding invitation, 70's boudoir?, 
+
+
+
+DATASET:
+
+add 18 new styles:
+SPRINGFIELD RESIDENT 
+The Simpsons animation aesthetic,
+simplified facial features,
+four-fingered hands with three-line hair spikes,
+overbite with round dot eyes and prominent lips,
+flat 2D character design with bold black outlines,
+Matt Groening signature illustration style,
+wearing dress and fashion accessories,
+Springfield citizen with satirical cartoon charm,
+cel animation with primary color palette,
+iconic FOX sitcom with recognizable character design
+
+BALLOON HEAD / INFLATED SCULPTURE 
+balloon head aesthetic,
+glossy latex balloon with crude drawn on face replacing human head,
+reflective rubbery surface with light-catching sheen,
+Jeff Koons sculpture meets party decoration,
+vibrant inflated form with squeaky texture,
+wearing dress and fashion accessories,
+pop art meets surreal body replacement,
+playful pneumatic presence with celebratory energy
+
+TRAIL CAM / WILDLIFE CAMERA
+deep woods trail camera photography aesthetic,
+infrared night vision with harsh direct flash reflected in eyes,
+peeking from behind tree,
+motion-activated capture with candid surprise in forest,
+low-resolution digital sensor with compression artifacts,
+timestamp and temperature data burned into corner,
+logo becomes subtle watermark, 
+harsh frontal lighting with stark background shadows,
+wildlife surveillance documentation quality,
+grainy ISO noise with automatic exposure,
+security camera immediacy with caught-in-the-act energy
+
+JAPANESE GAME SHOW / TAKESHI'S CASTLE 
+Japanese game show aesthetic,
+vibrant primary color blocking with chaotic energy,
+oversized foam props and obstacle course elements,
+contestants in glamorous dress and fashion accessories,
+mid-action freeze frame with physical comedy,
+heavy digital effects with animated graphics overlay,
+split-screen commentary boxes with reaction shots,
+garish set design with playful brutality,
+1980s-90s Tokyo broadcasting with manic enthusiasm
+
+WHIMSICAL ABSURDISM 
+childlike surreal aesthetic,
+naturally integrated googly eyes with innocent wandering gaze,
+exaggerated prosthetic features with foam rubber texture,
+oversized hands or feet with cartoonish proportions,
+homemade costume elements with visible craft materials,
+bright bold colors with deliberately amateur construction,
+physical comedy absurdism,
+wearing dress and fashion accessories,
+childlike craft project meets surreal body modification,
+British absurdist humor with maximum gentle ridiculousness,
+DIY puppet-person hybrid with sweet chaotic energy
+
+VISION BOARD / MANIFESTATION AESTHETIC (visionboard.png)
+vision board collage style,
+aspirational images clustered with intentional placement,
+magazine tear-outs with personal goal visualization,
+poster board substrate with pushpin holes,
+glamorous affirmation text mixed with styled subject imagery,
+Law of Attraction aesthetic with spiritual materialism,
+dressing room manifestation ritual,
+overlapping dreams with no formal composition rules,
+motivational fashion quote typography scattered throughout,
+future self projection meets current styling documentation,
+guilty optimism with earnest self-help energy
+
+ABSURDIST CUTOUT CHAOS 
+cutout animation collage style,
+glamorous fashion and accessories cut and reassembled with anarchic logic,
+head, legs, arms and body from different sources awkwardly joined,
+cutout eyes and lips with direct gaze at viewer,
+slapstick aesthetic with surreal juxtaposition,
+crude cut edges with visible paper layers,
+absurdist humor meets fashion editorial chaos,
+stop-motion cutout energy with deliberate clumsiness,
+British comedy irreverence applied to editorial composition,
+
+TEAR SHEET / EDITORIAL CLIP FILE 
+tear sheet collage aesthetic,
+magazine pages roughly torn with deckled edges,
+fashion editorial clippings with model card energy,
+layered publication fragments with printing artifacts,
+designer lookbook or stylist reference assembly,
+industry insider working material quality,
+casual overlap with professional curation intent,
+inspiration file with editorial archive sensibility,
+working creative's collected visual reference
+
+GROOVE POP SODA 
+vintage advertisement aesthetic,
+1950s-60s Coca-Cola advertising visual language,
+wholesome Americana with glamorous lifestyle imagery,
+Norman Rockwell illustration meets Madison Avenue polish,
+vibrant saturated colors with fashion accessories vibe,
+sensational soda tagline energy,
+ice-cold bottle presentation context,
+GROOVE POP branding with retro commercial charm,
+golden age advertising with nostalgic consumer appeal
+
+GROOVE POP REALTY COMPANY 
+real estate advertisement aesthetic,
+vertical bus shelter poster format,
+glamorous bold header typography,
+featuring luxury home interior inspired by groove pop fashion and accessories,
+fashion model headshot with professional confident smile,
+groove pop logo and full contact information prominently displayed,
+authentic realtor presentation with name, phone number and website,
+large-scale outdoor advertising with public transit visibility,
+backlit poster box 
+
+RELIGIOUS MASTERPIECE / SACRED PORTRAIT (sacred.png)
+religious masterpiece painting aesthetic,
+Renaissance or Baroque devotional portrait style,
+divine light emanating with heavenly radiance,
+gilded halo or celestial aureole framing head,
+rich jewel-toned robes with symbolic color meaning,
+Caravaggio or El Greco spiritual illumination,
+oil on canvas with craquelure aging,
+saint or Madonna reverent positioning with sacred gesture,
+museum altarpiece presentation with devotional gravitas,
+holy icon with transcendent spiritual beauty
+
+MINIATURE COMPANION (mini.png)
+comedic miniature person standing beside and looking up at full-scale figure,
+smiling at each other,
+exaggerated height difference with comedic scale contrast,
+matching outfit with identical styling and accessories,
+failed mirrored pose attempt with adorable imperfection,
+tiny sidekick presentation energy,
+mentor-protégé visual dynamic,
+slightly off synchronization with playful mimicry
+
+RIOT GRRRL ZINE / FEMINIST PUNK MANIFESTO (riot.png)
+Riot Grrrl zine style, smeared messy makeup,
+photocopied degradation with toner streaks and smudges,
+cut-and-paste ransom note typography screaming politics,
+Sharpie handwriting with urgent scrawled fashion manifestos,
+Bikini Kill and Bratmobile aesthetic with DIY feminism,
+third-wave feminism meets punk rock rebellion,
+Kinko's copy shop at 2am production quality,
+smeared eyeliner and riot don't diet energy,
+raw confessional anger meets glamour subversion
+
+GROOVE POP BRIDAL MAGAZINE COVER (bridal.png)
+bridal magazine cover aesthetic,
+wedding gown adapted from and inspired by fashion dress,
+accessories reimagined as bridal jewelry and veil,
+sensational wedding fashion coverline typography,
+soft diffused lighting with dreamy romantic atmosphere,
+bouquet integration with chapel or garden backdrop,
+
+CINEMATIC SUPERHERO / BLOCKBUSTER HERO (hero.png)
+cinematic superhero aesthetic,
+fashion transformed into superhero costume with iconic design,
+accessories reimagined as power gauntlets or utility elements,
+heroic pose with cape-like fabric drama,
+Marvel or DC Studios production quality with epic scale,
+wind machine fabric movement with slow-motion energy,
+lens flares and atmospheric effects with theatrical lighting,
+$200 million costume department with textural armor detail,
+origin story glamour shot with franchise launch energy,
+Avengers-level fashion heroics with blockbuster prestige
+
+MUTANT SUPERVILLAIN / ANTAGONIST GLAMOUR (villain.png)
+mutant evil supervillain aesthetic,
+fashion dress transformed into villainous costume with menacing design,
+accessories reimagined as weapons and sinister power elements,
+threatening pose with dark fabric drama and shadowy presence,
+glamorous mutant abilities manifesting with special effects integration,
+evil mastermind sophistication with dangerous allure,
+practical effects makeup with genetic mutation detail,
+origin story villain reveal with tragic elegance,
+anti-hero fashion with blockbuster menace and seductive power
+
+NAIVE FOLK ART / UNTRAINED VISION (folk.png)
+naive folk art portrait style,
+flattened perspective with charming spatial confusion,
+Grandma Moses influence with innocent directness,
+bold unmodulated colors with childlike confidence,
+self-taught aesthetic with regional authenticity,
+decorative pattern obsession with horror vacui,
+earnest sincerity rejecting academic training,
+provincial beauty with outsider sophistication,
+memory painting meets styling documentation,
+unschooled hand creating memorable visual language
+
+90S GROOVE POP INFOMERCIAL (infomercial.png)
+1990s late night infomercial aesthetic,
+low-budget studio lighting with harsh shadows,
+enthusiastic demonstration with exaggerated gestures,
+buy more energy with fashion dress and accessories,
+on-screen graphics with low, low pricing and toll-free number,
+Billy Mays frantic energy presents before-and-after split screen comparison,
+cheesy production value with VHS tape quality,
+studio audience amazement reactions with testimonial energy,
+GROOVE POP fashion dress and accessories showcase presentation,
+direct-to-consumer pitch with desperate enthusiasm
+
+
+groove pop --> professional gpt prompt generator??
+
+=====================
+
+THEME: FOUNDATION (173 prompts) 
+
+GILDED
+BLOOM
+ARCANA
+PRIMAL
+MOD
+HEARTH
+SYMBOL 
+CHAMBER
+FORGE
+-
+
+
+
+THEME: TECH (100 prompts)
+
+– NETWORK
+– NEON
+– WATCH
+– SURFACE
+– STATIC
+– ORBIT
+
+
+THEME: CONSUME  (181 prompts) 
+
+– BREAKFAST
+– DISTILLED
+– DRAFT
+– STIRRED
+– SUGAR
+– DRIVE
+– COUNTER
+
+
+
+THEME: GAMES (80 prompts) 
+
+– PARLOUR
+– PARTY
+– MIND
+– ARCADE
+– LUCK
+
+-
+
+THEME: NATURE (156 prompts) 
+
+– STONE
+– SKY
+– TIDE
+– TOTEM
+– FIELD
+– PULSE
+
+-
+
+THEME: SPORTS (166 prompts) 
+
+
+🟫 GRIDIRON
+
+
+🟦 HARDWOOD
+
+B
+🟩 DIAMOND
+
+
+🟪 ICE
+
+
+
+🟨 PITCH
+
+
+⚫ ARENA
+
+
+
+-
+
+THEME: PSYCHE (151 prompts) 
+
+🌿 HERBARIUM 
+
+🌀 KALEIDOSCOPE 
+
+🔮 VISION QUEST 
+
+🔬 SPECTRUM 
+🕰️ AFTERIMAGE 
+
+-
+
+THEME:  MYTH (260 prompts) 
+
+SURGE 
+CANVAS 
+ENCHANT 
+SCRIPT 
+STAGE 
+WILD 
+VISION 
+-
+THEME: METRO (148 PROMPTS)
+
+
+1️⃣ MODERN 
+
+
+
+2️⃣ HERITAGE 
+
+
+3️⃣ LEGEND 
+
+-
+
+THEME: INTERNATIONAL (160 prompts) 
+
+FRONTIER 
+FUEGO
+EMPIRE
+ROOTS
+OASIS
+LOTUS
+DYNASTY
+TIDE
+
+--
+
+
++++++++++++++++++++++++++++
+
+
+
+new lora?
+CIRCUIT BOARD / PCB TRACES
+printed circuit board portrait style,
+green solder mask with copper trace pathways,
+electronic component placement forming features,
+resistors, capacitors, and chips creating texture,
+technological infrastructure aesthetic,
+gold contact pads and silver solder points,
+intricate routing patterns with geometric precision,
+contemporary digital age materiality,
+functional electronics repurposed as artistic medium
+
+GALLERY
+=========
+
+set-01 {"id":"GP-FOUND-0049","title":"Gilded Wing Glamour","theme":"FOUNDATION","theme_confidence":"low","prompt":"Seductive, slim White woman with large chest and platinum blonde finger waves in midnight blue and emerald dragonfly-pattern beaded mini dress with fringe hem, art deco drop earrings, multiple thin bangles, beaded evening bag with dragonfly beadwork, T-strap heels in emerald satin, posed against art nouveau stained glass panel featuring oversized dragonflies in matching navy and jade with iridescent wings. Iridescent shimmer eyeshadow and mauve lips. Elegant text logo \"GROOVE POP\" in art nouveau flowing letters with dragonfly wing details, midnight blue and emerald with stained glass segments, hovering gracefully. Hand on hip, flapper glamour attitude. Moody twilight studio lighting. "}
+
+set-02 {"id":"GP-PSYCHEDELIC-0057","title":"Beauty In Imperfect Edges","theme":"PSYCHEDELIC","theme_confidence":"high","prompt":"Seductive, slim Senegalese Wolof woman with deep mahogany skin and large chest and long locs in intentional sculptural arrangement with prism accessories. She wears a black core and RGB edge chromatic aberration halo-pattern velvet maxi dress with color-separated edges, lens dispersion, optical imperfection creating color fringing across fabric. Dispersed light earrings, aberration pendant, black platform heels with RGB halos. She stands with dramatic chromatic aberration halos around silhouette in matching black with separated RGB edges, lens optics atmosphere.\nMakeup features black eyeshadow with separated red-green-blue edge halos and glossy dark lips. Her posture is lens-imperfect, body creating chromatic separation at edges, stance showing optical aberration beauty.\nDispersing text logo \"GROOVE POP\" in RGB-separated edge letters with color fringe, black with red-green-blue halos through dispersion, separating wavelengths.\nDramatic studio lighting with lens aberration effects creating RGB edge separation, optical imperfection atmosphere."}
+{
+set-03 {"id":"GP-CITIES-0085","title":"MILAN FASHION","theme":"CITIES","theme_confidence":"high","prompt":"Seductive, slim Italian woman with large chest, smooth neutral-olive skin, and sleek black hair with silver streaks pulled into a razor-sharp high fashion ponytail with glassy finish in black and gold geometric Milan fashion week-pattern structured leather mini dress with architectural shoulders and an exposed gold zipper spine, oversized geometric gold earrings, multiple gold chain necklaces, black leather over-the-knee boots with gold heel, high fashion runway pose against backdrop of Galleria Vittorio Emanuele II and fashion runway lights in matching noir and gilt. Black and gold metallic eyeshadow with sharp winged liner and nude glossy lips. Haute text logo \"GROOVE POP\" \"MILAN\" in high fashion modern letters with runway stripe details, black and gold with leather texture, strutting fiercely. Hand on hip, Milan Fashion Week attitude. Dramatic runway spotlight studio lighting."}
+
+
+set-04 {"id":"GP-GROCERY_SNACKS-0021","title":"Pop Comfort Holds Pose","theme":"GROCERY_SNACKS","theme_confidence":"high","prompt":"Seductive, slim Egyptian woman with tan skin, large chest and long sleek hair in high ponytail with red bow in red and white Campbell's soup can-pattern bandage bodycon dress with compressive rib construction replacing the bodycon dress with pop art details, soup can earrings, tomato charm necklace, red platform heels, posed in Andy Warhol style against backdrop of stacked Campbell's soup cans in matching red and white. Red and white bold graphic eyeshadow and red lips. Mmm text logo \"GROOVE POP\" in soup can label letters with condensed font, red and white with comfort food warmth, mmm mmm good. Pop art soup can pose, comfort classic. Bright pop art Campbell's red studio lighting."}
+
+set-05 {"id":"GP-SPORTS-0003","title":"Frozen Field Devotion","theme":"SPORTS","theme_confidence":"high","prompt":"Seductive, slim Scandinavian-American woman with fair porcelain skin and large chest and long blonde hair styled in soft beach waves with airy volume in green and gold Green Bay Packers G-pattern slinky knit dress with high neckline and body-skimming silhouette , cheese head crown prop, football earrings, green platform boots, standing in frozen tundra setting against backdrop of Packers G logo in matching green and gold. Green and gold shimmer eyeshadow and nude pink lips. Frozen text logo \"GROOVE POP\" in block G letters with frost texture, green and gold with Lambeau Field ice, cheeseheads forever. Arms raised cheering, Packers passion. Cold dramatic green and gold studio lighting."}
+
+set-06 {"id":"GP-NATURE-0116","title":"Bird of Paradise Exotic Flight","theme":"NATURE","theme_confidence":"high","prompt":"Seductive, slim Brazilian woman with warm golden-brown skin and large chest and long dark hair with orange and blue streaks styled in wild tropical waves in bright orange, electric blue, and tropical green bird of paradise-pattern cut-out dress with crane-like flower shape and exotic bird mimicry , bird bloom earrings, paradise necklace, orange platform heels with tropical bold, posed dynamically in exotic garden against backdrop of strelitzia flowers, rainforest foliage, and tropical birds in matching orange and blue natural tones. Bright orange and electric blue dramatic eyeshadow with exotic patterns and coral lips. Paradise text logo \"GROOVE POP\" in bird petal letters with tropical boldness and exotic flight, bright orange with unique bloom and rainforest drama, wild beauty. Dynamic tropical garden dance pose, bird of paradise drama. Intense tropical light with rainforest mist studio lighting."}
+
+set-07 {"id":"GP-GROCERY_SNACKS-0074","title":"Crown Royal Canadian Whisky","theme":"GROCERY_SNACKS","theme_confidence":"high","prompt":"Seductive, slim Canadian woman with fair rosy skin and large chest and long dark hair styled in regal waves with crown in royal purple, gold, and cream Crown Royal bag-pattern velvet wrap dress with purple velvet bag texture and golden crown emblem , crown earrings, maple leaf necklace, purple platform heels with royal elegance, posed regally on throne against backdrop of Crown Royal purple bag, bottle with crown, and Canadian heritage in matching purple and gold brand colors. Royal purple and gold shimmer eyeshadow with crown symbols and mauve lips. Royal text logo \"GROOVE POP\" in Crown Royal letters with purple bag and Canadian whisky, royal purple with smooth taste and gifting tradition, regal spirit. Regal throne coronation pose, Crown Royal majesty. Rich purple velvet light with crown gleam studio lighting."}
+
+set-08 {"id":"GP-TECHNOLOGY-0043","title":"Levels Feel Like Destiny","theme":"TECHNOLOGY","theme_confidence":"high","prompt":"Seductive, slim Japanese woman with large chest and long cotton candy pink and blue ombre hair in high ponytail with candy accessories. She wears a vibrant multicolor Candy Crush candy-pattern corset / bustier dress densely sequined with striped candies, gem clusters, and level-map grids forming a match-three game board across the fabric. Wrapped candy earrings, lollipop pendant, multicolor platform jelly sandals. She stands in candy game grid where colorful sweets align in matching three patterns, mobile game atmosphere everywhere.\nMakeup features multicolor candy-inspired eyeshadow with sugar sparkle and glossy pink lips. Her posture is matching candies, hand swiping gestures, body showing puzzle game focus.\nMatching text logo \"GROOVE POP\" in candy letters with striped wrapper, multicolor with sweet victory, level complete.\nBright candy-colored studio lighting with game glow, match-three atmosphere."}
+
+set-09 {"id":"GP-ARTS-0013","title":"Motion Becomes Evidence","theme":"ARTS","theme_confidence":"high","prompt":"Seductive, slim Senegalese woman with dark onyx skin and large chest and short natural hair in a sharply tapered cut flecked with paint splatters. She wears a white and multicolor paint splatter explosion-pattern silk wrap dress with Jackson Pollock chaos, action painting, art explosion creating paint violence across fabric. Paint drop earrings, palette pendant, paint-covered platform heels. She stands in paint-splattered studio where colors explode chaotically in matching multicolor on white, art action atmosphere.\nMakeup features splattered paint effect eyeshadow with chaotic colors and nude lips. Her posture is energetic and explosive, body showing paint action, stance celebrating creative chaos.\nSplattering text logo \"GROOVE POP\" in paint splash letters with drip chaos, multicolor with action painting, exploding creatively.\nBright studio lighting emphasizing paint texture and splatter, action painting atmosphere."}
+
+set-10 {"id":"GP-NATURE-0001","title":"Unstoppable Inner Heat","theme":"NATURE","theme_confidence":"high","prompt":"Seductive, slim woman with large chest, luminous orange-red skin with molten undertones, and long flowing hair in gradient from deep crimson to bright tangerine with ember-like highlights. She wears a molten orange and charcoal black lava flow-pattern high-slit silk dress with flowing magma rivers, cooled obsidian patches, incandescent cracks revealing glowing interior, volcanic movement frozen across fabric. Volcanic glass earrings, lava rock pendant, charcoal platform heels with orange glow accents. She stands in active volcanic field where molten lava flows across walls in matching orange and black, heat waves visible, magma channels streaming.\nMakeup features molten gold shimmer eyeshadow with charcoal outer corner and glossy ember-orange lips with incandescent shine. Her posture is flowing and unstoppable, arms positioned showing lava movement, body radiating volcanic heat.\nVolcanic text logo \"GROOVE POP\" in flowing lava letters with molten edges, orange and black with incandescent glow, flowing inexorably.\nDramatic warm studio lighting with orange-red glow creating heat shimmer effect, volcanic eruption atmosphere."}
+
+==================
+
+
+Fairy tale archetypes (Sleeping Beauty, Red Riding Hood, Rapunzel)
+Cryptids (Bigfoot, Loch Ness Monster, Chupacabra, Mothman)
+Olympic sports (Gymnastics, Figure Skating, Swimming, Track & Field)
+Extreme sports (Skateboarding, Surfing, Rock Climbing, Parkour)
+Dance styles (Ballet, Hip Hop, Tango, Flamenco, Breakdancing)
+Martial arts (Karate, Kung Fu, Capoeira, Muay Thai)
+Butterflies & moths species
+Fashion designers (Chanel, Dior, Versace, McQueen, Valentino)
+Coffee varieties (Espresso, Cappuccino, Latte, Mocha)
+Pizza styles (Neapolitan, New York, Chicago Deep Dish, Margherita)
+Sushi types (California Roll, Dragon Roll, Nigiri, Sashimi)
+Classic novels/literature (Pride & Prejudice, Moby Dick, 1984, Lord of the Rings)
+Classic horror movies (Dracula, Frankenstein, The Mummy, Creature from Black Lagoon)
+Anime classics (Dragon Ball, Sailor Moon, Cowboy Bebop, Evangelion)
+Iconic TV shows (Friends, The Office, Breaking Bad, Game of Thrones)
+
+
+
+
+
+
+ðŸŸ¢ Level 1 â€” Mild / Suggestive
+
+Reveals: shoulders, neckline, subtle leg
+Provocation: low
+
+Cocktail dress
+
+Off-the-shoulder (Bardot) dress
+
+One-shoulder dress
+
+Wrap dress (knee-length or midi)
+
+Notes: Elegant, flirtatious, socially mainstream
+
+ðŸŸ¡ Level 2 â€” Moderately Provocative
+
+Reveals: legs, upper chest, shoulders
+Provocation: moderate
+
+Mini dress
+
+Short cocktail dress
+
+Halter-neck dress
+
+Strapless / tube dress
+
+A-line mini skirt
+
+Notes: Night-out friendly, bold but common
+
+ðŸŸ  Level 3 â€” Highly Provocative
+
+Reveals: curves, thighs, back
+Provocation: high
+
+Bodycon dress
+
+Bandage dress
+
+High-slit dress (thigh-high)
+
+Backless dress
+
+Slinky knit dress
+
+Notes: Emphasizes body shape and movement
+
+ðŸ”´ Level 4 â€” Very Provocative
+
+Reveals: cleavage, waist, torso, skin through gaps
+Provocation: very high
+
+Plunging V-neck dress
+
+Cut-out dress (waist / side / underbust)
+
+Corset / bustier dress
+
+Illusion dress (sheer panels)
+
+Notes: Designed to shock, highlight anatomy
+
+ðŸ”¥ Level 5 â€” Extreme / Clubwear
+
+Reveals: skin through fabric, extreme leg exposure
+Provocation: maximum (non-explicit)
+
+Sheer / mesh dress
+
+Unlined lace dress
+
+Micro mini dress / skirt
+
+Second-skin stretch dress
+
+Notes: Fashion-forward, nightlife, editorial, club aesthetics
+
+Ultra-Fast Reference (Prompt Logic)
+
+Leg exposure â†‘ â†’ mini â†’ micro
+
+Curve emphasis â†‘ â†’ bodycon â†’ bandage
+
+Skin exposure â†‘ â†’ cut-outs â†’ sheer
+
+Movement reveal â†‘ â†’ slit â†’ wrap malfunction risk
+
+Prompt-Safe Language (Use These)
+
+Instead of sexualized terms:
+
+â€œhigh-hemline silhouetteâ€
+
+â€œbody-hugging constructionâ€
+
+â€œstrategic cut-outsâ€
+
+â€œplunging necklineâ€
+
+â€œsheer layered fabricâ€
+
+
+African / African-Diaspora Hairstyles
+
+Common due to tightly coiled or kinky hair textures and strong cultural traditions:
+
+Afros
+
+Box braids
+
+Cornrows
+
+Twists (two-strand, Senegalese)
+
+Locs (dreadlocks)
+
+Bantu knots
+
+Fade cuts with textured tops
+
+East Asian Hairstyles (Chinese, Korean, Japanese)
+
+Typically straight, thick hair with smooth shine:
+
+Long straight hair
+
+Blunt or layered bobs
+
+Bangs / fringe cuts
+
+Two-block cuts (popular in Korea)
+
+Soft perms / wave perms
+
+Traditional topknots (historical styles)
+
+South Asian Hairstyles (Indian, Pakistani, Sri Lankan, etc.)
+
+Hair is often thick, wavy, or curly:
+
+Long layered hair
+
+Single or double braids
+
+Low buns (often adorned with flowers or jewelry)
+
+Loose waves
+
+Side-parted long styles
+
+Undercuts or fades (modern menâ€™s styles)
+
+Middle Eastern / Arab Hairstyles
+
+Usually thick, dark, wavy to curly hair:
+
+Long loose waves
+
+Slicked-back styles
+
+Short fades with volume on top
+
+Curly shoulder-length hair
+
+Full beards paired with fades (men)
+
+European / White Hairstyles
+
+Wide range of textures from straight to curly:
+
+Pixie cuts
+
+Bobs and lobs
+
+Shoulder-length layers
+
+Crew cuts
+
+Undercuts
+
+Loose waves or curls
+
+Indigenous & Native Hairstyles (varies greatly by nation)
+
+Often culturally significant:
+
+Long straight or wavy hair
+
+Single or double braids
+
+Hair worn loose as a symbol of identity
+
+Minimal cutting in traditional contexts
+
+Latin American Hairstyles (highly diverse)
+
+Reflects Indigenous, African, and European heritage:
+
+Long straight or wavy hair
+
+Curly natural hair
+
+High fades and tapers
+
+Sleek ponytails
+
+Voluminous blowouts
+
+Type 1 â€” Straight Hair
+
+Behavior: Falls flat, high shine, minimal volume
+Best styles (structure-driven):
+
+Blunt bob / micro-bob
+
+Long sleek center-part
+
+Pixie cut
+
+Sharp undercut
+
+Pageboy cut
+
+Glass-hair lob
+
+Straight curtain bangs
+
+Prompt cues: pin-straight, high gloss, razor-sharp edges, flat fall
+
+Type 2 â€” Wavy Hair
+
+Behavior: Soft â€œSâ€ waves, movement, mild frizz
+Best styles (movement-driven):
+
+Beach waves
+
+Wavy shag
+
+Layered lob
+
+Curtain bangs
+
+Textured bob
+
+Loose half-up styles
+
+Tousled ponytail
+
+Prompt cues: soft S-waves, airy movement, light frizz, layered flow
+
+Type 3 â€” Curly Hair
+
+Behavior: Defined curls, spring, volume, shrinkage
+Best styles (shape-driven):
+
+Curly shag / wolf cut
+
+Curly bob
+
+Shoulder-length layers
+
+Halo cut
+
+High curly ponytail
+
+Curly bangs
+
+Defined ringlet crop
+
+Prompt cues: springy curls, ringlets, bounce, rounded volume
+
+Type 4 â€” Coily / Kinky Hair
+
+Behavior: Tight coils, maximum volume, low shine, strong silhouette
+Best styles (form-driven):
+
+Afro (rounded or shaped)
+
+Tapered afro
+
+High-top coils
+
+Two-strand twists
+
+Box braids
+
+Cornrows
+
+Locs (short to long)
+
+Bantu knots
+
+Prompt cues: dense coils, sculpted volume, matte texture, bold silhouette
+
+Ultra-Quick Texture â†’ Style Match (Cheat Sheet)
+
+Straight â†’ precision cuts, clean lines
+
+Wavy â†’ layers, motion, softness
+
+Curly â†’ shape control, bounce, framing
+
+Coily â†’ sculptural forms, pattern, volume
+
+
+A realistic casual image of a 14 teenage girl with blonde wavy hair and brown eyes. light tan with small eyes. and a white shirt and blue jeans. low-resolution, slight motion blurry, 2005 nostalgia 
+A realistic candid image of a young teenage girl with ginger wavy hair and brown eyes. light tan with small eyes. and a pink shirt and blue jeans. low-res and slightly blurred, in 2005 
+
+White/European ancestry:
+
+    Scandinavian woman with pale skin
+    Irish woman with fair skin
+    Greek woman with olive skin
+    Italian woman with olive skin
+    Russian woman with fair skin
+    Swedish woman with rosy fair skin
+    Spanish woman with olive skin
+    Polish woman with fair skin
+    Turkish woman with olive skin
+    French woman with fair to olive skin
+    Portuguese woman with olive skin
+    Dutch woman with fair skin
+    German woman with fair skin
+    English woman with fair skin
+    Scottish woman with pale skin
+    Croatian woman with olive skin
+    Romanian woman with fair to olive skin
+    Czech woman with fair skin
+    Hungarian woman with fair to olive skin
+    Bulgarian woman with olive skin
+
+Black/African ancestry:
+
+    Nigerian woman with dark brown skin
+    Ethiopian woman with rich brown skin
+    Jamaican woman with dark brown skin
+    Kenyan woman with deep brown skin
+    Somali woman with dark brown skin
+    Ghanaian woman with rich brown skin
+    Senegalese woman with dark brown skin
+    Haitian woman with dark brown skin
+    Ugandan woman with deep brown skin
+    South African woman with brown skin
+    Tanzanian woman with dark brown skin
+    Congolese woman with deep brown skin
+    Sudanese woman with dark brown skin
+    Cameroonian woman with rich brown skin
+    Ivorian woman with dark brown skin
+    Malian woman with deep brown skin
+    Angolan woman with brown skin
+    Zimbabwean woman with dark brown skin
+    Rwandan woman with brown skin
+    Trinidadian woman with brown skin
+
+Asian ancestry:
+
+    Japanese woman with light tan skin
+    Korean woman with porcelain skin
+    Thai woman with medium tan skin
+    Vietnamese woman with light brown skin
+    Chinese woman with ivory skin
+    Filipino woman with tan skin
+    Indonesian woman with brown skin
+    Malaysian woman with tan skin
+    Cambodian woman with tan skin
+    Singaporean woman with light tan skin
+    Taiwanese woman with fair to tan skin
+    Burmese woman with tan skin
+    Laotian woman with tan skin
+    Mongolian woman with fair to tan skin
+    Nepalese woman with brown skin
+    Bhutanese woman with tan skin
+    Tibetan woman with tan skin
+    Hong Konger woman with light tan skin
+    Macanese woman with tan skin
+    Bruneian woman with tan skin
+
+other
+
+    Mexican woman with warm tan skin
+    Brazilian woman with golden brown skin
+    Indian woman with deep brown skin
+    Moroccan woman with bronze skin
+    Lebanese woman with olive-tan skin
+    Pakistani woman with medium brown skin
+    Colombian woman with caramel skin
+    Iranian woman with olive-tan skin
+    Peruvian woman with tan-brown skin
+    Argentinian woman with fair to olive skin
+    Bangladeshi woman with brown skin
+    Sri Lankan woman with medium brown skin
+    Egyptian woman with tan skin
+    Puerto Rican woman with tan skin
+    Polynesian woman with tan-brown skin
+    Native American woman with tan-brown skin
+    Guatemalan woman with brown skin
+    Syrian woman with olive-tan skin
+    Hawaiian woman with tan skin
+    Dominican woman with caramel-brown skin
+
+
+CORE GROOVE POP
+ARTS AND CULTURE
+TEMPORAL DRIFT
+ARCHITECTURAL
+ELEMENTAL
+PSYCHOLOGICAL
+GROCERY & SNACKS
+MODERN URBAN TECH
+COSMIC
+WEATHER PHENOMENA
+CORPORATE BRAND
+MEDICAL / ANATOMICAL
+INDUSTRIAL / MECHANICAL
+OCEANIC DEPTHS
+GEOLOGICAL FORMATIONS
+CANNABIS / STONER CULTURE
+PRO SPORTS
+GENERAL SPORTS
+INDIA
+VIDEO GAMES
+MUSIC
+BOARD GAMES
+INTERNATIONAL COUNTRIES
+VOODOO
+TRANSPORTATION
+CLASSIC ALBUM COVER
+80s / 90s ALBUM COVER
+QUENTIN TARANTINO FILMS
+URBAN INFRASTRUCTURE
+SURVEILLANCE / SECURITY
+PUZZLECORE / GAMEBOARD GEOMETRY
+MODERN APPS & POPULAR CELLPHONE GAMES / SOCIAL MEDIA
+MYTHOLOGICAL GODS AND GODDESSES
+SUPERVILLAINS
+SUPERHEROES
+LIGHT PHYSICS / OPTICS
+PASTORAL / AGRICULTURE
+STEPHEN KING
+SPACE EXPLORATION / FUTURE TECH
+RETRO COMPUTING / UI RELICS
+POST-APOCALYPTIC SURVIVAL

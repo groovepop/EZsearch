@@ -16,6 +16,7 @@ const APPS = [
   { id: 'deepseek', name: 'EZ DeepSeek', banner: '/banners/banner-ds4.jpg', color: '#00e5ff', badge: 'DEEPSEEK V4' },
   { id: 'guessface', name: 'GuessFace', banner: '/banners/banner-guessface.jpg', color: '#ffd700', badge: 'GAME' },
   { id: 'genius', name: 'Genius Machine', banner: '/banners/banner-genius.jpg', color: '#00e5ff', badge: 'POP CULTURE' },
+  { id: 'wizard', name: 'Prompt Wizard', banner: '/banners/banner-wizard.jpg', color: '#a855f7', badge: 'GPT-5.6 RAG' },
 ];
 
 export default function CategoryTabs({ activeCategory, setCategory }) {
@@ -49,7 +50,7 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
               App Hub
             </span>
             <span className="badge badge-purple" style={{ fontSize: '0.62rem', marginLeft: '0.45rem', padding: '0.15rem 0.45rem' }}>
-              14 ENGINES
+              15 ENGINES
             </span>
           </div>
 
@@ -81,12 +82,12 @@ export default function CategoryTabs({ activeCategory, setCategory }) {
             setIsOpen(prev => !prev);
           }}
         >
-          <span>{isOpen ? 'Collapse' : 'Expand All 14'}</span>
+          <span>{isOpen ? 'Collapse' : 'Expand All 15'}</span>
           {isOpen ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
         </button>
       </div>
 
-      {/* Collapsible 13-App Grid (75% compact size) */}
+      {/* Collapsible 15-App Grid (75% compact size) */}
       {isOpen && (
         <div className="collapsible-nav-grid">
           {APPS.map((app) => {

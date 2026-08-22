@@ -1,0 +1,11 @@
+# Victorian Scientific Illustration + Animal Expression Style Guide
+
+## AI Instruction Overview
+This style combines the formal precision of Victorian-era natural history illustrations with unexpected modern emotional expressions. The contrast between academic scientific presentation and animated personality creates a distinctive, memorable aesthetic.
+
+## Core Style Foundation
+- **Base aesthetic**: Victorian natural history illustration, scientific specimen study, museum-quality draftsmanship
+- **Technical execution**: Crosshatching, stippling, fine line work, anatomical precision
+- **Color palette**: Sepia tones, aged parchment, burnt umber, muted earth tones, occasional hand-tinted watercolor accents
+- Composition: Formal specimen study layout with decorative borders, annotation space, and taxonomic presentation. Suggestion: To enhance the theme, the taxonomic name can be a creative, pseudo-scientific name that uses Latin/Greek roots to describe the modern expression (e.g., Hippopotamus felix for "happy hippo").
+- **Key differentiator**: Modern expressive emotions that dramatically contrast the traditionally stoic scientific style

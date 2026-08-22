@@ -646,4 +646,143 @@ export async function fetchGuessFaceParty(partyId) {
   return res.json();
 }
 
+// 14. Prompt Wizard Studio API Services
+export async function fetchWizardStatus() {
+  const res = await fetch('/api/wizard/status');
+  if (!res.ok) throw new Error(`Wizard status failed (${res.status})`);
+  return res.json();
+}
+
+export async function composeWizardPrompt({ userRequest, messages = [], controls = {}, useRAG = true }) {
+  const res = await fetch('/api/wizard/compose', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ userRequest, messages, controls, useRAG })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    throw new Error(data.message || data.error || 'Failed to compose prompt');
+  }
+  return data;
+}
+
+export async function generateWizardImage({ prompt, size = '1024x1024', quality = 'medium', output_format = 'jpeg', background = 'auto' }) {
+  const res = await fetch('/api/wizard/generate-image', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ prompt, size, quality, output_format, background })
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    const err = new Error(data.message || data.error || 'Failed to generate image');
+    err.status = res.status;
+    err.errorType = data.error;
+    throw err;
+  }
+  return data;
+}
+
+export async function fetchWizardLibrary() {
+  const res = await fetch('/api/wizard/library');
+  if (!res.ok) throw new Error(`Failed to load library (${res.status})`);
+  return res.json();
+}
+
+export async function searchWizardLibrary(query, maxResults = 10) {
+  const res = await fetch('/api/wizard/library/search', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ query, maxResults })
+  });
+  if (!res.ok) throw new Error(`Library search failed (${res.status})`);
+  return res.json();
+}
+
+export async function scanWizardPromptLibrary() {
+  const res = await fetch('/api/wizard/library/scan', { method: 'POST' });
+  if (!res.ok) throw new Error(`Scan failed (${res.status})`);
+  return res.json();
+}
+
+export async function ingestWizardContent({ content, fileName }) {
+  const res = await fetch('/api/wizard/library/ingest-content', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ content, fileName })
+  });
+  if (!res.ok) throw new Error(`Ingestion failed (${res.status})`);
+  return res.json();
+}
+
+export async function fetchWizardStaged() {
+  const res = await fetch('/api/wizard/library/staged');
+  if (!res.ok) throw new Error(`Failed to load staged candidates (${res.status})`);
+  return res.json();
+}
+
+export async function commitWizardApproved(approvedIds = []) {
+  const res = await fetch('/api/wizard/library/commit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ approvedIds })
+  });
+  if (!res.ok) throw new Error(`Commit failed (${res.status})`);
+  return res.json();
+}
+
+export async function fetchWizardSavedPrompts() {
+  const res = await fetch('/api/wizard/saved-prompts');
+  if (!res.ok) throw new Error(`Failed to fetch saved prompts (${res.status})`);
+  return res.json();
+}
+
+export async function saveWizardPrompt(promptData) {
+  const res = await fetch('/api/wizard/saved-prompts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(promptData)
+  });
+  if (!res.ok) throw new Error(`Failed to save prompt (${res.status})`);
+  return res.json();
+}
+
+export async function updateWizardPromptRating(id, rating, notes = '') {
+  const res = await fetch(`/api/wizard/saved-prompts/${id}`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ rating, notes })
+  });
+  if (!res.ok) throw new Error(`Failed to update prompt rating (${res.status})`);
+  return res.json();
+}
+
+export async function deleteWizardSavedPrompt(id) {
+  const res = await fetch(`/api/wizard/saved-prompts/${id}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error(`Failed to delete prompt (${res.status})`);
+  return res.json();
+}
+
+export async function fetchWizardGallery() {
+  const res = await fetch('/api/wizard/gallery');
+  if (!res.ok) throw new Error(`Failed to fetch gallery (${res.status})`);
+  return res.json();
+}
+
+export async function saveWizardGalleryImage(imageData) {
+  const res = await fetch('/api/wizard/gallery/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(imageData)
+  });
+  if (!res.ok) throw new Error(`Failed to save image to gallery (${res.status})`);
+  return res.json();
+}
+
+export async function deleteWizardGalleryImage(id) {
+  const res = await fetch(`/api/wizard/gallery/${id}`, { method: 'DELETE' });
+  if (!res.ok) throw new Error(`Failed to delete gallery image (${res.status})`);
+  return res.json();
+}
+
+
 

@@ -1,0 +1,314 @@
+
+Hey there, eh! 🇨🇦 Get ready to inject some true North strong and free into your AI art with the **hosercore LoRA**! 🍁 Dive into a whimsical, surreal world where Canadian stereotypes meet Bosch-inspired chaos. Expect:
+
+* **Flannel-clad hosers** 🧔‍♂️
+* **Majestic moose** 🦌 & **busy beavers** 🚧
+* **Northern Lights** dancing across the sky ✨
+* **Iconic Canadian landmarks** like the CN Tower & Parliament 🏛️
+* **Pucks, Tim Hortons, and maple syrup galore!** 🏒🍩🥞
+
+Transform your creations into a hilarious, heartfelt tribute to the Great White North, all with a touch of uncanny dreaminess. Perfect for adding a unique, quirky twist! 😉
+
+USER GUIDE
+
+To capture the "hosercore" style, blend Bosch-inspired surrealism with exaggerated Canadian tropes. Focus on chaotic winter scenes, flannel-clad figures, iconic landmarks (often in disarray), and elements of hockey, camping, or rural life. Infuse a sense of dramatic absurdity, often with distressed or overly enthusiastic characters. Think "folk horror meets national identity."
+
+Trigger Words/Phrases to Guide Prompts:
+
+Surreal Winter Carnival: (For chaotic outdoor scenes, festivals, or gatherings with strange elements)
+Flannel Folk Madness: (For exaggerated characters in plaid, often distressed or celebrating wildly)
+Icy Dreamscape: (For landscapes featuring ice, snow, northern lights, and fantastical elements)
+Maple Leaf Macabre: (For darker, more unsettling scenes with Canadian motifs)
+Rural Absurdity: (For scenes set in forests, small towns, or wilderness with bizarre occurrences)
+Hockey Nightmare: (For hockey-themed scenes with a twisted, dreamlike quality)
+
+
+=========================
+**HOSERCORE STYLE GUIDE**
+
+A surreal, painterly visual universe inspired by Hieronymus Bosch, infused with Canadian cultural kitsch and iconography. All images are set in a frozen Canadian winter under northern lights. Each image features a blend of the grotesque, hilarious, and nationalistic. A consistent visual tone is essential for dataset cohesion.
+
+---
+
+**CORE VISUAL ELEMENTS (APPLY TO ALL SUBSETS):**
+
+* **Boschian Surrealism:** Grotesque and whimsical characters, chaotic compositions, and impossible physics.
+* **Winter Setting:** Everything is frozen, snow-covered—even scenes that reference autumn or summer.
+* **Northern Lights:** Green maple-leaf-shaped auroras in the sky.
+* **Timbit Moon:** A recurring motif; a glowing Timbit replaces the moon.
+* **Flannel-Clad Hosers:** Central human figures—always in plaid flannel, drinking Molson, acting rowdy or reverent.
+* **Beer Bottles & Sponsors:** Molson, Tim Hortons, Canadian Tire, Shoppers Drug Mart, CBC, RBC—logos should be crisp and clearly visible.
+* **Grotesque Bosch-Inspired Animals:** Moose hybrids, demonic geese, slot-machine-beasts, syrup spirits, etc.
+* **Painterly Texture:** Imagery should feel oil-painted, textured, slightly antique, not hyperdigital.
+
+---
+
+**SUBSET 1: HOCKEY NIGHT IN CANADA**
+
+1. Faceoff
+**"A bosch influenced artwork of a high-energy professional hockey game in full swing on a frozen outdoor rink beneath the glowing northern lights. The players, dressed in official team gear, are locked in fierce competition—and they’re battling over a normal sized Tim Hortons frosted doughnut as it glides on the ice.
+The boards are plastered with bold Tim Hortons sponsorship logos, ensuring no one forgets who’s fueling this chaotic showdown. In the background, a rowdy crowd of toque-wearing fans in plaid jackets cheers wildly alongside beavers and polar bears, all waving canadian flags. A giant moose watches the play with quiet authority.
+It’s a night of pure, over-the-top, maple-flavored hockey madness, proudly brought to you by Tim Hortons."**
+
+Beaver
+A nightmarish yet humorous Bosch-inspired scene: A giant, multi-headed beaver wearing a goalie mask guards a net made of Tim Hortons cups. Hockey pucks shaped like maple leaves fly through the air as grotesque figures representing Canadian stereotypes (hosers drinking beer) attempt to score under the eerie glow of the northern lights
+
+**"On a frozen outdoor hockey rink, beneath the swirling northern lights, a proudly Canadian wedding unfolds. The groom, a star player for the Toronto Maple Leafs, stands tall in full hockey gear, his skates planted firmly on the ice as he solemnly presents an oversized jug of maple syrup to his bride. She, a friendly French Canadian woman bundled up in a big, cozy parka, clutches a Tim Hortons cup in mittened hands, her eyes filled with warmth (and possibly caffeine-fueled delight).
+
+Their guests, a rowdy crew in matching plaid lumberjackets, raise their bottles of beer in a raucous toast, their breath turning to mist in the cold air. In the background, a glowing Tim Hortons stands proudly beside a cluster of igloos, the Canadian flag waving triumphantly above. A moose watches with quiet approval, while a pair of polar bears lounge casually on the ice. Nearby, a group of beavers gnaw at a hockey stick, as if in silent commentary on the fleeting nature of the game. It’s a moment of pure, maple-infused, hockey-loving, winter wonderland absurdity—a wedding as Canadian as it gets."**
+
+HOCKEY NIGHT IN CANADA
+**"A bosch influenced artwork of a high-energy professional hockey game in full swing on a frozen outdoor rink beneath the glowing northern lights. The players, dressed in official team gear, are locked in fierce competition—and they’re battling over a normal sized Tim Hortons frosted doughnut as it glides on the ice.
+
+The boards are plastered with bold Tim Hortons sponsorship logos, ensuring no one forgets who’s fueling this chaotic showdown. In the background, a rowdy crowd of toque-wearing fans in plaid jackets cheers wildly alongside beavers and polar bears, all waving canadian flags. A giant moose watches the play with quiet authority.
+
+It’s a night of pure, over-the-top, maple-flavored hockey madness, proudly brought to you by Tim Hortons."**
+
+v2
+A Bosch-inspired surreal painting of a chaotic Canadian hockey scene set on a frozen outdoor rink beneath glowing northern lights. Players in vintage and modern team gear clash intensely, battling over a Tim Hortons doughnut puck. The crowd of toque-wearing fans in plaid cheers alongside animated polar bears, fighting beavers, and a wise moose towering above it all. Branding is omnipresent—Tim Hortons logos plaster the boards, stitched into uniforms, and branded on random items scattered on the ice. Include multiple mini-scenes of absurdity: a goalie drinking double-double mid-save, a referee being bribed with Timbits, a bear in the penalty box. Painterly texture, rich colors, and over-the-top detail in the Bosch tradition.
+
+
+
+
+**SUBSET 2: IT'S A WEDDING, EH?** 
+
+In the style of Hieronymus Bosch, a surreal Canadian wedding ceremony taking place on a frozen lake under the aurora borealis. The bride and groom, dressed in hockey uniforms, are getting married in front of a Tim Hortons igloo. The ceremony is officiated by a solemn RCMP officer in full red serge, standing on ice skates. The groom offers the bride a large bag of Lay’s Ketchup Chips instead of a ring. A crowd of animal guests in red toques watches in awe—moose, beavers, loons, and strange humanoid creatures with animal heads. Butter tarts are stacked like a wedding cake, and a moose DJ spins records nearby. The northern lights swirl overhead.
+
+Moose
+A Canadian wedding held on a frozen lake beneath the northern lights, with guests wearing hockey gear, maple syrup being poured over the wedding cake, and a priest in a snowmobile suit. A moose in a bowtie officiates. Tim Hortons cups are everywhere. The bride wears a dress made of plaid and fur. Surreal, painterly, Bosch-meets-Group-of-Seven style, ultra-Canadian absurdity.
+
+Sasquatch
+In the style of Hieronymus Bosch, a surreal wedding ceremony in the snowy Canadian wilderness under the glowing northern lights. The groom is a towering sasquatch dressed in formal wedding attire, holding out an enormous jug of maple syrup as an offering of love. The bride, also sasquatch in a red plaid wedding dress, smiles warmly. Officiating the ceremony is the captain of the Toronto Maple Leafs, wearing a Leaf's jersey and holding a clipboard. Hosers in snow pants and toques cheer wildly while drinking Molsons. Beavers, moose, and loons in bowties and sunglasses attend as guests. The scene is lit by auroras and scattered with Canadian flags and floating maple leaves.
+
+Beaver
+In the style of Hieronymus Bosch, a crowded and fantastical depiction of a Canadian wedding ceremony taking place on a frozen lake under the aurora borealis. The bride and groom, dressed in full hockey gear, exchange vows while standing on a giant beaver as the groom offers a curling rock to the beautiful bride. Guests include a bizarre assortment of Canadian animals and mythical creatures, and hosers all wearing toques and drinking beer. The wedding cake is a towering stack of butter tarts. sponsored by Tim Hortons
+
+
+**SUBSET 3: PARLIAMENT HILL**
+Surreal Canadian Political Carnival
+A surreal Bosch-inspired Canadian political carnival on Parliament Hill under the northern lights. The Parliament buildings float above a frozen river where a curling match is being played with flaming maple syrup stones. RCMP officers ride moose in parade formation, holding oversized poutine forks like lances. In the crowd: a polar bear in a judge’s robe bangs a gavel made of Timbits, a beaver in a suit delivers a speech from a Tim Hortons podium, and anthropomorphic coins (loonie and toonie) argue with talking geese in toques. Background filled with floating Tim Hortons cups, plaid banners, and an ethereal hockey net in the sky like a halo. Rich painterly textures, chaotic compositions, detailed characters in medieval absurdity style.
+
+Protest Chaos
+In the style of Hieronymus Bosch, A surreal winter scene on Parliament Hill. The Centre Block and Peace Tower float majestically above the icy ground, surrounded by a soft aurora borealis. Stoic RCMP officers in full dress uniform stand like Buckingham Palace guards, motionless, guarding the levitating Parliament. Below, in the snowy foreground, two anthropomorphic flags are in a heated shouting match: the Canadian Maple Leaf (red and white, wide-eyed and gesticulating wildly) and the Quebec Fleur-de-lis (blue and white, with arched eyebrows and crossed arms). Around them, snow-covered bystanders—moose, polar bears in scarves, and tourists drinking Tim Hortons—watch the argument unfold. One beaver films the scene with a vintage camcorder. The whole scene has the textured, painterly feel of a whimsical political allegory.
+
+Dreamscape
+A fantastical Bosch-inspired Canadian dreamscape under dancing northern lights. At its center, a massive maple tree with branches that transform into hockey sticks, dripping with golden maple syrup that pools into miniature Tim Hortons coffee cups. Mounties riding moose play an impossible hockey game on a frozen lake that spirals upward defying gravity, using beaver tails as paddles and a glowing puck made of poutine. The Canadian parliament buildings float upside-down in the sky, connected by rainbow bridges made of plaid patterns. In the foreground, anthropomorphic loonies and toonies (Canadian coins) wearing toques and mittens build intricate ice sculptures, while polar bears in Toronto Maple Leafs jerseys watch from ice fishing holes. The entire scene is dotted with tiny Tim Hortons shops that emerge from snowdrifts like mushrooms, with lines of cheerful figures in parkas waiting patiently. The color palette features rich blues of the northern lights, deep reds of the Canadian flag, warm ambers of maple syrup, and the earthen tones of beaver fur and moose antlers, all rendered with Bosch's meticulous detail and fantastical vision.
+
+
+1. **Frozen Throne Speech** – PM gives speech to flannel mob and hybrid geese.
+2. **Gothic Rink Riot** – surreal rink riot beneath Peace Tower.
+3. **Beaver Budget Bonanza** – ghostly ministers ride beavers through snowstorm.
+4. **Molson Mace March** – MPs drag ceremonial mace through the snow.
+
+**SUBSET 4: PORTRAIT**
+
+1' Canadian Man
+A surreal portrait of a stoic Canadian hoser, standing in a snowy wilderness under swirling northern lights in vibrant greens, purples, and reds, forming faint geese and maple leaf shapes. His weathered face glows with amber eyes, a thick beard flecked with glowing ketchup chip crumbs. A living beaver-fur toque crowns his head, tiny beavers chewing hockey sticks sprouting like twigs. His plaid shirt melts into rivers of maple syrup, pooling at his duct-tape-patched boots, steam rising as loon faces. He grips a hockey stick with a frozen Tim Hortons coffee blade, its shaft a sap-dripping branch. Behind him, trees of stacked ketchup chip bags glint, a moose with hockey-net antlers looms, and the ground crunches with coffee-ground snow. Cinematic lighting, hyper-detailed, surreal yet rugged, in a bold Canadian wilderness palette of red, white, amber, and aurora hues.
+
+2. **Cherryhead Hockey Spectacle** – surreal cherry-headed version.
+A surreal, Bosch-inspired oil painting of a sharply dressed Canadian hockey commentator with a giant ripe cherry for a head and a pristine white goatee, standing on a frozen podium under the northern lights. He wears an outrageous, high-collared suit covered in loud red-and-white plaid, embroidered with golden moose, maple leaves, and snarling hockey pucks. The suit glistens like royal regalia. Around him, thousands of jubilant hosers in plaid salute him with raised Molson beer cans and Tim Hortons cups, while hockey players throw their gloves in the air like confetti. Beavers in suits play trumpets made of sticks. A massive floating donut ring encircles a Tim Hortons logo in the sky like a divine halo. In the distance, Mounties on ice skates blow kisses. The ice rink beneath the cherryhead glows faintly red, as if anointed.
+
+3. **The Great One and The Hosers** – Gretzky with the McKenzie Brothers.
+A surreal, Bosch-inspired portrait of Wayne Gretzky in his classic Edmonton Oilers jersey, flanked by Bob and Doug McKenzie in plaid flannel and toques, holding beer cans and hockey sticks. They stand triumphant on a glowing frozen lake beneath northern lights. Hosers cheer in the background, geese fly overhead, and a moose in goalie pads guards a net made of maple syrup barrels.
+
+4. Zamboni Queen
+A surreal, Bosch-inspired portrait of a regal woman resembling Queen Elizabeth II on a Canadian royal tour, seated atop a majestic Zamboni like a mobile throne. She wears a dignified coat, white gloves, and a crown made of icicles and maple leaves. Around her swirl chaotic hosercore imagery: plaid-clad hockey fans waving Molson flags, beavers playing trumpets, moose in RCMP uniforms, and Mounties struggling to maintain order. The Zamboni glides over a frozen lake under swirling northern lights, trailing Tim Hortons cups, ketchup chip bags, and hockey pucks. In the distance, a donut-shaped Parliament floats in the sky. The queen remains poised, expression serene amid the surreal patriotic chaos.
+
+EXTRA **Don Cherry’s Northern Triumph** – in full floral suit glory.
+A surreal Bosch-inspired oil painting of Don Cherry standing triumphantly on center ice beneath a sky lit by aurora borealis and fireworks shaped like maple leaves. He wears one of his most iconic suits: a screaming red-and-white floral pattern with wide lapels, a fat tie, a rose boutonniere, and a handkerchief exploding from his pocket like a peacock tail. His white goatee gleams under celestial light. Thousands of hosers surround him in worship, raising Molson Canadian beers and Tim Hortons cups in salute. Hockey players kneel, saluting with sticks. A massive moose in a Mountie uniform presents him with a crown made of antlers and pucks. Floating ketchup chips and glazed donuts swirl around him like saintly iconography. Behind him, a golden Zamboni carved with maple leaves slowly circles the rink like a chariot of gods.
+
+JOHN CANDY
+A whimsical, painterly portrait of a smiling John Candy, wearing a thick, slightly askew toque and a cozy, oversized plaid jacket, standing against a backdrop of a frozen Lake Ontario under a glowing Timbit moon and gently swirling, green maple-leaf northern lights. He's jovially juggling frozen Nanaimo bars and hockey pucks, with a spilled cup of Tim Hortons double-double at his feet, forming a small frozen puddle. In the background, subtle, non-grotesque beavers play a game of frozen shinny with miniature hockey sticks. The iconic Second City logo is faintly etched into the icy surface of the lake. The overall feeling is warm and nostalgic, celebrating Candy's Canadian heritage and his beloved comedic presence in a uniquely hosercore setting. 
+
+Portrait: David Suzuki: The Hoser Naturalist (CBC-sponsored)
+"A Hieronymus Bosch-inspired portrait of a stoic, flannel-clad David Suzuki, his face weathered but earnest, standing amidst a frozen Canadian wilderness under a swirling, green maple-leaf northern lights and a glowing Timbit moon. He holds a gnarled, ice-covered Molson bottle like a field guide, observing a chaotic tableau of nature. Around him, grotesque yet whimsical animal hybrids—a wise old moose with eyes like ancient microscopes, beavers with tiny CBC microphones attempting to record bizarre frozen sounds, and raccoons carefully cataloging discarded Molson empties—interact in the snow. A prominent, subtly glowing CBC logo is etched into the ice behind him, resembling an ancient petroglyph, while thin, frozen lines of light representing CBC broadcast signals emanate from his very being, connecting him to the wild. The scene is rich with painterly texture, chaotic detail, and a deep, surreal reverence for Canadian nature and media."
+
+
+**SUBSET 5: TORONTO**
+
+1. **Union Igloo Station** – GO train is a slime-green Zamboni, demonic geese, CN Tower.
+A Bosch-inspired subterranean ice labyrinth where a slime-green Zamboni GO Train slithers across frozen rails, belching maple-scented steam. The CN Tower looms through the ice ceiling like a cathedral spire, impaled with glowing hockey sticks. Commuters in tattered plaid coats trudge through dripping tunnels carved from permafrost, watched by demonic Canada geese wearing TTC armbands. Tim Hortons kiosks sprout like fungi, their red cups whispering secrets to the damned. Hybrid creatures—half beaver, half transit cop—direct traffic with poutine-stained flares. The arrival bell is a gong made from frozen doughnuts.
+
+2. **Dundas Square Apocalypse** – MuchMusic, CBC, Shoppers signs in neon hellscape.
+A Bosch-inspired nightmare in Yonge-Dundas Square, transformed into a surreal Canadian apocalyptic scene. Giant glowing billboards for MuchMusic, CBC, Shoppers Drug Mart, and RBC loom overhead, flickering in the snowstorm like omens. The streets are filled with zombified hockey fans in Maple Leafs jerseys, wandering through icy slush and fallen TTC streetcars oozing poutine. A towering raccoon in a Mountie hat claws at a collapsed Tim Hortons. Hosers in plaid coats huddle around flaming oil barrels beneath cracked billboards, sipping Molson as demon geese dive from above. A rogue Zamboni spins donuts across the square. The CN Tower glows in the distance, its tip struck by northern lights. Total surreal chaos, overloaded with cursed Canadian iconography, drenched in shadowy Bosch textures.
+
+3. **Canadian Tire Ice Fishing Derby** – CN Tower looming over absurd derby.
+A Bosch-inspired surreal ice-fishing derby high above Toronto, where flannel-clad hosers have transformed the CN Tower into a sacred fishing rig. Dozens of fishing lines dangle from its observation deck into glowing, ice-choked subway tunnels far below. Under a sky swirling with northern lights and corporate drone ads, the scene is packed with Canadian Tire logos and banners flapping proudly. Hosers grill beaver tails over flaming oil drums, sip Molson from golden thermoses, and blast Stompin’ Tom from vintage radios. Snow-covered moose serve as referees. A holy puck encased in ice hovers midair like a relic. Massive goose-demons observe from nearby rooftops, solemn and silent. The entire city pulses with celebration—a surreal, hyper-Canadian carnival of plaid, frost, and faith.
+
+4. **Toronto Island Dusk** – surreal ferry scene with frozen beer party.
+A Bosch-inspired dreamlike scene set on Toronto Island at dusk. Frozen lake ice stretches out toward the city skyline, barely visible through dense fog. A surreal maple forest grows where Centreville should be, filled with warped picnic tables, haunted paddle boats, and glowing Timbit-shaped lanterns hanging from trees. Lumberjack ghosts in plaid float between leaning ice shacks and sunken canoes. A silent moose stands on a lifeguard tower, its antlers strung with fairy lights. The CN Tower looms in the background, distant and crooked, its light pulsing like a dying beacon. Strange figures skate in slow motion around campfires on the lake, watched over by oversized loons perched on Victorian-style rooftops. Haunting, quiet, thick with atmosphere — an island dream frozen in time and syrup.
+
+**SUBSET 6: BUD THE SPUD (STOMPIN’ TOM CROSS-COUNTRY TOUR)**
+
+* All images include:
+
+  * **Stompin’ Tom wearing black, holding his guitar**
+  * **Truckload of PEI potatoes** (not “rusty potato truck”)
+  * **Frozen landscape + auroras + Timbit moon**
+  * **Crowds of flannel-clad hosers with beer and Bosch beasts**
+
+1. **Charlottetown Kitchen Party** – tom on truck, lobster beasts, Molson & Acadian flags.
+A Bosch-inspired winter kitchen party in Cape Breton, surreal and overstuffed with detail. Stompin’ Tom Connors, dressed in black and playing his guitar, stands atop a crooked potato truck buried in snow, its load gleaming under the ghostly green northern lights. Flannel-clad hosers with distorted limbs dance wildly on icy wooden planks beside bonfires, hoisting Molson bottles. The crowd is packed with Bosch-style grotesques — puffin-headed fiddlers, raccoon musicians, drunken beavers in snowpants. Behind them, warped shacks lean at impossible angles, lobster traps spill into the snow, and crooked lighthouses loom under an aurora-lit sky. A massive tattered Canadian flag flaps above the chaos. Molson logos appear carved into frosted barrels and stitched into hockey pads. Everything glows with haunted intensity — a frozen, medieval-Canadian fever dream.
+
+2. **Cabane à Sucre Infernal** – syrup spirits, demonic poutine, Molson maple jug.
+A surreal Bosch-inspired winter scene under swirling northern lights shaped like maple leaves. In front of a haunted sugar shack leaking maple syrup from its windows, a flannel-wearing crowd of deranged Canadian hosers dance wildly around frozen bonfires, waving beer bottles. Stompin’ Tom Connors stands in black on top of his rusty potato truck, playing guitar, surrounded by barrels overflowing with syrup. Grotesque forest spirits and twisted raccoons tend to bubbling cauldrons of syrup. A demonic poutine creature lumbers in the background. Strange Boschian animals lurk among the snowbanks. A massive Molson maple jug looms like a shrine near the fire. The whole scene is steeped in chaotic winter celebration, beer-soaked revelry, and painterly horror-comedy in the frozen Quebec wilderness.
+
+3. **Hamilton Skyway Hoedown** – Ti-Cats with hockey sticks, traffic jam, mills in background.
+Surreal winter night scene on the Burlington Skyway Bridge in Hamilton, transformed into a chaotic Canadian spectacle. Bud the Spud stands atop his rusty potato truck, which is stuck in traffic amid flannel-clad hosers who have shut down the bridge. In the background, the distant steel mills glow with molten light beneath eerie northern lights shaped like maple leaves. At the center, the Hamilton Tiger-Cats are playing football with hockey sticks in a blasphemous fusion of sports. Hosers cheer wildly, drinking Molson, waving flaming foam fingers, and riding bizarre Bosch-style moose hybrids. The bridge is littered with frozen roadkill, strange traffic detritus, and infernal Tim Hortons paraphernalia. A giant jar of mustard with a tiger face towers in the background. The entire scene is painted in a dark, painterly style inspired by Hieronymus Bosch, blending Canadian kitsch with grotesque medieval surrealism. Everything is locked in a frozen moment of Oskee Wee Wee madness.
+
+4. **Niagara Falls Chaos** – demonic Clifton Hill, flaming beavertails, Ferris wheel horror.
+Surreal winter night at Niagara Falls in full Hieronymus Bosch meets hosercore style. The frozen Horseshoe Falls erupt with mist and maple-leaf-shaped auroras overhead. Clifton Hill is twisted into a grotesque carnival: neon-lit wax museums, flaming haunted houses, demonic animatronic moose, and a broken Ferris wheel spinning out hoser-faced beasts. Stompin' Tom Connors stands atop his truckload of PEI potatoes, parked beside a cursed souvenir shop selling rigged snowglobes and beavertails that scream. Flannel-clad hosers with beer bottles stagger through snowbanks between casinos and mini-putt courses, pursued by grotesque tourist-entity hybrids — slot machine moose, cotton candy banshees, syrup-glazed ghouls. A frozen Maid of the Mist boat sinks under the weight of gambling spirits. Molson jugs litter the ice. Chaotic, infernal, and unmistakably Canadian.
+
+
+5. **Prairie Harvest Festival** – frozen desert festival, hay bales, RBC + CBC banners.
+Surreal winter harvest festival on the frozen Canadian Prairies, in the style of Hieronymus Bosch meets Canadian kitsch. Stompin’ Tom Connors, dressed in black, stands atop a truckload of PEI potatoes, strumming his guitar beneath a swirling sky of green maple-leaf-shaped northern lights. Above it all, a giant Timbit hangs in the sky like the moon — glazed, golden-brown, and faintly steaming in the frozen air.
+The flannel-wrapped hosers drink Molson and cheer beside demonic threshers and snowbound harvest floats, one shaped like a cursed butter tart. The RBC logo glows from an ice-crusted grain elevator, while a towering CBC broadcast tower pulses its snow-covered logo across the sky like a lighthouse of public funding.
+Bosch-style hybrid beasts — prairie dogs fused with combines and pickup trucks — shuffle through snowdrifts as a skeletal scarecrow in a hockey jersey referees a chaotic ice-scrimmage near the edge of the festival grounds.
+This is not a harvest of abundance — it’s a harvest of hoserdom. Snow flies, beer flows, and the Timbit moon watches all.
+
+6. **Rocky Mountain Olympics** – torch lit by beer, Shoppers logo on ice rink.
+Surreal winter scene in the Canadian Rockies, styled like a frozen Hieronymus Bosch painting meets national kitsch. A vast Olympic ceremony unfolds under the northern lights and a glowing Timbit moon. Stompin’ Tom Connors stands atop a truck loaded with PEI potatoes, guitar in hand, wearing all black. Flannel-clad hosers hoist Molson cans and cheer as bizarre Bosch-style athletes ski, skate, and sled past grotesque snow beasts with Olympic torches for heads. The Olympic cauldron is shaped like a flaming beavertail. Giant Shopper's Drug Mart logo banners wave above twisted wooden bleachers packed with demonic fans and snow-moose hybrids. In the distance: jagged mountains, haunted ski chalets, and a Zamboni bobsled. Crisp Shoppers branding is visible on scarves, banners, and sponsorship booths. Flurries fall through auroras shaped like green maple leaves. A parody of Canadian nationalism, hellish and hilarious.
+
+7. **Vancouver Grand Finale** – *\[to be completed by future AI]*
+# **8. Vancouver Grand Finale** 
+
+**"Bud's Last Stand at the Seawall"** – A surreal Bosch-inspired apocalyptic finale on Vancouver's frozen seawall under swirling northern lights shaped like orcas and maple leaves. Stompin' Tom Connors, dressed in black with his guitar, stands triumphantly atop his final truckload of PEI potatoes, now crystallized into gleaming ice sculptures. The truck teeters on the edge of English Bay, which has frozen solid into a hockey rink stretching to the horizon.
+Flannel-clad hosers from across the country have converged for this ultimate pilgrimage – prairie farmers in frozen overalls, Maritimers clutching lobster traps, Quebecois separatists and federalists united in drunken harmony, all waving Molson bottles and singing off-key. They're pursued by grotesque Boschian rain-beasts – part seagull, part salmon, part soggy Tim Hortons napkin – that dive-bomb from the aurora-lit sky.
+The North Shore mountains loom as frozen titans wearing crowns of ski chalets and CBC transmission towers. Stanley Park has become a twisted forest of totem poles carved with hockey sticks and beaver faces, where demon cyclists in Gore-Tex still pedal frantically through the snow on bikes with maple syrup chains.
+A massive Shoppers Drug Mart logo glows from the peak of Grouse Mountain like a neon crucifixion, while the Lions Gate Bridge has transformed into a suspension bridge made entirely of frozen poutine, groaning under the weight of pilgriming hosers crossing from North Van.
+In English Bay's frozen center, a whirlpool of melting ice reveals the ghostly outline of a submerged Zamboni, its driver still gripping the wheel as orcas with Canucks jerseys circle beneath the ice. The CN Tower from Toronto appears as a mirage on the horizon, bent and twisted like a hockey stick in a house fire.
+The scene climaxes as Tom strikes his final chord – the sound waves crack the ice, sending hosers sliding into steam vents that smell of fish and chips. A parliament of ravens wearing tiny toques descends from the mountains, each carrying a miniature Canadian flag. The Timbit moon reaches its zenith, casting everything in golden, glazed light as the aurora borealis explodes into the shape of a massive beaver tail, blessing this frozen coast-to-coast journey.
+Behind it all, the Pacific Ocean has become a vast sheet of black ice reflecting the chaos above, while cruise ships locked in permafrost serve as floating Tim Hortons franchises, their smokestacks puffing maple-scented steam into the aurora-drunk sky. This is where all Canadian roads end – in beautiful, beer-soaked, syrup-sticky chaos by the sea.
+
+
+
+**SUBSET 7: COTTAGE COUNTRY**
+
+1. Huntsville Winter Carnival (Revised):
+"A Hieronymus Bosch-inspired painting of a surreal winter carnival on Huntsville's main street, frozen solid under a Timbit moon and green maple-leaf northern lights.  Flannel-clad hosers, their faces grotesquely contorted by Molson revelry,  chisel monstrous Canadian Tire wrenches and Muskoka chairs from ice.  A massive, gnarled moose, its antlers festooned with frozen beaver pelts, operates a ring toss with glowing snow tires as prizes.  Demonic beavers in tattered toques judge with judging mallets made of frozen Molson bottles, while a skeletal loon DJ spins records of screams from atop a snowbank of discarded Tim Hortons cups.  Canadian Tire banners, tattered and wind-whipped, hang like spectral flags from leaning lamp posts, their logos barely visible through the swirling snow.  A towering, malevolent ice sculpture of the Canadian Tire triangle logo, impaled with glowing hockey sticks, dominates the scene, reflecting the aurora's eerie glow.  The ground is a treacherous mix of ice, snow, and frozen beer puddles.  This is a nightmarish, yet hilariously Canadian, winter bacchanal. "
+
+2. Pond Fishing/Hunting (Revised):
+"A surreal, Bosch-inspired oil painting depicting a chaotic ice fishing and hunting derby on a frozen Canadian pond, under a Timbit moon and swirling green maple-leaf northern lights. Flannel-clad hosers, their faces contorted in exaggerated concentration, huddle around ice holes that glow with an eerie light, their Molson bottles steaming in the frigid air. Instead of fish, they pull up absurd catches like frozen Canadian Tire tape measures and miniature, squirming Canadian Tire wrench figures. A wise old moose, wearing thick spectacles and a hunting vest made of frozen hockey pads, sits on a precarious ice throne, judging the chaotic scene. Beavers in Mountie hats, their tails serving as measuring tapes, inspect the bizarre 'catches.' In the background, other hosers aim frozen hockey sticks like rifles at flocks of geese with glowing red eyes, while other fantastical, yet non-demonic, hybrid creatures lurk in the snow-covered trees. Prominent, but subtly integrated, Canadian Tire logos appear on equipment and scattered ice shacks. The scene is rich with painterly texture, chaotic details, and a whimsical yet frozen Canadian absurdity."
+
+3. Algonquin Campout Chaos:
+"A surreal, Hieronymus Bosch-inspired painting of a chaotic winter camping trip in Algonquin Park, under a swirling green maple-leaf aurora borealis and a glowing chocolate Timbit moon. Flannel-clad hosers, their faces contorted with hunger and frustration, attempt to roast entire bags of Lay's Ketchup Chips over a sputtering campfire made of frozen Molson cases, the chips sparking like grotesque fireworks. Their Canadian Tire camping chairs are haphazardly arranged, some sinking into patches of glowing permafrost. A friendly but unsettling black bear, wearing a tattered park ranger hat and clutching a Canadian Tire thermos, serves hot chocolate that steams with an eerie green light. Raccoons with tiny, bulging backpacks, their eyes glowing faintly, distribute Canadian Tire flashlights that illuminate nothing but swirling snow and forgotten Molson empties. Canoes are frozen upright in the lake, forming a skeletal forest. A colossal, wise moose, its antlers strung with antique Canadian Tire headlamps, reads a map upside down, directing lost hikers into swirling snowdrifts. Owl naturalists, with unsettlingly human eyes and tiny spectacles, conduct a nightmarish nature walk, pointing at grotesque hybrid creatures lurking in the snow-heavy pine trees. The scene is thick with painterly texture, chaotic detail, and the chilling absurdity of a Canadian winter camp gone horribly, hilariously wrong."
+
+4. Beach/Ski Trip on Frozen Lake Muskoka:
+"A Hieronymus Bosch-inspired painting of a chaotic 'beach/ski trip' on the impossibly frozen Lake Muskoka, under a glowing chocolate Timbit moon and a swirling, green maple-leaf aurora borealis. Flannel-clad hosers, their faces contorted in expressions of both extreme cold and frantic joy, attempt to ski across the ice on Canadian Tire ski equipment while simultaneously sunbathing in frozen Muskoka chairs. Their Molson bottles are jammed into snowdrifts, steaming like geysers. A colossal, benevolent moose, wearing a comically small 'beach' hat, serves frozen poutine from a Canadian Tire cooler. Beavers in tiny speedos, their fur matted with ice, attempt to build sandcastles out of snow and ice. In the distance, a figure strikingly resembling Shania Twain, bundled in a plaid parka and waving a Canadian flag, glides past on ice skates, her silhouette framed by distant, ice-encrusted cottages. A massive, snow-covered Canadian Tire banner stretches across the sky like a bizarre contrail. The scene is rich with painterly texture, chaotic detail, and the bizarre joy of a truly Canadian winter beach party.
+
+
+CBC
+
+1.News Broadcast
+A Hieronymus Bosch-inspired painting of a surreal CBC news broadcast taking place in a chaotic, frozen Canadian wilderness under a Timbit moon and swirling, green maple-leaf northern lights. At the center, a grotesque CBC anchor, a hybrid of a stoic newsman and a wise old beaver, sits behind a news desk carved entirely from shimmering ice. The desk is adorned with a frozen microphone stand shaped like a hockey stick and a teleprompter displaying flickering Canadian Tire logos. Behind the anchor, a distorted map of Canada glows faintly, showing bizarre weather patterns like poutine avalanches cascading down the Rockies and rivers of Molson beer flowing into Hudson Bay. From the field, other CBC personalities — a polar bear in a tattered "The Nature of Things" branded scarf wrestling a sentient maple syrup spirit, and a loon with a CBC microphone reporting on a chaotic "Marketplace" segment where possessed shopping carts battle over oversized Tim Hortons cups — appear through ghostly ice projections. The iconic CBC logo, rendered as a fractured, glowing light-bar, pulses within the aurora. Flannel-clad hosers, their faces contorted in wide-eyed reverence, watch the broadcast on small, ice-encased television sets that emerge from snowdrifts like mushrooms. The entire scene is rendered with meticulous detail and a painterly texture, blending the absurd with the nationalistic."
+
+2. Hockey Night in Canada
+A Hieronymus Bosch-inspired painting of a surreal Hockey Night in Canada broadcast, set within a vast, impossibly frozen arena under a Timbit moon and a swirling, green maple-leaf northern lights. At center ice, a sharply dressed Don Cherry, with a grotesquely exaggerated cherry for a head and a pristine white goatee, gesticulates wildly from a commentator's booth made of fractured hockey sticks and glowing ice. Beside him, a calmer Ron MacLean, his face subtly distorted by the cold, attempts to read from a score sheet made of frozen maple leaves. Hockey players, their bodies warped into absurd, stick-like figures, battle fiercely over a glowing CBC logo that serves as the puck. The crowd is a Boschian maelstrom of flannel-clad hosers, some with faces contorted in ecstatic cheers, others weeping tears of Molson beer, all waving Canadian flags and bizarre, animate hockey memorabilia. Grotesque animal-musicians play instruments crafted from frozen beer bottles and hockey pads, performing a cacophonous symphony. Canadian Tire banners, tattered and frozen, hang precariously from the rafters, while the iconic CBC 'light-bars' logo pulses erratically in the background, reflected in the cracked ice. The scene is rich with painterly texture, chaotic detail, and a darkly humorous celebration of Canadian hockey obsession.
+
+3. Anne Shirley
+A Hieronymus Bosch-inspired painting of a surreal, frozen version of Green Gables, transformed into a peculiar asylum, under a glowing chocolate Timbit moon and swirling, green maple-leaf northern lights. At its heart, an earnest, wide-eyed Anne Shirley, with vibrant red braids, attempts to tend to rows of screaming, frozen raspberry bushes. Marilla and Matthew, their forms grotesquely twisted yet imbued with a silent, frozen concern, observe the scene. Flannel-clad hosers, their faces contorted in varying degrees of madness and revelry, wander the grounds, clutching and chugging Molson beer bottles. Strange, yet non-demonic, hybrid creatures—beavers in bonnets, loons in sailor suits, and multi-limbed farm animals—roam the snow-covered landscape. Haunting lighthouses emerge from snowdrifts, and spectral fishing boats are frozen mid-air over the bizarrely solid lake. The CBC logo subtly appears as a chilling weather vane on the barn or as a pattern in the snow-laden fences, while Canadian Tire signage peeks through the frozen foliage. The scene is rich with painterly texture, chaotic detail, and a deeply unsettling yet oddly beautiful Canadian absurdity.
+
+
+4. CBC Kids
+A whimsical, painterly depiction of a surreal CBC Kids' television set transformed into a cosmic, frozen playground under a swirling, green maple-leaf northern lights and a giant chocolate Timbit moon. Beloved, yet gently distorted, figures of CBC children's show characters—a stylized Mr. Dressup, a towering, benevolent Friendly Giant made of glowing snow, a slightly off-kilter Polkaroo—oversee the bizarre scene. Small flannel-clad hosers, their faces alight with innocent, wide-eyed wonder, slide down frozen structures and swing on ropes, many clutching tiny Molson beer baby bottles. The playground equipment is constructed from snow and ice, with whimsical, impossible shapes. Strange, friendly-yet-unusual animal hybrids—chubby beaver-like creatures and raccoons with curiously long tails—interact playfully with the children. The iconic CBC logo, rendered as a subtle, glowing outline, pulses gently in the permafrost, visible from the cosmic background. The scene is rich with painterly texture, delightful, chaotic details, and a charmingly absurd Canadian youth.
+
+
+BELL
+
+1.
+A Hieronymus Bosch-inspired painting of a colossal, menacing Bell corporate tower, a dark monolith of frozen communication, piercing a sky under a chocolate Timbit moon and swirling, green maple-leaf northern lights. Its upper echelons are obscured by an icy haze, implying unreachable power. Below, flannel-clad hosers, their faces contorted in frustration, grapple with grotesque, frozen switchboards and ancient, uncooperative rotary phones that sprout from the snow like metallic fungi. Tangled wires, stiff with ice, stretch like skeletal veins across the landscape, connecting nowhere to everywhere, ensnaring bewildered moose and beavers who try to chew through the impossible network. The Bell logo, immense and subtly glowing with a cold, oppressive light, is embedded in the tower's base, casting long, chilling shadows over the desolate, snow-covered land. Molson bottles are scattered, frozen in perpetual disuse, beside desperate attempts at connection. The scene is rich with painterly texture, chaotic detail, and the chilling absurdity of a corporate grip on a frozen nation.
+
+2.
+A Hieronymus Bosch-inspired painting of a chaotic curling match, Bell versus Rogers, played on an impossibly frozen lake under a chocolate Timbit moon and swirling, green maple-leaf northern lights. Players, flannel-clad hosers  with faces contorted in intense, comical focus, sweep the ice with giant brooms made of tangled phone cords, their Molson bottles frozen into their hands. The curling stones are massive, glowing versions of the Bell 'B' logo and the Rogers sphere logo, leaving trails of static electricity on the ice. Anthropomorphic Canadian coins—gleaming loonies and toonies with expressive faces—cheer wildly from the sidelines, tumbling over each other in excitement. A colossal moose, wearing a referee's striped toque, blows a whistle made of a frozen cell tower. Grotesque beavers, acting as scorekeepers, furiously peck at ice tablets with their tails. The sky is streaked with abstract Bell and Rogers signal patterns, subtly suggesting a battle for airwaves. The scene is rich with painterly texture, chaotic detail, and the absurd corporate rivalry of a frozen Canadian winter.
+
+
+---
+
+**TONE RECAP:**
+
+* **Hellish & Hilarious**
+* **Nationalist but Absurd**
+* **Painterly & Detailed**
+* **Cohesive Recurring Visual Symbols**
+
+---
+
+**HANDOFF NOTE:**
+This style guide defines all current completed subsets and their cohesive visual grammar. Any future expansion (including Vancouver and new subsets) must match this style in tone, visual complexity, iconography, and surreal logic. Avoid lazy repetition or generic substitutions. The joy is in the detail.
+
+—END—
+
+
+
+
+**Hand-off Notes for Claude, Grok, or Other AI**
+
+* Continue from Stop #8 (Vancouver).
+* Maintain style consistency.
+* Do not try to "evolve" the aesthetic. Stay true to the frozen Boschian hoser universe.
+* Be funny, be bleak, be Canadian.
+
+
+
+# **SUBSET 7: COTTAGE COUNTRY** (provided by claude ai but needs reworking for more bosch influence) 
+nope. its comical cartoony without a distinct bosch influence. lets make it far more bosch without becoming unhinged. ive only tested the first prompt so lets just focus on that for now
+
+
+## 1. **Huntsville Winter Carnival**
+A frozen main street carnival under glowing northern lights and the Timbit moon. Flannel-clad hosers clutch Molson bottles while competing in ice sculpture contests—carving giant Canadian Tire wrenches and Muskoka chairs from solid ice. A massive moose in a carnival barker hat operates a ring toss game using snow tires. Beaver judges in red toques score the sculptures while a loon DJ spins records from atop a snowbank. Canadian Tire banners flutter between lamp posts as polar bear mascots hand out flyers. The main ice sculpture: a towering replica of the Canadian Tire triangle logo, glowing amber in the aurora light.
+
+## 2. **Ice Fishing Championship** 
+Frozen Lake Muskoka hosts the ultimate ice fishing tournament beneath swirling northern lights. Hosers in Canadian Tire-sponsored parkas huddle around illuminated ice holes, beer bottles steaming in the cold. Their portable ice huts display prominent Canadian Tire logos and are stocked with Mastercraft fishing gear. A wise old moose wearing reading glasses judges the catch from a folding chair. Beavers in referee stripes measure fish with Canadian Tire tape measures. The winning prize: a golden ice auger. In the background, a loon lifeguard watches from a tower made of stacked tackle boxes, while the Timbit moon casts golden light across the frozen lake.
+
+## 3. **Algonquin Campout Chaos**
+A surreal winter camping scene in Algonquin Park under the aurora borealis. Hosers in heavy parkas toast marshmallows over a roaring campfire, their Canadian Tire camping chairs arranged in a perfect circle. A friendly black bear wearing a park ranger hat serves hot chocolate from a thermos while raccoons in tiny backpacks distribute Canadian Tire flashlights to campers. Canoes are frozen into the lake ice like ancient monuments. A moose equipped with a headlamp reads a map, directing lost hikers. The Timbit moon illuminates snow-heavy pine trees as owl naturalists in tiny glasses conduct a nighttime nature walk. Molson bottles are buried in snowbanks as natural coolers.
+
+## 4. **Blue Mountain Ski Spectacular**
+A chaotic ski hill scene under northern lights shaped like snowflakes. Hosers in bright ski jackets navigate the slopes while clutching beer bottles, their Canadian Tire ski equipment gleaming. The chairlift is operated by a beaver in a winter hat, while a moose ski instructor demonstrates perfect form at the base lodge. A polar bear runs the equipment rental, fitting hosers with Canadian Tire snowshoes and skis. The lodge features a massive Canadian Tire sign and serves steaming Timbits to frozen skiers. A loon snowboarder performs tricks in the terrain park as the Timbit moon provides golden light for night skiing. Après-ski hosers gather around fire pits, their snow-covered gear bearing Canadian Tire logos.
+
+
+
+ROUGH WORK AREA (IRRELEVANT)
+
+
+
+
+
+
+
+A fantastical Bosch-inspired Canadian dreamscape under dancing northern lights. At its center, a massive maple tree with branches that transform into hockey sticks, dripping with golden maple syrup that pools into miniature Tim Hortons coffee cups. Mounties riding moose play an impossible hockey game on a frozen lake that spirals upward defying gravity, using beaver tails as paddles and a glowing puck made of poutine. The Canadian parliament buildings float upside-down in the sky, connected by rainbow bridges made of plaid patterns. In the foreground, anthropomorphic loonies and toonies (Canadian coins) wearing toques and mittens build intricate ice sculptures, while polar bears in Toronto Maple Leafs jerseys watch from ice fishing holes. The entire scene is dotted with tiny Tim Hortons shops that emerge from snowdrifts like mushrooms, with lines of cheerful figures in parkas waiting patiently. The color palette features rich blues of the northern lights, deep reds of the Canadian flag, warm ambers of maple syrup, and the earthen tones of beaver fur and moose antlers, all rendered with Bosch's meticulous detail and fantastical vision.
+
+
+A miniature, jewel-toned painting in the style of Hieronymus Bosch showing a chaotic scene inside a giant Tim Hortons cup beneath the northern lights. Tiny figures in plaid lumberjackets are frantically trying to bail out maple syrup flooding the cup, while moose with hockey stick antlers serve coffee to bewildered polar bears.
+
+
+
+
+
+
+"Surreal artwork in the style of Bosch: A massive, bioluminescent maple leaf floats in the sky above a frozen landscape illuminated by the aurora borealis. Hockey players with elongated, insect-like limbs skate across the leaf's surface, attempting to score goals with miniature Zambonis. Below, beavers are constructing a cathedral made of hockey sticks and Tim Hortons cups."
+
+A dreamlike Boschian landscape under the northern lights where the Parliament Buildings of Canada have sprouted bizarre, organic growths resembling giant poutine dishes. Tiny RCMP officers with fish tails are swimming in a river of maple syrup, while a colossal moose wearing a toque watches a curling match played with giant doughnuts.
+
+In the style of Hieronymus Bosch, a crowded and fantastical depiction of a Canadian wedding ceremony taking place on a frozen lake under the aurora borealis. The bride and groom, dressed in full hockey gear, exchange vows while standing on a giant beaver. Guests include a bizarre assortment of Canadian animals and mythical creatures, all wearing toques and drinking beer. The wedding cake is a towering stack of butter tarts.
+
+A nightmarish yet humorous Bosch-inspired scene: A giant, multi-headed beaver wearing a goalie mask guards a net made of Tim Hortons cups. Hockey pucks shaped like maple leaves fly through the air as grotesque figures representing Canadian stereotypes (the overly polite apologizer, the beer-swilling fan, etc.) attempt to score under the eerie glow of the northern lights
+
+A surreal emoji rendered in the style of Bosch: A maple leaf with human eyes weeps tears of maple syrup onto a hockey rink that is inexplicably located inside a giant Tim Hortons coffee cup. The background features a stylized aurora borealis and tiny figures of Mounties riding moose
+
+A burly hoser in a swirling plaid shirt (the pattern morphs into tiny beavers mid-check) stands knee-deep in a forest clearing, cracking open a Molson Canadian that sprays foam into the sky. The foam twists into a shimmering northern lights display, tinting the scene in neon greens and purples. Instead of a regular moose, he’s riding a surreal beast—its antlers are tangled hockey sticks dripping with maple syrup, and its eyes glow like Tim Hortons drive-thru signs. The ground is a crunchy mix of snow and Lays's ketchup chip crumbs, reflecting the aurora like a psychedelic mirror. In the background, a gang of Mounties in red serge munch glowing ketchup chips, their crumbs raining down to form a mini hockey rink where tiny loons skate with beer cans for pucks.
+
+Typography:
+
+"I AM HOSER, EH!" blasts across the top in massive, rugged red letters, edged in white like fresh snow. Below, in smaller, jagged script: "Crack a Molson, ride the wild, eh—Canada’s surreal brew!" The Molson logo sits bottom-right, half-buried in the chip-snow, with a faint syrup drip running off it.
+
+
+MOUNTIES
+
+
+
+
+
+
+
+

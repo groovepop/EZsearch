@@ -1,0 +1,52 @@
+    “A zombie sunflower with a torn, shrieking face in the center, petals made of brittle yellow skin, green vines replacing its limbs. Rendered in thick, expressive oil brushstrokes with visceral textures.”
+
+    “Rotten corn stalks fused with skeletal arms, their husks oozing bile, dragging rusty tools across a cracked garden path. Punk comic grunge with exaggerated anatomy and jagged outlines.”
+
+    “A bloated toadstool creature with glassy dead eyes and a fungal spine, its cap cracked open revealing exposed nerves and moss. Muted palette with scratchy pastel textures.”
+
+    “A hybrid rosebush zombie with tangled limbs, thorns piercing its own skin, crawling toward sunlight through a toxic fog. Bold, surreal colors dripping with decay.”
+
+    “Venus flytrap heads sprouting from a decaying body, each mouth twitching with hunger. Painted in a chaotic, painterly collage style with smeared dirt textures.”
+
+2. 🪦 Decaying Garden Landscapes (Environment Class: "The Withering Grounds")
+
+These prompts define the haunting world—rotting suburbia overtaken by undead flora.
+🔹 Prompts:
+
+    “A shattered greenhouse overtaken by black vines and bloated fruit corpses, sunlight bleeding through broken glass in sickly yellow rays.”
+
+    “A suburban backyard overrun by animated mulch piles, decomposed gnomes, and lawn furniture partially devoured by creeping moss. Painted with grungy ink lines and watercolor rot.”
+
+    “Cracked concrete flowerbeds oozing with fungal bloom, spores rising in waves as skeletal roots burst from beneath.”
+
+    “Dead trees with bleeding bark loom over an abandoned potting shed, the walls covered in floral glyphs scrawled in blood.”
+
+    “An overgrown cul-de-sac flooded in green sludge, sunflower corpses bobbing in pools of brackish water, rendered in sick pastel tones and raw textures.”
+
+3. 🌸 Grotesque Flora (Creature Class: “The Bloomspawn”)
+
+Here we push more surreal/absurd botanic designs—flowers and plants that are animated, violent, deranged.
+🔹 Prompts:
+
+    “A screaming tulip with teeth in every petal, rooted in a pile of broken bones, painted like a fever-dream fresco with thick impasto.”
+
+    “A walking cactus monster bleeding tar, its body full of writhing worms, eyes made of broken seed pods. Sketched with anarchic energy in mixed media.”
+
+    “A gnarled bonsai tree with a human face in the trunk, crying rot instead of sap. Set in a claustrophobic shrine, rich painterly shadows.”
+
+    “Sunflowers with eye sockets instead of seeds, staring in unison from a scorched planter, their stems twitching. Rendered in saturated color with surreal comic-style distortion.”
+
+4. ⚔️ Surreal Combat & Absurdity (Narrative Class: “The Bloomwar”)
+
+These build the satirical and narrative aspect—mutant garden warfare as sick parody.
+🔹 Prompts:
+
+    “An undead gardener riding a mutated lawnmower into battle, wrapped in vines and barbed-wire ivy, wearing a cracked terracotta pot as a helmet.”
+
+    “A battalion of zombified vegetables charging across a flaming lawn, wielding makeshift weapons made of rakes, hoses, and jawbone shears.”
+
+    “A flowerpot cannon launching brains at swarming fungus-beasts, with pastel gore erupting mid-air. Illustrated like a torn comic book cover.”
+
+    “Two monster factions face off in a decayed orchard, one side bursting with spiked seed pods, the other crawling with bark-armored corpses.”
+
+    “A ruined patio becomes a combat stage, gnome remains used as landmines, grinning worms forming a cheering audience.”

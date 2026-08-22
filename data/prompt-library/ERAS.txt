@@ -1,0 +1,801 @@
+70s
+
+portrait of a smiling woman with voluminous afro hair, wearing an orange bell-bottom jumpsuit and oversized sunglasses, analog photography style, in a sunflower field with retro film camera in hand, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a cheerful woman with feathered blonde hair, wearing a paisley blouse and flared jeans, analog photography style, in a sunlit park with plaid picnic blankets, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a laughing woman in a rainbow crochet top, high-waisted denim shorts, and peace sign earrings, analog photography style, inside a vintage VW bus filled with cushions, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a playful woman with pigtails and a daisy headband, wearing a fringe suede vest over a colorful tie-dye shirt, analog photography style, inside a vintage VW bus filled with cushions, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a stylish woman with a floral halter dress and wedge heels, spinning in joy, analog photography style, on a rooftop garden filled with macrame and string lights, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a beaming woman with freckles, hoop earrings, and a yellow mini dress with white go-go boots, analog photography style, at a retro bus stop with bold graphic posters, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a carefree woman dancing barefoot in a patchwork maxi skirt and floppy hat, analog photography style, at a colorful outdoor market full of handmade crafts, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a joyful woman in a corduroy jumpsuit, roller skates slung over her shoulder, analog photography style, on a rooftop garden filled with macrame and string lights, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a woman with a radiant smile and a boho blouse tucked into wide-leg pants, analog photography style, on a retro bike path surrounded by sunflowers, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a glowing woman in a pink crocheted bikini top and denim bell-bottoms, playing air guitar, analog photography style, in a hammock surrounded by plants and paper lanterns, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a sun-kissed woman in a burnt-orange romper and flower hair clips, analog photography style, in a sunflower field with retro film camera in hand, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a groovy woman with round purple sunglasses, striped sweater and denim skirt with buttons, analog photography style, on a retro bike path surrounded by sunflowers, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a bubbly woman in a ruffled crop top, gold hoop earrings, and metallic flares, analog photography style, in a room with vinyls and shag carpets, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a grinning woman twirling in a lemon-yellow sundress with a big straw hat, analog photography style, under rainbow streamers at a summer festival, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a hip woman with side-swept bangs and a disco blouse, throwing peace signs, analog photography style, on a pastel-painted city sidewalk with roller skates, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a funky woman in a velvet blazer and patchwork pants, with a tambourine, analog photography style, on a boardwalk with carnival lights in the background, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a joyful woman with curly red hair, headband, and a sunflower-patterned dress, analog photography style, under a giant disco ball at a roller rink, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a smiling woman sitting cross-legged in a grassy field wearing denim overalls and rainbow socks, analog photography style, under a giant disco ball at a roller rink, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a vibrant woman in a sky-blue jumpsuit with roller skates and glitter makeup, analog photography style, leaning on a lava lamp-lit windowsill, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a radiant woman with braids, wearing a sleeveless blouse and corduroy bell-bottoms, analog photography style, on a swing with beads and feathers hanging around, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a carefree woman blowing bubbles in a floral tunic and heart-shaped sunglasses, analog photography style, in a hammock surrounded by plants and paper lanterns, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a sunny woman in a multicolored halter top, scarf headband, and peace necklace, analog photography style, on a bed of wildflowers near a lake, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a retro-chic woman in a caramel suede mini skirt, button-up shirt, and fringe purse, analog photography style, at a colorful outdoor market full of handmade crafts, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a smiling woman in a velvet halter jumpsuit leaning against a jukebox, analog photography style, in a room with vinyls and shag carpets, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a joyful woman holding a vinyl record, in a sheer blouse and cherry-red trousers, analog photography style, in a sunflower field with retro film camera in hand, joyful mood, light leak effects, 2:3 aspect ratio
+
+CLAUDE VERSION
+
+1. Afro-Latina Beauty Portrait of a stunning woman with glowing bronze skin and voluminous natural curls, magnetic smile, wearing emerald velvet bell-bottoms and gold hoop earrings. Dancing barefoot at vibrant outdoor market filled with handmade textiles and hanging plants. Authentic 1970s analog photography with rich warm tones, subtle film grain, dreamy soft focus. Radiant confidence, sensual freedom, pure joy. 2:3 aspect ratio.
+
+2. East Asian Roller Disco Queen Portrait of an enchanting woman with sleek black hair and playful eyes, wearing coral corduroy jumpsuit unbuttoned at chest, roller skates slung over shoulder. On lush rooftop garden with macrame and glowing string lights at golden hour. Vintage film aesthetic with light leaks, warm amber tones. Flirtatious energy, carefree spirit, magnetic presence. 2:3 aspect ratio.
+
+3. Freckled Redhead Flower Child Portrait of a radiant fair-skinned woman with cascading copper curls and sun-kissed freckles, boho peasant blouse sliding off one shoulder, wide-leg jeans. Riding vintage bicycle through sunflower fields, wind in hair. Analog film with dreamy light leaks, soft ethereal glow. Uninhibited joy, natural sensuality, golden hour magic. 2:3 aspect ratio.
+
+4. South Asian Bohemian Goddess Portrait of a mesmerizing woman with deep brown skin and flowing dark hair, wearing hand-crocheted pink bikini top and low-rise denim bell-bottoms, playing air guitar. Lounging in hammock surrounded by hanging plants and paper lanterns. Vintage film grain, hazy soft focus, warm sepia tones. Playful seduction, uninhibited bliss, effortless allure. 2:3 aspect ratio.
+
+5. Black Beauty in Burnt Orange Portrait of a sun-kissed woman with rich dark skin and natural afro adorned with wildflowers, wearing burnt-orange romper with deep neckline. Holding vintage film camera in endless sunflower field. Analog photography with romantic light leaks, golden glow. Confident sensuality, authentic joy, magnetic warmth. 2:3 aspect ratio.
+
+6. Olive-Skinned Groove Maven Portrait of a captivating Mediterranean woman with wavy brunette hair, round purple sunglasses, striped crop sweater and button-front denim skirt. Riding retro bike through sunflower-lined path, hair flowing. Vintage film with dreamy soft focus, warm nostalgic tones. Carefree confidence, playful charm, radiant energy. 2:3 aspect ratio.
+
+7. Curvy Disco Diva Portrait of a voluptuous woman with glowing skin, wearing metallic gold flares and ruffled crop top showing curves, statement gold hoops. Dancing in room filled with vinyl records and shag carpet. Analog film with soft focus, warm amber light. Body-positive joy, sensual movement, uninhibited celebration. 2:3 aspect ratio.
+
+8. Sun-Kissed Festival Spirit Portrait of a beaming mixed-race woman with honey-toned skin, twirling in lemon-yellow sundress, big straw hat tilted back. Under rainbow streamers at summer festival, dress flowing. Vintage photography with light leaks, bright warm tones, film grain. Pure euphoria, flirtatious energy, summer seduction. 2:3 aspect ratio.
+
+9. Urban Skate Goddess Portrait of an alluring Black woman with side-swept bangs and luminous skin, disco blouse unbuttoned revealing necklaces, throwing peace signs. On pastel-painted sidewalk with roller skates, city energy. Analog film with light leaks, vibrant retro colors. Hip confidence, magnetic charm, street-smart allure. 2:3 aspect ratio.
+
+10. Carnival Dream Girl Portrait of a striking Indigenous woman with long dark hair and warm skin, velvet blazer over bare skin, patchwork pants, holding tambourine. On boardwalk with carnival lights bokeh behind. Vintage film with romantic soft focus, warm glow. Mysterious allure, playful spirit, enchanting presence. 2:3 aspect ratio.
+
+11. Fiery Disco Ball Queen Portrait of a gorgeous pale woman with wild curly red hair and green eyes, headband and sunflower-patterned halter dress. Dancing under giant disco ball at roller rink, light reflecting on skin. Analog photography with vintage lens blur, dreamy atmosphere. Uninhibited joy, magnetic energy, playful seduction. 2:3 aspect ratio.
+
+12. Natural Rainbow Spirit Portrait of a radiant woman with warm beige skin sitting cross-legged in grass, denim overalls with one strap undone, rainbow socks, flower crown. In field under open sky, natural and free. Vintage film grain, golden afternoon light, soft tones. Authentic beauty, peaceful joy, earthy sensuality. 2:3 aspect ratio.
+
+13. Glitter Fantasy Femme Portrait of a stunning woman with rich brown skin, sky-blue jumpsuit unzipped to chest, roller skates and shimmering glitter makeup. Leaning seductively on lava lamp-lit windowsill at dusk. Analog film with light leaks, dreamy warm glow. Playful glamour, confident allure, disco magic. 2:3 aspect ratio.
+
+14. Braided Boho Beauty Portrait of an elegant Black woman with intricate braids adorned with beads, sleeveless blouse and corduroy bell-bottoms. On swing with feathers and beads hanging around, legs extended gracefully. Vintage film grain, warm golden tones, soft focus. Serene confidence, natural elegance, peaceful joy. 2:3 aspect ratio.
+
+15. Bubble-Blowing Dreamer Portrait of a carefree Asian woman with flowing dark hair, floral tunic and heart-shaped sunglasses, blowing iridescent bubbles. In hammock surrounded by hanging plants and glowing paper lanterns. Analog photography with vintage lens blur, soft romantic light. Whimsical charm, innocent seduction, pure delight. 2:3 aspect ratio.
+
+16. Lakeside Flower Child Portrait of a sun-kissed Latina woman with long flowing hair, multicolored halter top, scarf headband, peace necklace. Lying in wildflowers near sparkling lake, golden hour. Vintage film with warm tone balance, natural glow, soft grain. Peaceful sensuality, natural beauty, summer bliss. 2:3 aspect ratio.
+
+17. Suede & Fringe Fashionista Portrait of a chic mixed-race woman with styled afro, caramel suede mini skirt, unbuttoned shirt, fringe purse. At colorful outdoor market filled with handmade crafts and textiles. Analog 35mm film look, warm tones, authentic grain. Sophisticated allure, confident style, magnetic presence. 2:3 aspect ratio.
+
+18. Jukebox Siren Portrait of a voluptuous woman with curves and dark flowing hair, burgundy velvet halter jumpsuit, leaning seductively against glowing jukebox. In room with vinyl records and shag carpet. Vintage film with light leaks, moody warm lighting. Sultry confidence, disco glamour, irresistible charm. 2:3 aspect ratio.
+
+19. Vinyl Record Muse Portrait of a radiant woman with sun-kissed skin holding vintage vinyl record, sheer blouse over lace bralette, cherry-red high-waisted trousers. In sunflower field with retro camera nearby. Analog film with romantic light leaks, golden glow. Artistic sensuality, joyful freedom, nostalgic beauty. 2:3 aspect ratio.
+
+
+
+
+
+
+80s
+
+
+portrait of a joyful woman with crimped hair, wearing a neon windbreaker and leg warmers, analog photography style, in a school hallway with lockers and flyers, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a laughing woman with teased hair and big hoop earrings, dressed in a denim jacket with pins, analog photography style, under disco lights at a roller rink, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a cheerful woman in a glittery purple leotard and high-top sneakers, dancing mid-pose, analog photography style, under disco lights at a roller rink, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a smiling woman with side ponytail and scrunchie, wearing a bubblegum pink tracksuit, analog photography style, under a glittering disco ball at a dance hall, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a woman with slicked back hair and metallic blazer, striking a power pose, analog photography style, under a glittering disco ball at a dance hall, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a bubbly woman in an off-shoulder graphic tee and acid-wash jeans, analog photography style, under disco lights at a roller rink, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a radiant woman in a tropical print dress and big plastic earrings, analog photography style, under disco lights at a roller rink, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a playful woman in a rainbow crop top and roller skates, analog photography style, on a tennis court with pink and green lines, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a joyful woman wearing a cassette player headset and matching neon accessories, analog photography style, in front of a graffiti wall with bright colors, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a happy woman with bangs, checkerboard miniskirt and chunky jewelry, analog photography style, next to a 1980s convertible with the door open, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a funky woman in a sequined tube top and fingerless gloves, mid-dance, analog photography style, in front of a graffiti wall with bright colors, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a bright-eyed woman in a bold tracksuit, holding a boombox on her shoulder, analog photography style, on a couch surrounded by VHS tapes and stuffed animals, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a giggling woman with an oversized sweatshirt and stirrup leggings, analog photography style, in a school hallway with lockers and flyers, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a glowing woman in shoulder pads and a silk blouse with a loud print, analog photography style, at a shopping mall food court, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a vibrant woman in a velour jumpsuit and puffy sleeves, analog photography style, on a carnival ride with colorful lights, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a cheerful woman in a mesh top over a bikini and shutter shades, analog photography style, by a swimming pool with inflatable toys, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a spirited woman in a varsity jacket and pleated skirt, chewing bubblegum, analog photography style, on a city rooftop at dusk with neon signs glowing, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a smiling woman in a pastel windbreaker with a Walkman clipped to her belt, analog photography style, at a shopping mall food court, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a joyful woman with multicolored hair extensions and shiny tights, analog photography style, on a city rooftop at dusk with neon signs glowing, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a carefree woman in high-waisted jeans and a neon crop tank, analog photography style, in a school hallway with lockers and flyers, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a radiant woman in a vinyl trench coat and bold makeup, analog photography style, under a glittering disco ball at a dance hall, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a retro woman with a graphic headband and rainbow striped leg warmers, analog photography style, at a beach boardwalk with palm trees, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a lively woman in a tie-dye tank top and plastic bangles, analog photography style, next to a 1980s convertible with the door open, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a spirited woman in parachute pants and a neon fanny pack, analog photography style, in a diner with checkered floors and neon lighting, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a fashionable woman with cat-eye glasses, animal print dress, and electric blue eyeliner, analog photography style, by a swimming pool with inflatable toys, joyful mood, soft focus, 2:3 aspect ratio
+
+CLAUDE
+
+1. Neon Windbreaker Goddess
+Portrait of a radiant Black woman with voluminous crimped hair and glowing skin, wearing oversized neon windbreaker unzipped over sports bra, colorful leg warmers. In school hallway with lockers covered in band posters and flyers. Authentic 1980s analog photography with vintage lens blur, warm nostalgic tones. Electric energy, youthful confidence, carefree joy. 2:3 aspect ratio.
+2. Roller Rink Diva
+Portrait of an enchanting Latina woman with dramatically teased hair and oversized gold hoops, denim jacket covered in punk pins, curves highlighted. Under swirling disco lights at roller rink, colors reflecting on skin. Vintage film with dreamy lens blur, vibrant neon glow. Infectious laughter, rebellious charm, magnetic allure. 2:3 aspect ratio.
+3. Glitter Leotard Dancer
+Portrait of a stunning Asian woman with athletic grace, wearing glittery purple leotard cut high on legs, high-top sneakers, caught mid-dance move. Under disco lights at roller rink, body in motion. Analog photography with film grain, dynamic lighting, electric atmosphere. Powerful sensuality, uninhibited joy, fearless expression. 2:3 aspect ratio.
+4. Bubblegum Tracksuit Cutie
+Portrait of a playful mixed-race woman with bouncy side ponytail and scrunchie, bubblegum pink velour tracksuit unzipped to reveal tank top. Under glittering disco ball at dance hall, light catching her smile. Vintage lens blur, soft romantic glow, pastel tones. Flirtatious energy, innocent seduction, pure happiness. 2:3 aspect ratio.
+5. Power Pose Queen
+Portrait of a commanding South Asian woman with slicked-back hair and bold red lips, metallic silver blazer with dramatic shoulders over bare skin. Striking power pose under disco ball at dance hall, confidence radiating. Analog film with vintage lens blur, dramatic lighting. Fierce beauty, unapologetic strength, intoxicating presence. 2:3 aspect ratio.
+6. Off-Shoulder Rebel
+Portrait of a bubbly woman with warm bronze skin and curly hair, off-shoulder graphic tee showing collarbone, acid-wash jeans hugging curves. Under swirling disco lights at roller rink, colors dancing across skin. Vintage lens blur, vibrant neon atmosphere, film texture. Carefree spirit, youthful allure, authentic joy. 2:3 aspect ratio.
+7. Tropical Print Beauty
+Portrait of a radiant Black woman with natural hair and luminous dark skin, tropical print dress with bold colors and big plastic geometric earrings. Under disco lights at roller rink, patterns and lights creating magic. Analog photography with soft focus, warm vibrant tones. Effortless glamour, joyful confidence, summer seduction. 2:3 aspect ratio.
+8. Rainbow Skate Goddess
+Portrait of an athletic woman with sun-kissed fair skin, rainbow crop top and roller skates, toned midriff on display. On tennis court with pink and green lines, golden hour light. Vintage lens blur, warm nostalgic tones, film grain. Playful sensuality, active beauty, uninhibited freedom. 2:3 aspect ratio.
+9. Boombox Hip-Hop Muse
+Portrait of a cool Indigenous woman with sleek dark hair, wearing cassette player headset and matching neon accessories, gold chains. In front of graffiti wall with explosive bright colors and urban art. Analog film with soft focus, vibrant street energy. Confident swagger, artistic soul, magnetic presence. 2:3 aspect ratio.
+10. Convertible Dream Girl
+Portrait of a gorgeous woman with olive skin and feathered bangs, checkerboard miniskirt showing legs, chunky statement jewelry catching light. Leaning against mint-green 1980s convertible with door open, sunset glow. Vintage soft focus, warm golden tones, film texture. Sophisticated allure, carefree attitude, sunset magic. 2:3 aspect ratio.
+11. Sequined Tube Top Dancer
+Portrait of a striking Afro-Latina woman with voluminous curls, sequined tube top catching light, fingerless gloves, mid-dance expression. In front of graffiti wall with bright colors and wild designs. Analog 35mm film look, vibrant urban tones, authentic grain. Raw sensuality, street style confidence, unbridled joy. 2:3 aspect ratio.
+12. Boombox Baby
+Portrait of a bright-eyed woman with rich brown skin in bold color-block tracksuit, holding chrome boombox on shoulder with attitude. On couch surrounded by VHS tapes and stuffed animals, nostalgic setup. Vintage film with light leaks, warm cozy glow. Playful charm, nostalgic beauty, infectious energy. 2:3 aspect ratio.
+13. Oversized Sweatshirt Sweetheart
+Portrait of a giggling mixed-race woman with messy hair, oversized boyfriend sweatshirt sliding off shoulder, stirrup leggings showing curves. In school hallway with lockers and colorful flyers, candid moment. Analog photography with soft focus, natural lighting, warm tones. Girl-next-door beauty, genuine laughter, youthful seduction. 2:3 aspect ratio.
+14. Power Shoulder Boss
+Portrait of a confident East Asian woman with voluminous hair and bold makeup, exaggerated shoulder pads and silk blouse with loud geometric print. At shopping mall food court with neon signs and retro aesthetic. Vintage film grain, vibrant mall lighting, nostalgic atmosphere. Corporate seduction, 80s power, sophisticated charm. 2:3 aspect ratio.
+15. Velour Carnival Queen
+Portrait of a glowing curvy woman with flowing hair, velour jumpsuit with puffy sleeves and plunging neckline, body highlighted. On carnival ride with colorful lights blurred in motion behind. Analog soft focus, dreamy light trails, warm romantic glow. Joyful abandon, sensual curves, magic hour bliss. 2:3 aspect ratio.
+16. Poolside Bikini Babe
+Portrait of a sun-kissed Latina woman with wet hair, mesh top over colorful bikini showing skin, shutter shades reflecting light. By swimming pool with inflatable flamingos and palm trees, summer vibes. Vintage film with warm tone balance, golden afternoon light. Playful seduction, summer heat, carefree beauty. 2:3 aspect ratio.
+17. Varsity Jacket Rebel
+Portrait of a spirited Black woman with fresh box braids, varsity jacket over crop top, pleated skirt, blowing bubblegum bubble. On city rooftop at dusk with neon signs glowing in background. Analog photography with vintage lens blur, urban twilight magic. Urban sophistication, youthful rebellion, magnetic cool. 2:3 aspect ratio.
+18. Walkman Mall Babe
+Portrait of a smiling woman with honey-toned skin, pastel windbreaker unzipped over tank top, Walkman clipped to belt with headphones. At shopping mall food court with neon lights and retro signs. Vintage film with light leaks, nostalgic mall glow. Effortless style, innocent charm, 80s nostalgia. 2:3 aspect ratio.
+19. Multicolor Hair Fantasy
+Portrait of a joyful pale woman with wild multicolored hair extensions and dramatic makeup, shiny metallic tights catching light. On city rooftop at dusk with neon signs creating colorful bokeh. Analog photography with vintage lens blur, electric urban atmosphere. Bold expression, fearless beauty, punk seduction. 2:3 aspect ratio.
+20. Neon Crop Tank Cutie
+Portrait of a carefree South Asian woman with natural waves, high-waisted jeans and neon crop tank showing midriff and curves. In school hallway with lockers and band flyers, casual lean. Vintage film with light leaks, warm hallway lighting, authentic grain. Youthful confidence, effortless sensuality, genuine joy. 2:3 aspect ratio.
+21. Vinyl Trench Vixen
+Portrait of a radiant woman with rich dark skin and bold geometric makeup, vinyl trench coat open over lingerie-inspired outfit. Under glittering disco ball at dance hall, dramatic lighting on face. Analog film grain, moody disco atmosphere, metallic reflections. Avant-garde glamour, fearless style, intoxicating allure. 2:3 aspect ratio.
+22. Boardwalk Rainbow Goddess
+Portrait of a retro-chic mixed-race woman with graphic headband and natural curls, rainbow striped leg warmers and athletic wear. At beach boardwalk with palm trees and sunset colors. Vintage 35mm film look, golden hour warmth, coastal magic. Athletic beauty, carefree spirit, summer seduction. 2:3 aspect ratio.
+23. Tie-Dye Convertible Queen
+Portrait of a lively woman with sun-bleached hair and freckles, tie-dye tank top and denim shorts, plastic bangles stacked high. Leaning against bright 1980s convertible with door open, wind in hair. Analog film with warm tone balance, golden sunshine, film grain. Bohemian allure, summer freedom, effortless beauty. 2:3 aspect ratio.
+24. Parachute Pants Diner Babe
+Portrait of a spirited Black woman with voluminous curls, parachute pants and cropped jacket, neon fanny pack on hip. In retro diner with checkered floors and neon lighting, sitting in booth. Vintage film grain, colorful neon reflections, nostalgic atmosphere. Urban cool, playful confidence, magnetic energy. 2:3 aspect ratio.
+25. Animal Print Pool Siren
+Portrait of a fashionable Asian woman with cat-eye glasses and sleek hair, animal print dress hugging curves, electric blue eyeliner dramatic. By swimming pool with inflatable toys and tropical plants, lounging pose. Analog soft focus, bright poolside light, warm summer tones. Sophisticated seduction, bold fashion, poolside glamour. 2:3 aspect ratio.
+
+
+90s
+
+
+portrait of a joyful woman with butterfly clips in her hair, wearing a spaghetti strap top and low-rise jeans, analog photography style, on a tennis court with rollerblades nearby, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a smiling woman in a flannel shirt over a graphic tee with ripped denim shorts, analog photography style, inside a video rental store surrounded by VHS tapes, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a laughing woman with frosted lipstick and a velvet choker, wearing a cropped zip-up hoodie, analog photography style, at a beach boardwalk with a scrunchie stand, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a radiant woman in a metallic halter top and cargo pants with platform sneakers, analog photography style, in a pastel kitchen with a rotary phone and cereal boxes, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a cheerful woman in a plaid skirt and knee-high socks with a denim jacket, analog photography style, on a high school bleacher with a walkman in hand, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a vibrant woman with a scrunchie ponytail, oversized tee, and overalls, analog photography style, in a magazine-covered bedroom with a lava lamp glowing, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a playful woman in a tracksuit with side stripes and tinted sunglasses, analog photography style, under a neon sign outside a roller rink, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a glowing woman in a baby tee and baggy jeans with a pager clipped to her waist, analog photography style, in front of a brick wall painted with smiley faces, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a giggling woman with space buns, wearing a mesh long sleeve top and glitter makeup, analog photography style, in a bedroom with lava lamps and beaded curtains, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a smiling woman in a windbreaker and bike shorts holding a disposable camera, analog photography style, in a grunge coffee shop with posters on the wall, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a trendy woman in a satin slip dress layered over a white tee with Doc Martens, analog photography style, in a backyard with a trampoline and inflatable chairs, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a bubbly woman in a colorful fleece pullover and cargo shorts, analog photography style, in a grunge coffee shop with posters on the wall, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a beaming woman in a neon tank top and fanny pack at her waist, analog photography style, on a suburban driveway with a boombox, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a confident woman in an animal print crop top and tinted rectangle sunglasses, analog photography style, at a mall arcade with glowing game machines, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a stylish woman with pencil-thin eyebrows, lip liner, and a spaghetti strap dress, analog photography style, on a tennis court with rollerblades nearby, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a joyful woman with crimped hair in a denim vest and mini skirt, analog photography style, at a beach boardwalk with a scrunchie stand, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a cheerful woman with glittery hair gel and a spaghetti strap butterfly top, analog photography style, at a house party with colored string lights, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a retro woman in a sleeveless puffer vest, bucket hat, and relaxed jeans, analog photography style, inside a video rental store surrounded by VHS tapes, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a radiant woman in a color-block windbreaker and mood ring, analog photography style, in a magazine-covered bedroom with a lava lamp glowing, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a lively woman in a corduroy overall dress and striped turtleneck, analog photography style, at a school hallway locker decorated with magazine cutouts, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a funky woman in a tie-front blouse, flared pants, and beaded necklaces, analog photography style, in a magazine-covered bedroom with a lava lamp glowing, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a happy woman in a cropped hoodie, tennis skirt, and knee-high socks, analog photography style, on a suburban driveway with a boombox, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a smiling woman in a logo tee, baggy jeans, and plaid flannel tied at her waist, analog photography style, at a beach boardwalk with a scrunchie stand, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a carefree woman in a jelly backpack and platform sandals, analog photography style, at a beach boardwalk with a scrunchie stand, joyful mood, 35mm film look, 2:3 aspect ratio
+
+portrait of a glowing woman with a Tamagotchi necklace and metallic lipstick, analog photography style, in a thrift store trying on sunglasses, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+
+CLAUDE
+
+1. Butterfly Clip Babe
+Portrait of a radiant Asian woman with glossy straight hair adorned with iridescent butterfly clips, wearing baby blue spaghetti strap top showing shoulders, low-rise jeans hugging hips. On tennis court with rollerblades nearby, golden hour light. Authentic 1990s analog photography with warm tone balance, nostalgic film texture. Carefree youth, effortless beauty, sun-kissed glow. 2:3 aspect ratio.
+2. Video Store Grunge Girl
+Portrait of a smiling mixed-race woman with messy hair, oversized flannel shirt open over graphic band tee, ripped denim shorts showing legs. Inside video rental store surrounded by colorful VHS tapes and movie posters. Vintage film with light leaks, warm nostalgic atmosphere, authentic grain. Girl-next-door charm, rebellious spirit, genuine joy. 2:3 aspect ratio.
+3. Frosted Lip Beach Beauty
+Portrait of a laughing Latina woman with sun-lightened hair and frosted pink lipstick, black velvet choker, cropped zip-up hoodie showing midriff. At beach boardwalk with scrunchie stand and palm trees, ocean breeze. Analog photography with light leaks, golden coastal light, dreamy atmosphere. Playful seduction, coastal cool, infectious laughter. 2:3 aspect ratio.
+4. Metallic Halter Kitchen Queen
+Portrait of a radiant Black woman with natural curls and glowing dark skin, metallic silver halter top catching light, cargo pants low on hips, platform sneakers. In pastel mint kitchen with rotary phone and colorful cereal boxes. Vintage lens blur, soft domestic lighting, warm retro tones. Confident curves, home comfort, magnetic presence. 2:3 aspect ratio.
+5. Bleacher Schoolgirl Rebel
+Portrait of a cheerful woman with fair freckled skin, plaid mini skirt and knee-high socks, oversized denim jacket sliding off shoulder, Walkman in hand. On high school bleachers, afternoon light filtering through. Analog film with light leaks, warm nostalgic glow, soft focus. Youthful innocence, scholarly seduction, authentic joy. 2:3 aspect ratio.
+6. Lava Lamp Bedroom Goddess
+Portrait of a vibrant South Asian woman with high scrunchie ponytail and natural beauty, oversized boyfriend tee knotted at waist, denim overalls unbuttoned. In magazine-covered bedroom with lava lamp glowing warm colors. Vintage film grain, moody intimate lighting, colorful ambiance. Relaxed sensuality, bedroom eyes, cozy allure. 2:3 aspect ratio.
+7. Neon Roller Rink Vixen
+Portrait of a playful woman with warm bronze skin and sleek hair, tracksuit with contrasting side stripes unzipped slightly, tinted rectangular sunglasses. Under glowing neon sign outside roller rink at dusk. Analog 35mm film look, vibrant neon atmosphere, urban energy. Athletic confidence, street style cool, magnetic swagger. 2:3 aspect ratio.
+8. Smiley Face Street Art Muse
+Portrait of a glowing Black woman with box braids and radiant skin, fitted baby tee showing curves, baggy jeans low on hips, pager clipped at waist. In front of brick wall painted with bright smiley faces and graffiti. Vintage film grain, vibrant street art colors, urban authenticity. Hip-hop beauty, confident stance, infectious energy. 2:3 aspect ratio.
+9. Space Buns Glitter Girl
+Portrait of a giggling pale woman with playful space buns and face-framing pieces, mesh long sleeve top over colorful bra, glitter makeup catching light. In bedroom with lava lamps glowing and beaded curtains creating bokeh. Analog photography with vintage lens blur, dreamy intimate atmosphere. Playful seduction, sparkle magic, uninhibited joy. 2:3 aspect ratio.
+10. Coffee Shop Grunge Queen
+Portrait of a smiling mixed-race woman with messy waves, oversized windbreaker and bike shorts showing athletic legs, holding disposable camera. In grunge coffee shop with band posters and vintage furniture. Vintage lens blur, moody café lighting, warm amber tones. Intellectual beauty, artistic soul, casual cool. 2:3 aspect ratio.
+11. Slip Dress Backyard Babe
+Portrait of a trendy woman with olive skin and tousled hair, satin slip dress over white tee showing layered look, Doc Martens boots. In backyard with trampoline and inflatable chairs, summer afternoon. Analog soft focus, golden hour warmth, dreamy nostalgia. Effortless grunge elegance, rebellious femininity, carefree beauty. 2:3 aspect ratio.
+12. Fleece Pullover Coffee Cutie
+Portrait of a bubbly East Asian woman with straight hair and bright smile, colorful fleece pullover and cargo shorts showing legs. In grunge coffee shop with posters and vintage decor, casual lean. Vintage film with warm tone balance, cozy café atmosphere, authentic grain. Comfortable confidence, natural charm, genuine happiness. 2:3 aspect ratio.
+13. Neon Tank Driveway Diva
+Portrait of a beaming Afro-Latina woman with voluminous curls and glowing skin, neon yellow tank top and denim shorts, fanny pack at waist. On suburban driveway with chrome boombox, sunset light. Analog photography with light leaks, golden suburban magic, warm nostalgic glow. Summer confidence, neighborhood beauty, radiant energy. 2:3 aspect ratio.
+14. Arcade Animal Print Queen
+Portrait of a confident woman with rich brown skin and sleek ponytail, animal print crop top showing toned midriff, tinted rectangle sunglasses. At mall arcade with glowing game machines creating colorful bokeh. Vintage 35mm film look, neon arcade atmosphere, electric energy. Bold fashion, gaming cool, magnetic allure. 2:3 aspect ratio.
+15. Pencil Brow Tennis Court Goddess
+Portrait of a stylish Latina woman with pencil-thin eyebrows and dark lip liner, silky spaghetti strap slip dress showing shoulders and curves. On tennis court with rollerblades nearby, golden afternoon. Analog 35mm film look, warm natural light, authentic film texture. Sophisticated sensuality, athletic elegance, 90s glamour. 2:3 aspect ratio.
+16. Crimped Hair Denim Dream
+Portrait of a joyful woman with fair skin and dramatically crimped blonde hair, denim vest over crop top, mini skirt showing legs. At beach boardwalk with scrunchie stand and sunset colors. Vintage soft focus, warm coastal glow, dreamy atmosphere. Playful beach beauty, youthful freedom, summer seduction. 2:3 aspect ratio.
+17. Glitter Gel Party Girl
+Portrait of a cheerful Black woman with natural hair styled with glittery hair gel, spaghetti strap butterfly print top showing shoulders. At house party with colored string lights creating bokeh, drinks nearby. Analog film with warm tone balance, party atmosphere, intimate lighting. Festive beauty, social butterfly, magnetic presence. 2:3 aspect ratio.
+18. Puffer Vest Video Store Babe
+Portrait of a retro-chic mixed-race woman with bucket hat and relaxed style, sleeveless puffer vest over tee, relaxed jeans hugging curves. Inside video rental store surrounded by VHS tapes and movie displays. Vintage film with light leaks, nostalgic store lighting, warm tones. Casual coolness, 90s style icon, effortless allure. 2:3 aspect ratio.
+19. Color-Block Windbreaker Beauty
+Portrait of a radiant South Asian woman with flowing dark hair, color-block windbreaker unzipped over tank top, mood ring catching light. In magazine-covered bedroom with lava lamp glowing purple and orange. Analog film grain, moody intimate lighting, colorful ambiance. Personal space seduction, nostalgic charm, bedroom confidence. 2:3 aspect ratio.
+20. Corduroy Overall Schoolgirl
+Portrait of a lively woman with honey-toned skin and natural waves, corduroy overall dress over striped turtleneck, showing feminine silhouette. At school hallway locker decorated with magazine cutouts and photos. Vintage soft focus, hallway lighting, authentic atmosphere. Scholarly sweetness, vintage fashion, youthful allure. 2:3 aspect ratio.
+21. Tie-Front Blouse Bedroom Muse
+Portrait of a funky Black woman with braids and warm smile, tie-front blouse showing midriff, flared pants sitting low, beaded necklaces layered. In magazine-covered bedroom with lava lamp glowing, sitting on bed. Analog film grain, intimate bedroom lighting, colorful ambiance. Bohemian beauty, relaxed sensuality, peaceful joy. 2:3 aspect ratio.
+22. Tennis Skirt Driveway Queen
+Portrait of a happy Asian woman with straight hair and athletic build, cropped hoodie and pleated tennis skirt, knee-high socks. On suburban driveway with boombox playing music, golden hour. Vintage film grain, warm afternoon light, nostalgic suburban vibe. Sporty seduction, girl-next-door beauty, youthful energy. 2:3 aspect ratio.
+23. Baggy Jeans Boardwalk Babe
+Portrait of a smiling woman with sun-kissed skin and beachy waves, logo tee and baggy jeans low on hips, plaid flannel tied at waist. At beach boardwalk with scrunchie stand and ocean view. Analog 35mm film look, golden coastal light, warm summer tones. Tomboy charm, effortless cool, beach beauty. 2:3 aspect ratio.
+24. Jelly Backpack Platform Princess
+Portrait of a carefree Latina woman with glossy hair and radiant smile, colorful jelly backpack and platform sandals, mini dress showing legs. At beach boardwalk with scrunchie stand and palm trees. Vintage 35mm film look, bright coastal atmosphere, warm nostalgic glow. Playful fashion, summer freedom, innocent seduction. 2:3 aspect ratio.
+25. Tamagotchi Thrift Store Goddess
+Portrait of a glowing mixed-race woman with natural curls, Tamagotchi necklace and metallic purple lipstick, trying on vintage sunglasses. In thrift store with racks of clothes and retro accessories. Analog photography with vintage lens blur, soft store lighting, authentic atmosphere. Quirky beauty, treasure hunter cool, genuine joy. 2:3 aspect ratio.
+
+
+
+
+y2k
+
+
+portrait of a smiling woman with frosted lips, layered tanks, and rhinestone hair clips, analog photography style, at a sleepover with magazines and fluffy pillows, joyful mood, early 2000s camcorder effect, 2:3 aspect ratio
+
+portrait of a joyful woman in a metallic crop top and flared jeans with platform heels, analog photography style, in front of a metallic tinsel backdrop, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a radiant woman in a bedazzled velour tracksuit and hoop earrings, analog photography style, in a tech store playing with colored iMacs, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a bubbly woman with a glittery phone charm and butterfly necklace, analog photography style, in a pastel bedroom with a flip phone and bead curtains, joyful mood, early 2000s camcorder effect, 2:3 aspect ratio
+
+portrait of a cheerful woman in low-rise cargo pants and a halter top, analog photography style, in front of a metallic tinsel backdrop, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a glowing woman with pink-tinted sunglasses and sparkly eyeliner, analog photography style, by a pool with inflatable chairs and a pink drink, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a trendy woman in a mesh top over a cami with visible lip gloss, analog photography style, inside a glittery makeup store with soft pink walls, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a fashionable woman in denim on denim with a choker and micro bag, analog photography style, at a beauty salon with butterfly wall art, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a joyful woman in a baby tee and shiny silver mini skirt, analog photography style, in a bubblegum pink bedroom with posters and flip flops, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a playful woman with pigtails, a sequin tank top, and jelly shoes, analog photography style, at a late-night diner with neon signs and cherry sodas, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a vibrant woman in a satin slip dress and rhinestone hairband, analog photography style, on a pink couch with a lava lamp and stuffed animals, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a stylish woman with a flip phone and charm bracelet, analog photography style, at a skating rink under colored disco lights, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a carefree woman in a graphic tee and baggy jeans with rhinestones, analog photography style, at a late-night diner with neon signs and cherry sodas, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a confident woman in a tube top, arm warmers, and glitter makeup, analog photography style, by a pool with inflatable chairs and a pink drink, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a radiant woman with space buns, blue eyeshadow, and glitter cheeks, analog photography style, by a pool with inflatable chairs and a pink drink, joyful mood, early 2000s camcorder effect, 2:3 aspect ratio
+
+portrait of a bubbly woman in a zip-up hoodie and matching flare pants, analog photography style, by a pool with inflatable chairs and a pink drink, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a happy woman with colored hair extensions and a studded belt, analog photography style, by a pool with inflatable chairs and a pink drink, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a beaming woman in a pastel crop top and pleated tennis skirt, analog photography style, at a school locker covered in glitter stickers, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a cheerful woman with glitter body gel and Y2K sunglasses, analog photography style, inside a Y2K-themed boutique full of pastel outfits, joyful mood, early 2000s camcorder effect, 2:3 aspect ratio
+
+portrait of a funky woman in cargo shorts, tube socks, and a bandana headband, analog photography style, at a sleepover with magazines and fluffy pillows, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a lively woman with a lava lamp, mood ring, and charm necklace, analog photography style, inside a Y2K-themed boutique full of pastel outfits, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a glowing woman in a metallic jacket, mini bag, and headphones, analog photography style, at a sleepover with magazines and fluffy pillows, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a fashionable woman with a tank over long-sleeve combo and flare pants, analog photography style, under string lights at a backyard party, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a joyful woman with a trucker hat, graphic hoodie, and platform sneakers, analog photography style, in a bubblegum pink bedroom with posters and flip flops, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a trendy woman with butterfly clips, velvet miniskirt, and flip phone, analog photography style, in front of a Y2K music poster wall, joyful mood, film grain, 2:3 aspect ratio
+
+
+CLAUDE
+
+1. Sleepover Frosted Lip Goddess
+Portrait of a smiling Asian woman with glossy straight hair, frosted pink lips and rhinestone hair clips catching light, layered pastel tanks showing shoulders. At sleepover with teen magazines and fluffy pillows scattered around. Authentic early 2000s camcorder effect with digital artifacts, soft intimate lighting, nostalgic atmosphere. Innocent seduction, girlhood intimacy, pure joy. 2:3 aspect ratio.
+2. Metallic Tinsel Backdrop Diva
+Portrait of a joyful Black woman with voluminous curls and glowing skin, metallic silver crop top showing toned midriff, low-rise flared jeans and platform heels. In front of shimmering metallic tinsel backdrop, studio vibe. Vintage film grain, glamorous lighting, Y2K sparkle. Confident curves, party-ready allure, radiant energy. 2:3 aspect ratio.
+3. Velour Tracksuit Tech Store Queen
+Portrait of a radiant Latina woman with sleek ponytail and gold hoops, bedazzled velour tracksuit unzipped to reveal tank top, curves highlighted. In tech store playing with translucent colored iMacs, futuristic nostalgia. Analog soft focus, bright store lighting, pastel tech glow. Comfortable glamour, playful curiosity, effortless style. 2:3 aspect ratio.
+4. Butterfly Necklace Bedroom Babe
+Portrait of a bubbly mixed-race woman with natural waves and glossy lips, glittery phone charm dangling, delicate butterfly necklace. In pastel pink bedroom with flip phone and colorful bead curtains creating bokeh. Early 2000s camcorder effect with digital texture, soft dreamy lighting. Bedroom eyes, innocent charm, digital age beauty. 2:3 aspect ratio.
+5. Low-Rise Cargo Halter Goddess
+Portrait of a cheerful South Asian woman with long dark hair and sun-kissed skin, halter top showing shoulders and back, low-rise cargo pants sitting on hips. In front of metallic tinsel backdrop catching light everywhere. Vintage lens blur, glamorous studio atmosphere, Y2K shine. Confident sensuality, midriff magic, bold fashion. 2:3 aspect ratio.
+6. Pink Poolside Sunglasses Siren
+Portrait of a glowing woman with honey-toned skin and beachy waves, pink-tinted sunglasses and sparkly holographic eyeliner catching sunlight. By pool with inflatable chairs and tropical pink drink, summer vibes. Analog photography with vintage lens blur, bright poolside light, dreamy atmosphere. Poolside seduction, summer glamour, carefree beauty. 2:3 aspect ratio.
+7. Mesh Top Makeup Store Muse
+Portrait of a trendy Black woman with natural hair and glossy lips visible, mesh top over colorful cami showing layered look. Inside glittery makeup store with soft pink walls and product displays. Vintage soft focus, bright beauty store lighting, pastel paradise. Shopping beauty, lip gloss shine, feminine allure. 2:3 aspect ratio.
+8. Denim on Denim Salon Beauty
+Portrait of a fashionable woman with olive skin and highlighted hair, denim jacket and jeans combo, black choker and tiny micro bag. At beauty salon with butterfly wall art and styling chairs. Analog film grain, bright salon lighting, Y2K aesthetic. Fashion-forward confidence, polished style, salon goddess. 2:3 aspect ratio.
+9. Baby Tee Silver Skirt Bedroom Queen
+Portrait of a joyful East Asian woman with space buns and playful smile, fitted baby tee and shiny silver mini skirt showing legs. In bubblegum pink bedroom with boy band posters and flip flops scattered. Vintage lens blur, soft bedroom lighting, pink paradise. Bedroom confidence, youthful seduction, pop princess energy. 2:3 aspect ratio.
+10. Pigtails Diner Sweetheart
+Portrait of a playful woman with fair freckled skin and high pigtails, sequin tank top catching diner lights, colorful jelly shoes. At late-night diner with glowing neon signs and cherry sodas on table. Analog soft focus, neon atmosphere, warm retro glow. Late-night magic, innocent flirtation, diner date beauty. 2:3 aspect ratio.
+11. Satin Slip Pink Couch Goddess
+Portrait of a vibrant Latina woman with flowing hair and luminous skin, satin slip dress with rhinestone hairband catching light. On pink velvet couch with lava lamp glowing and stuffed animals around. Vintage soft focus, intimate home lighting, dreamy atmosphere. Bedroom elegance, relaxed sensuality, cozy glamour. 2:3 aspect ratio.
+12. Flip Phone Skating Rink Diva
+Portrait of a stylish Black woman with sleek hair and radiant smile, holding flip phone, charm bracelet jingling, fashionable outfit. At skating rink under swirling colored disco lights creating rainbow effect. Analog soft focus, vibrant disco atmosphere, nostalgic energy. Active beauty, social butterfly, magnetic presence. 2:3 aspect ratio.
+13. Rhinestone Baggy Jeans Diner Babe
+Portrait of a carefree mixed-race woman with messy bun and natural beauty, graphic band tee and baggy jeans with rhinestone details. At late-night diner with neon signs and cherry sodas, casual lean. Vintage film grain, warm neon glow, authentic atmosphere. Tomboy charm, effortless cool, late-night beauty. 2:3 aspect ratio.
+14. Tube Top Pool Party Goddess
+Portrait of a confident woman with rich brown skin and beachy waves, colorful tube top showing shoulders, fuzzy arm warmers and glitter makeup sparkling. By pool with inflatable chairs and pink tropical drink nearby. Analog soft focus, bright poolside light, summer magic. Poolside confidence, party-ready curves, tropical seduction. 2:3 aspect ratio.
+15. Space Buns Blue Shadow Beauty
+Portrait of a radiant pale woman with playful space buns and artistic makeup, bright blue eyeshadow and glitter on cheeks catching light. By pool with inflatable chairs and pink drink, summer afternoon. Early 2000s camcorder effect with digital texture, bright sunshine, dreamy atmosphere. Festival beauty, creative expression, summer goddess. 2:3 aspect ratio.
+16. Matching Tracksuit Pool Babe
+Portrait of a bubbly South Asian woman with flowing dark hair, zip-up hoodie and matching flare pants in pastel color, relaxed vibe. By pool with inflatable chairs and pink drink, lounging pose. Vintage soft focus, warm poolside light, comfortable glamour. Athletic elegance, poolside relaxation, effortless beauty. 2:3 aspect ratio.
+17. Colored Extensions Pool Siren
+Portrait of a happy woman with sun-kissed skin and vibrant colored hair extensions, studded belt on low-rise pants showing midriff. By pool with inflatable chairs and pink tropical drink, party vibes. Analog soft focus, bright poolside atmosphere, summer energy. Bold style, poolside confidence, fearless beauty. 2:3 aspect ratio.
+18. Tennis Skirt School Locker Cutie
+Portrait of a beaming Asian woman with high ponytail and glossy lips, pastel crop top and pleated tennis skirt showing athletic legs. At school locker covered in glitter stickers and photos, hallway light. Vintage film with warm tone balance, soft hallway glow, nostalgic atmosphere. Schoolgirl seduction, sporty chic, youthful radiance. 2:3 aspect ratio.
+19. Glitter Body Gel Boutique Goddess
+Portrait of a cheerful Black woman with natural curls and shimmering skin, glitter body gel catching light, Y2K futuristic sunglasses. Inside Y2K-themed boutique full of pastel outfits and accessories. Early 2000s camcorder effect with digital artifacts, bright store lighting. Shopping beauty, glitter magic, fashion-forward allure. 2:3 aspect ratio.
+20. Cargo Shorts Bandana Sleepover Babe
+Portrait of a funky Latina woman with messy hair and bandana headband, cargo shorts and fitted tee, tube socks. At sleepover with magazines and fluffy pillows scattered, intimate setting. Vintage film with light leaks, soft bedroom lighting, cozy atmosphere. Tomboyish charm, sleepover intimacy, casual beauty. 2:3 aspect ratio.
+21. Mood Ring Boutique Beauty
+Portrait of a lively mixed-race woman with layered hair and nostalgic accessories, lava lamp nearby, mood ring and charm necklace catching light. Inside Y2K-themed boutique full of pastel outfits and trinkets. Analog film with warm tone balance, bright boutique lighting, colorful atmosphere. Accessory queen, shopping goddess, playful energy. 2:3 aspect ratio.
+22. Metallic Jacket Sleepover Queen
+Portrait of a glowing South Asian woman with natural waves and radiant smile, metallic silver jacket and mini bag, headphones around neck. At sleepover with magazines and fluffy pillows, relaxed pose. Vintage film with warm tone balance, soft intimate lighting, cozy vibes. Music lover beauty, sleepover cool, effortless glamour. 2:3 aspect ratio.
+23. Layered Tank Backyard Party Goddess
+Portrait of a fashionable woman with honey-toned skin and beachy waves, tank over long-sleeve combo showing y2k layering, flare pants low on hips. Under glowing string lights at backyard party, golden hour. Analog photography with light leaks, warm party atmosphere, nostalgic magic. Party-ready beauty, social butterfly, summer night allure. 2:3 aspect ratio.
+24. Trucker Hat Platform Bedroom Babe
+Portrait of a joyful Black woman with box braids and urban style, trucker hat and graphic hoodie, platform sneakers. In bubblegum pink bedroom with posters and flip flops, sitting on bed. Vintage lens blur, soft bedroom lighting, pink paradise. Hip-hop influenced beauty, bedroom confidence, street meets sweet. 2:3 aspect ratio.
+25. Butterfly Clips Velvet Mini Poster Girl
+Portrait of a trendy East Asian woman with sleek hair and butterfly clips, velvet miniskirt and fitted top, holding flip phone. In front of Y2K music poster wall with pop stars and album covers. Analog film grain, bright poster wall colors, nostalgic energy. Pop culture beauty, fashion icon, y2k perfection. 2:3 aspect ratio.
+
+
+
+
+2010s
+
+portrait of a smiling woman in a plaid shirt and skinny jeans with ombre hair, analog photography style, at an Instagrammable cafe with neon signs, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a cheerful woman with pastel dip-dyed hair and a flower crown, analog photography style, on a subway platform with pastel art ads, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a bubbly woman in a crop top and high-waisted shorts, wearing oversized sunglasses, analog photography style, on a vintage bike with a basket of flowers, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a confident woman with dark lipstick, choker necklace, and flannel tied around her waist, analog photography style, on a blanket at the park with Polaroid photos scattered, joyful mood, Polaroid aesthetic, 2:3 aspect ratio
+
+portrait of a radiant woman in a galaxy-print dress and combat boots, analog photography style, on a blanket at the park with Polaroid photos scattered, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a stylish woman in a denim jacket covered in enamel pins and band patches, analog photography style, in a coffee shop with chalkboard menus, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a playful woman with cat-eye liner and a unicorn onesie, analog photography style, in a library corner filled with zines and plants, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a joyful woman in a graphic tee with avocado toast and mom jeans, analog photography style, in a library corner filled with zines and plants, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a glowing woman in a flared skater skirt and chunky platform boots, analog photography style, in a Tumblr-style bedroom with wall grid and string lights, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a vibrant woman with silver hair and a minimalist tank top, analog photography style, on a blanket at the park with Polaroid photos scattered, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a retro-cute woman in heart-shaped sunglasses and ripped tights, analog photography style, in a brick-walled loft with record players, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a bright-eyed woman with an undercut and leather jacket, analog photography style, at a music festival with flower petals on the ground, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a quirky woman in oversized sweaters and high bun, analog photography style, in a library corner filled with zines and plants, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a fun woman in pastel bomber jacket and holographic backpack, analog photography style, in a photo booth with soft pink filter stickers, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a happy woman in a plaid mini skirt and sheer tights, holding an iced coffee, analog photography style, at an Instagrammable cafe with neon signs, joyful mood, Polaroid aesthetic, 2:3 aspect ratio
+
+portrait of a radiant woman in a velvet bralette layered over a mesh top, analog photography style, at a backyard party with fairy lights and mason jars, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a laughing woman with a donut phone case and candy-colored nails, analog photography style, in front of a pink wall covered in lipstick prints, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a glowing woman in a tie-dye hoodie and oversized round glasses, analog photography style, on a graffiti-lined street with food trucks, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a confident woman in a leopard print coat and red beanie, analog photography style, on a vintage bike with a basket of flowers, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a carefree woman in denim overalls and striped crop top, analog photography style, in a retro thrift store with rack of flannel shirts, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a joyful woman with winged eyeliner, holographic nails, and phone in selfie mode, analog photography style, in an urban garden with hanging mason jars, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a stylish woman with a minimalist outfit and bright neon trainers, analog photography style, on a subway platform with pastel art ads, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a cool woman with a denim vest, camera strap, and vintage sunglasses, analog photography style, at an Instagrammable cafe with neon signs, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a smiling woman in ripped jeans, infinity scarf, and latte in hand, analog photography style, on a vintage bike with a basket of flowers, joyful mood, Polaroid aesthetic, 2:3 aspect ratio
+
+portrait of a radiant woman with bold eyebrows, matte lipstick, and ombre-dyed ends, analog photography style, inside a record store with vinyl walls, joyful mood, Polaroid aesthetic, 2:3 aspect ratio
+
+
+
+tiktok girlies
+
+
+portrait of a confident woman with split-dyed hair and mesh sleeves, analog photography style, on a beanbag pile under fairy lights, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a glowing woman in a thrifted graphic tee and layered chains, analog photography style, inside a holographic tent filled with pillows, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a playful woman with pastel eyebrows, chunky boots, and oversized hoodie, analog photography style, on a suburban sidewalk with chalk hearts, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a radiant woman with curtain bangs, fishnets, and cyber makeup, analog photography style, in a bubble tea cafe with plush toys and pink walls, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a bubbly woman in a kawaii nurse outfit and neon eyeliner, analog photography style, inside a makeup studio with holo walls, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a bold woman with a shaved side cut and heavy winged eyeliner, analog photography style, in a selfie museum with distorted mirrors, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a joyful woman with bleached brows, faux freckles, and jelly earrings, analog photography style, on a glitter-filled dance floor with fog, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a stylish woman in y2k sunglasses, corset top, and arm warmers, analog photography style, on a suburban sidewalk with chalk hearts, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a quirky woman with a mullet haircut, safety pin earrings, and lip piercings, analog photography style, in a tiny bedroom covered in magazine clippings, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a vibrant woman with colorful hair clips, Hello Kitty top, and platform crocs, analog photography style, at a train station with graffiti and neon sneakers, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a smiling woman in an oversized band tee, patterned tights, and doc martens, analog photography style, inside a holographic tent filled with pillows, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a bright-eyed woman with glittery tooth gems and dyed buzzcut, analog photography style, in a neon-lit bedroom with anime posters and LED strips, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a happy woman in a mesh skirt layered over cargo pants, analog photography style, inside a holographic tent filled with pillows, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a radiant woman in a cyberpunk top, goggles on head, and harness bag, analog photography style, by a claw machine full of anime plushies, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a funky woman in a skeleton hoodie, striped tights, and heavy blush, analog photography style, on a beanbag pile under fairy lights, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a fun woman in pastel clown makeup and a vintage prom dress, analog photography style, in a thrift store dressing room with sticker mirrors, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a confident woman with glitch eyeliner, fake tattoos, and beaded necklaces, analog photography style, in a tiny bedroom covered in magazine clippings, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a glowing woman in alien-themed crop top and metallic eyeliner, analog photography style, in a selfie museum with distorted mirrors, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a stylish woman with an eyeball hair clip and chromatic fanny pack, analog photography style, at an open mic stage with lava lamps, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a carefree woman in a deconstructed sweater and oversized sunglasses, analog photography style, in a futuristic arcade with purple glow, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a cool woman in a pink faux fur coat, bucket hat, and glitter lashes, analog photography style, on a suburban sidewalk with chalk hearts, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a joyful woman in mismatched socks, jelly shoes, and face gems, analog photography style, on a rooftop covered in chalk doodles and crystals, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a radiant woman in LED chokers, mesh sleeves, and futuristic skirt, analog photography style, on a glitter-filled dance floor with fog, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a trendy woman in rainbow fishnets and soft grunge makeup, analog photography style, at an alt fashion pop-up shop, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a cheerful woman with an E-girl heart on cheek and low pigtails, analog photography style, in a thrift store dressing room with sticker mirrors, joyful mood, instant camera flash, 2:3 aspect ratio
+
+
+CLAUDE
+
+1. Split-Dye Fairy Light Goddess
+Portrait of a confident Asian woman with striking split-dyed hair in contrasting colors, mesh sleeves showing skin underneath, multiple ear piercings. On pile of colorful beanbags under twinkling fairy lights, cozy aesthetic. Analog photography with soft focus, warm intimate lighting, dreamy bokeh. Alternative beauty, bedroom vibes, creative expression. 2:3 aspect ratio.
+2. Thrifted Tee Holographic Dream
+Portrait of a glowing Black woman with natural coils and radiant skin, oversized vintage graphic tee and layered silver chains catching light. Inside shimmering holographic tent filled with plush pillows, magical atmosphere. Vintage soft focus, iridescent reflections, ethereal glow. Sustainable style, bohemian goddess, festival energy. 2:3 aspect ratio.
+3. Pastel Brow Chunky Boot Babe
+Portrait of a playful Latina woman with pastel dyed eyebrows and artistic makeup, oversized hoodie sliding off shoulder, chunky platform boots. On suburban sidewalk with colorful chalk hearts drawn everywhere. Analog photography with instant camera flash, bright daylight, nostalgic texture. Soft grunge beauty, street art spirit, youthful rebellion. 2:3 aspect ratio.
+4. Curtain Bangs Bubble Tea Cutie
+Portrait of a radiant South Asian woman with perfect curtain bangs and glowing skin, fishnets and cyber-inspired makeup with geometric liner. In bubble tea cafe with plush toys and pastel pink walls, kawaii aesthetic. Vintage lens blur, soft cafe lighting, dreamy atmosphere. Digital age beauty, anime inspiration, sweet seduction. 2:3 aspect ratio.
+5. Kawaii Nurse Neon Goddess
+Portrait of a bubbly mixed-race woman with space buns and playful smile, kawaii nurse outfit with cute details, bright neon eyeliner popping. Inside makeup studio with holographic walls creating rainbow reflections. Analog photography with instant camera flash, bright studio lighting, colorful energy. Cosplay beauty, playful fantasy, magnetic charm. 2:3 aspect ratio.
+6. Shaved Sidecut Winged Liner Queen
+Portrait of a bold Black woman with edgy shaved side cut and dramatic heavy winged eyeliner, confident expression, multiple piercings. In selfie museum with distorted funhouse mirrors creating artistic reflections. Vintage film with light leaks, dynamic museum lighting, surreal atmosphere. Fearless style, artistic soul, powerful presence. 2:3 aspect ratio.
+7. Bleached Brows Dance Floor Siren
+Portrait of a joyful woman with fair skin and bleached eyebrows, artistic faux freckles, colorful jelly earrings catching light. On glitter-filled dance floor with atmospheric fog swirling around. Analog film with warm tone balance, club lighting, sparkle everywhere. Festival beauty, dance energy, uninhibited joy. 2:3 aspect ratio.
+8. Y2K Corset Sidewalk Goddess
+Portrait of a stylish East Asian woman with sleek hair, futuristic Y2K sunglasses, fitted corset top showing curves, fuzzy arm warmers. On suburban sidewalk with chalk hearts creating whimsical backdrop. Vintage film with warm tone balance, golden hour light, nostalgic glow. Fashion-forward confidence, street style icon, romantic energy. 2:3 aspect ratio.
+9. Mullet Safety Pin Rebel
+Portrait of a quirky woman with olive skin and edgy mullet haircut, safety pin earrings and lip piercings, alternative style. In tiny bedroom covered in magazine clippings and band posters, personal space. Analog photography with light leaks, intimate bedroom lighting, authentic atmosphere. Punk beauty, DIY spirit, raw authenticity. 2:3 aspect ratio.
+10. Hello Kitty Platform Crocs Muse
+Portrait of a vibrant Latina woman with colorful hair clips adorning space buns, cute Hello Kitty top, bold platform Crocs. At train station with street art graffiti and wearing neon sneakers. Vintage film with warm tone balance, urban lighting, street energy. Kawaii meets streetwear, playful confidence, urban beauty. 2:3 aspect ratio.
+11. Oversized Band Tee Doc Martens Babe
+Portrait of a smiling mixed-race woman with messy waves, oversized vintage band tee showing legs, patterned tights and Doc Martens boots. Inside holographic tent filled with colorful pillows, cozy vibes. Analog photography with vintage lens blur, soft filtered light, dreamy atmosphere. Grunge elegance, festival spirit, effortless cool. 2:3 aspect ratio.
+12. Tooth Gems Buzzcut Beauty
+Portrait of a bright-eyed Black woman with dyed buzzcut and radiant smile, glittery tooth gems sparkling, artistic makeup. In neon-lit bedroom with anime posters and colorful LED strips glowing. Vintage soft focus, vibrant neon atmosphere, digital aesthetic. Bold self-expression, anime culture, magnetic energy. 2:3 aspect ratio.
+13. Mesh Skirt Cargo Pants Goddess
+Portrait of a happy South Asian woman with long flowing hair, mesh skirt layered creatively over cargo pants, alternative layering. Inside holographic tent filled with plush pillows, iridescent glow. Analog photography with vintage lens blur, soft magical lighting, ethereal vibes. Experimental fashion, festival beauty, creative spirit. 2:3 aspect ratio.
+14. Cyberpunk Goggles Anime Plushie Queen
+Portrait of a radiant woman with honey-toned skin and edgy style, futuristic cyberpunk top, goggles perched on head, harness bag. By glowing claw machine full of colorful anime plushies, arcade vibes. Vintage soft focus, neon arcade lighting, playful atmosphere. Futuristic beauty, gamer girl energy, alternative allure. 2:3 aspect ratio.
+15. Skeleton Hoodie Striped Tights Babe
+Portrait of a funky pale woman with artistic heavy blush and creative makeup, skeleton print hoodie, striped tights showing legs. On pile of beanbags under twinkling fairy lights, cozy setup. Analog photography with light leaks, warm fairy light glow, intimate atmosphere. Alternative cuteness, cozy rebellion, playful seduction. 2:3 aspect ratio.
+16. Pastel Clown Makeup Prom Dress Dream
+Portrait of a fun Asian woman with artistic pastel clown makeup and soft smile, vintage prom dress styled unconventionally. In thrift store dressing room with mirrors covered in stickers, trying on clothes. Vintage soft focus, dressing room lighting, nostalgic charm. Artistic expression, vintage glamour, whimsical beauty. 2:3 aspect ratio.
+17. Glitch Eyeliner Fake Tattoo Goddess
+Portrait of a confident Latina woman with dramatic glitch-style eyeliner and artistic fake tattoos, layered beaded necklaces. In tiny bedroom covered in magazine clippings and inspiration boards, personal sanctuary. Analog photography with light leaks, intimate bedroom lighting, creative atmosphere. Digital aesthetic, DIY beauty, bedroom confidence. 2:3 aspect ratio.
+18. Alien Crop Top Metallic Liner Siren
+Portrait of a glowing Black woman with natural hair and shimmering metallic eyeliner, alien-themed crop top showing midriff. In selfie museum with distorted mirrors creating surreal reflections. Vintage lens blur, dynamic museum lighting, otherworldly atmosphere. Sci-fi beauty, artistic expression, magnetic allure. 2:3 aspect ratio.
+19. Eyeball Clip Chromatic Fanny Pack Muse
+Portrait of a stylish mixed-race woman with quirky eyeball hair clip and colorful accessories, chromatic holographic fanny pack. At open mic stage with vintage lava lamps glowing in background. Analog photography with light leaks, moody stage lighting, artistic vibes. Alternative fashion, creative soul, performer energy. 2:3 aspect ratio.
+20. Deconstructed Sweater Arcade Goddess
+Portrait of a carefree South Asian woman with flowing dark hair, deconstructed sweater showing shoulders, oversized futuristic sunglasses. In retro-futuristic arcade with purple neon glow everywhere. Vintage film with light leaks, electric purple atmosphere, cyberpunk vibes. Experimental fashion, gamer beauty, mysterious allure. 2:3 aspect ratio.
+21. Pink Faux Fur Bucket Hat Beauty
+Portrait of a cool woman with warm bronze skin and glossy lips, fluffy pink faux fur coat, bucket hat, glitter false lashes. On suburban sidewalk with chalk hearts creating romantic backdrop. Analog photography with vintage lens blur, soft daylight, dreamy atmosphere. Soft girl aesthetic, street fashion, effortless glamour. 2:3 aspect ratio.
+22. Mismatched Socks Face Gems Rooftop Babe
+Portrait of a joyful East Asian woman with playful smile, mismatched colorful socks, jelly platform shoes, face gems sparkling. On rooftop covered in chalk doodles and crystals, magical setup. Vintage instant camera flash, bright natural light, whimsical energy. Playful spirit, crystal vibes, carefree beauty. 2:3 aspect ratio.
+23. LED Choker Futuristic Dance Floor Queen
+Portrait of a radiant Black woman with box braids and glowing LED chokers, mesh sleeves showing skin, futuristic metallic skirt. On glitter-filled dance floor with atmospheric fog swirling around. Analog soft focus, dynamic club lighting, electric atmosphere. Cyberpunk goddess, rave beauty, futuristic seduction. 2:3 aspect ratio.
+24. Rainbow Fishnets Soft Grunge Goddess
+Portrait of a trendy Latina woman with waves and soft grunge makeup, rainbow fishnet tights showing legs, layered alternative outfit. At alt fashion pop-up shop with racks of unique clothes. Vintage soft focus, boutique lighting, creative atmosphere. Alternative fashion icon, soft grunge beauty, shopping goddess. 2:3 aspect ratio.
+25. E-Girl Heart Cheek Low Pigtails Cutie
+Portrait of a cheerful mixed-race woman with cute low pigtails and signature e-girl heart drawn on cheek, playful makeup. In thrift store dressing room with mirrors covered in cute stickers, trying on clothes. Analog photography with instant camera flash, dressing room lighting, nostalgic charm. E-girl aesthetic, internet culture beauty, playful seduction. 2:3 aspect ratio.
+
+
+
+📼 Vaporwave goth girls
+
+
+portrait of a radiant goth girl with lavender hair, mesh top, and cyberpunk sunglasses, analog photography style, in a goth cafe with lava lamps and pastel skulls, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a cheerful woman in a fishnet bodysuit and pastel pentagram choker, analog photography style, on a carousel bathed in cyberpunk glow, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a smiling goth girl in a black vinyl skirt, striped arm warmers, and space buns, analog photography style, by a pixelated fountain in a vaporwave mall courtyard, joyful mood, CRT overlay, 2:3 aspect ratio
+
+portrait of a confident woman in a mesh corset, glitch makeup, and black lipstick, analog photography style, in a vaporwave arcade with glowing palm trees and Greek busts, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a glowing goth girl with a holographic harness and velvet crop top, analog photography style, inside a mall fountain lit by LED strips and fog, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a playful woman in a batwing hoodie and thigh-high platform boots, analog photography style, under magenta neon signs in a Tokyo alley, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a joyful woman in a pastel fishnet shirt and bondage straps, analog photography style, in a retro photo booth with anime filter overlays, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a vibrant goth girl in a see-through raincoat and pink gas mask, analog photography style, on a carousel bathed in cyberpunk glow, joyful mood, CRT overlay, 2:3 aspect ratio
+
+portrait of a stylish woman in striped tights, holographic skirt, and skull earrings, analog photography style, in a retro photo booth with anime filter overlays, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a quirky goth girl with cyberlox, fishnet gloves, and spiked collar, analog photography style, at a synthwave nightclub with grid floors and purple lasers, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a confident woman in a black tulle dress with neon belt and glitch eyeliner, analog photography style, at a bubble tea bar with coffin-shaped tables, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a smiling woman with star-shaped blush and moon clip-in bangs, analog photography style, in a retro photo booth with anime filter overlays, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a funky goth girl with kawaii coffin backpack and lace parasol, analog photography style, by a pixelated fountain in a vaporwave mall courtyard, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a glowing woman in a crushed velvet jumpsuit with iridescent spikes, analog photography style, at a bubble tea bar with coffin-shaped tables, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a bright-eyed woman in a spiderweb mesh tee and metallic chains, analog photography style, under magenta neon signs in a Tokyo alley, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a trendy goth girl with sharp contour, clear vinyl boots, and ankh earrings, analog photography style, at a synthwave nightclub with grid floors and purple lasers, joyful mood, instant camera flash, 2:3 aspect ratio
+
+portrait of a joyful woman in a cyber kimono with pixel glitch pattern, analog photography style, inside a mall fountain lit by LED strips and fog, joyful mood, CRT overlay, 2:3 aspect ratio
+
+portrait of a radiant woman with LED devil horns and pastel corset, analog photography style, in front of a pink-glitch wall covered in sticker graffiti, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a cool goth girl with oversized black hoodie and pixel heart cheeks, analog photography style, on a rooftop with polygon sunset and holographic moon, joyful mood, vapor glow lighting, 2:3 aspect ratio
+
+portrait of a cheerful woman with VR headset, black lipstick, and mesh gloves, analog photography style, in an abandoned arcade with pulsing vapor trails, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a fun goth girl in cat ears headset, netted tights, and vaporwave nails, analog photography style, by a telephone booth wrapped in pink wires and LED cables, joyful mood, CRT overlay, 2:3 aspect ratio
+
+portrait of a confident woman in layered chokers, holographic coat, and vampire fangs, analog photography style, inside a translucent dome filled with artificial fog, joyful mood, CRT overlay, 2:3 aspect ratio
+
+portrait of a goth girl with pink fauxhawk, inverted cross earrings, and glitch blush, analog photography style, in a goth cafe with lava lamps and pastel skulls, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a stylish woman in dark holographic bomber and see-through pants, analog photography style, at a bubble tea bar with coffin-shaped tables, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a playful woman in jelly platform shoes and skull hair clips, analog photography style, in a vaporwave arcade with glowing palm trees and Greek busts, joyful mood, warm tone balance, 2:3 aspect ratio
+
+CLAUDE
+
+1. Lavender Hair Cyberpunk Goth Goddess
+Portrait of a radiant Asian goth girl with pastel lavender hair and luminous porcelain skin, black mesh top over colorful bralette, futuristic cyberpunk sunglasses reflecting neon. In goth cafe with glowing lava lamps and pastel pink skulls creating surreal atmosphere. Analog photography with light leaks, dreamy neon glow, vaporwave aesthetic. Alternative beauty, cyber seduction, ethereal confidence. 2:3 aspect ratio.
+2. Fishnet Bodysuit Carousel Dream
+Portrait of a cheerful Black woman with purple-tinted hair and glowing dark skin, intricate fishnet bodysuit showing curves, pastel pentagram choker catching light. On vintage carousel bathed in cyberpunk neon glow, magical rotation. Vintage film grain, vibrant carousel lights, dreamlike atmosphere. Gothic sensuality, carnival magic, joyful darkness. 2:3 aspect ratio.
+3. Vinyl Skirt Space Buns Pixelated Beauty
+Portrait of a smiling Latina goth girl with playful space buns and dramatic eye makeup, black vinyl mini skirt showing legs, striped arm warmers. By pixelated digital fountain in vaporwave mall courtyard with geometric aesthetics. Analog photography with CRT overlay effect, retro-futuristic glow, digital nostalgia. Cyber-goth cuteness, mall aesthetic, playful rebellion. 2:3 aspect ratio.
+4. Mesh Corset Glitch Makeup Queen
+Portrait of a confident South Asian woman with sleek dark hair and artistic glitch makeup, mesh corset showing skin underneath, black matte lipstick. In vaporwave arcade with glowing palm trees and Greek marble busts, surreal setting. Vintage lens blur, neon arcade atmosphere, classical meets digital. Avant-garde beauty, artistic expression, magnetic darkness. 2:3 aspect ratio.
+5. Holographic Harness Mall Fountain Siren
+Portrait of a glowing mixed-race goth girl with iridescent highlights, holographic harness over black velvet crop top showing midriff, layered chains. Inside mall fountain lit by colorful LED strips with atmospheric fog swirling. Analog photography with instant camera flash, neon reflections, wet aesthetic. Futuristic goth glamour, water nymph energy, cyberpunk seduction. 2:3 aspect ratio.
+6. Batwing Hoodie Platform Boots Tokyo Beauty
+Portrait of a playful East Asian woman with sleek black hair and bold makeup, oversized batwing hoodie and thigh-high platform boots showing legs. Under glowing magenta neon signs in atmospheric Tokyo alley at night. Vintage instant camera flash, vibrant neon reflections, urban mystery. Gothic street style, Tokyo nights, dangerous beauty. 2:3 aspect ratio.
+7. Pastel Fishnet Bondage Photo Booth Babe
+Portrait of a joyful woman with fair skin and colorful streaked hair, pastel pink fishnet shirt over black bralette, artistic bondage straps as accessories. In retro photo booth with anime filter overlays and sticker frames. Analog film with warm tone balance, photo booth lighting, playful intimacy. Soft goth aesthetic, kawaii darkness, flirtatious energy. 2:3 aspect ratio.
+8. Pink Gas Mask Raincoat Carousel Goddess
+Portrait of a vibrant Black goth girl with voluminous natural hair, transparent see-through raincoat over dark outfit, pastel pink gas mask as accessory. On carousel bathed in cyberpunk neon glow, dystopian fantasy. Analog photography with CRT overlay effect, carousel motion blur, surreal atmosphere. Post-apocalyptic beauty, fetish fashion, fearless expression. 2:3 aspect ratio.
+9. Holographic Skirt Striped Tights Photo Booth Queen
+Portrait of a stylish Latina woman with dark dramatic makeup and skull statement earrings, holographic metallic skirt catching light, striped tights. In retro photo booth with anime filter overlays creating digital effects. Vintage film with light leaks, photo booth glow, nostalgic digital aesthetic. Cyber-goth fashion icon, playful darkness, magnetic charm. 2:3 aspect ratio.
+10. Cyberlox Fishnet Gloves Synthwave Diva
+Portrait of a quirky mixed-race goth girl with neon cyberlox extensions and edgy style, fishnet gloves showing hands, spiked collar and chains. At synthwave nightclub with illuminated grid floors and purple lasers cutting through fog. Analog photography with vintage lens blur, electric club atmosphere, retro-futuristic energy. Rave goth beauty, cyberpunk rebellion, dance floor seduction. 2:3 aspect ratio.
+11. Black Tulle Neon Belt Glitch Liner Goddess
+Portrait of a confident South Asian woman with flowing dark hair and artistic glitch eyeliner, romantic black tulle dress with bright neon belt contrast. At bubble tea bar with coffin-shaped tables and gothic decor. Vintage lens blur, moody cafe lighting, pastel goth vibes. Gothic elegance, kawaii darkness, mysterious allure. 2:3 aspect ratio.
+12. Star Blush Moon Bangs Photo Booth Cutie
+Portrait of a smiling woman with porcelain skin and artistic star-shaped blush, clip-in moon crescent bangs, dreamy makeup. In retro photo booth with anime filter overlays and colorful frames. Analog photography with instant camera flash, bright booth lighting, playful atmosphere. Celestial goth beauty, magical girl energy, innocent darkness. 2:3 aspect ratio.
+13. Kawaii Coffin Backpack Lace Parasol Babe
+Portrait of a funky Asian goth girl with space buns and glossy lips, adorable kawaii coffin-shaped backpack, delicate black lace parasol. By pixelated fountain in vaporwave mall courtyard with geometric digital aesthetics. Vintage lens blur, neon mall lighting, surreal atmosphere. Japanese goth fusion, cute meets dark, playful elegance. 2:3 aspect ratio.
+14. Crushed Velvet Iridescent Spikes Bubble Tea Queen
+Portrait of a glowing Black woman with natural coils and radiant skin, crushed velvet jumpsuit with iridescent spike accessories catching light. At bubble tea bar with coffin-shaped tables and pastel goth decor. Analog film with warm tone balance, cozy cafe glow, intimate atmosphere. Luxe goth comfort, tactile beauty, sophisticated darkness. 2:3 aspect ratio.
+15. Spiderweb Mesh Metallic Chains Tokyo Siren
+Portrait of a bright-eyed Latina woman with dramatic eye makeup and glossy dark lips, spiderweb pattern mesh tee showing skin, layered metallic chains. Under glowing magenta neon signs in atmospheric Tokyo alley. Vintage film grain, vibrant neon reflections, urban night magic. Web of seduction, street goth style, Tokyo underground beauty. 2:3 aspect ratio.
+16. Sharp Contour Vinyl Boots Ankh Synthwave Goddess
+Portrait of a trendy mixed-race goth girl with razor-sharp contour and sculpted features, clear vinyl platform boots, Egyptian ankh earrings. At synthwave nightclub with grid floors and purple lasers creating geometric patterns. Analog photography with instant camera flash, electric club lighting, retro-futuristic atmosphere. Club kid beauty, ancient symbols, dance floor dominance. 2:3 aspect ratio.
+17. Cyber Kimono Pixel Glitch Mall Fountain Beauty
+Portrait of a joyful East Asian woman with sleek hair and artistic makeup, futuristic cyber kimono with pixel glitch pattern design, traditional meets digital. Inside mall fountain lit by colorful LED strips with atmospheric fog. Analog photography with CRT overlay effect, neon water reflections, surreal fusion. Cultural fusion beauty, digital geisha, cyberpunk elegance. 2:3 aspect ratio.
+18. LED Devil Horns Pastel Corset Graffiti Wall Goddess
+Portrait of a radiant South Asian woman with flowing hair and glowing LED devil horns accessory, romantic pastel pink corset showing curves. In front of pink-glitch digital wall covered in holographic sticker graffiti. Vintage lens blur, neon wall glow, urban art atmosphere. Demonic beauty, soft goth seduction, digital street art energy. 2:3 aspect ratio.
+19. Oversized Hoodie Pixel Heart Rooftop Dream
+Portrait of a cool Black goth girl with natural hair and cute pixel heart blush on cheeks, oversized black hoodie comfortable style. On rooftop with polygon geometric sunset and holographic moon in sky. Analog photography with vapor glow lighting, surreal digital sky, dreamy atmosphere. Soft goth aesthetic, digital sunset beauty, rooftop solitude. 2:3 aspect ratio.
+20. VR Headset Mesh Gloves Abandoned Arcade Queen
+Portrait of a cheerful Latina woman with VR headset accessory and black matte lipstick, futuristic mesh gloves showing fingers. In abandoned arcade with pulsing neon vapor trails and retro game cabinets. Vintage lens blur, atmospheric vapor lighting, dystopian beauty. Cyberpunk gamer girl, virtual reality seduction, arcade nostalgia. 2:3 aspect ratio.
+21. Cat Ears Headset Vaporwave Nails Telephone Booth Babe
+Portrait of a fun mixed-race goth girl with cute cat ears headset and vaporwave gradient holographic nails, black netted tights showing legs. By vintage telephone booth wrapped in pink wires and glowing LED cables. Analog photography with CRT overlay effect, neon wire glow, retro-futuristic aesthetic. Kawaii cyber-goth, communication technology beauty, playful seduction. 2:3 aspect ratio.
+22. Layered Chokers Vampire Fangs Holographic Coat Goddess
+Portrait of a confident Asian woman with pale skin and multiple layered chokers, holographic reflective coat, vampire fangs visible in smile. Inside translucent dome filled with swirling artificial fog and colored lights. Analog photography with CRT overlay effect, atmospheric fog glow, surreal enclosure. Vampire beauty, futuristic gothic, mysterious allure. 2:3 aspect ratio.
+23. Pink Fauxhawk Inverted Cross Glitch Blush Cafe Beauty
+Portrait of a radiant Black goth girl with bold pink fauxhawk hairstyle and artistic glitch blush makeup, inverted cross earrings dangling. In goth cafe with glowing lava lamps and pastel colored skulls everywhere. Vintage lens blur, warm cafe atmosphere, pastel goth paradise. Punk goth fusion, rebellious beauty, cafe culture seduction. 2:3 aspect ratio.
+24. Dark Holographic Bomber See-Through Pants Bubble Tea Siren
+Portrait of a stylish South Asian woman with sleek hair and bold makeup, dark holographic bomber jacket catching light, see-through mesh pants showing legs. At bubble tea bar with coffin-shaped tables and gothic kawaii decor. Analog photography with light leaks, neon cafe glow, intimate atmosphere. Transparent fashion, goth girl sophistication, bubble tea culture beauty. 2:3 aspect ratio.
+25. Jelly Platform Shoes Skull Clips Arcade Goddess
+Portrait of a playful Latina woman with space buns adorned with skull hair clips, colorful jelly platform shoes, playful goth style. In vaporwave arcade with glowing palm trees and classical Greek marble busts. Vintage film with warm tone balance, neon arcade atmosphere, surreal juxtaposition. Playful goth energy, arcade culture, classical meets digital beauty. 2:3 aspect ratio.
+
+
+Retro-Futuristic 
+
+
+
+portrait of a glowing woman in a chrome jumpsuit with geometric eyeliner, analog photography style, on a glowing platform by a synth-powered waterfall, joyful mood, film grain, 2:3 aspect ratio
+
+portrait of a cheerful woman in a bubble helmet and mod dress with metallic boots, analog photography style, at a robotic salon with chrome dryers and android stylists, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+portrait of a radiant woman with beehive hair and a reflective catsuit, analog photography style, in a digital garden with pixel flowers and synth trees, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a stylish woman in neon circuit makeup and fiber optic earrings, analog photography style, in a digital garden with pixel flowers and synth trees, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a vibrant woman in a space uniform with vintage patches, analog photography style, in front of a neon star map kiosk, joyful mood, futuristic bloom, 2:3 aspect ratio
+
+portrait of a smiling woman in a translucent vinyl raincoat and retro jetpack, analog photography style, on a pastel launchpad with holographic countdown, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a confident woman in shiny silver shoulder pads and mirrored sunglasses, analog photography style, on a hoverwalk under a translucent moon, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a joyful woman with LED face tattoos and plastic hoop earrings, analog photography style, at a vintage spaceport with blinking gate signs, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a cool woman with blunt bangs, moon brooch, and glowing gloves, analog photography style, at a vintage spaceport with blinking gate signs, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a happy woman in a pastel latex dress and chrome hairpins, analog photography style, in front of a neon star map kiosk, joyful mood, lens flare haze, 2:3 aspect ratio
+
+portrait of a retro-chic woman in orbital-themed dress with light-up seams, analog photography style, on a hoverwalk under a translucent moon, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a futuristic woman in sleek black armor with mod patterns, analog photography style, at a robotic salon with chrome dryers and android stylists, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a quirky woman in iridescent overalls and bubble ponytails, analog photography style, at a robotic salon with chrome dryers and android stylists, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a bold woman in a chevron unitard and star-shaped goggles, analog photography style, inside a glowing tube transport system, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a bright-eyed woman in interstellar airline uniform with silver tights, analog photography style, at a space station lounge with glowing orb chairs, joyful mood, CRT glow, 2:3 aspect ratio
+
+portrait of a fun woman in a clear bubble dome hat and space tutu, analog photography style, inside a control room with analog dials and blinking consoles, joyful mood, warm tone balance, 2:3 aspect ratio
+
+portrait of a funky woman in mirrorball crop top and floating jewelry, analog photography style, in a pink science lab with glass domes and wires, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a radiant woman with electric blue lipstick and pixel eye makeup, analog photography style, in front of a neon star map kiosk, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a stylish woman in technicolor jacket and antenna hairband, analog photography style, inside a domed city plaza with flying cars in the sky, joyful mood, soft focus, 2:3 aspect ratio
+
+portrait of a happy woman in mod plastic mini dress and VR visor, analog photography style, under a translucent canopy with lens flare rings, joyful mood, futuristic bloom, 2:3 aspect ratio
+
+portrait of a whimsical woman in asymmetrical neon suit and moon boots, analog photography style, in a digital garden with pixel flowers and synth trees, joyful mood, light leak effects, 2:3 aspect ratio
+
+portrait of a vibrant woman in anti-gravity hair and sci-fi backpack, analog photography style, on a glowing platform by a synth-powered waterfall, joyful mood, futuristic bloom, 2:3 aspect ratio
+
+portrait of a playful woman with star trail tattoos and hologram scarf, analog photography style, on a shuttle ramp with blinking landing lights, joyful mood, lens flare haze, 2:3 aspect ratio
+
+portrait of a confident woman in 60s go-go boots and circuit board dress, analog photography style, in a silver cafe with floating drink pods, joyful mood, lens flare haze, 2:3 aspect ratio
+
+portrait of a bright woman with augmented reality glasses and LED necklace, analog photography style, in front of a neon star map kiosk, joyful mood, vintage lens blur, 2:3 aspect ratio
+
+CLAUDE
+
+1. Chrome Jumpsuit Geometric Liner Waterfall Goddess
+Portrait of a glowing Asian woman with luminous porcelain skin and striking geometric eyeliner, skintight chrome jumpsuit hugging every curve, reflecting light seductively. On glowing platform by synth-powered waterfall with neon mist, futuristic oasis. Analog photography with film grain, ethereal waterfall glow, sci-fi sensuality. Liquid metal beauty, space-age seduction, goddess energy. 2:3 aspect ratio.
+2. Bubble Helmet Mod Dress Android Salon Siren
+Portrait of a cheerful Black woman with voluminous natural hair visible through transparent bubble helmet, curves accentuated in mod mini dress, metallic knee-high boots showing legs. At robotic salon with polished chrome dryers and sleek android stylists. Vintage lens blur, futuristic salon lighting, retro-tech atmosphere. Space-age glamour, salon seduction, cosmic beauty ritual. 2:3 aspect ratio.
+3. Beehive Hair Reflective Catsuit Digital Garden Beauty
+Portrait of a radiant Latina woman with dramatic beehive updo and smoky eyes, reflective silver catsuit molded to body showing silhouette. In surreal digital garden with glowing pixel flowers and geometric synth trees. Analog photography with soft focus, neon garden glow, dreamlike atmosphere. Retro-futuristic elegance, skin-tight seduction, botanical digital beauty. 2:3 aspect ratio.
+4. Neon Circuit Makeup Fiber Optic Earrings Temptress
+Portrait of a stylish South Asian woman with glowing skin and intricate neon circuit pattern makeup, fiber optic earrings illuminating face, parted lips. In digital garden with pixel flowers and synth trees creating magical backdrop. Vintage soft focus, bioluminescent glow, electric atmosphere. Tech-infused beauty, wired seduction, cybernetic goddess. 2:3 aspect ratio.
+5. Space Uniform Vintage Patches Star Map Vixen
+Portrait of a vibrant mixed-race woman with sleek ponytail and sultry gaze, fitted retro space uniform with vintage mission patches, unzipped to reveal collarbone. In front of glowing neon star map kiosk with constellation displays. Analog photography with futuristic bloom effect, neon cartography glow, explorer energy. Astronaut allure, intergalactic seduction, mission control beauty. 2:3 aspect ratio.
+6. Translucent Vinyl Raincoat Jetpack Launchpad Goddess
+Portrait of a smiling East Asian woman with glossy lips and playful confidence, see-through translucent vinyl raincoat over curve-hugging bodysuit, retro jetpack strapped on. On pastel launchpad with holographic countdown numbers floating. Vintage soft focus, pastel launch lights, ready-for-liftoff energy. Transparent temptation, rocket girl seduction, launch sequence beauty. 2:3 aspect ratio.
+7. Silver Shoulder Pads Mirrored Sunglasses Moon Goddess
+Portrait of a confident Black woman with sculpted cheekbones and bold lips, dramatic shiny silver shoulder pads and reflective mirrored sunglasses hiding eyes. On hoverwalk under glowing translucent moon, city lights below. Analog photography with light leaks, lunar glow, floating atmosphere. Power dressing seduction, moonlit mystery, elevated elegance. 2:3 aspect ratio.
+8. LED Face Tattoos Plastic Hoops Spaceport Siren
+Portrait of a joyful Latina woman with luminous LED face tattoos glowing on skin and oversized plastic hoop earrings, sensual smile. At vintage spaceport with blinking gate signs and retro departure boards. Vintage soft focus, neon spaceport atmosphere, traveler mystique. Illuminated beauty, terminal temptation, interstellar allure. 2:3 aspect ratio.
+9. Blunt Bangs Moon Brooch Glowing Gloves Beauty
+Portrait of a cool South Asian woman with severe blunt bangs framing face and sultry expression, vintage moon brooch pinned between breasts, glowing phosphorescent gloves. At vintage spaceport with blinking gate signs creating bokeh. Analog photography with light leaks, retro-tech glow, mysterious traveler energy. Celestial seduction, space-age sophistication, lunar beauty. 2:3 aspect ratio.
+10. Pastel Latex Dress Chrome Hairpins Star Map Temptress
+Portrait of a happy woman with honey-toned skin and glossy curls adorned with chrome hairpins, pastel latex dress clinging to curves like second skin. In front of neon star map kiosk with glowing constellations. Analog photography with lens flare haze, neon navigation glow, exploratory atmosphere. Latex luxury, astronomical seduction, space navigator beauty. 2:3 aspect ratio.
+11. Orbital Dress Light-Up Seams Hoverwalk Goddess
+Portrait of a retro-chic mixed-race woman with flowing hair and dreamy expression, orbital-themed dress with light-up seams tracing body contours seductively. On hoverwalk under translucent moon with cityscape below. Vintage film with warm tone balance, lunar illumination, floating elegance. Illuminated curves, hovering seduction, moonlit sophistication. 2:3 aspect ratio.
+12. Sleek Black Armor Mod Patterns Android Salon Queen
+Portrait of a futuristic East Asian woman with sharp features and intense gaze, sleek black form-fitting armor with mod geometric patterns, warrior elegance. At robotic salon with chrome dryers and android stylists attending. Analog photography with soft focus, polished chrome reflections, sci-fi salon atmosphere. Armored allure, battle-ready beauty, mechanical seduction. 2:3 aspect ratio.
+13. Iridescent Overalls Bubble Ponytails Salon Babe
+Portrait of a quirky Black woman with playful bubble ponytails and radiant smile, iridescent overalls with straps sliding off shoulders showing skin. At robotic salon with chrome dryers and android stylists creating beauty. Vintage film with light leaks, chrome salon glow, playful futuristic energy. Holographic shimmer, casual seduction, salon day beauty. 2:3 aspect ratio.
+14. Chevron Unitard Star Goggles Tube Transport Siren
+Portrait of a bold Latina woman with curves highlighted in chevron pattern unitard, star-shaped goggles perched on head, confident stance. Inside glowing tube transport system with neon tunnel lights. Analog photography with warm tone balance, transport tube glow, kinetic energy. Geometric seduction, transit beauty, space-age curves. 2:3 aspect ratio.
+15. Interstellar Airline Uniform Silver Tights Lounge Goddess
+Portrait of a bright-eyed South Asian woman with glossy lips in fitted interstellar airline uniform showing legs, silver metallic tights catching light. At space station lounge with glowing orb chairs and cosmic views. Analog photography with CRT glow effect, space lounge atmosphere, retro-futuristic comfort. Flight attendant fantasy, orbital seduction, first-class beauty. 2:3 aspect ratio.
+16. Bubble Dome Hat Space Tutu Control Room Beauty
+Portrait of a fun mixed-race woman with playful expression wearing transparent bubble dome hat and ethereal space tutu showing legs, whimsical elegance. Inside control room with vintage analog dials and blinking consoles. Vintage film with warm tone balance, control panel glow, retro command center energy. Cosmic ballerina, command seduction, space princess allure. 2:3 aspect ratio.
+17. Mirrorball Crop Top Floating Jewelry Lab Goddess
+Portrait of a funky Black woman with natural coils and glowing skin, mirrorball crop top reflecting light showing midriff, floating magnetic jewelry defying gravity. In pink science lab with glass domes and colorful wires everywhere. Analog photography with soft focus, laboratory pink glow, scientific seduction. Disco science beauty, experimental allure, laboratory temptress. 2:3 aspect ratio.
+18. Electric Blue Lipstick Pixel Eye Makeup Star Map Siren
+Portrait of a radiant East Asian woman with striking electric blue lipstick and artistic pixel eye makeup, porcelain skin glowing, sultry gaze. In front of neon star map kiosk with glowing celestial charts. Analog photography with light leaks, neon constellation glow, cosmic navigation energy. Digital makeup artistry, celestial seduction, space-age glamour. 2:3 aspect ratio.
+19. Technicolor Jacket Antenna Hairband Domed City Beauty
+Portrait of a stylish Latina woman with antenna hairband and glossy waves, technicolor metallic jacket open over fitted bodysuit showing curves. Inside domed city plaza with flying cars visible in sky above. Vintage soft focus, city dome atmosphere, retro-metropolis energy. Future city fashion, urban seduction, skyline sophistication. 2:3 aspect ratio.
+20. Mod Plastic Mini Dress VR Visor Canopy Goddess
+Portrait of a happy South Asian woman with flowing hair and VR visor pushed up on head, mod plastic mini dress showing legs and curves, futuristic go-go style. Under translucent canopy with lens flare rings creating halos. Analog photography with futuristic bloom effect, canopy light diffusion, ethereal atmosphere. Virtual reality beauty, see-through seduction, mod temptress. 2:3 aspect ratio.
+21. Asymmetrical Neon Suit Moon Boots Digital Garden Temptress
+Portrait of a whimsical mixed-race woman with artistic makeup, asymmetrical neon suit with one shoulder bare, chunky moon boots, avant-garde style. In digital garden with glowing pixel flowers and geometric synth trees. Analog photography with light leaks, bioluminescent garden glow, surreal beauty. Asymmetric allure, botanical digital seduction, space-age garden nymph. 2:3 aspect ratio.
+22. Anti-Gravity Hair Sci-Fi Backpack Waterfall Goddess
+Portrait of a vibrant Black woman with voluminous hair defying gravity floating upward, sleek sci-fi backpack with glowing accents, form-fitting outfit. On glowing platform by synth-powered waterfall with neon cascades. Analog photography with futuristic bloom effect, waterfall mist glow, zero-gravity beauty. Floating hair magic, weightless seduction, cosmic waterfall energy. 2:3 aspect ratio.
+23. Star Trail Tattoos Hologram Scarf Shuttle Ramp Siren
+Portrait of a playful Latina woman with luminous star trail tattoos glowing on shoulders and décolletage, holographic scarf floating weightlessly around neck. On shuttle ramp with blinking landing lights and spacecraft behind. Analog photography with lens flare haze, landing lights glow, departure energy. Celestial body art, holographic elegance, launch pad seduction. 2:3 aspect ratio.
+24. 60s Go-Go Boots Circuit Board Dress Floating Cafe Goddess
+Portrait of a confident East Asian woman with mod makeup and glossy lips, white 60s go-go boots and circuit board pattern dress showing legs. In silver cafe with floating drink pods hovering around. Analog photography with lens flare haze, chrome cafe reflections, space-age lounge atmosphere. Go-go seduction, circuitry chic, floating cafe elegance. 2:3 aspect ratio.
+25. Augmented Reality Glasses LED Necklace Star Map Beauty
+Portrait of a bright South Asian woman with sleek hair and futuristic augmented reality glasses, glowing LED necklace illuminating collarbone and neck. In front of neon star map kiosk with constellation displays. Vintage lens blur, neon cartography glow, tech-enhanced beauty. Wearable tech seduction, illuminated elegance, navigation goddess. 2:3 aspect ratio.
+
