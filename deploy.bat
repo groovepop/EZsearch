@@ -56,7 +56,10 @@ call az webapp config appsettings set --resource-group EZsearch-rg --name ezsear
   GENIUS_CLIENT_ID="%GENIUS_CLIENT_ID%" ^
   GENIUS_CLIENT_SECRET="%GENIUS_CLIENT_SECRET%" ^
   GENIUS_CLIENT_ACCESS_TOKEN="%GENIUS_CLIENT_ACCESS_TOKEN%" ^
-  AZURE_POPCULTURE_DEPLOYMENT="%AZURE_POPCULTURE_DEPLOYMENT%"
+  AZURE_POPCULTURE_DEPLOYMENT="%AZURE_POPCULTURE_DEPLOYMENT%" ^
+  GROOVEPOP_AZURE_OPENAI_ENDPOINT="https://green-mos1tune-eastus2.openai.azure.com" ^
+  GROOVEPOP_AZURE_OPENAI_KEY="%AZURE_GROK_KEY%" ^
+  GROOVEPOP_AZURE_IMAGE_DEPLOYMENT="gpt-image-2"
 
 echo Deploying code zip to Azure Web App...
 call az webapp deploy --resource-group EZsearch-rg --name ezsearch-hub --src-path app.zip --type zip

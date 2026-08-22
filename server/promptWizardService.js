@@ -681,6 +681,14 @@ function mapSizeFromRatio(ratio) {
   return '1024x1024';
 }
 
+export function getImageConfig() {
+  const endpoint = (process.env.GROOVEPOP_AZURE_OPENAI_ENDPOINT || 'https://green-mos1tune-eastus2.openai.azure.com').replace(/\/$/, '');
+  const apiKey = process.env.GROOVEPOP_AZURE_OPENAI_KEY || process.env.AZURE_GROK_KEY || process.env.AZURE_OPENAI_KEY || '';
+  const imageDeployment = process.env.IMAGE_GENERATOR_DEPLOYMENT || process.env.GROOVEPOP_AZURE_IMAGE_DEPLOYMENT || 'gpt-image-2';
+
+  return { endpoint, apiKey, imageDeployment };
+}
+
 // ---------------------------------------------------------------------------
 // 7. Explicit Image Generation (GPT Image 2 / gpt-image-2)
 // ---------------------------------------------------------------------------
@@ -692,12 +700,12 @@ export async function generateWizardImage({
   output_format = 'jpeg',
   background = 'auto'
 }) {
-  const config = getWizardConfig();
-  if (!config.apiKey || !config.endpoint) {
-    throw new Error('Azure OpenAI key is not configured (AZURE_OPENAI_KEY or GROOVEPOP_AZURE_OPENAI_KEY)');
+  const imgConfig = getImageConfig();
+  if (!imgConfig.apiKey || !imgConfig.endpoint) {
+    throw new Error('Azure OpenAI image key/endpoint is not configured');
   }
 
-  const url = `${config.endpoint}/openai/deployments/${config.imageDeployment}/images/generations?api-version=2025-04-01-preview`;
+  const url = `${imgConfig.endpoint}/openai/deployments/${imgConfig.imageDeployment}/images/generations?api-version=2025-04-01-preview`;
   
   const mappedSize = mapSizeFromRatio(size);
   const payload = {
@@ -712,7 +720,7 @@ export async function generateWizardImage({
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'api-key': config.apiKey
+      'api-key': imgConfig.apiKey
     },
     body: JSON.stringify(payload)
   });
