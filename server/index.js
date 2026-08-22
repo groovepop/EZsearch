@@ -19,6 +19,11 @@ import {
   fetchAgentMetadataFromFoundry, 
   flushFoundryAgentCache 
 } from './foundryAgentService.js';
+import {
+  processPopCultureChat,
+  generatePopCultureGreeting,
+  getPopCultureStatus
+} from './popCultureAgentService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 import { executeEngineTransform, executeEngineCaption } from './groovepopEngine.js';
@@ -1239,6 +1244,33 @@ app.get('/api/deepseek/versions', async (req, res) => {
 // Refresh Foundry version cache on demand
 app.post('/api/foundry/refresh-versions', (req, res) => {
   res.json(flushFoundryAgentCache());
+});
+
+// 12c. Pop Culture Agent Endpoints (Genius Machine / 7 Tools)
+app.post('/api/popculture/chat', async (req, res) => {
+  try {
+    const { messages, userMessage, clientTime, modelDeployment } = req.body || {};
+    const result = await processPopCultureChat({ messages, userMessage, clientTime, modelDeployment });
+    res.json(result);
+  } catch (err) {
+    console.error('[PopCulture API Error]', err);
+    res.status(500).json({ error: 'Pop culture chat processing failed', message: err.message });
+  }
+});
+
+app.get('/api/popculture/greet', async (req, res) => {
+  try {
+    const { clientTime, modelDeployment } = req.query || {};
+    const greeting = await generatePopCultureGreeting(clientTime, modelDeployment);
+    res.json(greeting);
+  } catch (err) {
+    console.error('[PopCulture Greet Error]', err);
+    res.status(500).json({ error: 'Failed to generate greeting', message: err.message });
+  }
+});
+
+app.get('/api/popculture/status', (req, res) => {
+  res.json(getPopCultureStatus());
 });
 
 // 12. GROOVE POP Engine API (Direct Engine & Azure OpenAI Vision Integration)

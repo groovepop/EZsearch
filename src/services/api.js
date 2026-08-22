@@ -396,6 +396,40 @@ export async function refreshFoundryVersions() {
   return res.json();
 }
 
+// 10d. Pop Culture Agent API Helpers (Genius Machine / GPT-5 + 7 Live Tools)
+export async function sendPopCultureMessage({ messages = [], userMessage = '', modelDeployment = 'gpt-5-pop-culture-agent' } = {}) {
+  const clientTime = new Date().toISOString();
+  const res = await fetch('/api/popculture/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      userMessage,
+      clientTime,
+      modelDeployment
+    })
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || errorData.message || 'Pop culture agent request failed');
+  }
+  return res.json();
+}
+
+export async function fetchPopCultureGreeting(modelDeployment = 'gpt-5-pop-culture-agent') {
+  const clientTime = encodeURIComponent(new Date().toISOString());
+  const res = await fetch(`/api/popculture/greet?clientTime=${clientTime}&modelDeployment=${encodeURIComponent(modelDeployment)}`);
+  if (!res.ok) return { greeting: "⚡ **Genius Machine Online!** I'm your pop culture intelligence agent. What are we exploring today?" };
+  return res.json();
+}
+
+export async function fetchPopCultureStatus() {
+  const res = await fetch('/api/popculture/status');
+  if (!res.ok) return { status: 'offline', agentName: 'Genius Machine' };
+  return res.json();
+}
+
 // 11. Celestial & ISS Viewing Forecast Helper
 export async function fetchSkyViewingForecast({ time_window = 'next_48h', event_type = 'all' } = {}) {
   const params = new URLSearchParams();
