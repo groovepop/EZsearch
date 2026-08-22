@@ -1240,6 +1240,39 @@ app.post('/api/groovepop/caption', async (req, res) => {
   }
 });
 
+// 12b. GroovePop Dev V3 Proxy (Bypasses upstream X-Frame-Options: DENY for seamless iframe embed)
+app.get('/api/dev/app', async (req, res) => {
+  try {
+    const targetUrl = 'https://groovepop.ca/devV3.html';
+    const upstreamRes = await fetch(targetUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
+      }
+    });
+
+    if (!upstreamRes.ok) {
+      return res.status(upstreamRes.status).send(`Failed to load devV3.html: ${upstreamRes.statusText}`);
+    }
+
+    let html = await upstreamRes.text();
+    // Inject <base href="https://groovepop.ca/"> so relative assets resolve properly
+    if (html.includes('<head>')) {
+      html = html.replace('<head>', '<head>\n  <base href="https://groovepop.ca/">');
+    } else if (html.includes('<HEAD>')) {
+      html = html.replace('<HEAD>', '<HEAD>\n  <base href="https://groovepop.ca/">');
+    }
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.removeHeader('X-Frame-Options');
+    res.removeHeader('Content-Security-Policy');
+    res.send(html);
+  } catch (err) {
+    console.error('[GroovePop Dev Proxy Error]', err);
+    res.status(500).send(`Error fetching GroovePop Dev V3: ${err.message}`);
+  }
+});
+
 // 13. GuessFace Engine & Multi-Tenant Game API
 app.get('/api/guessface/health', async (req, res) => {
   res.json({

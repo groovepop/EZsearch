@@ -109,7 +109,7 @@ export default function DevWidget() {
       >
         <iframe
           key={iframeKey}
-          src="https://groovepop.ca/devV3.html"
+          src="/api/dev/app"
           title="GroovePop Dev V3"
           style={{
             width: '100%',
