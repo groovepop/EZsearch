@@ -380,7 +380,16 @@ export default function GroovePopWidget() {
 
   return (
     <div className="groovepop-studio animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', paddingBottom: '2.5rem' }}>
-      {/* 1. Header Banner */}
+      {/* Section Header Banner */}
+      <div className="section-banner-card">
+        <img 
+          src="/banners/banner-groovepop.jpg" 
+          alt="Groove Pop Studio" 
+          style={{ maxHeight: '140px', objectFit: 'contain', background: '#0a0d14' }}
+        />
+      </div>
+
+      {/* 1. Header Bar */}
       <div
         className="glass-panel"
         style={{

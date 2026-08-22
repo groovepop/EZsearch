@@ -367,6 +367,11 @@ export default function GuessFaceWidget() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem' }}>
+      {/* Section Header Banner */}
+      <div className="section-banner-card">
+        <img src="/banners/banner-guessface.jpg" alt="GuessFace - A Groove Pop Game powered by AI" />
+      </div>
+
       {/* 1. Header & Engine Status Bar */}
       <div
         className="glass-panel"

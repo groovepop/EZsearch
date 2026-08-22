@@ -319,6 +319,38 @@ export async function fetchAgentGreeting(modelDeployment = 'ezchat') {
   return res.json();
 }
 
+// 10b. EZ-Grok Agent API Helpers (ez-grok:4 on Azure AI Services)
+export async function sendGrokMessage({ messages = [], userMessage = '' } = {}) {
+  const res = await fetch('/api/grok/chat', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      messages,
+      userMessage,
+      clientTime: new Date().toISOString()
+    })
+  });
+
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || 'Grok request failed');
+  }
+  return res.json();
+}
+
+export async function fetchGrokGreeting() {
+  const clientTime = encodeURIComponent(new Date().toISOString());
+  const res = await fetch(`/api/grok/greet?clientTime=${clientTime}`);
+  if (!res.ok) return { greeting: "🌀 *KZZZT!* The portal is open! I'm EZ-Grok. What music or TV universe are we blasting into tonight?" };
+  return res.json();
+}
+
+export async function fetchGrokStatus() {
+  const res = await fetch('/api/grok/status');
+  if (!res.ok) return { status: 'offline', agentName: 'ez-grok', agentVersion: '4' };
+  return res.json();
+}
+
 // 11. Celestial & ISS Viewing Forecast Helper
 export async function fetchSkyViewingForecast({ time_window = 'next_48h', event_type = 'all' } = {}) {
   const params = new URLSearchParams();

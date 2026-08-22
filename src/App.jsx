@@ -14,8 +14,10 @@ import AIAssistantDrawer from './components/AIAssistantDrawer';
 import AgentWidget from './components/AgentWidget';
 import GroovePopWidget from './components/GroovePopWidget';
 import GuessFaceWidget from './components/GuessFaceWidget';
+import VibeQWidget from './components/VibeQWidget';
+import GrokWidget from './components/GrokWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
-import { Loader2, Check, AlertTriangle, Sparkles, Anchor } from 'lucide-react';
+import { Loader2, Check, AlertTriangle, Sparkles, Anchor, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
 
 export default function App() {
   // State
@@ -85,7 +87,7 @@ export default function App() {
 
   // Fetch Torrents Logic
   const loadData = useCallback(async () => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'groovepop' || activeCategory === 'guessface') return;
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'grok' || activeCategory === 'groovepop' || activeCategory === 'guessface' || activeCategory === 'vibeq') return;
 
     setLoading(true);
     setError(null);
@@ -137,7 +139,7 @@ export default function App() {
   };
 
   const processedTorrents = React.useMemo(() => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'groovepop' || activeCategory === 'guessface') return [];
+    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'groovepop' || activeCategory === 'guessface' || activeCategory === 'vibeq') return [];
     let list = [...torrents];
 
     if (selectedQuality !== 'ALL') {
@@ -161,26 +163,34 @@ export default function App() {
     return list;
   }, [torrents, activeCategory, selectedQuality, sortBy]);
 
+  let mirrorHostname = '';
+  if (mirrorUsed) {
+    try {
+      if (mirrorUsed.startsWith('http://') || mirrorUsed.startsWith('https://')) {
+        mirrorHostname = new URL(mirrorUsed).hostname;
+      } else {
+        mirrorHostname = mirrorUsed;
+      }
+    } catch (e) {
+      mirrorHostname = mirrorUsed;
+    }
+  }
+
   return (
     <div className="app-container">
-      <Navbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        watchlistCount={watchlist.length}
-        onRefresh={loadData}
-        mirrorUsed={mirrorUsed}
-        isCached={isCached}
-        onToggleAssistant={() => setIsAssistantOpen(prev => !prev)}
-        isAssistantOpen={isAssistantOpen}
-      />
+      <Navbar />
 
       <CategoryTabs activeCategory={activeCategory} setCategory={handleCategorySwitch} />
 
       {/* Render Widgets or Torrent Views */}
       {activeCategory === 'chat' ? (
         <AgentWidget />
+      ) : activeCategory === 'grok' ? (
+        <GrokWidget />
       ) : activeCategory === 'groovepop' ? (
         <GroovePopWidget />
+      ) : activeCategory === 'vibeq' ? (
+        <VibeQWidget />
       ) : activeCategory === 'guessface' ? (
         <GuessFaceWidget />
       ) : activeCategory === 'weather' ? (
@@ -191,6 +201,83 @@ export default function App() {
         <MarsWidget />
       ) : (
         <>
+          {/* Torrent Engine Section Banner */}
+          <div className="section-banner-card">
+            <img 
+              src={
+                activeCategory === 'tv' 
+                  ? '/banners/banner-eztv.jpg' 
+                  : activeCategory === 'movies' 
+                  ? '/banners/banner-yts.jpg' 
+                  : '/banners/banner-piratebay.jpg'
+              } 
+              alt={
+                activeCategory === 'tv' 
+                  ? 'EZTV TV Shows' 
+                  : activeCategory === 'movies' 
+                  ? 'YTS Movies' 
+                  : 'The Pirate Bay'
+              } 
+            />
+          </div>
+
+          {/* Torrent Actions Toolbar (Mirror status, Refresh, Watchlist) */}
+          <div 
+            style={{ 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'space-between', 
+              flexWrap: 'wrap', 
+              gap: '0.8rem', 
+              marginBottom: '1rem',
+              background: 'rgba(14, 18, 26, 0.65)',
+              padding: '0.6rem 1rem',
+              borderRadius: '12px',
+              border: '1px solid var(--border-glass)'
+            }}
+          >
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', flexWrap: 'wrap' }}>
+              {mirrorUsed ? (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', color: 'var(--text-dim)', background: 'rgba(255, 255, 255, 0.04)', padding: '0.35rem 0.75rem', borderRadius: '8px', border: '1px solid var(--border-glass)' }}>
+                  <ShieldCheck size={14} color="var(--accent-green)" />
+                  <span>Mirror: <strong style={{ color: 'var(--text-main)' }}>{mirrorHostname}</strong></span>
+                  {isCached && <span className="badge badge-purple" style={{ fontSize: '0.6rem', marginLeft: '0.2rem' }}>CACHED</span>}
+                </div>
+              ) : (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.78rem', color: 'var(--text-muted)' }}>
+                  <ShieldCheck size={14} color="var(--accent-cyan)" />
+                  <span>Fast API Proxy & Redundant Mirrors Active</span>
+                </div>
+              )}
+            </div>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <button 
+                className="btn btn-secondary" 
+                onClick={loadData}
+                title="Force refresh current list"
+                style={{ padding: '0.45rem 0.85rem', fontSize: '0.82rem' }}
+              >
+                <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />
+                <span>Refresh</span>
+              </button>
+
+              <button
+                className={`btn ${activeTab === 'watchlist' ? 'btn-primary' : 'btn-secondary'}`}
+                onClick={() => setActiveTab('watchlist')}
+                style={{ padding: '0.45rem 0.95rem', fontSize: '0.82rem' }}
+              >
+                <Bookmark size={15} />
+                <span>Watchlist</span>
+                {watchlist.length > 0 && (
+                  <span className="badge badge-amber" style={{ borderRadius: '10px', padding: '0.1rem 0.4rem' }}>
+                    {watchlist.length}
+                  </span>
+                )}
+              </button>
+            </div>
+          </div>
+
           <SearchBar
             searchTerm={searchTerm}
             setSearchTerm={(term) => {

@@ -49,8 +49,13 @@ export default function MarsWidget() {
   };
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
-      {/* Header Banner */}
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', marginBottom: '2rem' }}>
+      {/* Section Header Banner */}
+      <div className="section-banner-card">
+        <img src="/banners/banner-mars.jpg" alt="NASA Curiosity Rover Live Telemetry" />
+      </div>
+
+      {/* Header Bar */}
       <div 
         className="glass-panel"
         style={{

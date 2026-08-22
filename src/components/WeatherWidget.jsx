@@ -90,8 +90,13 @@ export default function WeatherWidget() {
   };
 
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem', marginBottom: '2rem' }}>
-      {/* Header Banner */}
+    <div className="weather-widget-container animate-fade-in">
+      {/* Section Header Banner */}
+      <div className="section-banner-card">
+        <img src="/banners/banner-weather.jpg" alt="Hamilton Weather" />
+      </div>
+
+      {/* Header Bar */}
       <div 
         className="glass-panel"
         style={{

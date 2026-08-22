@@ -10,6 +10,7 @@ import http from 'http';
 import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
 import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
+import { processGrokChat, generateGrokGreeting, getGrokStatus } from './grokService.js';
 import { getHSRTransitInfo } from './tools/hsrTransitTool.js';
 import { getSkyViewingForecast } from './tools/skyViewingTool.js';
 import { executeEngineTransform, executeEngineCaption } from './groovepopEngine.js';
@@ -1156,6 +1157,33 @@ app.get('/api/sky/tonight', async (req, res) => {
     console.error('[Sky Tonight API Error]', err);
     res.status(500).json({ error: 'Failed to fetch sky viewing forecast', message: err.message });
   }
+});
+
+// 12. EZ-Grok Agent Endpoints (Azure AI Services - ez-grok:4)
+app.post('/api/grok/chat', async (req, res) => {
+  try {
+    const { messages, userMessage, clientTime } = req.body || {};
+    const result = await processGrokChat({ messages, userMessage, clientTime });
+    res.json(result);
+  } catch (err) {
+    console.error('[Grok API Error]', err);
+    res.status(500).json({ error: 'Grok chat processing failed', message: err.message });
+  }
+});
+
+app.get('/api/grok/greet', async (req, res) => {
+  try {
+    const { clientTime } = req.query || {};
+    const greeting = await generateGrokGreeting(clientTime);
+    res.json(greeting);
+  } catch (err) {
+    console.error('[Grok Greet Error]', err);
+    res.status(500).json({ error: 'Failed to generate Grok greeting', message: err.message });
+  }
+});
+
+app.get('/api/grok/status', (req, res) => {
+  res.json(getGrokStatus());
 });
 
 // 12. GROOVE POP Engine API (Direct Engine & Azure OpenAI Vision Integration)

@@ -228,7 +228,12 @@ export default function AgentWidget() {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '1.2rem', marginBottom: '2rem' }}>
-      {/* Top Banner: Agent Telemetry & Anchor Card */}
+      {/* Section Header Banner */}
+      <div className="section-banner-card">
+        <img src="/banners/banner-ezchat.jpg" alt="EZ Assistant - AI Agent & Chat" />
+      </div>
+
+      {/* Top Bar: Agent Telemetry & Anchor Card */}
       <div className="glass-panel" style={{
         padding: '1.2rem 1.6rem',
         display: 'flex',
