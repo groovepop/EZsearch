@@ -316,25 +316,34 @@ body {
 .main-header-banner-wrapper {
   position: relative;
   width: 100%;
-  aspect-ratio: 1024 / 200;
+  aspect-ratio: 3 / 1;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #000;
+  overflow: hidden;
 }
 
 .main-header-banner-img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
   background: #000;
+  transition: opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .main-header-banner-img,
+  .main-header-moon-pill {
+    transition: none !important;
+  }
 }
 
 .main-header-moon-pill {
   position: absolute;
-  top: 14px;
-  right: 16px;
+  top: 12px;
+  right: 14px;
   display: flex;
   align-items: center;
   gap: 0.65rem;
@@ -393,13 +402,14 @@ body {
 
 @media (max-width: 640px) {
   .main-header-banner-wrapper {
-    min-height: 180px;
-    flex-direction: column;
+    aspect-ratio: 3 / 1;
+    width: 100%;
   }
   .main-header-moon-pill {
-    position: static;
-    margin: 0.5rem auto;
-    display: inline-flex;
+    top: 6px;
+    right: 8px;
+    transform: scale(0.8);
+    transform-origin: top right;
   }
 }
 

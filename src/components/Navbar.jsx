@@ -1,23 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import { Moon } from 'lucide-react';
-import { fetchMoonPhase } from '../services/api';
+import { fetchMoonPhase, fetchApodBanner } from '../services/api';
 
 export default function Navbar() {
   const [moonData, setMoonData] = useState(null);
+  const [apodBanner, setApodBanner] = useState(null);
+  const [bannerSrc, setBannerSrc] = useState('/banners/banner-main.jpg');
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
+    // 1. Fetch Moon Phase Telemetry
     fetchMoonPhase()
       .then(data => setMoonData(data))
       .catch(e => console.warn('[Moon Navbar Error]', e));
+
+    // 2. Fetch APOD Daily Banner Manifest in parallel
+    fetchApodBanner()
+      .then(banner => {
+        if (banner && banner.imageUrl) {
+          setApodBanner(banner);
+          // Preload banner image
+          const img = new Image();
+          img.src = banner.imageUrl;
+          img.onload = () => {
+            setBannerSrc(banner.imageUrl);
+            setImageLoaded(true);
+          };
+          img.onerror = () => {
+            console.warn('[APOD Banner Image Preload Failed] Falling back to default banner.');
+            setBannerSrc('/banners/banner-main.jpg');
+          };
+        }
+      })
+      .catch(e => console.warn('[APOD Banner Fetch Error]', e));
   }, []);
 
+  const bannerTitle = apodBanner?.title || 'EZ HUB - Your Hub. Everything You Need.';
+  const apodDate = apodBanner?.date || '';
+
   return (
-    <header className="main-header-banner-container glass-panel">
+    <header className="main-header-banner-container glass-panel" aria-label="EZ HUB - Daily NASA APOD Header">
       <div className="main-header-banner-wrapper">
         <img 
-          src="/banners/banner-main.jpg" 
-          alt="EZ HUB - Your Hub. Everything You Need."
+          src={bannerSrc} 
+          alt={`EZ HUB Header Banner - ${bannerTitle} (${apodDate})`}
           className="main-header-banner-img"
+          loading="eager"
         />
 
         {/* NASA SVS Moon Phase Telemetry Pill */}
@@ -47,4 +75,3 @@ export default function Navbar() {
     </header>
   );
 }
-

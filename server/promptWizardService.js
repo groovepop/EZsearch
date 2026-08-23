@@ -539,17 +539,8 @@ function escapeRegex(str) {
 // 6. Text Model Prompt Composition (CreativeBrief + PromptPackage)
 // ---------------------------------------------------------------------------
 
-export async function composePromptPackage({
-  userRequest = '',
-  messages = [],
-  controls = {},
-  useRAG = true
-}) {
-  const azureClient = getAzureClient();
-  const config = getWizardConfig();
-
-  // 1. Build Normalized CreativeBrief
-  const creativeBrief = {
+function buildCreativeBrief(userRequest, controls = {}) {
+  return {
     intent: userRequest || 'High aesthetic visual composition',
     medium: controls.medium || 'auto',
     aspect_ratio: controls.aspect_ratio || 'auto',
@@ -563,15 +554,67 @@ export async function composePromptPackage({
     background: controls.background || 'auto',
     detail_level: controls.detail_level || 'balanced'
   };
+}
 
-  // 2. Hybrid Library Retrieval (top 4-6 diverse examples)
+function getSecondaryAzureClient() {
+  const apiKey = process.env.AZURE_GROK_KEY || process.env.GROOVEPOP_AZURE_OPENAI_KEY || process.env.AZURE_OPENAI_KEY;
+  const endpoint = 'https://green-mos1tune-eastus2.openai.azure.com';
+  if (!apiKey) return null;
+  try {
+    return {
+      client: new AzureOpenAI({
+        endpoint,
+        apiKey,
+        apiVersion: '2024-06-01'
+      }),
+      deployment: 'gpt-5'
+    };
+  } catch (err) {
+    return null;
+  }
+}
+
+async function callChatCompletionsWithRetry(client, deployment, messages, maxRetries = 2) {
+  let attempt = 0;
+  const isGpt5 = deployment && deployment.includes('gpt-5');
+  const modelParams = isGpt5 ? { max_completion_tokens: 1200 } : { max_tokens: 1200, temperature: 0.7 };
+
+  while (attempt <= maxRetries) {
+    try {
+      return await client.chat.completions.create({
+        model: deployment,
+        response_format: { type: 'json_object' },
+        messages,
+        ...modelParams
+      });
+    } catch (err) {
+      const is429 = err.status === 429 || (err.message && err.message.includes('429')) || (err.message && err.message.includes('rate limit'));
+      if (is429 && attempt < maxRetries) {
+        attempt++;
+        const delayMs = attempt * 1500;
+        console.warn(`[PromptWizard] Rate limited (429) on ${deployment}. Retrying attempt ${attempt}/${maxRetries} in ${delayMs}ms...`);
+        await new Promise(r => setTimeout(r, delayMs));
+      } else {
+        throw err;
+      }
+    }
+  }
+}
+
+export async function composePromptPackage({
+  userRequest = '',
+  controls = {},
+  messages = [],
+  useRAG = true
+}) {
+  const creativeBrief = buildCreativeBrief(userRequest, controls);
+
   let retrievedExamples = [];
   if (useRAG) {
     const searchQuery = `${userRequest} ${controls.mood || ''} ${controls.medium || ''} ${controls.lighting || ''}`.trim();
     retrievedExamples = searchPromptLibrary(searchQuery, { maxResults: 5 });
   }
 
-  // 3. Assemble Prompt for Model
   const examplesContext = retrievedExamples.length > 0
     ? `\n### REFERENCE EXAMPLES FROM USER'S PRIVATE LIBRARY (For creative style reference only):\n${retrievedExamples.map((ex, idx) => `[Example ${idx + 1} - ${ex.title}]\n"${ex.raw_prompt}"`).join('\n\n')}\n`
     : '';
@@ -584,32 +627,73 @@ export async function composePromptPackage({
   }));
 
   const userPrompt = `${userRequest}\n${briefContext}${examplesContext}\nProduce the validated PromptPackage JSON now.`;
+  const chatMessages = [
+    { role: 'system', content: SYSTEM_INSTRUCTION },
+    ...conversationHistory,
+    { role: 'user', content: userPrompt }
+  ];
 
-  if (!azureClient) {
-    // Graceful offline fallback / simulated response if Azure OpenAI is not configured
-    return generateFallbackPackage(userRequest, controls, retrievedExamples);
+  const primaryClient = getAzureClient();
+  const config = getWizardConfig();
+  let response = null;
+  let rateLimitWarn = null;
+
+  // Attempt Primary Endpoint (ezchat on ezsearch-openai)
+  if (primaryClient) {
+    try {
+      response = await callChatCompletionsWithRetry(primaryClient, config.textDeployment, chatMessages, 2);
+    } catch (primaryErr) {
+      console.warn('[PromptWizard] Primary text model failed/rate-limited:', primaryErr.message);
+      rateLimitWarn = primaryErr.message;
+    }
+  }
+
+  // Failover to Secondary Endpoint (gpt-5 on green-mos1tune-eastus2) if primary failed
+  if (!response) {
+    const secondary = getSecondaryAzureClient();
+    if (secondary) {
+      console.log('[PromptWizard] Attempting failover to secondary text endpoint (green-mos1tune-eastus2 / gpt-5)...');
+      try {
+        response = await callChatCompletionsWithRetry(secondary.client, secondary.deployment, chatMessages, 1);
+      } catch (secErr) {
+        console.warn('[PromptWizard] Secondary text model failed/rate-limited:', secErr.message);
+      }
+    }
+  }
+
+  // If both endpoints failed or are unconfigured, seamlessly return structured fallback package
+  if (!response) {
+    console.log('[PromptWizard] Active text models rate-limited; generating seamless fallback PromptPackage...');
+    const fallbackPkg = generateFallbackPackage(userRequest, controls, retrievedExamples);
+    if (rateLimitWarn) {
+      fallbackPkg.warnings = [`Azure text service rate limited (429). Prompt generated via fallback art director engine.`];
+    }
+    return fallbackPkg;
   }
 
   try {
-    const response = await azureClient.chat.completions.create({
-      model: config.textDeployment,
-      response_format: { type: 'json_object' },
-      messages: [
-        { role: 'system', content: SYSTEM_INSTRUCTION },
-        ...conversationHistory,
-        { role: 'user', content: userPrompt }
-      ],
-      temperature: 0.7,
-      max_tokens: 1200
-    });
+    let rawContent = response.choices?.[0]?.message?.content || '{}';
+    // Strip markdown code fences if present (e.g., ```json ... ```)
+    rawContent = rawContent.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, '').trim();
 
-    const rawContent = response.choices?.[0]?.message?.content || '{}';
     let packageObj;
     try {
       packageObj = JSON.parse(rawContent);
     } catch (parseErr) {
-      // Auto-repair retry
-      packageObj = await repairPackageJson(azureClient, config.textDeployment, rawContent);
+      console.warn('[PromptWizard] Primary JSON parse failed, attempting regex extract...');
+      const match = rawContent.match(/\{[\s\S]*\}/);
+      if (match) {
+        try {
+          packageObj = JSON.parse(match[0]);
+        } catch (mErr) {}
+      }
+      if (!packageObj && (primaryClient || getSecondaryAzureClient()?.client)) {
+        packageObj = await repairPackageJson(primaryClient || getSecondaryAzureClient()?.client, config.textDeployment, rawContent);
+      }
+    }
+
+    if (!packageObj || !packageObj.final_prompt) {
+      packageObj = generateFallbackPackage(userRequest, controls, retrievedExamples);
     }
 
     // Attach retrieval provenance
@@ -624,8 +708,8 @@ export async function composePromptPackage({
 
     return packageObj;
   } catch (err) {
-    console.error('[PromptWizard Compose Error]', err);
-    throw err;
+    console.error('[PromptWizard Final Processing Error]', err);
+    return generateFallbackPackage(userRequest, controls, retrievedExamples);
   }
 }
 

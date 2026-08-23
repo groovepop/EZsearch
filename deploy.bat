@@ -33,7 +33,11 @@ for /f "usebackq tokens=1,* delims==" %%a in (".env") do (
     if "%%a"=="GENIUS_CLIENT_SECRET" set GENIUS_CLIENT_SECRET=%%b
     if "%%a"=="GENIUS_CLIENT_ACCESS_TOKEN" set GENIUS_CLIENT_ACCESS_TOKEN=%%b
     if "%%a"=="AZURE_POPCULTURE_DEPLOYMENT" set AZURE_POPCULTURE_DEPLOYMENT=%%b
+    if "%%a"=="AZURE_STORAGE_ACCOUNT_NAME" set AZURE_STORAGE_ACCOUNT_NAME=%%b
+    if "%%a"=="NASA_API_KEY" set NASA_API_KEY=%%b
 )
+
+if "%AZURE_STORAGE_ACCOUNT_NAME%"=="" set AZURE_STORAGE_ACCOUNT_NAME=ezsearchbanners
 
 echo Configuring app settings on Azure Web App...
 call az webapp config appsettings set --resource-group EZsearch-rg --name ezsearch-hub --settings ^
@@ -59,7 +63,9 @@ call az webapp config appsettings set --resource-group EZsearch-rg --name ezsear
   AZURE_POPCULTURE_DEPLOYMENT="%AZURE_POPCULTURE_DEPLOYMENT%" ^
   GROOVEPOP_AZURE_OPENAI_ENDPOINT="https://green-mos1tune-eastus2.openai.azure.com" ^
   GROOVEPOP_AZURE_OPENAI_KEY="%AZURE_GROK_KEY%" ^
-  GROOVEPOP_AZURE_IMAGE_DEPLOYMENT="gpt-image-2"
+  GROOVEPOP_AZURE_IMAGE_DEPLOYMENT="gpt-image-2" ^
+  AZURE_STORAGE_ACCOUNT_NAME="%AZURE_STORAGE_ACCOUNT_NAME%" ^
+  NASA_API_KEY="%NASA_API_KEY%"
 
 echo Deploying code zip to Azure Web App...
 call az webapp deploy --resource-group EZsearch-rg --name ezsearch-hub --src-path app.zip --type zip

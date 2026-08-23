@@ -57,6 +57,14 @@ import {
   saveStagingCandidates
 } from './promptWizardService.js';
 
+import {
+  getCurrentManifest,
+  getExistingManifest,
+  getBannerImageBuffer,
+  runDailyBannerPipeline,
+  startBannerScheduler
+} from './bannerWorker.js';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -1735,6 +1743,77 @@ app.delete('/api/wizard/gallery/:id', (req, res) => {
   }
 });
 
+// ==================== APOD DAILY BANNER ENDPOINTS ====================
+
+// 1. Get current public APOD banner manifest
+app.get('/api/apod-banner', async (req, res) => {
+  try {
+    const manifest = await getCurrentManifest();
+    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.json({
+      date: manifest.apodDate,
+      title: manifest.apodTitle,
+      credit: manifest.credit,
+      imageUrl: manifest.isFallback ? (manifest.imageUrl || '/banners/banner-main.jpg') : `/api/apod-banner/image/${manifest.apodDate}`,
+      isFallback: !!manifest.isFallback
+    });
+  } catch (err) {
+    console.error('[APOD Banner API Error]', err);
+    res.json({
+      date: new Date().toISOString().split('T')[0],
+      title: 'NASA Astronomy Picture of the Day',
+      credit: 'NASA Astronomy Picture of the Day',
+      imageUrl: '/banners/banner-main.jpg',
+      isFallback: true
+    });
+  }
+});
+
+// 2. Stream immutable daily WebP banner
+app.get('/api/apod-banner/image/:date', async (req, res) => {
+  const { date } = req.params;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+    return res.status(400).send('Invalid date format. Expected YYYY-MM-DD');
+  }
+
+  try {
+    const imageBuffer = await getBannerImageBuffer(date);
+    if (!imageBuffer) {
+      // Fallback: send static banner
+      const fallbackPath = path.join(__dirname, '../banner-main.jpg');
+      if (fs.existsSync(fallbackPath)) {
+        res.setHeader('Content-Type', 'image/jpeg');
+        return res.sendFile(fallbackPath);
+      }
+      return res.status(404).send('Banner image not found');
+    }
+
+    res.setHeader('Content-Type', 'image/webp');
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    res.send(imageBuffer);
+  } catch (err) {
+    console.error(`[APOD Banner Image Error] Failed to stream image for ${date}:`, err);
+    res.status(500).send('Failed to stream banner image');
+  }
+});
+
+// 3. Authenticated manual rebuild endpoint
+app.post('/api/apod-banner/rebuild', async (req, res) => {
+  const { date, secret } = req.body;
+  const adminSecret = process.env.ADMIN_SECRET || process.env.GROOVEPOP_API_KEY || 'dev-engine-secret-key-123';
+  
+  if (secret !== adminSecret && req.headers['x-admin-secret'] !== adminSecret) {
+    return res.status(401).json({ error: 'Unauthorized. Valid admin secret required to trigger rebuild.' });
+  }
+
+  try {
+    const result = await runDailyBannerPipeline(date || null, true);
+    res.json({ success: true, ...result });
+  } catch (err) {
+    res.status(500).json({ error: 'Rebuild failed', message: err.message });
+  }
+});
+
 // Serve frontend static build
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));
@@ -1749,4 +1828,5 @@ app.listen(PORT, HOST, () => {
   console.log(`====================================================`);
   console.log(`🚀 EZsearch Multi-API Server running on http://${HOST}:${PORT}`);
   console.log(`====================================================`);
+  startBannerScheduler();
 });

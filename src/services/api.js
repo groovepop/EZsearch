@@ -1,4 +1,21 @@
-// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars, NASA SVS Moon & Xweather Hamilton
+// API Client Service for EZTV, YTS, The Pirate Bay (APIBay), TVMaze, ISS (SGP4), NASA Mars, NASA SVS Moon, APOD Daily Banner & Xweather Hamilton
+
+export async function fetchApodBanner() {
+  try {
+    const res = await fetch('/api/apod-banner');
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    console.warn('[APOD Banner Fetch Warning]', err.message);
+    return {
+      date: new Date().toISOString().split('T')[0],
+      title: 'NASA Astronomy Picture of the Day',
+      credit: 'NASA Astronomy Picture of the Day',
+      imageUrl: '/banners/banner-main.jpg',
+      isFallback: true
+    };
+  }
+}
 
 export async function fetchEZTVTorrents({ page = 1, limit = 100, imdb_id = '', q = '' }) {
   const params = new URLSearchParams({
