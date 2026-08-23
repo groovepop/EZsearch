@@ -561,8 +561,10 @@ export function startBannerScheduler() {
     }
   };
 
-  // Run on startup
-  checkAndRun();
+  // Run non-blocking initial check after server boot
+  setTimeout(() => {
+    checkAndRun().catch(err => console.warn('[APOD Scheduler] Non-blocking initial check warning:', err.message));
+  }, 10000);
 
   // Schedule interval check every minute to catch minute 7
   hourlyInterval = setInterval(() => {
@@ -572,5 +574,5 @@ export function startBannerScheduler() {
     }
   }, 60 * 1000);
 
-  console.log('[APOD Scheduler] Initialized banner scheduler (runs at minute 7 of every hour).');
+  console.log('[APOD Scheduler] Initialized banner scheduler (runs asynchronously at minute 7 of every hour).');
 }
