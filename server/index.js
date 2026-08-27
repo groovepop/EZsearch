@@ -1814,6 +1814,77 @@ app.post('/api/apod-banner/rebuild', async (req, res) => {
   }
 });
 
+// 🌌 Darkside Lore & AI Art Proxy Endpoints (Music, Hollywood, Ancient History)
+const DARKSIDE_UPSTREAM = 'http://20.236.29.216:5000';
+
+app.get('/api/darkside/daily', async (req, res) => {
+  try {
+    const db = req.query.db || 'music';
+    let targetPath = '/api/widget/daily';
+    if (db === 'hollywood') targetPath = '/api/hollywood/widget/daily';
+    if (db === 'history' || db === 'ancient' || db === 'dsancient') targetPath = '/api/history/widget/daily';
+
+    const upstreamRes = await fetch(`${DARKSIDE_UPSTREAM}${targetPath}`, {
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!upstreamRes.ok) throw new Error(`Upstream darkside error: HTTP ${upstreamRes.status}`);
+    const data = await upstreamRes.json();
+    res.setHeader('Cache-Control', 'public, max-age=60');
+    res.json(data);
+  } catch (err) {
+    console.error('[Darkside Proxy Error - Daily]', err.message);
+    res.status(502).json({ error: 'Failed to fetch Daily Darkside offering', details: err.message });
+  }
+});
+
+app.get('/api/darkside/random', async (req, res) => {
+  try {
+    const db = req.query.db || 'music';
+    let targetPath = '/api/facts/random';
+    if (db === 'hollywood') targetPath = '/api/hollywood/facts/random';
+    if (db === 'history' || db === 'ancient' || db === 'dsancient') targetPath = '/api/history/facts/random';
+
+    const params = new URLSearchParams();
+    if (req.query.wildness_rating) params.append('wildness_rating', req.query.wildness_rating);
+    if (req.query.category) params.append('category', req.query.category);
+    if (req.query.era) params.append('era', req.query.era);
+
+    const qs = params.toString();
+    const url = qs ? `${DARKSIDE_UPSTREAM}${targetPath}?${qs}` : `${DARKSIDE_UPSTREAM}${targetPath}`;
+    const upstreamRes = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!upstreamRes.ok) throw new Error(`Upstream darkside error: HTTP ${upstreamRes.status}`);
+    const data = await upstreamRes.json();
+    res.json(data);
+  } catch (err) {
+    console.error('[Darkside Proxy Error - Random]', err.message);
+    res.status(502).json({ error: 'Failed to draw random lore card', details: err.message });
+  }
+});
+
+app.get('/api/darkside/facts', async (req, res) => {
+  try {
+    const db = req.query.db || 'music';
+    let targetPath = '/api/facts';
+    if (db === 'hollywood') targetPath = '/api/hollywood/facts';
+    if (db === 'history' || db === 'ancient' || db === 'dsancient') targetPath = '/api/history/facts';
+
+    const params = new URLSearchParams();
+    ['search', 'category', 'era', 'artist', 'subject', 'wildness_rating', 'limit', 'offset'].forEach(k => {
+      if (req.query[k]) params.append(k, req.query[k]);
+    });
+
+    const qs = params.toString();
+    const url = qs ? `${DARKSIDE_UPSTREAM}${targetPath}?${qs}` : `${DARKSIDE_UPSTREAM}${targetPath}`;
+    const upstreamRes = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!upstreamRes.ok) throw new Error(`Upstream darkside error: HTTP ${upstreamRes.status}`);
+    const data = await upstreamRes.json();
+    res.json(data);
+  } catch (err) {
+    console.error('[Darkside Proxy Error - Facts]', err.message);
+    res.status(502).json({ error: 'Failed to query darkside database', details: err.message });
+  }
+});
+
 // Serve frontend static build
 const distPath = path.join(__dirname, '../dist');
 app.use(express.static(distPath));

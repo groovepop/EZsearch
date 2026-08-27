@@ -12,23 +12,30 @@ import {
   Palette, 
   Eye, 
   BookOpen, 
-  HelpCircle,
-  ShieldCheck,
-  Radio
+  ChevronDown,
+  ChevronUp,
+  Radio,
+  Image as ImageIcon
 } from 'lucide-react';
-import { fetchDarksideRandomFact, fetchDarksideFacts } from '../services/api';
+import { fetchDarksideDaily, fetchDarksideRandomFact, fetchDarksideFacts } from '../services/api';
 
 const MUSIC_CATEGORIES = ['All', 'Feuds', 'Tragedy', 'Bizarre', 'Drugs', 'Sex', 'Legal', 'Occult', 'Death'];
 const MUSIC_THEMES = [
-  { id: 'dark', label: 'Dark Violet', color: '#a855f7' },
-  { id: 'neon', label: 'Neon Cyber', color: '#00f2fe' },
-  { id: 'crimson', label: 'Blood Crimson', color: '#ef4444' }
+  { id: 'dark', label: 'Dark Violet', color: '#a855f7', bg: '#0d1117', border: '#8b5cf6', accent: '#a855f7', glow: 'rgba(168, 85, 247, 0.25)' },
+  { id: 'neon', label: 'Neon Cyber', color: '#00f2fe', bg: '#0b0f19', border: '#00f2fe', accent: '#38bdf8', glow: 'rgba(56, 189, 248, 0.25)' },
+  { id: 'crimson', label: 'Blood Crimson', color: '#ef4444', bg: '#180505', border: '#ef4444', accent: '#f87171', glow: 'rgba(239, 68, 68, 0.25)' }
 ];
 
 export default function DarkSideMusicWidget() {
   const [theme, setTheme] = useState('dark');
   const [showPrompt, setShowPrompt] = useState(false);
+  const [isPromptExpanded, setIsPromptExpanded] = useState(false);
   const [refreshKey, setRefreshKey] = useState(0);
+
+  // Daily Offering State
+  const [dailyData, setDailyData] = useState(null);
+  const [dailyLoading, setDailyLoading] = useState(true);
+  const [dailyError, setDailyError] = useState(null);
 
   // Explorer & Roulette State
   const [activeView, setActiveView] = useState('daily'); // 'daily' | 'roulette' | 'browse'
@@ -43,6 +50,26 @@ export default function DarkSideMusicWidget() {
   const [browseResults, setBrowseResults] = useState([]);
   const [browseLoading, setBrowseLoading] = useState(false);
   const [copiedId, setCopiedId] = useState(null);
+
+  const activeThemeConfig = MUSIC_THEMES.find(t => t.id === theme) || MUSIC_THEMES[0];
+
+  const loadDaily = async () => {
+    setDailyLoading(true);
+    setDailyError(null);
+    try {
+      const data = await fetchDarksideDaily('music');
+      setDailyData(data);
+    } catch (err) {
+      console.warn('[Darkside Music Daily Load Error]', err);
+      setDailyError(err.message || 'Failed to load today\'s offering.');
+    } finally {
+      setDailyLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadDaily();
+  }, [refreshKey]);
 
   const handleRefresh = () => {
     setRefreshKey((k) => k + 1);
@@ -182,10 +209,10 @@ export default function DarkSideMusicWidget() {
           <button
             className="btn btn-secondary"
             onClick={handleRefresh}
-            title="Reload Widget"
+            title="Reload Daily Offering"
             style={{ padding: '0.4rem 0.75rem', fontSize: '0.8rem' }}
           >
-            <RefreshCw size={13} />
+            <RefreshCw size={13} className={dailyLoading ? 'animate-spin' : ''} />
             <span>Reload</span>
           </button>
 
@@ -207,10 +234,10 @@ export default function DarkSideMusicWidget() {
         </div>
       </div>
 
-      {/* View 1: Daily Offering Custom Web Component Widget */}
+      {/* View 1: Daily Offering 5-Flame AI Art & Lore Card */}
       {activeView === 'daily' && (
         <div className="animate-fade-in">
-          {/* Widget Customization Toolbar */}
+          {/* Customization Toolbar */}
           <div 
             style={{ 
               display: 'flex', 
@@ -267,7 +294,7 @@ export default function DarkSideMusicWidget() {
             </div>
           </div>
 
-          {/* Web Component Render Container */}
+          {/* Daily Card Container with Dynamic Theme */}
           <div 
             style={{
               padding: '2rem 1rem',
@@ -279,12 +306,151 @@ export default function DarkSideMusicWidget() {
               justifyContent: 'center'
             }}
           >
-            {/* Custom Web Component */}
-            <darkside-daily-widget 
-              key={`music-${theme}-${showPrompt}-${refreshKey}`}
-              data-theme={theme} 
-              data-show-prompt={showPrompt ? 'true' : 'false'}
-            />
+            {dailyLoading ? (
+              <div 
+                style={{
+                  width: '100%',
+                  maxWidth: '460px',
+                  background: activeThemeConfig.bg,
+                  border: `1.5px solid ${activeThemeConfig.border}`,
+                  borderRadius: '14px',
+                  padding: '16px',
+                  boxShadow: `0 12px 35px -5px ${activeThemeConfig.glow}`,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '12px'
+                }}
+              >
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: 800, color: activeThemeConfig.accent }}>🎸 Daily Darkside</span>
+                  <span style={{ fontSize: '0.72rem', color: '#94a3b8' }}>Loading Today's 5-Flame Offering...</span>
+                </div>
+                <div style={{ width: '100%', aspectRatio: '4/3', background: 'rgba(255,255,255,0.05)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <RefreshCw size={28} className="animate-spin" color={activeThemeConfig.accent} />
+                </div>
+                <div style={{ height: '18px', width: '70%', background: 'rgba(255,255,255,0.06)', borderRadius: '4px' }}></div>
+                <div style={{ height: '14px', width: '90%', background: 'rgba(255,255,255,0.04)', borderRadius: '4px' }}></div>
+                <div style={{ height: '14px', width: '80%', background: 'rgba(255,255,255,0.04)', borderRadius: '4px' }}></div>
+              </div>
+            ) : dailyError ? (
+              <div 
+                style={{
+                  width: '100%',
+                  maxWidth: '460px',
+                  background: activeThemeConfig.bg,
+                  border: `1.5px solid ${activeThemeConfig.border}`,
+                  borderRadius: '14px',
+                  padding: '24px 16px',
+                  textAlign: 'center',
+                  color: '#f8fafc'
+                }}
+              >
+                <div style={{ fontSize: '1.8rem', marginBottom: '8px' }}>⚠️</div>
+                <h4 style={{ fontSize: '1rem', fontWeight: 700, color: '#ef4444', marginBottom: '6px' }}>Unable to load daily offering</h4>
+                <p style={{ fontSize: '0.82rem', color: '#94a3b8', marginBottom: '14px' }}>{dailyError}</p>
+                <button className="btn btn-primary" onClick={loadDaily} style={{ padding: '0.35rem 0.8rem', fontSize: '0.8rem' }}>
+                  Retry
+                </button>
+              </div>
+            ) : dailyData ? (
+              <div 
+                className="widget-card"
+                style={{
+                  width: '100%',
+                  maxWidth: '460px',
+                  background: activeThemeConfig.bg,
+                  border: `1.5px solid ${activeThemeConfig.border}`,
+                  borderRadius: '14px',
+                  padding: '16px',
+                  color: '#f8fafc',
+                  boxShadow: `0 12px 35px -5px ${activeThemeConfig.glow}, 0 4px 6px -2px rgba(0,0,0,0.6)`,
+                  position: 'relative',
+                  overflow: 'hidden'
+                }}
+              >
+                {/* Header */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '12px', paddingBottom: '8px', borderBottom: '1px solid rgba(255,255,255,0.08)' }}>
+                  <a href={dailyData.fullAppUrl || 'http://20.236.29.216:5000'} target="_blank" rel="noopener noreferrer" style={{ fontWeight: 800, fontSize: '0.85rem', letterSpacing: '0.06em', textTransform: 'uppercase', color: activeThemeConfig.accent, display: 'flex', alignItems: 'center', gap: '6px', textDecoration: 'none' }}>
+                    <span>🎸 Daily Darkside</span>
+                  </a>
+                  <span style={{ fontSize: '0.72rem', color: '#94a3b8', fontWeight: 500 }}>
+                    Today's Offering • {dailyData.selectionDate || 'Latest'}
+                  </span>
+                </div>
+
+                {/* 4:3 Aspect Ratio Image */}
+                {dailyData.image && (
+                  <div style={{ position: 'relative', width: '100%', aspectRatio: '4/3', borderRadius: '10px', overflow: 'hidden', background: '#020617', border: '1px solid rgba(255,255,255,0.1)', marginBottom: '14px' }}>
+                    <img 
+                      src={dailyData.image} 
+                      alt={dailyData.fact?.headline || 'Daily Darkside Artwork'} 
+                      style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 0.4s ease' }}
+                    />
+                    <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%)', padding: '10px', display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+                      <span style={{ background: activeThemeConfig.accent, color: '#fff', fontSize: '0.7rem', fontWeight: 700, padding: '3px 8px', borderRadius: '6px', textTransform: 'uppercase', letterSpacing: '0.04em' }}>
+                        {dailyData.fact?.category || 'Music'}
+                      </span>
+                      <span style={{ background: 'rgba(0,0,0,0.7)', backdropFilter: 'blur(4px)', color: '#fbbf24', fontSize: '0.72rem', fontWeight: 700, padding: '3px 8px', borderRadius: '6px', border: '1px solid rgba(251, 191, 36, 0.3)' }}>
+                        {'🔥'.repeat(dailyData.fact?.wildness || 5)} 5/5
+                      </span>
+                    </div>
+                  </div>
+                )}
+
+                {/* Subject & Era */}
+                <div style={{ fontSize: '0.88rem', fontWeight: 800, color: '#f8fafc', marginBottom: '4px', display: 'flex', alignItems: 'baseline', justifyContent: 'space-between' }}>
+                  <span>{dailyData.fact?.subject || 'Music Lore'}</span>
+                  {dailyData.fact?.era && <span style={{ fontSize: '0.75rem', color: '#94a3b8', fontWeight: 500 }}>{dailyData.fact.era}</span>}
+                </div>
+
+                {/* Headline */}
+                <h3 style={{ fontSize: '0.98rem', fontWeight: 700, color: '#e2e8f0', lineHeight: 1.35, marginBottom: '10px' }}>
+                  {dailyData.fact?.headline}
+                </h3>
+
+                {/* Optional AI Art Prompt Collapsible */}
+                {(showPrompt || isPromptExpanded) && dailyData.artPrompt && (
+                  <div style={{ background: 'rgba(0,0,0,0.45)', border: `1px solid ${activeThemeConfig.border}`, borderRadius: '8px', padding: '10px', marginBottom: '12px' }}>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '4px' }}>
+                      <span style={{ fontSize: '0.72rem', fontWeight: 700, color: activeThemeConfig.accent, textTransform: 'uppercase' }}>
+                        🎨 gpt-5.6-luna Concept Prompt
+                      </span>
+                      <button 
+                        onClick={() => copyToClipboard(dailyData.artPrompt, 'daily-prompt')}
+                        style={{ background: 'transparent', border: 'none', color: '#94a3b8', cursor: 'pointer', fontSize: '0.7rem', display: 'flex', alignItems: 'center', gap: '3px' }}
+                      >
+                        {copiedId === 'daily-prompt' ? <Check size={11} color="var(--accent-green)" /> : <Copy size={11} />}
+                        <span>{copiedId === 'daily-prompt' ? 'Copied' : 'Copy'}</span>
+                      </button>
+                    </div>
+                    <p style={{ fontSize: '0.76rem', color: '#cbd5e1', lineHeight: 1.45, fontStyle: 'italic' }}>
+                      "{dailyData.artPrompt}"
+                    </p>
+                  </div>
+                )}
+
+                {/* Summary */}
+                <div style={{ fontSize: '0.84rem', color: '#94a3b8', lineHeight: 1.6, maxHeight: '180px', overflowY: 'auto', paddingRight: '6px', marginBottom: '14px' }}>
+                  {dailyData.fact?.summary}
+                </div>
+
+                {/* Footer */}
+                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', fontSize: '0.72rem', color: '#64748b', borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: '10px' }}>
+                  <button 
+                    onClick={() => setIsPromptExpanded(p => !p)}
+                    style={{ background: 'transparent', border: 'none', color: activeThemeConfig.accent, cursor: 'pointer', fontSize: '0.72rem', display: 'flex', alignItems: 'center', gap: '4px', fontWeight: 600 }}
+                  >
+                    <Sparkles size={12} />
+                    <span>{isPromptExpanded ? 'Hide AI Prompt' : 'View AI Art Prompt'}</span>
+                  </button>
+
+                  <a href={dailyData.fullAppUrl || 'http://20.236.29.216:5000'} target="_blank" rel="noopener noreferrer" style={{ color: activeThemeConfig.accent, textDecoration: 'none', fontWeight: 700, display: 'inline-flex', alignItems: 'center', gap: '4px' }}>
+                    <span>Open Darkside App</span>
+                    <ExternalLink size={11} />
+                  </a>
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       )}
