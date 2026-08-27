@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Moon } from 'lucide-react';
 import { fetchMoonPhase, fetchApodBanner } from '../services/api';
 
@@ -6,33 +6,83 @@ export default function Navbar() {
   const [moonData, setMoonData] = useState(null);
   const [apodBanner, setApodBanner] = useState(null);
   const [bannerSrc, setBannerSrc] = useState('/banners/banner-main.jpg');
-  const [imageLoaded, setImageLoaded] = useState(false);
+  const [isFading, setIsFading] = useState(false);
+  const activeDateRef = useRef(null);
+  const activeImageRef = useRef(null);
 
   useEffect(() => {
     // 1. Fetch Moon Phase Telemetry
-    fetchMoonPhase()
-      .then(data => setMoonData(data))
-      .catch(e => console.warn('[Moon Navbar Error]', e));
+    const loadMoon = () => {
+      fetchMoonPhase()
+        .then(data => setMoonData(data))
+        .catch(e => console.warn('[Moon Navbar Error]', e));
+    };
+    loadMoon();
 
-    // 2. Fetch APOD Daily Banner Manifest in parallel
-    fetchApodBanner()
-      .then(banner => {
-        if (banner && banner.imageUrl) {
-          setApodBanner(banner);
-          // Preload banner image
-          const img = new Image();
-          img.src = banner.imageUrl;
-          img.onload = () => {
-            setBannerSrc(banner.imageUrl);
-            setImageLoaded(true);
-          };
-          img.onerror = () => {
-            console.warn('[APOD Banner Image Preload Failed] Falling back to default banner.');
-            setBannerSrc('/banners/banner-main.jpg');
-          };
-        }
-      })
-      .catch(e => console.warn('[APOD Banner Fetch Error]', e));
+    // 2. Fetch APOD Daily Banner with seamless preloading & auto-swap
+    const loadBanner = () => {
+      fetchApodBanner()
+        .then(banner => {
+          if (banner && banner.imageUrl) {
+            const isNewDate = !activeDateRef.current || banner.date !== activeDateRef.current;
+            const isNewImage = !activeImageRef.current || banner.imageUrl !== activeImageRef.current;
+
+            if (isNewDate || isNewImage) {
+              const img = new Image();
+              img.src = banner.imageUrl;
+              img.onload = () => {
+                // If we already had an active banner displayed, do a smooth fade transition
+                if (activeImageRef.current && activeImageRef.current !== banner.imageUrl) {
+                  setIsFading(true);
+                  setTimeout(() => {
+                    activeDateRef.current = banner.date;
+                    activeImageRef.current = banner.imageUrl;
+                    setApodBanner(banner);
+                    setBannerSrc(banner.imageUrl);
+                    setIsFading(false);
+                  }, 250);
+                } else {
+                  activeDateRef.current = banner.date;
+                  activeImageRef.current = banner.imageUrl;
+                  setApodBanner(banner);
+                  setBannerSrc(banner.imageUrl);
+                }
+              };
+              img.onerror = () => {
+                console.warn('[APOD Banner Image Preload Failed] Keeping current banner.');
+              };
+            }
+          }
+        })
+        .catch(e => console.warn('[APOD Banner Fetch Error]', e));
+    };
+
+    loadBanner();
+
+    // Check every 60 seconds so new day rollovers appear immediately
+    const intervalId = setInterval(() => {
+      loadBanner();
+    }, 60 * 1000);
+
+    // Refresh moon data hourly
+    const moonIntervalId = setInterval(loadMoon, 60 * 60 * 1000);
+
+    // Also check immediately when the user returns to or focuses the window/tab
+    const handleActive = () => {
+      if (!document.hidden) {
+        loadBanner();
+        loadMoon();
+      }
+    };
+    document.addEventListener('visibilitychange', handleActive);
+    window.addEventListener('focus', handleActive);
+
+    return () => {
+      clearInterval(intervalId);
+      clearInterval(moonIntervalId);
+      document.removeEventListener('visibilitychange', handleActive);
+      window.removeEventListener('focus', handleActive);
+    };
   }, []);
 
   const bannerTitle = apodBanner?.title || 'EZ HUB - Your Hub. Everything You Need.';
@@ -45,6 +95,10 @@ export default function Navbar() {
           src={bannerSrc} 
           alt={`EZ HUB Header Banner - ${bannerTitle} (${apodDate})`}
           className="main-header-banner-img"
+          style={{
+            opacity: isFading ? 0.3 : 1,
+            transition: 'opacity 0.25s ease-in-out'
+          }}
           loading="eager"
         />
 

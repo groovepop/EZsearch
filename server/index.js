@@ -1749,7 +1749,7 @@ app.delete('/api/wizard/gallery/:id', (req, res) => {
 app.get('/api/apod-banner', async (req, res) => {
   try {
     const manifest = await getCurrentManifest();
-    res.setHeader('Cache-Control', 'public, max-age=300');
+    res.setHeader('Cache-Control', 'public, max-age=60, s-maxage=60');
     res.json({
       date: manifest.apodDate,
       title: manifest.apodTitle,

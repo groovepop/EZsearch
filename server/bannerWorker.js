@@ -424,7 +424,31 @@ export async function getExistingManifest(date) {
  * Get current active manifest (or fallback)
  */
 export async function getCurrentManifest() {
-  if (latestCompletedManifest) {
+  const torontoDate = getTorontoDate();
+
+  // If memory cache has today's non-fallback banner, return it
+  if (latestCompletedManifest && latestCompletedManifest.apodDate === torontoDate && !latestCompletedManifest.isFallback) {
+    return latestCompletedManifest;
+  }
+
+  // Check local/blob cache for today's date
+  const todayManifest = await getExistingManifest(torontoDate);
+  if (todayManifest && !todayManifest.isFallback) {
+    latestCompletedManifest = todayManifest;
+    return todayManifest;
+  }
+
+  // If today's banner hasn't been generated yet, kick off background generation immediately
+  if (!isWorkerRunning) {
+    console.log(`[APOD Pipeline] Today's banner (${torontoDate}) not yet generated. Starting background worker...`);
+    isWorkerRunning = true;
+    runDailyBannerPipeline(torontoDate)
+      .catch(err => console.warn(`[APOD Pipeline] On-demand background generation error: ${err.message}`))
+      .finally(() => { isWorkerRunning = false; });
+  }
+
+  // Return the most recent completed manifest if available
+  if (latestCompletedManifest && !latestCompletedManifest.isFallback) {
     return latestCompletedManifest;
   }
 
@@ -454,7 +478,7 @@ export async function getCurrentManifest() {
   // Static Fallback Manifest
   return {
     schemaVersion: 1,
-    apodDate: getTorontoDate(),
+    apodDate: torontoDate,
     apodTitle: 'NASA Astronomy Picture of the Day',
     credit: 'NASA Astronomy Picture of the Day',
     sourceUrl: 'https://apod.nasa.gov/apod/astropix.html',
@@ -541,19 +565,23 @@ export async function runDailyBannerPipeline(targetDate = null, forceRebuild = f
 }
 
 /**
- * Schedule hourly check at minute 7
+ * Schedule continuous background check every 10 minutes
  */
 export function startBannerScheduler() {
   if (hourlyInterval) return;
 
   const checkAndRun = async () => {
     if (isWorkerRunning) return;
-    const now = new Date();
-    // Run if minute is 7 (or initial startup check)
-    console.log(`[APOD Scheduler] Hourly check triggered at ${now.toISOString()}`);
+    const torontoDate = getTorontoDate();
+    const existing = await getExistingManifest(torontoDate);
+    if (existing && !existing.isFallback) {
+      return;
+    }
+
+    console.log(`[APOD Scheduler] Daily check triggered for ${torontoDate}...`);
     isWorkerRunning = true;
     try {
-      await runDailyBannerPipeline();
+      await runDailyBannerPipeline(torontoDate);
     } catch (err) {
       console.warn(`[APOD Scheduler] Execution error: ${err.message}`);
     } finally {
@@ -564,15 +592,12 @@ export function startBannerScheduler() {
   // Run non-blocking initial check after server boot
   setTimeout(() => {
     checkAndRun().catch(err => console.warn('[APOD Scheduler] Non-blocking initial check warning:', err.message));
-  }, 10000);
+  }, 5000);
 
-  // Schedule interval check every minute to catch minute 7
+  // Check every 10 minutes
   hourlyInterval = setInterval(() => {
-    const min = new Date().getMinutes();
-    if (min === 7) {
-      checkAndRun();
-    }
-  }, 60 * 1000);
+    checkAndRun().catch(err => console.warn('[APOD Scheduler] Periodic check error:', err.message));
+  }, 10 * 60 * 1000);
 
-  console.log('[APOD Scheduler] Initialized banner scheduler (runs asynchronously at minute 7 of every hour).');
+  console.log('[APOD Scheduler] Initialized banner scheduler (checks every 10 minutes).');
 }

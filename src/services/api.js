@@ -2,7 +2,13 @@
 
 export async function fetchApodBanner() {
   try {
-    const res = await fetch('/api/apod-banner');
+    const res = await fetch(`/api/apod-banner?t=${Date.now()}`, {
+      cache: 'no-store',
+      headers: {
+        'Cache-Control': 'no-cache',
+        'Pragma': 'no-cache'
+      }
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return await res.json();
   } catch (err) {
@@ -800,6 +806,65 @@ export async function deleteWizardGalleryImage(id) {
   if (!res.ok) throw new Error(`Failed to delete gallery image (${res.status})`);
   return res.json();
 }
+
+// 🌌 Darkside Engine API Helpers (Music, Hollywood, Ancient History)
+const DARKSIDE_BASE_URL = 'http://20.236.29.216:5000';
+
+export async function fetchDarksideDaily(db = 'music') {
+  const endpoints = {
+    music: `${DARKSIDE_BASE_URL}/api/widget/daily`,
+    hollywood: `${DARKSIDE_BASE_URL}/api/hollywood/widget/daily`,
+    history: `${DARKSIDE_BASE_URL}/api/history/widget/daily`
+  };
+  const url = endpoints[db] || endpoints.music;
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`Failed to fetch daily darkside (${res.status})`);
+  return res.json();
+}
+
+export async function fetchDarksideRandomFact(db = 'music', filters = {}) {
+  const endpoints = {
+    music: `${DARKSIDE_BASE_URL}/api/facts/random`,
+    hollywood: `${DARKSIDE_BASE_URL}/api/hollywood/facts/random`,
+    history: `${DARKSIDE_BASE_URL}/api/history/facts/random`
+  };
+  const base = endpoints[db] || endpoints.music;
+  const params = new URLSearchParams();
+  if (filters.wildness_rating) params.append('wildness_rating', filters.wildness_rating.toString());
+  if (filters.category) params.append('category', filters.category);
+  if (filters.era) params.append('era', filters.era);
+
+  const qs = params.toString();
+  const url = qs ? `${base}?${qs}` : base;
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`Failed to draw random lore card (${res.status})`);
+  return res.json();
+}
+
+export async function fetchDarksideFacts(db = 'music', queryParams = {}) {
+  const endpoints = {
+    music: `${DARKSIDE_BASE_URL}/api/facts`,
+    hollywood: `${DARKSIDE_BASE_URL}/api/hollywood/facts`,
+    history: `${DARKSIDE_BASE_URL}/api/history/facts`
+  };
+  const base = endpoints[db] || endpoints.music;
+  const params = new URLSearchParams();
+  if (queryParams.category) params.append('category', queryParams.category);
+  if (queryParams.era) params.append('era', queryParams.era);
+  if (queryParams.wildness_rating) params.append('wildness_rating', queryParams.wildness_rating.toString());
+  if (queryParams.search) params.append('search', queryParams.search);
+  if (queryParams.artist) params.append('artist', queryParams.artist);
+  if (queryParams.subject) params.append('subject', queryParams.subject);
+  if (queryParams.limit) params.append('limit', queryParams.limit.toString());
+  if (queryParams.offset) params.append('offset', queryParams.offset.toString());
+
+  const qs = params.toString();
+  const url = qs ? `${base}?${qs}` : base;
+  const res = await fetch(url, { headers: { Accept: 'application/json' } });
+  if (!res.ok) throw new Error(`Failed to query darkside database (${res.status})`);
+  return res.json();
+}
+
 
 
 

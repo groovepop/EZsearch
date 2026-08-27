@@ -20,6 +20,9 @@ import DevWidget from './components/DevWidget';
 import DeepSeekWidget from './components/DeepSeekWidget';
 import PopCultureWidget from './components/PopCultureWidget';
 import PromptWizardWidget from './components/PromptWizardWidget';
+import DarkSideMusicWidget from './components/DarkSideMusicWidget';
+import DarkSideHollywoodWidget from './components/DarkSideHollywoodWidget';
+import DarkSideHistoryWidget from './components/DarkSideHistoryWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
 
@@ -91,7 +94,23 @@ export default function App() {
 
   // Fetch Torrents Logic
   const loadData = useCallback(async () => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'grok' || activeCategory === 'deepseek' || activeCategory === 'genius' || activeCategory === 'groovepop' || activeCategory === 'dev' || activeCategory === 'guessface' || activeCategory === 'vibeq' || activeCategory === 'wizard') return;
+    if (
+      activeCategory === 'iss' || 
+      activeCategory === 'mars' || 
+      activeCategory === 'weather' || 
+      activeCategory === 'chat' || 
+      activeCategory === 'grok' || 
+      activeCategory === 'deepseek' || 
+      activeCategory === 'genius' || 
+      activeCategory === 'groovepop' || 
+      activeCategory === 'dev' || 
+      activeCategory === 'guessface' || 
+      activeCategory === 'vibeq' || 
+      activeCategory === 'wizard' ||
+      activeCategory === 'dsmusic' ||
+      activeCategory === 'dshollywood' ||
+      activeCategory === 'dsancient'
+    ) return;
 
     setLoading(true);
     setError(null);
@@ -143,7 +162,23 @@ export default function App() {
   };
 
   const processedTorrents = React.useMemo(() => {
-    if (activeCategory === 'iss' || activeCategory === 'mars' || activeCategory === 'weather' || activeCategory === 'chat' || activeCategory === 'grok' || activeCategory === 'deepseek' || activeCategory === 'genius' || activeCategory === 'groovepop' || activeCategory === 'dev' || activeCategory === 'guessface' || activeCategory === 'vibeq' || activeCategory === 'wizard') return [];
+    if (
+      activeCategory === 'iss' || 
+      activeCategory === 'mars' || 
+      activeCategory === 'weather' || 
+      activeCategory === 'chat' || 
+      activeCategory === 'grok' || 
+      activeCategory === 'deepseek' || 
+      activeCategory === 'genius' || 
+      activeCategory === 'groovepop' || 
+      activeCategory === 'dev' || 
+      activeCategory === 'guessface' || 
+      activeCategory === 'vibeq' || 
+      activeCategory === 'wizard' ||
+      activeCategory === 'dsmusic' ||
+      activeCategory === 'dshollywood' ||
+      activeCategory === 'dsancient'
+    ) return [];
     let list = [...torrents];
 
     if (selectedQuality !== 'ALL') {
@@ -211,6 +246,12 @@ export default function App() {
         <MarsWidget />
       ) : activeCategory === 'wizard' ? (
         <PromptWizardWidget />
+      ) : activeCategory === 'dsmusic' ? (
+        <DarkSideMusicWidget />
+      ) : activeCategory === 'dshollywood' ? (
+        <DarkSideHollywoodWidget />
+      ) : activeCategory === 'dsancient' ? (
+        <DarkSideHistoryWidget />
       ) : (
         <>
           {/* Torrent Engine Section Banner */}
