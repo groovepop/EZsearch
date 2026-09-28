@@ -222,16 +222,22 @@ export async function fetchMoonPhase(forceRefresh = false) {
     if (!res.ok) throw new Error(`Proxy error ${res.status}`);
     data = await res.json();
   } catch (proxyError) {
+    console.warn('[Moon API] Backend proxy failed, computing astronomical fallback:', proxyError.message);
     const now = new Date();
     const formatStr = now.toISOString().substring(0, 13) + ':00';
-    const directRes = await fetch(`https://svs.gsfc.nasa.gov/api/dialamoon/${formatStr}`);
-    if (!directRes.ok) throw new Error('Failed to fetch NASA SVS Moon phase from NASA API');
-    const svsData = await directRes.json();
+    const KNOWN_NEW_MOON = new Date('2024-01-11T11:57:00Z').getTime();
+    const SYNODIC_MONTH = 29.53058867 * 24 * 60 * 60 * 1000;
+    const diff = now.getTime() - KNOWN_NEW_MOON;
+    const cycles = diff / SYNODIC_MONTH;
+    const fraction = cycles - Math.floor(cycles);
+    const age = parseFloat((fraction * 29.53058867).toFixed(1));
+    const phase = parseFloat(((1 - Math.cos(fraction * 2 * Math.PI)) / 2 * 100).toFixed(1));
     data = {
-      image_url: svsData.image?.url || '',
-      phase: svsData.phase !== undefined ? parseFloat(svsData.phase.toFixed(1)) : 50.0,
-      age: svsData.age !== undefined ? parseFloat(svsData.age.toFixed(1)) : 14.0,
-      time: svsData.time || formatStr
+      image_url: '/assets/moon-thumb.jpg',
+      phase,
+      age,
+      time: formatStr,
+      isFallback: true
     };
   }
 
@@ -840,6 +846,42 @@ export async function fetchDarksideFacts(db = 'music', queryParams = {}) {
   if (!res.ok) throw new Error(`Failed to query darkside database (${res.status})`);
   return res.json();
 }
+
+// 💡 WiZ Studio API Helpers
+export async function fetchWizStatus() {
+  const res = await fetch('/api/wiz/status');
+  if (!res.ok) throw new Error(`Failed to fetch WiZ status (${res.status})`);
+  return res.json();
+}
+
+export async function launchWizController() {
+  const res = await fetch('/api/wiz/launch', { method: 'POST' });
+  if (!res.ok) throw new Error(`Failed to launch WiZ controller (${res.status})`);
+  return res.json();
+}
+
+export async function controlWizBulbs(payload) {
+  const res = await fetch('/api/wiz/control', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  if (!res.ok) throw new Error(`Failed to control WiZ bulbs (${res.status})`);
+  return res.json();
+}
+
+export async function swapWizBulbs() {
+  const res = await fetch('/api/wiz/swap', { method: 'POST' });
+  if (!res.ok) throw new Error(`Failed to swap WiZ bulbs (${res.status})`);
+  return res.json();
+}
+
+export async function stopWizEffect() {
+  const res = await fetch('/api/wiz/effects/stop', { method: 'POST' });
+  if (!res.ok) throw new Error(`Failed to stop WiZ effect (${res.status})`);
+  return res.json();
+}
+
 
 
 

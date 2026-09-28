@@ -99,8 +99,19 @@ export async function fetchApodMetadata(targetDate = null) {
     headers: { 'Accept': 'application/json' }
   });
 
+  // On rate limit, fall back to scraping the APOD HTML page directly
+  if (res.status === 429) {
+    console.warn(`[APOD Pipeline] NASA API rate-limited (429). Falling back to HTML scraper...`);
+    return fetchApodMetadataFromHtml(targetDate);
+  }
+
   if (!res.ok) {
     const errText = await res.text();
+    // Also fall back to scraper on server errors
+    if (res.status >= 500) {
+      console.warn(`[APOD Pipeline] NASA API error (${res.status}). Trying HTML scraper fallback...`);
+      return fetchApodMetadataFromHtml(targetDate);
+    }
     throw new Error(`NASA APOD API error (${res.status}): ${errText}`);
   }
 
@@ -119,27 +130,109 @@ export async function fetchApodMetadata(targetDate = null) {
   }
 
   if (!sourceUrl) {
-    throw new Error(`No usable raster image or thumbnail returned for APOD date ${date} (media_type: ${mediaType})`);
+    // Video APOD with no thumbnail — fall back to scraper
+    console.warn(`[APOD Pipeline] No usable image from API for ${date} (${mediaType}). Trying scraper...`);
+    return fetchApodMetadataFromHtml(targetDate);
   }
 
-  return {
-    date,
-    title,
-    credit,
-    sourceUrl,
-    mediaType
-  };
+  return { date, title, credit, sourceUrl, mediaType };
 }
+
+/**
+ * Fallback: Scrape APOD HTML page directly to extract image URL and title
+ */
+async function fetchApodMetadataFromHtml(targetDate = null) {
+  // If a specific past date is needed, APOD HTML archive URLs use format: apYYMMDD.html
+  let apodUrl = 'https://apod.nasa.gov/apod/astropix.html';
+  if (targetDate) {
+    const d = new Date(targetDate + 'T12:00:00Z');
+    const yy = String(d.getUTCFullYear()).slice(2);
+    const mm = String(d.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(d.getUTCDate()).padStart(2, '0');
+    apodUrl = `https://apod.nasa.gov/apod/ap${yy}${mm}${dd}.html`;
+  }
+
+  console.log(`[APOD Scraper] Fetching ${apodUrl}`);
+  const res = await fetch(apodUrl, {
+    signal: AbortSignal.timeout(30000),
+    headers: { 'User-Agent': 'Mozilla/5.0 (compatible; EZHub-BannerWorker/1.0)' }
+  });
+
+  if (!res.ok) {
+    throw new Error(`APOD HTML scraper failed: HTTP ${res.status} for ${apodUrl}`);
+  }
+
+  const html = await res.text();
+  const date = targetDate || getTorontoDate();
+
+  // Extract image URL — prefer <a href> linking to full image
+  const imgHrefMatch = html.match(/<a\s+href="(image\/[^"]+\.(jpg|jpeg|png|gif|webp))"/i);
+  const imgSrcMatch = html.match(/<img[^>]+src="(image\/[^"]+\.(jpg|jpeg|png|gif|webp))"/i);
+  const imgPath = imgHrefMatch ? imgHrefMatch[1] : (imgSrcMatch ? imgSrcMatch[1] : null);
+
+  // Check for video embed
+  const ytMatch = html.match(/youtube\.com\/embed\/([a-zA-Z0-9_-]{11})/i);
+  const mp4Match = html.match(/src="([^"]+\.mp4)"/i);
+
+  let sourceUrl = '';
+  let mediaType = 'image';
+
+  if (imgPath) {
+    sourceUrl = `https://apod.nasa.gov/apod/${imgPath}`;
+    mediaType = 'image';
+  } else if (ytMatch) {
+    // Use YouTube maxresdefault thumbnail
+    sourceUrl = `https://img.youtube.com/vi/${ytMatch[1]}/maxresdefault.jpg`;
+    mediaType = 'video';
+  } else if (mp4Match) {
+    // Raw video with no image — use cosmic fallback
+    console.warn(`[APOD Scraper] Raw MP4 video detected for ${date}. Using cosmic fallback image.`);
+    sourceUrl = null;
+    mediaType = 'video';
+  }
+
+  // Extract title from <b> tag in the page body
+  const titleMatch = html.match(/<b>\s*([\s\S]+?)\s*<\/b>/i);
+  const title = titleMatch
+    ? titleMatch[1].replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+    : 'NASA Astronomy Picture of the Day';
+
+  if (!sourceUrl) {
+    // Raw video APOD with no extractable image — use local cosmic fallback
+    console.warn(`[APOD Scraper] No image found for ${date}. Using cosmic backdrop fallback.`);
+    const fallbackPath = path.join(__dirname, '..', 'public', 'banners', 'banner-main.jpg');
+    return {
+      date,
+      title,
+      credit: 'NASA Astronomy Picture of the Day',
+      sourceUrl: '__LOCAL_FALLBACK__',
+      mediaType: 'fallback',
+      fallbackPath
+    };
+  }
+
+  return { date, title, credit: 'NASA Astronomy Picture of the Day', sourceUrl, mediaType };
+}
+
+
 
 /**
  * 2. Ingest & normalize APOD source image
  */
-export async function downloadAndNormalizeSourceImage(sourceUrl) {
+export async function downloadAndNormalizeSourceImage(sourceUrl, fallbackPath = null) {
+  const sharp = await getSharp();
+
+  // Handle local cosmic fallback for video APODs
+  if (sourceUrl === '__LOCAL_FALLBACK__' || !sourceUrl) {
+    const localPath = fallbackPath || path.join(__dirname, '..', 'public', 'banners', 'banner-main.jpg');
+    console.log(`[APOD Pipeline] Using local cosmic fallback image: ${localPath}`);
+    const buffer = fs.readFileSync(localPath);
+    return sharp(buffer).resize({ width: 2048, height: 2048, fit: 'inside', withoutEnlargement: true }).png().toBuffer();
+  }
+
   if (!sourceUrl.startsWith('https://')) {
     throw new Error('APOD source URL must use HTTPS');
   }
-
-  const sharp = await getSharp();
   const maxBytes = 25 * 1024 * 1024; // 25 MB limit
   console.log(`[APOD Pipeline] Ingesting remote raster: ${sourceUrl}`);
 
@@ -533,7 +626,7 @@ export async function runDailyBannerPipeline(targetDate = null, forceRebuild = f
     const metadata = await fetchApodMetadata(torontoDate);
 
     // 2. Download and normalize source raster
-    const normalizedPng = await downloadAndNormalizeSourceImage(metadata.sourceUrl);
+    const normalizedPng = await downloadAndNormalizeSourceImage(metadata.sourceUrl, metadata.fallbackPath || null);
 
     // 3. Generate image edit with gpt-image-2
     const generatedBuffer = await generateGptImage2Edit(normalizedPng, {

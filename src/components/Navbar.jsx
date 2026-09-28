@@ -103,15 +103,20 @@ export default function Navbar() {
         />
 
         {/* NASA SVS Moon Phase Telemetry Pill */}
-        {moonData && moonData.image_url && (
+        {/* NASA SVS Moon Phase Telemetry Pill */}
+        {moonData && (
           <div 
             className="main-header-moon-pill"
-            title={`NASA Scientific Visualization Studio Dial-A-Moon (LRO Telemetry)\nIllumination: ${moonData.phase}%\nMoon Age: ${moonData.age} days`}
+            title={`NASA Lunar Reconnaissance Orbiter / SVS Telemetry\nIllumination: ${moonData.phase}%\nMoon Age: ${moonData.age} days`}
           >
             <div className="moon-thumb">
               <img 
-                src={moonData.image_url} 
+                src={moonData.image_url || '/assets/moon-thumb.jpg'} 
                 alt="NASA Moon Phase"
+                onError={(e) => {
+                  e.currentTarget.onerror = null;
+                  e.currentTarget.src = '/assets/moon-thumb.jpg';
+                }}
               />
             </div>
             <div className="moon-text">

@@ -8,6 +8,7 @@ import path from 'path';
 import fs from 'fs';
 import https from 'https';
 import http from 'http';
+import { spawn } from 'child_process';
 import { fileURLToPath } from 'url';
 import * as satellite from 'satellite.js';
 import { processAgentChat, getAgentStatus, generateAgentGreeting } from './agentService.js';
@@ -959,7 +960,7 @@ app.get('/api/nasa/moon', async (req, res) => {
     const data = await fetchJsonUrl(svsUrl, 6000);
 
     const responsePayload = {
-      image_url: data.image?.url || '',
+      image_url: data.image?.url || '/assets/moon-thumb.jpg',
       phase: data.phase !== undefined ? parseFloat(data.phase.toFixed(1)) : 50.0,
       age: data.age !== undefined ? parseFloat(data.age.toFixed(1)) : 14.0,
       time: data.time || formatStr,
@@ -970,8 +971,25 @@ app.get('/api/nasa/moon', async (req, res) => {
     setCache(cacheKey, responsePayload);
     res.json(responsePayload);
   } catch (err) {
-    console.error('[NASA SVS Moon API Error]', err);
-    res.status(500).json({ error: 'Failed to fetch NASA SVS Moon phase telemetry.', message: err.message });
+    console.warn('[NASA SVS Moon API Warning] SVS call failed, returning astronomical fallback:', err.message);
+    const KNOWN_NEW_MOON = new Date('2024-01-11T11:57:00Z').getTime();
+    const SYNODIC_MONTH = 29.53058867 * 24 * 60 * 60 * 1000;
+    const diff = now.getTime() - KNOWN_NEW_MOON;
+    const cycles = diff / SYNODIC_MONTH;
+    const fraction = cycles - Math.floor(cycles);
+    const age = parseFloat((fraction * 29.53058867).toFixed(1));
+    const phase = parseFloat(((1 - Math.cos(fraction * 2 * Math.PI)) / 2 * 100).toFixed(1));
+
+    const fallbackPayload = {
+      image_url: '/assets/moon-thumb.jpg',
+      phase,
+      age,
+      time: formatStr,
+      alt_text: 'Astronomical Moon Visualization',
+      fetched_at: Date.now(),
+      isFallback: true
+    };
+    res.json(fallbackPayload);
   }
 });
 
@@ -1882,6 +1900,111 @@ app.get('/api/darkside/facts', async (req, res) => {
   } catch (err) {
     console.error('[Darkside Proxy Error - Facts]', err.message);
     res.status(502).json({ error: 'Failed to query darkside database', details: err.message });
+  }
+});
+
+// ==========================================
+// 💡 WiZ Dual Lamp Studio Local Proxy & Management
+// ==========================================
+const WIZ_UPSTREAM = 'http://127.0.0.1:8765';
+const WIZ_DIR = 'C:\\Users\\tobin\\Downloads\\wiz';
+
+app.get('/api/wiz/status', async (req, res) => {
+  try {
+    const controllerRes = await fetch(`${WIZ_UPSTREAM}/api/status`, {
+      headers: { 'Accept': 'application/json' },
+      signal: AbortSignal.timeout(2000)
+    });
+    if (!controllerRes.ok) {
+      return res.json({ online: false, error: `Controller returned ${controllerRes.status}` });
+    }
+    const data = await controllerRes.json();
+    res.json({ online: true, ...data });
+  } catch (err) {
+    res.json({ online: false, error: 'WiZ Lamp Controller is not currently reachable on 127.0.0.1:8765' });
+  }
+});
+
+app.post('/api/wiz/launch', async (req, res) => {
+  try {
+    try {
+      const ping = await fetch(`${WIZ_UPSTREAM}/api/status`, { signal: AbortSignal.timeout(1000) });
+      if (ping.ok) {
+        return res.json({ success: true, message: 'WiZ Controller is already running', online: true });
+      }
+    } catch (_) {}
+
+    const vbsPath = path.join(WIZ_DIR, 'Launch_WiZ_Lamp.vbs');
+    if (fs.existsSync(vbsPath)) {
+      const child = spawn('wscript.exe', [vbsPath], {
+        cwd: WIZ_DIR,
+        detached: true,
+        stdio: 'ignore'
+      });
+      child.unref();
+      return res.json({ success: true, message: 'WiZ background service launcher triggered' });
+    }
+
+    return res.status(404).json({ success: false, error: 'Launch_WiZ_Lamp.vbs not found at ' + vbsPath });
+  } catch (err) {
+    console.error('[WiZ Launch Error]', err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Proxy manual control
+app.post('/api/wiz/control', async (req, res) => {
+  try {
+    const upstreamRes = await fetch(`${WIZ_UPSTREAM}/api/control`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(req.body)
+    });
+    const data = await upstreamRes.json();
+    res.status(upstreamRes.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'WiZ controller unavailable', details: err.message });
+  }
+});
+
+// Proxy bulb swap
+app.post('/api/wiz/swap', async (req, res) => {
+  try {
+    const upstreamRes = await fetch(`${WIZ_UPSTREAM}/api/swap`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await upstreamRes.json();
+    res.status(upstreamRes.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'WiZ controller unavailable', details: err.message });
+  }
+});
+
+// Proxy stop effects
+app.post('/api/wiz/effects/stop', async (req, res) => {
+  try {
+    const upstreamRes = await fetch(`${WIZ_UPSTREAM}/api/effects/stop`, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await upstreamRes.json();
+    res.status(upstreamRes.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'WiZ controller unavailable', details: err.message });
+  }
+});
+
+// Proxy presets
+app.get('/api/wiz/presets', async (req, res) => {
+  try {
+    const upstreamRes = await fetch(`${WIZ_UPSTREAM}/api/presets`, {
+      headers: { 'Accept': 'application/json' }
+    });
+    const data = await upstreamRes.json();
+    res.status(upstreamRes.status).json(data);
+  } catch (err) {
+    res.status(502).json({ error: 'WiZ controller unavailable', details: err.message });
   }
 });
 

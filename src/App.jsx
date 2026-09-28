@@ -20,9 +20,7 @@ import DevWidget from './components/DevWidget';
 import DeepSeekWidget from './components/DeepSeekWidget';
 import PopCultureWidget from './components/PopCultureWidget';
 import PromptWizardWidget from './components/PromptWizardWidget';
-import DarkSideMusicWidget from './components/DarkSideMusicWidget';
-import DarkSideHollywoodWidget from './components/DarkSideHollywoodWidget';
-import DarkSideHistoryWidget from './components/DarkSideHistoryWidget';
+import WizWidget from './components/WizWidget';
 import { fetchEZTVTorrents, fetchYTSMovies, fetchPirateBayTorrents } from './services/api';
 import { Loader2, Check, AlertTriangle, Sparkles, Anchor, Bookmark, ShieldCheck, RefreshCw } from 'lucide-react';
 
@@ -107,9 +105,7 @@ export default function App() {
       activeCategory === 'guessface' || 
       activeCategory === 'vibeq' || 
       activeCategory === 'wizard' ||
-      activeCategory === 'dsmusic' ||
-      activeCategory === 'dshollywood' ||
-      activeCategory === 'dsancient'
+      activeCategory === 'wiz'
     ) return;
 
     setLoading(true);
@@ -175,9 +171,7 @@ export default function App() {
       activeCategory === 'guessface' || 
       activeCategory === 'vibeq' || 
       activeCategory === 'wizard' ||
-      activeCategory === 'dsmusic' ||
-      activeCategory === 'dshollywood' ||
-      activeCategory === 'dsancient'
+      activeCategory === 'wiz'
     ) return [];
     let list = [...torrents];
 
@@ -246,12 +240,8 @@ export default function App() {
         <MarsWidget />
       ) : activeCategory === 'wizard' ? (
         <PromptWizardWidget />
-      ) : activeCategory === 'dsmusic' ? (
-        <DarkSideMusicWidget />
-      ) : activeCategory === 'dshollywood' ? (
-        <DarkSideHollywoodWidget />
-      ) : activeCategory === 'dsancient' ? (
-        <DarkSideHistoryWidget />
+      ) : activeCategory === 'wiz' ? (
+        <WizWidget />
       ) : (
         <>
           {/* Torrent Engine Section Banner */}

@@ -1,9 +1,10 @@
 @echo off
 echo Building frontend assets...
-call npm run build
+call .\node_modules\.bin\vite.cmd build
 
 echo Creating deployment archive app.zip...
-call tar -a -c -f app.zip --exclude="node_modules" --exclude=".git" --exclude="app.zip" --exclude="scratch" *
+if exist app.zip del app.zip
+call tar -a -c -f app.zip --exclude="node_modules" --exclude=".git" --exclude="app.zip" --exclude="scratch" --exclude="data" *
 
 echo Ensuring Azure Web App ezsearch-hub exists...
 call az webapp create --name ezsearch-hub --resource-group EZsearch-rg --plan EZsearch-plan --runtime "NODE|22-lts"
@@ -68,6 +69,6 @@ call az webapp config appsettings set --resource-group EZsearch-rg --name ezsear
   NASA_API_KEY="%NASA_API_KEY%"
 
 echo Deploying code zip to Azure Web App...
-call az webapp deploy --resource-group EZsearch-rg --name ezsearch-hub --src-path app.zip --type zip
+call az webapp deployment source config-zip --src app.zip -n ezsearch-hub -g EZsearch-rg
 
 echo Deployment complete!
